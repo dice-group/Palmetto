@@ -1,0 +1,421 @@
+<class-diagram version="1.0.11" icons="true" automaticImage="PNG" always-add-relationships="true" generalizations="true" 
+  realizations="true" associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.subsets.SubsetDefinition" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/subsets/SubsetDefinition.java" binary="false">    
+    <position height="-1" width="-1" x="1846" y="-120"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.subsets.CountedSubsets" project="palmetto" 
+    file="/palmetto/src/main/java/org/aksw/palmetto/subsets/CountedSubsets.java" binary="false">    
+    <position height="-1" width="-1" x="1842" y="303"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.subsets.SubsetProbabilities" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/subsets/SubsetProbabilities.java" binary="false">    
+    <position height="-1" width="-1" x="1188" y="317"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="4" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.prob.FrequencyDeterminer" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/prob/FrequencyDeterminer.java" binary="false">    
+    <position height="-1" width="-1" x="2119" y="15"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.prob.BooleanDocumentFrequencyDeterminer" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/prob/BooleanDocumentFrequencyDeterminer.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="2117" y="533"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.prob.AbstractProbabilitySupplier" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/prob/AbstractProbabilitySupplier.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1535" y="274"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="7" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.prob.ProbabilitySupplier" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/prob/ProbabilitySupplier.java" binary="false">    
+    <position height="-1" width="-1" x="1535" y="18"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="8" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.prob.BooleanDocumentProbabilitySupplier" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/prob/BooleanDocumentProbabilitySupplier.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1535" y="548"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="9" corner="BOTTOM_RIGHT" language="java" 
+    name="org.aksw.palmetto.corpus.BooleanDocumentSupportingAdapter" project="palmetto" 
+    file="/palmetto/src/main/java/org/aksw/palmetto/corpus/BooleanDocumentSupportingAdapter.java" binary="false">    
+    <position height="-1" width="-1" x="2562" y="177"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <interface id="10" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.corpus.CorpusAdapter" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/corpus/CorpusAdapter.java" binary="false">    
+    <position height="-1" width="-1" x="2561" y="3"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="11" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.corpus.lucene.LuceneCorpusAdapter" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/corpus/lucene/LuceneCorpusAdapter.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="2561" y="408"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="12" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.subsets.OneOne" project="palmetto" 
+    file="/palmetto/src/main/java/org/aksw/palmetto/subsets/OneOne.java" binary="false">    
+    <position height="-1" width="-1" x="181" y="112"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="13" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.subsets.OnePreceding" project="palmetto" 
+    file="/palmetto/src/main/java/org/aksw/palmetto/subsets/OnePreceding.java" binary="false">    
+    <position height="-1" width="-1" x="437" y="112"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="14" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.subsets.SubsetCreator" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/subsets/SubsetCreator.java" binary="false">    
+    <position height="-1" width="-1" x="832" y="-103"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="15" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.subsets.OneAny" project="palmetto" 
+    file="/palmetto/src/main/java/org/aksw/palmetto/subsets/OneAny.java" binary="false">    
+    <position height="-1" width="-1" x="693" y="121"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="16" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.subsets.OneAll" project="palmetto" 
+    file="/palmetto/src/main/java/org/aksw/palmetto/subsets/OneAll.java" binary="false">    
+    <position height="-1" width="-1" x="949" y="112"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="17" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.subsets.AnyAny" project="palmetto" 
+    file="/palmetto/src/main/java/org/aksw/palmetto/subsets/AnyAny.java" binary="false">    
+    <position height="-1" width="-1" x="1205" y="121"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="18" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.calculations.CoherenceCalculation" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/calculations/CoherenceCalculation.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1400" y="-549"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="19" corner="BOTTOM_RIGHT" language="java" 
+    name="org.aksw.palmetto.calculations.AbstractSubsetCreatorBasedCoherenceCalculation" project="palmetto" 
+    file="/palmetto/src/main/java/org/aksw/palmetto/calculations/AbstractSubsetCreatorBasedCoherenceCalculation.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1188" y="-393"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="20" corner="BOTTOM_RIGHT" language="java" 
+    name="org.aksw.palmetto.calculations.DifferenceBasedCoherenceCalculation" project="palmetto" 
+    file="/palmetto/src/main/java/org/aksw/palmetto/calculations/DifferenceBasedCoherenceCalculation.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1171" y="-264"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="21" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.calculations.UMassCoherenceCalculation" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/calculations/UMassCoherenceCalculation.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="1571" y="-391"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <dependency id="22">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <realization id="23">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <realization id="24">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <association id="25">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="26" name="freqDeterminer"/>      
+      <multiplicity id="27" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="28">    
+    <bendpoint x="1928" y="424"/>    
+    <bendpoint x="2327" y="121"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
+  </dependency>  
+  <realization id="29">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <dependency id="30">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="31">    
+    <bendpoint x="1286" y="-36"/>    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="32">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="33">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <dependency id="34">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="35">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="36">    
+    <bendpoint x="1034" y="-11"/>    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="37">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="38">    
+    <bendpoint x="1339" y="-182"/>    
+    <bendpoint x="1339" y="156"/>    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <generalization id="39">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="19"/>  
+  </generalization>  
+  <dependency id="40">    
+    <bendpoint x="362" y="11"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="41">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <realization id="42">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <dependency id="43">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <realization id="44">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="9"/>  
+  </realization>  
+  <realization id="45">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="18"/>  
+  </realization>  
+  <dependency id="46">    
+    <bendpoint x="1351" y="-288"/>    
+    <bendpoint x="1351" y="159"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="47">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="48">    
+    <bendpoint x="1953" y="433"/>    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="49">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <generalization id="50">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <dependency id="51">    
+    <bendpoint x="1374" y="-216"/>    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="13"/>  
+  </dependency>  
+  <dependency id="52">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="53">    
+    <bendpoint x="1367" y="-288"/>    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="54">    
+    <bendpoint x="1400" y="-297"/>    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="55">    
+    <bendpoint x="1734" y="80"/>    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <generalization id="56">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="10"/>  
+  </generalization>  
+  <association id="57">    
+    <bendpoint x="1364" y="-222"/>    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="58" name="subsetCreator"/>      
+      <multiplicity id="59" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="60">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="61">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="14"/>  
+  </dependency>  
+  <dependency id="62">    
+    <bendpoint x="685" y="-4"/>    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="63">    
+    <bendpoint x="819" y="2"/>    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="64">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <dependency id="65">    
+    <bendpoint x="1959" y="-249"/>    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <realization id="66">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="18"/>  
+  </realization>  
+  <dependency id="67">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <association id="68">    
+    <bendpoint x="2350" y="283"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="69" name="corpusAdapter"/>      
+      <multiplicity id="70" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="71">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <realization id="72">    
+    <bendpoint x="352" y="0"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <association id="73">    
+    <bendpoint x="1011" y="-318"/>    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="74" name="subsetCreator"/>      
+      <multiplicity id="75" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <dependency id="76">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="1"/>  
+  </dependency>  
+  <realization id="77">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <realization id="78">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="14"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

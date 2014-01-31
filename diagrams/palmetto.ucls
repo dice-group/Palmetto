@@ -1,0 +1,128 @@
+<class-diagram version="1.0.11" icons="true" always-add-relationships="true" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.Palmetto" project="palmetto" 
+    file="/palmetto/src/main/java/org/aksw/palmetto/Palmetto.java" binary="false">    
+    <position height="312" width="284" x="336" y="147"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="2" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.corpus.lucene.IndexCreator" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/corpus/lucene/IndexCreator.java" binary="false">    
+    <position height="159" width="248" x="692" y="339"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.corpus.lucene.SimpleAnalyzer" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/corpus/lucene/SimpleAnalyzer.java" binary="false">    
+    <position height="-1" width="-1" x="817" y="632"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="4" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.calculations.CoherenceCalculation" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/calculations/CoherenceCalculation.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="868" y="47"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <interface id="5" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.corpus.CorpusAdapter" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/corpus/CorpusAdapter.java" binary="false">    
+    <position height="-1" width="-1" x="864" y="134"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.io.SimpleWordSetReader" project="palmetto" 
+    file="/palmetto/src/main/java/org/aksw/palmetto/io/SimpleWordSetReader.java" binary="false">    
+    <position height="-1" width="-1" x="152" y="200"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.io.SimpleDocumentTextSupplier" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/io/SimpleDocumentTextSupplier.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="215" y="744"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="8" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.io.DocumentTextSupplier" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/io/DocumentTextSupplier.java" binary="false">    
+    <position height="-1" width="-1" x="414" y="590"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="9" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.io.MalletBasedDocumentTextSupplier" 
+    project="palmetto" file="/palmetto/src/main/java/org/aksw/palmetto/io/MalletBasedDocumentTextSupplier.java" 
+    binary="false">    
+    <position height="-1" width="-1" x="525" y="751"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <dependency id="10">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <realization id="11">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <realization id="12">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <dependency id="13">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="6"/>  
+  </dependency>  
+  <dependency id="14">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="3"/>  
+  </dependency>  
+  <dependency id="15">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="7"/>  
+  </dependency>  
+  <dependency id="16">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="4"/>  
+  </dependency>  
+  <dependency id="17">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </dependency>  
+  <dependency id="18">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <dependency id="19">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="9"/>  
+  </dependency>  
+  <dependency id="20">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </dependency>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
