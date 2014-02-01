@@ -2,20 +2,21 @@ package org.aksw.palmetto.subsets;
 
 public class SubsetProbabilities {
 
-    public double segmentProbabilities[];
-    public double conditionProbabilities[][];
+    public int segments[];
+    public int conditions[][];
+    public double probabilities[];
 
-    public SubsetProbabilities(double[] segmentProbabilities,
-	    double[][] conditionProbabilities) {
-	this.segmentProbabilities = segmentProbabilities;
-	this.conditionProbabilities = conditionProbabilities;
+    public SubsetProbabilities(int[] segments, int[][] conditions, double[] segmentProbabilities) {
+        this.segments = segments;
+        this.conditions = conditions;
+        this.probabilities = segmentProbabilities;
     }
 
     /**
      * @return the segmentProbabilities
      */
     public double[] getSegmentProbabilities() {
-	return segmentProbabilities;
+        return probabilities;
     }
 
     /**
@@ -23,21 +24,6 @@ public class SubsetProbabilities {
      *            the segmentProbabilities to set
      */
     public void setSegmentProbabilities(double[] segmentProbabilities) {
-	this.segmentProbabilities = segmentProbabilities;
-    }
-
-    /**
-     * @return the conditionProbabilities
-     */
-    public double[][] getConditionProbabilities() {
-	return conditionProbabilities;
-    }
-
-    /**
-     * @param conditionProbabilities
-     *            the conditionProbabilities to set
-     */
-    public void setConditionProbabilities(double[][] conditionProbabilities) {
-	this.conditionProbabilities = conditionProbabilities;
+        this.probabilities = segmentProbabilities;
     }
 }
