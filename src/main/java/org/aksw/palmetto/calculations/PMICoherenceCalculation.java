@@ -11,21 +11,19 @@ public class PMICoherenceCalculation extends AbstractSubsetCreatorBasedCoherence
 
     @Override
     protected double calculateCoherence(SubsetProbabilities subsetProbabilities) {
-        double marginalProbability, conditionalProbability;
+        double segmentProbability, conditionProbability, jointProbability;
         double coherence = 0;
         int count = 0;
         for (int i = 0; i < subsetProbabilities.segments.length; ++i) {
-            marginalProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]];
-            if (marginalProbability > 0) {
+            segmentProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]];
+            if (segmentProbability > 0) {
                 for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
-                    if (subsetProbabilities.probabilities[subsetProbabilities.conditions[i][j]] > 0) {
-                        conditionalProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]
-                                | subsetProbabilities.conditions[i][j]]
-                                / subsetProbabilities.probabilities[subsetProbabilities.conditions[i][j]];
-                    } else {
-                        conditionalProbability = 0;
+                    conditionProbability = subsetProbabilities.probabilities[subsetProbabilities.conditions[i][j]];
+                    jointProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]
+                            | subsetProbabilities.conditions[i][j]];
+                    if ((conditionProbability > 0) && (jointProbability > 0)) {
+                        coherence += Math.log(jointProbability / (segmentProbability * conditionProbability));
                     }
-                    coherence += conditionalProbability - marginalProbability;
                 }
             }
             count += subsetProbabilities.conditions[i].length;
