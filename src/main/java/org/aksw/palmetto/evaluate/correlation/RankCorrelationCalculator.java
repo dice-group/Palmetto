@@ -1,4 +1,4 @@
-package org.aksw.palmetto.evaluate;
+package org.aksw.palmetto.evaluate.correlation;
 
 public interface RankCorrelationCalculator {
 

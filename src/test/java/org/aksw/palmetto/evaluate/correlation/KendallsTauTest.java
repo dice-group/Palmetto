@@ -1,8 +1,9 @@
-package org.aksw.palmetto.evaluate;
+package org.aksw.palmetto.evaluate.correlation;
 
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.aksw.palmetto.evaluate.correlation.KendallsTau;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
