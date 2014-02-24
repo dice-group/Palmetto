@@ -3,9 +3,9 @@ package org.aksw.palmetto.calculations;
 import org.aksw.palmetto.subsets.SubsetCreator;
 import org.aksw.palmetto.subsets.SubsetProbabilities;
 
-public class NPMICoherenceCalculation extends AbstractSubsetCreatorBasedCoherenceCalculation {
+public class LogRatioCoherenceCalculation extends AbstractSubsetCreatorBasedCoherenceCalculation {
 
-    public NPMICoherenceCalculation(SubsetCreator subsetCreator) {
+    public LogRatioCoherenceCalculation(SubsetCreator subsetCreator) {
         super(subsetCreator);
     }
 
@@ -21,9 +21,9 @@ public class NPMICoherenceCalculation extends AbstractSubsetCreatorBasedCoherenc
                     conditionProbability = subsetProbabilities.probabilities[subsetProbabilities.conditions[i][j]];
                     jointProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]
                             | subsetProbabilities.conditions[i][j]];
-                    if ((conditionProbability > 0) && (jointProbability > 0)) {
-                        coherence += Math.log(jointProbability / (segmentProbability * conditionProbability))
-                                / -Math.log(jointProbability);
+                    if ((conditionProbability > 0)) {
+                        coherence += Math.log((jointProbability + LogBasedCalculation.EPSILON)
+                                / (segmentProbability * conditionProbability));
                     }
                 }
             }
