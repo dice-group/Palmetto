@@ -9,6 +9,7 @@ import org.aksw.palmetto.subsets.OneAny;
 import org.aksw.palmetto.subsets.SubsetCreator;
 import org.aksw.palmetto.subsets.SubsetDefinition;
 import org.aksw.palmetto.subsets.SubsetProbabilities;
+import org.aksw.palmetto.sum.ArithmeticMean;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -117,9 +118,10 @@ public class DifferenceBasedCoherenceCalculationTest {
 
     @Test
     public void test() {
-        DifferenceBasedCoherenceCalculation calculation = new DifferenceBasedCoherenceCalculation(null);
+        DifferenceBasedCoherenceCalculation calculation = new DifferenceBasedCoherenceCalculation();
         SubsetDefinition subsets = subsetCreator.getSubsetDefinition(wordsetSize);
-        Assert.assertEquals(expectedCoherence, calculation.calculateCoherence(new SubsetProbabilities(subsets.segments,
-                subsets.conditions, probabilities)), DOUBLE_PRECISION_DELTA);
+        Assert.assertEquals(expectedCoherence, (new ArithmeticMean()).summarize(calculation
+                .calculateCoherenceValues(new SubsetProbabilities(subsets.segments,
+                        subsets.conditions, probabilities))), DOUBLE_PRECISION_DELTA);
     }
 }

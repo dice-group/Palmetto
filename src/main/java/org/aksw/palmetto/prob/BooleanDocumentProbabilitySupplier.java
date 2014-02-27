@@ -46,4 +46,9 @@ public class BooleanDocumentProbabilitySupplier extends AbstractProbabilitySuppl
         }
         return new SubsetProbabilities(countedSubsets.counts, countedSubsets.conditions, probabilities);
     }
+
+    @Override
+    public String getProbabilityModelName() {
+        return "P_bd";
+    }
 }

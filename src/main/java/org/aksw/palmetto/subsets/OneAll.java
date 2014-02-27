@@ -25,4 +25,9 @@ public class OneAll implements SubsetCreator {
 	neededCounts.set(mask);
 	return new SubsetDefinition(segments, conditions, neededCounts);
     }
+
+    @Override
+    public String getName() {
+        return "S_one-all";
+    }
 }

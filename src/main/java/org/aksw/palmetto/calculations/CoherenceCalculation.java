@@ -1,9 +1,10 @@
 package org.aksw.palmetto.calculations;
 
-import org.aksw.palmetto.prob.ProbabilitySupplier;
+import org.aksw.palmetto.subsets.SubsetProbabilities;
 
 public interface CoherenceCalculation {
 
-    public double[] calculateCoherences(String wordsets[][],
-	    ProbabilitySupplier supplier);
+    public abstract double[] calculateCoherenceValues(SubsetProbabilities subsetProbabilities);
+
+    public String getCalculationName();
 }

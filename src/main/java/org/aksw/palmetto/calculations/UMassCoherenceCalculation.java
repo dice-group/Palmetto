@@ -5,7 +5,9 @@ import org.aksw.palmetto.subsets.CountedSubsets;
 import org.aksw.palmetto.subsets.OnePreceding;
 import org.aksw.palmetto.subsets.SubsetCreator;
 import org.aksw.palmetto.subsets.SubsetDefinition;
+import org.aksw.palmetto.subsets.SubsetProbabilities;
 
+@Deprecated
 public class UMassCoherenceCalculation implements CoherenceCalculation {
 
     protected SubsetCreator subsetCreator;
@@ -46,5 +48,15 @@ public class UMassCoherenceCalculation implements CoherenceCalculation {
             }
         }
         return sum;
+    }
+
+    @Override
+    public String getCalculationName() {
+        return "m_umass";
+    }
+
+    @Override
+    public double[] calculateCoherenceValues(SubsetProbabilities subsetProbabilities) {
+        throw new IllegalAccessError("This method is not supported yet. The complete class will be replaced.");
     }
 }

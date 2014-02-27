@@ -9,4 +9,6 @@ public interface ProbabilitySupplier {
             SubsetDefinition definitions[]);
 
     public FrequencyDeterminer getFrequencyDeterminer();
+    
+    public String getProbabilityModelName();
 }

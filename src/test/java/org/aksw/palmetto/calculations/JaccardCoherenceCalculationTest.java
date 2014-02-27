@@ -7,6 +7,7 @@ import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.SubsetCreator;
 import org.aksw.palmetto.subsets.SubsetDefinition;
 import org.aksw.palmetto.subsets.SubsetProbabilities;
+import org.aksw.palmetto.sum.ArithmeticMean;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -80,9 +81,10 @@ public class JaccardCoherenceCalculationTest {
 
     @Test
     public void test() {
-        JaccardCoherenceCalculation calculation = new JaccardCoherenceCalculation(null);
+        JaccardCoherenceCalculation calculation = new JaccardCoherenceCalculation();
         SubsetDefinition subsets = subsetCreator.getSubsetDefinition(wordsetSize);
-        Assert.assertEquals(expectedCoherence, calculation.calculateCoherence(new SubsetProbabilities(subsets.segments,
-                subsets.conditions, probabilities)), DOUBLE_PRECISION_DELTA);
+        Assert.assertEquals(expectedCoherence, (new ArithmeticMean()).summarize(calculation
+                .calculateCoherenceValues(new SubsetProbabilities(subsets.segments,
+                        subsets.conditions, probabilities))), DOUBLE_PRECISION_DELTA);
     }
 }

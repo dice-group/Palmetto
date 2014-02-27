@@ -1,19 +1,19 @@
 package org.aksw.palmetto.calculations;
 
-import org.aksw.palmetto.subsets.SubsetCreator;
 import org.aksw.palmetto.subsets.SubsetProbabilities;
 
-public class DifferenceBasedCoherenceCalculation extends AbstractSubsetCreatorBasedCoherenceCalculation {
-
-    public DifferenceBasedCoherenceCalculation(SubsetCreator subsetCreator) {
-        super(subsetCreator);
-    }
+public class DifferenceBasedCoherenceCalculation implements CoherenceCalculation {
 
     @Override
-    protected double calculateCoherence(SubsetProbabilities subsetProbabilities) {
+    public double[] calculateCoherenceValues(SubsetProbabilities subsetProbabilities) {
+        int pos = 0;
+        for (int i = 0; i < subsetProbabilities.segments.length; ++i) {
+            pos += subsetProbabilities.conditions[i].length;
+        }
+        double values[] = new double[pos];
+
         double marginalProbability, conditionalProbability;
-        double coherence = 0;
-        int count = 0;
+        pos = 0;
         for (int i = 0; i < subsetProbabilities.segments.length; ++i) {
             marginalProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]];
             if (marginalProbability > 0) {
@@ -25,11 +25,18 @@ public class DifferenceBasedCoherenceCalculation extends AbstractSubsetCreatorBa
                     } else {
                         conditionalProbability = 0;
                     }
-                    coherence += conditionalProbability - marginalProbability;
+                    values[pos] = conditionalProbability - marginalProbability;
+                    ++pos;
                 }
+            } else {
+                pos += subsetProbabilities.conditions[i].length;
             }
-            count += subsetProbabilities.conditions[i].length;
         }
-        return coherence / count;
+        return values;
+    }
+
+    @Override
+    public String getCalculationName() {
+        return "m_d";
     }
 }

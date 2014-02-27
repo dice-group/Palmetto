@@ -7,6 +7,7 @@ import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.SubsetCreator;
 import org.aksw.palmetto.subsets.SubsetDefinition;
 import org.aksw.palmetto.subsets.SubsetProbabilities;
+import org.aksw.palmetto.sum.ArithmeticMean;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -35,7 +36,7 @@ public class LogJaccardCoherenceCalculationTest {
                  */
                 { new OneOne(), 3,
                         new double[] { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
-                        2.0 * Math.log(2.0 / 3.0) / 3.0 },
+                        (2.0 * Math.log(2.0 / 3.0)) / 3.0 },
 
                 /*
                  * word1 0 1 1
@@ -83,9 +84,10 @@ public class LogJaccardCoherenceCalculationTest {
 
     @Test
     public void test() {
-        LogJaccardCoherenceCalculation calculation = new LogJaccardCoherenceCalculation(null);
+        LogJaccardCoherenceCalculation calculation = new LogJaccardCoherenceCalculation();
         SubsetDefinition subsets = subsetCreator.getSubsetDefinition(wordsetSize);
-        Assert.assertEquals(expectedCoherence, calculation.calculateCoherence(new SubsetProbabilities(subsets.segments,
-                subsets.conditions, probabilities)), DOUBLE_PRECISION_DELTA);
+        Assert.assertEquals(expectedCoherence, (new ArithmeticMean()).summarize(calculation
+                .calculateCoherenceValues(new SubsetProbabilities(subsets.segments,
+                        subsets.conditions, probabilities))), DOUBLE_PRECISION_DELTA);
     }
 }

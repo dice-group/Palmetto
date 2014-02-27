@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.PrintStream;
 import java.util.Arrays;
 
-import org.aksw.palmetto.calculations.CoherenceCalculation;
 import org.aksw.palmetto.calculations.DifferenceBasedCoherenceCalculation;
-import org.aksw.palmetto.calculations.UMassCoherenceCalculation;
 import org.aksw.palmetto.corpus.CorpusAdapter;
 import org.aksw.palmetto.corpus.lucene.IndexCreator;
 import org.aksw.palmetto.corpus.lucene.LuceneCorpusAdapter;
@@ -21,6 +19,7 @@ import org.aksw.palmetto.subsets.OneAny;
 import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.OnePreceding;
 import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.sum.ArithmeticMean;
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -47,7 +46,7 @@ public class Palmetto {
     private static final String INDEX_FIELD_NAME_CMD = "indexFieldName";
     private static final String MIN_FREQUENCY_CMD = "minFreq";
 
-    private static final String DEFAULT_INDEX_FIELD_NAME = "text";
+    public static final String DEFAULT_INDEX_FIELD_NAME = "text";
 
     public static void main(String[] args) {
         CommandLineParser parser = new BasicParser();
@@ -111,8 +110,14 @@ public class Palmetto {
             return;
         }
 
-        CoherenceCalculation calculator = getCoherenceCalculator(calcType);
-        if (calculator == null) {
+        BooleanDocumentProbabilitySupplier supplier = BooleanDocumentProbabilitySupplier
+                .create(adapter);
+        if (minFrequency > 0) {
+            supplier.setMinFrequency(minFrequency);
+        }
+
+        Coherence coherence = getCoherence(calcType, supplier);
+        if (coherence == null) {
             LOGGER.error("Unknown calculation type \"" + calcType
                     + "\". Aborting");
             return;
@@ -122,14 +127,7 @@ public class Palmetto {
         String wordsets[][] = reader.readWordSets(inputFile);
         LOGGER.info("Read " + wordsets.length + " from file.");
 
-        BooleanDocumentProbabilitySupplier supplier = BooleanDocumentProbabilitySupplier
-                .create(adapter);
-        if (minFrequency > 0) {
-            supplier.setMinFrequency(minFrequency);
-        }
-
-        double coherences[] = calculator
-                .calculateCoherences(wordsets, supplier);
+        double coherences[] = coherence.calculateCoherences(wordsets);
 
         printCoherences(coherences, wordsets, System.out);
     }
@@ -140,14 +138,15 @@ public class Palmetto {
         }
     }
 
-    private static CoherenceCalculation getCoherenceCalculator(String calcType) {
+    private static Coherence getCoherence(String calcType, BooleanDocumentProbabilitySupplier probSupplier) {
         String parts[] = calcType.toLowerCase().split("-");
         if ((parts.length < 1) || (parts.length > 2)) {
             return null;
         }
         if (parts.length == 1) {
             if (parts[0].equals("umass")) {
-                return new UMassCoherenceCalculation();
+                // return new UMassCoherenceCalculation();
+                return null;
             }
         }
         SubsetCreator creator;
@@ -165,7 +164,7 @@ public class Palmetto {
             return null;
         }
         if (parts[1].equals("diff")) {
-            return new DifferenceBasedCoherenceCalculation(creator);
+            return new Coherence(creator, probSupplier, new DifferenceBasedCoherenceCalculation(), new ArithmeticMean());
         } else {
             return null;
         }
