@@ -47,8 +47,12 @@ public class KendallsTau implements RankCorrelationCalculator, Comparator<ValueP
             }
         }
 
-        return (concordance - disconcordance)
-                / Math.sqrt((concordance + disconcordance + boundInX) * (concordance + disconcordance + boundInY));
+        if (((concordance + disconcordance + boundInX) == 0) || ((concordance + disconcordance + boundInY) == 0)) {
+            return 0;
+        } else {
+            return (concordance - disconcordance)
+                    / Math.sqrt((concordance + disconcordance + boundInX) * (concordance + disconcordance + boundInY));
+        }
     }
 
     @Override

@@ -9,6 +9,8 @@ public interface ProbabilitySupplier {
             SubsetDefinition definitions[]);
 
     public FrequencyDeterminer getFrequencyDeterminer();
-    
+
     public String getProbabilityModelName();
+
+    public void setMinFrequency(int minFrequency);
 }

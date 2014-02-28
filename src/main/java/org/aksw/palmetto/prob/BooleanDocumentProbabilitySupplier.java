@@ -44,7 +44,7 @@ public class BooleanDocumentProbabilitySupplier extends AbstractProbabilitySuppl
                 probabilities[i] = 0;
             }
         }
-        return new SubsetProbabilities(countedSubsets.counts, countedSubsets.conditions, probabilities);
+        return new SubsetProbabilities(countedSubsets.segments, countedSubsets.conditions, probabilities);
     }
 
     @Override
