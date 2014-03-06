@@ -23,11 +23,14 @@ public class LogLikelihoodCoherenceCalculation implements CoherenceCalculation {
                         intersectionProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]
                                 | subsetProbabilities.conditions[i][j]];
                         conditionalProbability = intersectionProbability / conditionProbability;
-                        inverseCondProbability = (segmentProbability - intersectionProbability)
-                                / (1 - conditionProbability);
-                        if ((conditionalProbability > 0) && (inverseCondProbability > 0)) {
-                            values[pos] = Math.log(conditionalProbability / inverseCondProbability);
+                        if (conditionProbability < 1) {
+                            inverseCondProbability = (segmentProbability - intersectionProbability)
+                                    / (1 - conditionProbability);
+                        } else {
+                            inverseCondProbability = 0;
                         }
+                        values[pos] = Math.log((conditionalProbability + LogBasedCalculation.EPSILON)
+                                / (inverseCondProbability + LogBasedCalculation.EPSILON));
                     }
                     ++pos;
                 }

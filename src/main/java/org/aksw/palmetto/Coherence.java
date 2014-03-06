@@ -6,6 +6,7 @@ import org.aksw.palmetto.subsets.SubsetCreator;
 import org.aksw.palmetto.subsets.SubsetDefinition;
 import org.aksw.palmetto.subsets.SubsetProbabilities;
 import org.aksw.palmetto.sum.Summarization;
+import org.aksw.palmetto.sum.weighted.AbstractProbabilityBasedWeighter;
 
 public class Coherence {
 
@@ -46,8 +47,15 @@ public class Coherence {
         definitions = null;
 
         double coherences[] = new double[probabilities.length];
-        for (int i = 0; i < probabilities.length; i++) {
-            coherences[i] = summarizer.summarize(calculation.calculateCoherenceValues(probabilities[i]));
+        if (summarizer instanceof AbstractProbabilityBasedWeighter) {
+            for (int i = 0; i < probabilities.length; i++) {
+                coherences[i] = ((AbstractProbabilityBasedWeighter) summarizer).summarize(
+                        calculation.calculateCoherenceValues(probabilities[i]), probabilities[i]);
+            }
+        } else {
+            for (int i = 0; i < probabilities.length; i++) {
+                coherences[i] = summarizer.summarize(calculation.calculateCoherenceValues(probabilities[i]));
+            }
         }
         return coherences;
     }
