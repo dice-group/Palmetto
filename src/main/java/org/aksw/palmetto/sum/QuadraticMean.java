@@ -28,7 +28,7 @@ public class QuadraticMean implements WeightedSummarization {
         double sum = 0, weightSum = 0;
         for (int i = 0; i < values.length; ++i) {
             sum += weights[i] * Math.pow(values[i], 2);
-            weightSum *= weights[i];
+            weightSum += weights[i];
         }
         return Math.sqrt(sum / weightSum);
     }
