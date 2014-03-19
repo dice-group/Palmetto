@@ -5,19 +5,12 @@ import java.util.Collection;
 
 import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.SubsetCreator;
-import org.aksw.palmetto.subsets.SubsetDefinition;
-import org.aksw.palmetto.subsets.SubsetProbabilities;
-import org.aksw.palmetto.sum.ArithmeticMean;
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class NormalizedLogRatioCoherenceCalculationTest {
-
-    private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
+public class NormalizedLogRatioCoherenceCalculationTest extends AbstractCalculationTest {
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -104,26 +97,9 @@ public class NormalizedLogRatioCoherenceCalculationTest {
                                         .log(LogBasedCalculation.EPSILON))) / 3.0 } });
     }
 
-    private SubsetCreator subsetCreator;
-    private int wordsetSize;
-    private double probabilities[];
-    private double expectedCoherence;
-
     public NormalizedLogRatioCoherenceCalculationTest(SubsetCreator subsetCreator, int wordsetSize,
             double[] probabilities,
             double expectedCoherence) {
-        this.probabilities = probabilities;
-        this.wordsetSize = wordsetSize;
-        this.subsetCreator = subsetCreator;
-        this.expectedCoherence = expectedCoherence;
-    }
-
-    @Test
-    public void test() {
-        NormalizedLogRatioCoherenceCalculation calculation = new NormalizedLogRatioCoherenceCalculation();
-        SubsetDefinition subsets = subsetCreator.getSubsetDefinition(wordsetSize);
-        Assert.assertEquals(expectedCoherence, (new ArithmeticMean()).summarize(calculation
-                .calculateCoherenceValues(new SubsetProbabilities(subsets.segments,
-                        subsets.conditions, probabilities))), DOUBLE_PRECISION_DELTA);
+        super(new NormalizedLogRatioCoherenceCalculation(), subsetCreator, wordsetSize, probabilities, expectedCoherence);
     }
 }

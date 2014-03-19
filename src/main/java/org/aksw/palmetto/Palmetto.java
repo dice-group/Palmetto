@@ -20,6 +20,7 @@ import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.OnePreceding;
 import org.aksw.palmetto.subsets.SubsetCreator;
 import org.aksw.palmetto.sum.ArithmeticMean;
+import org.aksw.palmetto.weight.EqualWeighter;
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -32,8 +33,7 @@ import org.slf4j.LoggerFactory;
 
 public class Palmetto {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(Palmetto.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Palmetto.class);
 
     private static final String CMD = "palmetto --calcType <calcuation> --indexDir <directory> --inputFile <file> [OPTIONS...]";
 
@@ -68,8 +68,7 @@ public class Palmetto {
         String calcType = cmd.getOptionValue(CALCULATION_TYPE_CMD);
         String inputFile = cmd.getOptionValue(INPUT_FILE_CMD);
 
-        String fieldName = cmd.hasOption(INDEX_FIELD_NAME_CMD) ? cmd
-                .getOptionValue(INDEX_FIELD_NAME_CMD)
+        String fieldName = cmd.hasOption(INDEX_FIELD_NAME_CMD) ? cmd.getOptionValue(INDEX_FIELD_NAME_CMD)
                 : DEFAULT_INDEX_FIELD_NAME;
 
         int minFrequency = -1;
@@ -104,22 +103,18 @@ public class Palmetto {
         try {
             adapter = LuceneCorpusAdapter.create(indexPath, fieldName);
         } catch (Exception e) {
-            LOGGER.error(
-                    "Caught an exception while opening lucene index. Aborting.",
-                    e);
+            LOGGER.error("Caught an exception while opening lucene index. Aborting.", e);
             return;
         }
 
-        BooleanDocumentProbabilitySupplier supplier = BooleanDocumentProbabilitySupplier
-                .create(adapter);
+        BooleanDocumentProbabilitySupplier supplier = BooleanDocumentProbabilitySupplier.create(adapter);
         if (minFrequency > 0) {
             supplier.setMinFrequency(minFrequency);
         }
 
         Coherence coherence = getCoherence(calcType, supplier);
         if (coherence == null) {
-            LOGGER.error("Unknown calculation type \"" + calcType
-                    + "\". Aborting");
+            LOGGER.error("Unknown calculation type \"" + calcType + "\". Aborting");
             return;
         }
 
@@ -164,7 +159,8 @@ public class Palmetto {
             return null;
         }
         if (parts[1].equals("diff")) {
-            return new Coherence(creator, probSupplier, new DifferenceBasedCoherenceCalculation(), new ArithmeticMean());
+            return new Coherence(creator, probSupplier, new DifferenceBasedCoherenceCalculation(),
+                    new ArithmeticMean(), new EqualWeighter());
         } else {
             return null;
         }
@@ -173,42 +169,34 @@ public class Palmetto {
     @SuppressWarnings("static-access")
     private static Options generateOptions() {
         Options options = new Options();
-        options.addOption(OptionBuilder.withLongOpt(HELP_CMD)
-                .withDescription("print this message").create());
+        options.addOption(OptionBuilder.withLongOpt(HELP_CMD).withDescription("print this message").create());
         options.addOption(OptionBuilder.withLongOpt(INDEX_DIR_CMD)
-                .withDescription("The directory of the lucene index.").hasArg()
-                .withArgName("directory").isRequired().create());
+                .withDescription("The directory of the lucene index.").hasArg().withArgName("directory").isRequired()
+                .create());
         options.addOption(OptionBuilder
                 .withLongOpt(CALCULATION_TYPE_CMD)
                 .withDescription(
                         "The coherence calculation type can be one of the following values: oneone-diff, oneall-diff, oneany-diff, anyany-diff, umass")
                 .hasArg().withArgName("calcuation").isRequired().create());
-        options.addOption(OptionBuilder
-                .withLongOpt(INPUT_FILE_CMD)
-                .withDescription(
-                        "The file containing the top words of the topics (one topic per line).")
-                .hasArg().withArgName("file").isRequired().create());
+        options.addOption(OptionBuilder.withLongOpt(INPUT_FILE_CMD)
+                .withDescription("The file containing the top words of the topics (one topic per line).").hasArg()
+                .withArgName("file").isRequired().create());
         options.addOption(OptionBuilder
                 .withLongOpt(CORPUS_FILE_CMD)
                 .withDescription(
                         "The file containing the corpus (one document per line). If this option is added, the lucene index will be created using this file.")
                 .hasArg().withArgName("file").create());
-        options.addOption(OptionBuilder
-                .withLongOpt(INDEX_FIELD_NAME_CMD)
-                .withDescription(
-                        "The field name of the lucene index containing the words.")
-                .hasArg().withArgName("name").create());
-        options.addOption(OptionBuilder
-                .withLongOpt(MIN_FREQUENCY_CMD)
-                .withDescription(
-                        "The minimum frequency a word must have. The default value is 10.")
-                .hasArg().withArgName("min-frequency").create());
+        options.addOption(OptionBuilder.withLongOpt(INDEX_FIELD_NAME_CMD)
+                .withDescription("The field name of the lucene index containing the words.").hasArg()
+                .withArgName("name").create());
+        options.addOption(OptionBuilder.withLongOpt(MIN_FREQUENCY_CMD)
+                .withDescription("The minimum frequency a word must have. The default value is 10.").hasArg()
+                .withArgName("min-frequency").create());
         options.addOption(OptionBuilder
                 .withLongOpt(MALLET_CORPUS_FILE_CMD)
                 .withDescription(
                         "The corpus file is a mallet import file. This option is only read if the " + CORPUS_FILE_CMD
-                                + " is present.")
-                .create());
+                                + " is present.").create());
 
         return options;
     }

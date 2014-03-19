@@ -3,16 +3,12 @@ package org.aksw.palmetto.sum;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class QuadraticMeanTest {
-
-    private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
+public class QuadraticMeanTest extends AbstractSummarizationTest {
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -22,18 +18,7 @@ public class QuadraticMeanTest {
                 { new double[] { -1, 1 }, 1 } });
     }
 
-    private double values[];
-    private double expectedMean;
-
-    public QuadraticMeanTest(double[] values, double expectedMean) {
-        super();
-        this.values = values;
-        this.expectedMean = expectedMean;
-    }
-
-    @Test
-    public void test() {
-        Summarization summarizer = new QuadraticMean();
-        Assert.assertEquals(expectedMean, summarizer.summarize(values), DOUBLE_PRECISION_DELTA);
+    public QuadraticMeanTest(double[] values, double expectedSum) {
+        super(new QuadraticMean(), values, expectedSum);
     }
 }

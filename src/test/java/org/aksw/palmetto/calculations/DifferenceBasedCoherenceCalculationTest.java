@@ -7,19 +7,12 @@ import org.aksw.palmetto.subsets.AnyAny;
 import org.aksw.palmetto.subsets.OneAll;
 import org.aksw.palmetto.subsets.OneAny;
 import org.aksw.palmetto.subsets.SubsetCreator;
-import org.aksw.palmetto.subsets.SubsetDefinition;
-import org.aksw.palmetto.subsets.SubsetProbabilities;
-import org.aksw.palmetto.sum.ArithmeticMean;
-import org.junit.Assert;
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class DifferenceBasedCoherenceCalculationTest {
-
-    private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
+public class DifferenceBasedCoherenceCalculationTest extends AbstractCalculationTest {
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -103,25 +96,8 @@ public class DifferenceBasedCoherenceCalculationTest {
                 { new AnyAny(), 3, new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 }, 4.5 / 12.0 } });
     }
 
-    private SubsetCreator subsetCreator;
-    private int wordsetSize;
-    private double probabilities[];
-    private double expectedCoherence;
-
     public DifferenceBasedCoherenceCalculationTest(SubsetCreator subsetCreator, int wordsetSize,
             double[] probabilities, double expectedCoherence) {
-        this.probabilities = probabilities;
-        this.wordsetSize = wordsetSize;
-        this.subsetCreator = subsetCreator;
-        this.expectedCoherence = expectedCoherence;
-    }
-
-    @Test
-    public void test() {
-        DifferenceBasedCoherenceCalculation calculation = new DifferenceBasedCoherenceCalculation();
-        SubsetDefinition subsets = subsetCreator.getSubsetDefinition(wordsetSize);
-        Assert.assertEquals(expectedCoherence, (new ArithmeticMean()).summarize(calculation
-                .calculateCoherenceValues(new SubsetProbabilities(subsets.segments,
-                        subsets.conditions, probabilities))), DOUBLE_PRECISION_DELTA);
+        super(new DifferenceBasedCoherenceCalculation(), subsetCreator, wordsetSize, probabilities, expectedCoherence);
     }
 }

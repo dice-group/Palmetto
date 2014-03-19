@@ -2,7 +2,7 @@ package org.aksw.palmetto.calculations;
 
 import org.aksw.palmetto.subsets.SubsetProbabilities;
 
-public class OlssonsCalculation implements CoherenceCalculation {
+public class OlssonsCoherenceCalculation implements CoherenceCalculation {
 
     @Override
     public double[] calculateCoherenceValues(SubsetProbabilities subsetProbabilities) {

@@ -1,10 +1,10 @@
 package org.aksw.palmetto.sum;
 
-import org.aksw.palmetto.sum.weighted.WeightedSummarization;
 
-public class Max implements WeightedSummarization {
+public class Max implements Summarization {
 
     @Override
+    @Deprecated
     public double summarize(double[] values) {
         double max = Double.NEGATIVE_INFINITY;
         for (int i = 0; i < values.length; ++i) {
@@ -22,15 +22,14 @@ public class Max implements WeightedSummarization {
 
     @Override
     public double summarize(double[] values, double[] weights) {
-        double value, weightSum = 0, max = Double.NEGATIVE_INFINITY;
+        double value, max = Double.NEGATIVE_INFINITY;
         for (int i = 0; i < values.length; ++i) {
             value = values[i] * weights[i];
-            weightSum += weights[i];
             if (value > max) {
                 max = value;
             }
         }
-        return max / weightSum;
+        return max;
     }
 
 }

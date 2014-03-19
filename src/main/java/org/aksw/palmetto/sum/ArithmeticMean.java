@@ -1,10 +1,10 @@
 package org.aksw.palmetto.sum;
 
-import org.aksw.palmetto.sum.weighted.WeightedSummarization;
 
-public class ArithmeticMean implements WeightedSummarization {
+public class ArithmeticMean implements Summarization {
 
     @Override
+    @Deprecated
     public double summarize(double[] values) {
         double sum = 0;
         for (int i = 0; i < values.length; ++i) {
