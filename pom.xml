@@ -1,124 +1,178 @@
+<!-- Copyright (C) 2014 Michael Röder (michael.roeder@unister.de) Licensed 
+	under the Creative Commons Attribution-NonCommercial 4.0 International Public 
+	License (the "License"). You may not use this file except in compliance with 
+	the License. You may obtain a copy of the License at http://creativecommons.org/licenses/by-nc/4.0/legalcode 
+	Unless required by applicable law or agreed to in writing, a file distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.aksw</groupId>
-    <artifactId>palmetto</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>Palmetto</name>
-    <description>Palmetto is a quality measure tool for topics.</description>
-    <packaging>jar</packaging>
-    <!-- PROPERTIES -->
-    <properties>
-        <slf4j-version>1.7.5</slf4j-version>
-        <lucene-version>4.4.0</lucene-version>
-    </properties>
-    <!-- DEVELOPERS -->
-    <developers>
-        <developer>
-            <id>m.roeder</id>
-            <name>Michael Roeder</name>
-            <email>michael.roeder@unister.de</email>
-        </developer>
-    </developers>
-    <dependencies>
-        <!-- Mallet -->
-        <dependency>
-            <groupId>cc.mallet</groupId>
-            <artifactId>mallet</artifactId>
-            <version>2.0.7-SNAPSHOT</version>
-        </dependency>
-        <!-- HPPC Maps -->
-        <dependency>
-            <groupId>com.carrotsearch</groupId>
-            <artifactId>hppc</artifactId>
-            <version>0.5.3</version>
-        </dependency>
-        <!-- Lucene -->
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-core</artifactId>
-            <version>${lucene-version}</version>
-        </dependency>
-        <!-- Lucene analyzers -->
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-analyzers-common</artifactId>
-            <version>${lucene-version}</version>
-        </dependency>
-        <!-- Apache Commons CLI -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-cli</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <!-- ~~~~~~~~~~~~~~~~~~~ Logging ~~~~~~~~~~~~~~~~~~~~~~ -->
-        <!-- slf4j: Logging API -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j-version}</version>
-        </dependency>
-        <!-- log4j binding -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j-version}</version>
-        </dependency>
-        <!-- make Logging with java.util.Logging possible -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-            <version>1.6.5</version>
-        </dependency>
-        <!-- ~~~~~~~~~~~~~~~~~~~ End Logging ~~~~~~~~~~~~~~~~~~~~~~ -->
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.aksw</groupId>
+	<artifactId>palmetto</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Palmetto</name>
+	<description>Palmetto is a quality measure tool for topics.</description>
+	<packaging>jar</packaging>
 
-        <!-- ~~~~~~~~~~~~~~~~~~~ Testing ~~~~~~~~~~~~~~~~~~~~~~ -->
-        <!-- JUnit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.8.1</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- ~~~~~~~~~~~~~~~~~~~ End Testing ~~~~~~~~~~~~~~~~~~~~~~ -->
-    </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                </configuration>
-            </plugin>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>org.aksw.palmetto.Palmetto</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+	<!-- PROPERTIES -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<slf4j-version>1.7.5</slf4j-version>
+		<lucene-version>4.4.0</lucene-version>
+		<developer-name>Michael Röder</developer-name>
+		<developer-mail>michael.roeder@unister.de</developer-mail>
+		<project.inceptionYear>2014</project.inceptionYear>
+	</properties>
+
+	<!-- DEVELOPERS -->
+	<developers>
+		<developer>
+			<id>m.roeder</id>
+			<name>${developer-name}</name>
+			<email>${developer-mail}</email>
+		</developer>
+	</developers>
+
+	<!-- LICENSE -->
+	<licenses>
+		<license>
+			<name>Creative Commons Attribution-NonCommercial 4.0 International Public License</name>
+			<url>http://creativecommons.org/licenses/by-nc/4.0/legalcode</url>
+		</license>
+	</licenses>
+
+	<!-- DEPENDENCIES -->
+	<dependencies>
+		<!-- Mallet -->
+		<dependency>
+			<groupId>cc.mallet</groupId>
+			<artifactId>mallet</artifactId>
+			<version>2.0.7-SNAPSHOT</version>
+		</dependency>
+		<!-- HPPC Maps -->
+		<dependency>
+			<groupId>com.carrotsearch</groupId>
+			<artifactId>hppc</artifactId>
+			<version>0.5.3</version>
+		</dependency>
+		<!-- Lucene -->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>${lucene-version}</version>
+		</dependency>
+		<!-- Lucene analyzers -->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers-common</artifactId>
+			<version>${lucene-version}</version>
+		</dependency>
+		<!-- Apache Commons CLI -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<!-- ~~~~~~~~~~~~~~~~~~~ Logging ~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- slf4j: Logging API -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+		<!-- log4j binding -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+		<!-- make Logging with java.util.Logging possible -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<version>1.6.5</version>
+		</dependency>
+		<!-- ~~~~~~~~~~~~~~~~~~~ End Logging ~~~~~~~~~~~~~~~~~~~~~~ -->
+
+		<!-- ~~~~~~~~~~~~~~~~~~~ Testing ~~~~~~~~~~~~~~~~~~~~~~ -->
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- ~~~~~~~~~~~~~~~~~~~ End Testing ~~~~~~~~~~~~~~~~~~~~~~ -->
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>org.aksw.palmetto.Palmetto</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- License management plugin -->
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<header>src/main/resources/license_template.txt</header>
+					<properties>
+						<owner>${developer-name}</owner>
+						<year>${project.inceptionYear}</year>
+						<email>${developer-mail}</email>
+					</properties>
+					<excludes>
+						<exclude>**/README</exclude>
+						<exclude>**/LICENSE</exclude>
+						<exclude>diagrams/**</exclude>
+						<exclude>src/test/resources/**</exclude>
+						<exclude>src/main/resources/**</exclude>
+					</excludes>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>

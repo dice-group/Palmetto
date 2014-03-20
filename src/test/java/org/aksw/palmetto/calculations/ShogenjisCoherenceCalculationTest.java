@@ -19,14 +19,14 @@ package org.aksw.palmetto.calculations;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.subsets.OneAll;
+import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.SubsetCreator;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class OlssonsCoherenceCalculationTest extends AbstractCalculationTest {
+public class ShogenjisCoherenceCalculationTest extends AbstractCalculationTest {
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -38,12 +38,17 @@ public class OlssonsCoherenceCalculationTest extends AbstractCalculationTest {
                  * 
                  * word3 0 1 1
                  * 
-                 * C_o,oneall= P(w_1,w_2,w_3)/P(w_1 or w_2 or w_3) = 2/3 / 1 =
-                 * 2/3
+                 * C_s,oneone= 1/6 * ((P(w_1,w_2)/(P(w_1)^6)) +
+                 * (P(w_1,w_2)/(P(w_2)^6)) + (P(w_1,w_3)/(P(w_1)^6)) +
+                 * (P(w_1,w_3)/(P(w_3)^6)) + (P(w_2,w_3)/(P(w_2)^6)) +
+                 * (P(w_2,w_3)/(P(w_3)^6))) = 1/6 * ((2/3 / 1) + (2/3 / 64/729)
+                 * + (2/3 / 1) + (2/3 / 64/729) + (2/3 / 64/729) + (2/3 /
+                 * 64/729)) = 1/6 * (4/3 + 4 * (243 / 32)) = 1/6 * (4/3 + 243/8)
+                 * = 761/144
                  */
-                { new OneAll(), 3,
+                { new OneOne(), 3,
                         new double[] { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
-                        2.0 / 3.0 },
+                        761.0 / 144.0 },
 
                 /*
                  * word1 0 1 1
@@ -52,9 +57,13 @@ public class OlssonsCoherenceCalculationTest extends AbstractCalculationTest {
                  * 
                  * word3 1 1 0
                  * 
-                 * C_o,oneall= P(w_1,w_2,w_3)/P(w_1 or w_2 or w_3) = 0 / 1 = 0
-                 */{ new OneAll(), 3,
-                        new double[] { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0, 0 }, 0 },
+                 * C_s,oneone= 1/6 * ((P(w_1,w_2)/(P(w_1)^6)) +
+                 * (P(w_1,w_2)/(P(w_2)^6)) + (P(w_1,w_3)/(P(w_1)^6)) +
+                 * (P(w_1,w_3)/(P(w_3)^6)) + (P(w_2,w_3)/(P(w_2)^6)) +
+                 * (P(w_2,w_3)/(P(w_3)^6))) = 1/6 * (6* (1/3 / 64/729)) = 243/64
+                 */{ new OneOne(), 3,
+                        new double[] { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0, 0 },
+                        243.0 / 64.0 },
                 /*
                  * word1 0 0 0 1
                  * 
@@ -62,14 +71,17 @@ public class OlssonsCoherenceCalculationTest extends AbstractCalculationTest {
                  * 
                  * word3 0 0 1 1
                  * 
-                 * C_o,oneall= P(w_1,w_2,w_3)/P(w_1 or w_2 or w_3) = 1/4 / 3/4 =
-                 * 1/3
+                 * C_s,oneone= 1/6 * ((P(w_1,w_2)/(P(w_1)^6)) +
+                 * (P(w_1,w_2)/(P(w_2)^6)) + (P(w_1,w_3)/(P(w_1)^6)) +
+                 * (P(w_1,w_3)/(P(w_3)^6)) + (P(w_2,w_3)/(P(w_2)^6)) +
+                 * (P(w_2,w_3)/(P(w_3)^6))) = 1/6 * (2 * (1/4 / 1/4096) + 4 *
+                 * (1/4 / 1/64)) = 1/6 * (2048 + 64) = 352
                  */
-                { new OneAll(), 3, new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 }, 1.0 / 3.0 } });
+                { new OneOne(), 3, new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 }, 352 } });
     }
 
-    public OlssonsCoherenceCalculationTest(SubsetCreator subsetCreator, int wordsetSize, double[] probabilities,
+    public ShogenjisCoherenceCalculationTest(SubsetCreator subsetCreator, int wordsetSize, double[] probabilities,
             double expectedCoherence) {
-        super(new OlssonsCoherenceCalculation(), subsetCreator, wordsetSize, probabilities, expectedCoherence);
+        super(new ShogenjisCoherenceCalculation(), subsetCreator, wordsetSize, probabilities, expectedCoherence);
     }
 }

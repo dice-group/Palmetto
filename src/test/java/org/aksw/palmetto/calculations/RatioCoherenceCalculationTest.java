@@ -1,3 +1,19 @@
+/**
+ * Copyright (C) 2014 Michael Röder (michael.roeder@unister.de)
+ *
+ * Licensed under the Creative Commons Attribution-NonCommercial 4.0
+ * International Public License (the "License").
+ * You may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://creativecommons.org/licenses/by-nc/4.0/legalcode
+ *
+ * Unless required by applicable law or agreed to in writing, a file
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.aksw.palmetto.calculations;
 
 import java.util.Arrays;
@@ -22,7 +38,7 @@ public class RatioCoherenceCalculationTest extends AbstractCalculationTest {
                  * 
                  * word3 0 1 1
                  * 
-                 * C_d,oneone= 1/3 * ((P(w_1,w_2)/(P(w_1)*P(w_2))) +
+                 * C_r,oneone= 1/3 * ((P(w_1,w_2)/(P(w_1)*P(w_2))) +
                  * (P(w_1,w_3)/(P(w_1)*P(w_3))) + (P(w_2,w_3)/(P(w_2)*P(w_3))))
                  * = 1/3 * (2/3 / (1 * 2/3)) + (2/3 / (1 * 2/3)) + (2/3 / (2/3 *
                  * 2/3))) = 1/3 * (1 + 1 + 3/2) = 7/6
@@ -38,7 +54,7 @@ public class RatioCoherenceCalculationTest extends AbstractCalculationTest {
                  * 
                  * word3 1 1 0
                  * 
-                 * C_d,oneone= 1/3 * ((P(w_1,w_2)/(P(w_1)*P(w_2))) +
+                 * C_r,oneone= 1/3 * ((P(w_1,w_2)/(P(w_1)*P(w_2))) +
                  * (P(w_1,w_3)/(P(w_1)*P(w_3))) + (P(w_2,w_3)/(P(w_2)*P(w_3))))
                  * = 1/3 * ((1/3 / (2/3 * 2/3)) + (1/3 / (2/3 * 2/3)) + (1/3 /
                  * (2/3 * 2/3))) = 3/4
@@ -52,7 +68,7 @@ public class RatioCoherenceCalculationTest extends AbstractCalculationTest {
                  * 
                  * word3 0 0 1 1
                  * 
-                 * C_d,oneone= 1/3 * ((P(w_1,w_2)/(P(w_1)*P(w_2))) +
+                 * C_r,oneone= 1/3 * ((P(w_1,w_2)/(P(w_1)*P(w_2))) +
                  * (P(w_1,w_3)/(P(w_1)*P(w_3))) + (P(w_2,w_3)/(P(w_2)*P(w_3))))
                  * = 1/3 * ((1/4 / (1/4 * 1/2)) + (1/4 / (1/4 * 1/2)) + (1/4 /
                  * (1/2 * 1/2))) = 1/3 * (2 + 2 + 1) = 5/3
