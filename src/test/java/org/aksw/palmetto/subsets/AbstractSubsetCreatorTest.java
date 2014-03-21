@@ -48,7 +48,7 @@ public abstract class AbstractSubsetCreatorTest {
             neededCounts.set(expectedSegments[i]);
             for (int j = 0; j < expectedConditions[i].length; j++) {
                 neededCounts
-                        .set(expectedSegments[i] + expectedConditions[i][j]);
+                        .set(expectedSegments[i] | expectedConditions[i][j]);
             }
         }
     }
