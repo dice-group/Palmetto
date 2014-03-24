@@ -1,0 +1,81 @@
+<class-diagram version="1.0.10" icons="true" automaticImage="PNG" always-add-relationships="false" 
+  generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
+  <class id="1" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.weight.EqualWeighter" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/weight/EqualWeighter.java" binary="false">    
+    <position height="112" width="234" x="-49" y="208"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="2" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.weight.Weighter" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/weight/Weighter.java" binary="false">    
+    <position height="-1" width="-1" x="617" y="62"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.weight.WordSetSizeBasedWeighter" 
+    project="Palmetto" file="/Palmetto/src/main/java/org/aksw/palmetto/weight/WordSetSizeBasedWeighter.java" 
+    binary="false">    
+    <position height="112" width="234" x="500" y="208"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" 
+    name="org.aksw.palmetto.weight.ConditionalProbabilityBasedWeighter" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/weight/ConditionalProbabilityBasedWeighter.java" binary="false">    
+    <position height="112" width="235" x="225" y="208"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="5" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.weight.CompleteProbabilityBasedWeighter" 
+    project="Palmetto" file="/Palmetto/src/main/java/org/aksw/palmetto/weight/CompleteProbabilityBasedWeighter.java" 
+    binary="false">    
+    <position height="112" width="234" x="774" y="208"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.weight.MarginalProbabilityBasedWeighter" 
+    project="Palmetto" file="/Palmetto/src/main/java/org/aksw/palmetto/weight/MarginalProbabilityBasedWeighter.java" 
+    binary="false">    
+    <position height="112" width="234" x="1048" y="208"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <realization id="7">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="8">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="9">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="10">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <realization id="11">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
