@@ -33,9 +33,24 @@ public class Spearman implements RankCorrelationCalculator, Comparator<ValuePair
         for (int i = 0; i < x.length; ++i) {
             sortedX[i] = new ValuePair(x[i], i);
             sortedY[i] = new ValuePair(y[i], i);
+            if(Double.isNaN(x[i]) || Double.isNaN(y[i])) {
+                System.out.println("STOP!");
+            }
         }
-        Arrays.sort(sortedX, this);
-        Arrays.sort(sortedY, this);
+        try {
+            Arrays.sort(sortedX, this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(Arrays.toString(sortedX));
+            return -1;
+        }
+        try {
+            Arrays.sort(sortedY, this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(Arrays.toString(sortedY));
+            return -1;
+        }
 
         double ranks1[] = createRanks(sortedX);
         double ranks2[] = createRanks(sortedY);
@@ -93,10 +108,9 @@ public class Spearman implements RankCorrelationCalculator, Comparator<ValuePair
 
         @Override
         public int compareTo(ValuePair v) {
-            double diff = this.first - v.first;
-            if (diff < 0) {
+            if (this.first < v.first) {
                 return -1;
-            } else if (diff > 0) {
+            } else if (this.first > v.first) {
                 return 1;
             } else {
                 return 0;

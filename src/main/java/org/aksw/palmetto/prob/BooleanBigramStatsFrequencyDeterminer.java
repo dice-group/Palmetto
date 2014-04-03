@@ -20,6 +20,7 @@ import org.aksw.palmetto.corpus.BooleanBigramStatsSupportingAdapter;
 import org.aksw.palmetto.subsets.CountedSubsets;
 import org.aksw.palmetto.subsets.SubsetDefinition;
 
+@Deprecated
 public class BooleanBigramStatsFrequencyDeterminer implements FrequencyDeterminer {
 
     private BooleanBigramStatsSupportingAdapter corpusAdapter;
@@ -28,12 +29,12 @@ public class BooleanBigramStatsFrequencyDeterminer implements FrequencyDetermine
         this.corpusAdapter = corpusAdapter;
     }
 
-    public double getNumberOfWordCounts() {
-        return corpusAdapter.getNumberOfWords();
+    public double getWordCountsSum() {
+        return corpusAdapter.getWordCountsSum();
     }
 
-    public double getNumberOfWordCooccurences() {
-        return corpusAdapter.getNumberOfCooccurences();
+    public double getWordCooccurenceCountsSum() {
+        return corpusAdapter.getWordCooccurenceCountsSum();
     }
 
     public CountedSubsets[] determineCounts(String[][] wordsets,

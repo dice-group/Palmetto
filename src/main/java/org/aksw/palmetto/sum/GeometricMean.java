@@ -16,7 +16,6 @@
  */
 package org.aksw.palmetto.sum;
 
-
 public class GeometricMean implements Summarization {
 
     @Override
@@ -55,6 +54,10 @@ public class GeometricMean implements Summarization {
             weightSum += weights[i];
         }
 
-        return Math.pow(prod, 1.0 / weightSum);
+        if (weightSum > 0) {
+            return Math.pow(prod, 1.0 / weightSum);
+        } else {
+            return 0;
+        }
     }
 }

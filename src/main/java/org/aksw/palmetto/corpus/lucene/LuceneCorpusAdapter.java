@@ -39,9 +39,9 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
     private static final Logger LOGGER = LoggerFactory
             .getLogger(LuceneCorpusAdapter.class);
 
-    private String fieldName;
-    private DirectoryReader dirReader;
-    private AtomicReader reader[];
+    protected String fieldName;
+    protected DirectoryReader dirReader;
+    protected AtomicReader reader[];
 
     public static LuceneCorpusAdapter create(String indexPath, String fieldName)
             throws CorruptIndexException, IOException {

@@ -16,7 +16,6 @@
  */
 package org.aksw.palmetto.sum;
 
-
 public class QuadraticMean implements Summarization {
 
     @Override
@@ -46,6 +45,10 @@ public class QuadraticMean implements Summarization {
             sum += weights[i] * Math.pow(values[i], 2);
             weightSum += weights[i];
         }
-        return Math.sqrt(sum / weightSum);
+        if (weightSum > 0) {
+            return Math.sqrt(sum / weightSum);
+        } else {
+            return 0;
+        }
     }
 }

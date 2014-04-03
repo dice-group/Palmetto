@@ -16,13 +16,14 @@
  */
 package org.aksw.palmetto.corpus;
 
+@Deprecated
 public interface BooleanBigramStatsSupportingAdapter extends CorpusAdapter {
 
     public int getCount(String word1);
 
-    public double getNumberOfWords();
+    public double getWordCountsSum();
 
     public int getCooccurenceCount(String word1, String word2);
 
-    public double getNumberOfCooccurences();
+    public double getWordCooccurenceCountsSum();
 }

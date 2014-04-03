@@ -40,6 +40,9 @@ public class CondProbCoherenceCalculation implements CoherenceCalculation {
                     if ((conditionProbability > 0) && (intersectionProbability > 0)) {
                         values[pos] = intersectionProbability / conditionProbability;
                     }
+                    if(Double.isNaN(values[pos])) {
+                        System.out.println("STOP!");
+                    }
                     ++pos;
                 }
             } else {

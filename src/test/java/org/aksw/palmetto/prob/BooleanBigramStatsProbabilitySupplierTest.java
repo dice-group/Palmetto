@@ -30,6 +30,7 @@ import org.junit.runners.Parameterized.Parameters;
 
 import com.carrotsearch.hppc.BitSet;
 
+@Deprecated
 @RunWith(Parameterized.class)
 public class BooleanBigramStatsProbabilitySupplierTest implements BooleanBigramStatsSupportingAdapter {
 
@@ -104,16 +105,16 @@ public class BooleanBigramStatsProbabilitySupplierTest implements BooleanBigramS
     private int wordCooccurences[][];
     private int minFrequency;
     private double expectedProbabilities[];
-    private double numberOfCooccurenceCounts;
-    private double numberOfWordCounts;
+    private double wordCooccurenceCountsSum;
+    private double wordCountsSum;
 
     public BooleanBigramStatsProbabilitySupplierTest(int[][] wordCooccurences, int minFrequency,
             double numberOfCooccurenceCounts, double numberOfWordCounts, double[] expectedProbabilities) {
         this.wordCooccurences = wordCooccurences;
         this.minFrequency = minFrequency;
         this.expectedProbabilities = expectedProbabilities;
-        this.numberOfCooccurenceCounts = numberOfCooccurenceCounts;
-        this.numberOfWordCounts = numberOfWordCounts;
+        this.wordCooccurenceCountsSum = numberOfCooccurenceCounts;
+        this.wordCountsSum = numberOfWordCounts;
     }
 
     @Test
@@ -140,8 +141,8 @@ public class BooleanBigramStatsProbabilitySupplierTest implements BooleanBigramS
     }
 
     @Override
-    public double getNumberOfWords() {
-        return numberOfWordCounts;
+    public double getWordCountsSum() {
+        return wordCountsSum;
     }
 
     @Override
@@ -152,7 +153,7 @@ public class BooleanBigramStatsProbabilitySupplierTest implements BooleanBigramS
     }
 
     @Override
-    public double getNumberOfCooccurences() {
-        return numberOfCooccurenceCounts;
+    public double getWordCooccurenceCountsSum() {
+        return wordCooccurenceCountsSum;
     }
 }

@@ -16,7 +16,6 @@
  */
 package org.aksw.palmetto.sum;
 
-
 public class ArithmeticMean implements Summarization {
 
     @Override
@@ -46,6 +45,10 @@ public class ArithmeticMean implements Summarization {
             sum += weights[i] * values[i];
             weightSum += weights[i];
         }
-        return sum / weightSum;
+        if (weightSum > 0) {
+            return sum / weightSum;
+        } else {
+            return 0;
+        }
     }
 }

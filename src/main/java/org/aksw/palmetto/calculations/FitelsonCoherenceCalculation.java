@@ -47,7 +47,11 @@ public class FitelsonCoherenceCalculation implements CoherenceCalculation {
                 } else {
                     otherCondProb = 0;
                 }
-                values[pos] = (conditionalProbability - otherCondProb) / (conditionalProbability + otherCondProb);
+                if ((conditionalProbability > 0) || (otherCondProb > 0)) {
+                    values[pos] = (conditionalProbability - otherCondProb) / (conditionalProbability + otherCondProb);
+                } else {
+                    values[pos] = 0;
+                }
                 ++pos;
             }
         }

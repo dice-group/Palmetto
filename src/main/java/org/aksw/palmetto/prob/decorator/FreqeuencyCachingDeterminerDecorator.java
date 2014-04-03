@@ -24,7 +24,7 @@ import org.aksw.palmetto.subsets.SubsetDefinition;
 
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
-public class FreqeuencyCachingDeterminerDecorator extends AbstractFrequencyDeterminerDecorator {
+public class FreqeuencyCachingDeterminerDecorator extends AbstractSlidingWindowFrequencyDeterminerDecorator {
 
     private IntObjectOpenHashMap<int[]> cache = new IntObjectOpenHashMap<int[]>();
 

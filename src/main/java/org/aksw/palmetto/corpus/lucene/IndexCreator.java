@@ -41,6 +41,7 @@ public class IndexCreator {
             .getLogger(IndexCreator.class);
 
     private static final Version version = Version.LUCENE_44;
+    private static final int COMMIT_INTERVAL = 1000;
 
     private String fieldName;
 
@@ -64,10 +65,17 @@ public class IndexCreator {
 
             writer = new IndexWriter(FSDirectory.open(indexPath), config);
             String text = supplier.getNextDocumentText();
+            int count = 0;
             while (text != null) {
                 writer.addDocument(toLuceneDocument(analyzer,
                         text, fieldType));
+                ++count;
                 text = supplier.getNextDocumentText();
+                if (count >= COMMIT_INTERVAL) {
+                    writer.commit();
+                    System.gc();
+                    count = 0;
+                }
             }
             // LOGGER.info("Optimizing...");
             // writer.optimize();

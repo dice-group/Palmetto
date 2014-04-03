@@ -29,6 +29,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+@Deprecated
 @RunWith(Parameterized.class)
 public class BooleanBigramStatsFrequencyDeterminerTest implements BooleanBigramStatsSupportingAdapter {
 
@@ -71,15 +72,15 @@ public class BooleanBigramStatsFrequencyDeterminerTest implements BooleanBigramS
 
     private int wordCooccurences[][];
     private int expectedCounts[];
-    private double numberOfCooccurenceCounts;
-    private double numberOfWordCounts;
+    private double wordCooccurenceCountsSum;
+    private double wordCountsSum;
 
     public BooleanBigramStatsFrequencyDeterminerTest(int[][] wordCooccurences, double numberOfCooccurenceCounts,
             double numberOfWordCounts, int[] expectedCounts) {
         this.wordCooccurences = wordCooccurences;
         this.expectedCounts = expectedCounts;
-        this.numberOfCooccurenceCounts = numberOfCooccurenceCounts;
-        this.numberOfWordCounts = numberOfWordCounts;
+        this.wordCooccurenceCountsSum = numberOfCooccurenceCounts;
+        this.wordCountsSum = numberOfWordCounts;
     }
 
     @Test
@@ -95,8 +96,8 @@ public class BooleanBigramStatsFrequencyDeterminerTest implements BooleanBigramS
 
         int counts[] = countedSubsets[0].counts;
         Assert.assertArrayEquals(expectedCounts, counts);
-        Assert.assertEquals(numberOfWordCounts, freqDeterminer.getNumberOfWordCounts(), DOUBLE_PRECISION_DELTA);
-        Assert.assertEquals(numberOfCooccurenceCounts, freqDeterminer.getNumberOfWordCooccurences(),
+        Assert.assertEquals(wordCountsSum, freqDeterminer.getWordCountsSum(), DOUBLE_PRECISION_DELTA);
+        Assert.assertEquals(wordCooccurenceCountsSum, freqDeterminer.getWordCooccurenceCountsSum(),
                 DOUBLE_PRECISION_DELTA);
     }
 
@@ -107,8 +108,8 @@ public class BooleanBigramStatsFrequencyDeterminerTest implements BooleanBigramS
     }
 
     @Override
-    public double getNumberOfWords() {
-        return numberOfWordCounts;
+    public double getWordCountsSum() {
+        return wordCountsSum;
     }
 
     @Override
@@ -119,7 +120,7 @@ public class BooleanBigramStatsFrequencyDeterminerTest implements BooleanBigramS
     }
 
     @Override
-    public double getNumberOfCooccurences() {
-        return numberOfCooccurenceCounts;
+    public double getWordCooccurenceCountsSum() {
+        return wordCooccurenceCountsSum;
     }
 }

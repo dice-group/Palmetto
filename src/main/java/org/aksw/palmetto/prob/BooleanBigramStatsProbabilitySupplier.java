@@ -21,6 +21,7 @@ import org.aksw.palmetto.corpus.CorpusAdapter;
 import org.aksw.palmetto.subsets.CountedSubsets;
 import org.aksw.palmetto.subsets.SubsetProbabilities;
 
+@Deprecated
 public class BooleanBigramStatsProbabilitySupplier extends AbstractProbabilitySupplier {
 
     public static BooleanBigramStatsProbabilitySupplier create(CorpusAdapter adapter) {
@@ -43,8 +44,8 @@ public class BooleanBigramStatsProbabilitySupplier extends AbstractProbabilitySu
 
     protected BooleanBigramStatsProbabilitySupplier(BooleanBigramStatsFrequencyDeterminer freqDeterminer) {
         super(freqDeterminer);
-        numberOfWordCounts = freqDeterminer.getNumberOfWordCounts();
-        numberOfWordCooccurenceCounts = freqDeterminer.getNumberOfWordCooccurences();
+        numberOfWordCounts = freqDeterminer.getWordCountsSum();
+        numberOfWordCooccurenceCounts = freqDeterminer.getWordCooccurenceCountsSum();
     }
 
     @Override
