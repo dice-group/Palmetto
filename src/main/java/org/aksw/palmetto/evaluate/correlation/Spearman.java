@@ -17,11 +17,8 @@
 package org.aksw.palmetto.evaluate.correlation;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
-import org.aksw.palmetto.evaluate.correlation.Spearman.ValuePair;
-
-public class Spearman implements RankCorrelationCalculator, Comparator<ValuePair> {
+public class Spearman implements RankCorrelationCalculator/* , Comparator<ValuePair> */{
 
     public double calculateRankCorrelation(final double x[], final double y[]) {
         if (x.length != y.length) {
@@ -33,19 +30,21 @@ public class Spearman implements RankCorrelationCalculator, Comparator<ValuePair
         for (int i = 0; i < x.length; ++i) {
             sortedX[i] = new ValuePair(x[i], i);
             sortedY[i] = new ValuePair(y[i], i);
-            if(Double.isNaN(x[i]) || Double.isNaN(y[i])) {
+            if (Double.isNaN(x[i]) || Double.isNaN(y[i])) {
                 System.out.println("STOP!");
             }
         }
         try {
-            Arrays.sort(sortedX, this);
+            // Arrays.sort(sortedX, this);
+            Arrays.sort(sortedX);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(Arrays.toString(sortedX));
             return -1;
         }
         try {
-            Arrays.sort(sortedY, this);
+            // Arrays.sort(sortedY, this);
+            Arrays.sort(sortedY);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(Arrays.toString(sortedY));
@@ -85,17 +84,17 @@ public class Spearman implements RankCorrelationCalculator, Comparator<ValuePair
         return 1 - ((6 * sum) / (ranks1.length * (Math.pow(ranks1.length, 2) - 1)));
     }
 
-    @Override
-    public int compare(ValuePair pair1, ValuePair pair2) {
-        double diff = pair1.first - pair2.first;
-        if (diff < 0) {
-            return -1;
-        } else if (diff > 0) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
+    // @Override
+    // public int compare(ValuePair pair1, ValuePair pair2) {
+    // double diff = pair1.first - pair2.first;
+    // if (diff < 0) {
+    // return -1;
+    // } else if (diff > 0) {
+    // return 1;
+    // } else {
+    // return 0;
+    // }
+    // }
 
     protected static class ValuePair implements Comparable<ValuePair> {
         public double first;
@@ -108,6 +107,16 @@ public class Spearman implements RankCorrelationCalculator, Comparator<ValuePair
 
         @Override
         public int compareTo(ValuePair v) {
+            if (Double.isNaN(this.first)) {
+                if (Double.isNaN(v.first)) {
+                    return 0;
+                } else {
+                    return -1;
+                }
+            }
+            if (Double.isNaN(v.first)) {
+                return 1;
+            }
             if (this.first < v.first) {
                 return -1;
             } else if (this.first > v.first) {

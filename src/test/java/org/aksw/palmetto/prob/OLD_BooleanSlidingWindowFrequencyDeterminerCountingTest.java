@@ -16,9 +16,7 @@ import com.carrotsearch.hppc.IntIntOpenHashMap;
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 @RunWith(Parameterized.class)
-public class BooleanSlidingWindowProbabilitySupplierTest implements SlidingWindowSupportingAdapter {
-
-    private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
+public class OLD_BooleanSlidingWindowFrequencyDeterminerCountingTest implements SlidingWindowSupportingAdapter {
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -30,63 +28,58 @@ public class BooleanSlidingWindowProbabilitySupplierTest implements SlidingWindo
                          */
                         // We ask for A and B with a window size of 3
                         { 7, new int[][] { { 0, 4 }, { 1, 3 }, {} }, 3,
-                                new double[] { 0, 4.0 / 5.0, 4.0 / 5.0, 3.0 / 5.0, 0, 0, 0, 0 } },
+                                new int[] { 0, 2, 2, 2, 0, 0, 0, 0 } },
                         // We ask for A and C with a window size of 3
                         { 7, new int[][] { { 0, 4 }, {}, { 2, 5, 6 } }, 3,
-                                new double[] { 0, 4.0 / 5.0, 0, 0, 1.0, 4.0 / 5.0, 0, 0 } },
+                                new int[] { 0, 2, 0, 0, 3, 4, 0, 0 } },
                         // We ask for B and C with a window size of 3
                         { 7, new int[][] { {}, { 1, 3 }, { 2, 5, 6 } }, 3,
-                                new double[] { 0, 0, 4.0 / 5.0, 0, 1.0, 0, 4.0 / 5.0, 0 } },
+                                new int[] { 0, 0, 2, 0, 3, 0, 3, 0 } },
                         // We ask for A, B and C with a window size of 3
-                        {
-                                7,
-                                new int[][] { { 0, 4 }, { 1, 3 }, { 2, 5, 6 } },
-                                3,
-                                new double[] { 0, 4.0 / 5.0, 4.0 / 5.0, 3.0 / 5.0, 1.0, 4.0 / 5.0, 4.0 / 5.0,
-                                        3.0 / 5.0 } },
+                        { 7, new int[][] { { 0, 4 }, { 1, 3 }, { 2, 5, 6 } }, 3,
+                                new int[] { 0, 2, 2, 2, 3, 4, 3, 3 } },
                         // We ask for A and B with a window size of 4
                         { 7, new int[][] { { 0, 4 }, { 1, 3 }, {} }, 4,
-                                new double[] { 0, 1.0, 1.0, 1.0, 0, 0, 0, 0 } },
+                                new int[] { 0, 2, 2, 4, 0, 0, 0, 0 } },
                         // We ask for A and C with a window size of 4
                         { 7, new int[][] { { 0, 4 }, {}, { 2, 5, 6 } }, 4,
-                                new double[] { 0, 1.0, 0, 0, 1.0, 1.0, 0, 0 } },
+                                new int[] { 0, 2, 0, 0, 3, 4, 0, 0 } },
                         // We ask for B and C with a window size of 4
                         { 7, new int[][] { {}, { 1, 3 }, { 2, 5, 6 } }, 4,
-                                new double[] { 0, 0, 1.0, 0, 1.0, 0, 1.0, 0 } },
+                                new int[] { 0, 0, 2, 0, 3, 0, 4, 0 } },
                         // We ask for A, B and C with a window size of 4
-                        {
-                                7,
-                                new int[][] { { 0, 4 }, { 1, 3 }, { 2, 5, 6 } },
-                                4,
-                                new double[] { 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 } } });
+                        { 7, new int[][] { { 0, 4 }, { 1, 3 }, { 2, 5, 6 } }, 4,
+                                new int[] { 0, 2, 2, 4, 3, 4, 4, 6 } } });
     }
 
     private int histogram[][];
     private int docLength;
     private int positions[][];
     private int windowSize;
-    private double expectedProbabilities[];
+    private int expectedCounts[];
 
-    public BooleanSlidingWindowProbabilitySupplierTest(int docLength, int[][] positions, int windowSize,
-            double expectedProbabilities[]) {
+    public OLD_BooleanSlidingWindowFrequencyDeterminerCountingTest(int docLength, int[][] positions,
+            int windowSize, int expectedCounts[]) {
         this.docLength = docLength;
         this.histogram = new int[][] { { docLength, 1 } };
         this.positions = positions;
         this.windowSize = windowSize;
-        this.expectedProbabilities = expectedProbabilities;
+        this.expectedCounts = expectedCounts;
     }
 
     @Test
     public void test() {
-        BooleanSlidingWindowFrequencyDeterminer determiner = new BooleanSlidingWindowFrequencyDeterminer(this,
+        OLD_BooleanSlidingWindowFrequencyDeterminer determiner = new OLD_BooleanSlidingWindowFrequencyDeterminer(this,
                 windowSize);
-        SlidingWindowProbabilitySupplier supplier = new SlidingWindowProbabilitySupplier(determiner);
-        supplier.setMinFrequency(1);
-
-        double probabilities[] = supplier.getProbabilities(new String[][] { { "A", "B", "C" } },
+        IntArrayList lists[] = new IntArrayList[positions.length];
+        for (int i = 0; i < lists.length; ++i) {
+            lists[i] = new IntArrayList(positions[i].length);
+            lists[i].add(positions[i]);
+        }
+        int counts[] = determiner.determineCounts(new String[][] { { "A", "B", "C" } },
                 new SubsetDefinition[] { new SubsetDefinition(
-                        new int[0], new int[0][0], null) })[0].probabilities;
-        Assert.assertArrayEquals(expectedProbabilities, probabilities, DOUBLE_PRECISION_DELTA);
+                        new int[0], new int[0][0], null) })[0].counts;
+        Assert.assertArrayEquals(expectedCounts, counts);
     }
 
     @Override

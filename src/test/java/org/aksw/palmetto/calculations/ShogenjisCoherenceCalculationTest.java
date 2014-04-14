@@ -38,17 +38,16 @@ public class ShogenjisCoherenceCalculationTest extends AbstractCalculationTest {
                  * 
                  * word3 0 1 1
                  * 
-                 * C_s,oneone= 1/6 * ((P(w_1,w_2)/(P(w_1)^6)) +
-                 * (P(w_1,w_2)/(P(w_2)^6)) + (P(w_1,w_3)/(P(w_1)^6)) +
-                 * (P(w_1,w_3)/(P(w_3)^6)) + (P(w_2,w_3)/(P(w_2)^6)) +
-                 * (P(w_2,w_3)/(P(w_3)^6))) = 1/6 * ((2/3 / 1) + (2/3 / 64/729)
-                 * + (2/3 / 1) + (2/3 / 64/729) + (2/3 / 64/729) + (2/3 /
-                 * 64/729)) = 1/6 * (4/3 + 4 * (243 / 32)) = 1/6 * (4/3 + 243/8)
-                 * = 761/144
+                 * C_s,oneone= 1/6 * (log(P(w_1,w_2)/(P(w_1)^6)) +
+                 * log(P(w_1,w_2)/(P(w_2)^6)) + log(P(w_1,w_3)/(P(w_1)^6)) +
+                 * log(P(w_1,w_3)/(P(w_3)^6)) + log(P(w_2,w_3)/(P(w_2)^6)) +
+                 * log(P(w_2,w_3)/(P(w_3)^6))) = 1/6 * (log(2/3 / 1) + log(2/3 / 64/729)
+                 * + log(2/3 / 1) + log(2/3 / 64/729) + log(2/3 / 64/729) + log(2/3 /
+                 * 64/729)) = 1/6 * (2*log(2/3) + 4 * log(243 / 32))
                  */
                 { new OneOne(), 3,
                         new double[] { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
-                        761.0 / 144.0 },
+                        (2 * Math.log(2.0 / 3.0) + 4 * Math.log(243.0 / 32.0)) / 6 },
 
                 /*
                  * word1 0 1 1
@@ -57,13 +56,13 @@ public class ShogenjisCoherenceCalculationTest extends AbstractCalculationTest {
                  * 
                  * word3 1 1 0
                  * 
-                 * C_s,oneone= 1/6 * ((P(w_1,w_2)/(P(w_1)^6)) +
-                 * (P(w_1,w_2)/(P(w_2)^6)) + (P(w_1,w_3)/(P(w_1)^6)) +
-                 * (P(w_1,w_3)/(P(w_3)^6)) + (P(w_2,w_3)/(P(w_2)^6)) +
-                 * (P(w_2,w_3)/(P(w_3)^6))) = 1/6 * (6* (1/3 / 64/729)) = 243/64
+                 * C_s,oneone= 1/6 * (log(P(w_1,w_2)/(P(w_1)^6)) +
+                 * log(P(w_1,w_2)/(P(w_2)^6)) + log(P(w_1,w_3)/(P(w_1)^6)) +
+                 * log(P(w_1,w_3)/(P(w_3)^6)) + log(P(w_2,w_3)/(P(w_2)^6)) +
+                 * log(P(w_2,w_3)/(P(w_3)^6))) = 1/6 * (6* log(1/3 / 64/729)) = log(243/64)
                  */{ new OneOne(), 3,
                         new double[] { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0, 0 },
-                        243.0 / 64.0 },
+                        Math.log(243.0 / 64.0) },
                 /*
                  * word1 0 0 0 1
                  * 
@@ -71,13 +70,14 @@ public class ShogenjisCoherenceCalculationTest extends AbstractCalculationTest {
                  * 
                  * word3 0 0 1 1
                  * 
-                 * C_s,oneone= 1/6 * ((P(w_1,w_2)/(P(w_1)^6)) +
-                 * (P(w_1,w_2)/(P(w_2)^6)) + (P(w_1,w_3)/(P(w_1)^6)) +
-                 * (P(w_1,w_3)/(P(w_3)^6)) + (P(w_2,w_3)/(P(w_2)^6)) +
-                 * (P(w_2,w_3)/(P(w_3)^6))) = 1/6 * (2 * (1/4 / 1/4096) + 4 *
-                 * (1/4 / 1/64)) = 1/6 * (2048 + 64) = 352
+                 * C_s,oneone= 1/6 * (log(P(w_1,w_2)/(P(w_1)^6)) +
+                 * log(P(w_1,w_2)/(P(w_2)^6)) + log(P(w_1,w_3)/(P(w_1)^6)) +
+                 * log(P(w_1,w_3)/(P(w_3)^6)) + log(P(w_2,w_3)/(P(w_2)^6)) +
+                 * log(P(w_2,w_3)/(P(w_3)^6))) = 1/6 * (2 * log(1/4 / 1/4096) + 4 *
+                 * log(1/4 / 1/64))
                  */
-                { new OneOne(), 3, new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 }, 352 } });
+                { new OneOne(), 3, new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 },
+                        (2 * Math.log(1024) + 4 * Math.log(16)) / 6 } });
     }
 
     public ShogenjisCoherenceCalculationTest(SubsetCreator subsetCreator, int wordsetSize, double[] probabilities,

@@ -19,6 +19,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.carrotsearch.hppc.IntArrayList;
+import com.carrotsearch.hppc.IntIntOpenHashMap;
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 public class LuceneCorpusAdapterForSlidingWindows extends LuceneCorpusAdapter implements SlidingWindowSupportingAdapter {
@@ -27,7 +28,8 @@ public class LuceneCorpusAdapterForSlidingWindows extends LuceneCorpusAdapter im
 
     public static final String HISTOGRAM_FILE_SUFFIX = ".histogram";
 
-    public static LuceneCorpusAdapterForSlidingWindows create(String indexPath, String fieldName)
+    public static LuceneCorpusAdapterForSlidingWindows create(String indexPath, String textFieldName,
+            String docLengthFieldName)
             throws CorruptIndexException, IOException {
         DirectoryReader dirReader = DirectoryReader.open(new SimpleFSDirectory(
                 new File(indexPath)));
@@ -57,23 +59,18 @@ public class LuceneCorpusAdapterForSlidingWindows extends LuceneCorpusAdapter im
             return null;
         }
 
-        return new LuceneCorpusAdapterForSlidingWindows(dirReader, reader, fieldName, histogram);
+        return new LuceneCorpusAdapterForSlidingWindows(dirReader, reader, textFieldName, docLengthFieldName, histogram);
     }
 
     protected int histogram[][];
+    protected String docLengthFieldName;
 
-    protected LuceneCorpusAdapterForSlidingWindows(DirectoryReader dirReader, AtomicReader[] reader, String fieldName,
-            int histogram[][]) {
-        super(dirReader, reader, fieldName);
+    protected LuceneCorpusAdapterForSlidingWindows(DirectoryReader dirReader, AtomicReader[] reader,
+            String textFieldName, String docLengthFieldName, int histogram[][]) {
+        super(dirReader, reader, textFieldName);
         this.histogram = histogram;
+        this.docLengthFieldName = docLengthFieldName;
     }
-
-    // @Override
-    // public void setWindowSize(int windowSize) {
-    // counter.setWindowSize(windowSize);
-    // // TODO Create maximum number of windows that are available (counting sliding window)
-    // // TODO Create maximum number of 2 / 3 / 4 ... words that could be together in a window
-    // }
 
     @Override
     public int[][] getDocumentSizeHistogram() {
@@ -81,16 +78,17 @@ public class LuceneCorpusAdapterForSlidingWindows extends LuceneCorpusAdapter im
     }
 
     @Override
-    public IntObjectOpenHashMap<IntArrayList[]> requestWordPositionsInDocuments(String[] words) {
+    public IntObjectOpenHashMap<IntArrayList[]> requestWordPositionsInDocuments(String[] words,
+            IntIntOpenHashMap docLengths) {
         IntObjectOpenHashMap<IntArrayList[]> positionsInDocs = new IntObjectOpenHashMap<IntArrayList[]>();
         for (int i = 0; i < words.length; ++i) {
-            requestDocumentsWithWord(words[i], positionsInDocs, i, words.length);
+            requestDocumentsWithWord(words[i], positionsInDocs, docLengths, i, words.length);
         }
         return positionsInDocs;
     }
 
     protected void requestDocumentsWithWord(String word, IntObjectOpenHashMap<IntArrayList[]> positionsInDocs,
-            int wordId, int numberOfWords) {
+            IntIntOpenHashMap docLengths, int wordId, int numberOfWords) {
         DocsAndPositionsEnum docPosEnum = null;
         Term term = new Term(fieldName, word);
         int docId;
@@ -114,6 +112,11 @@ public class LuceneCorpusAdapterForSlidingWindows extends LuceneCorpusAdapter im
                         // Go through the positions inside this document
                         for (int p = 0; p < docPosEnum.freq(); ++p) {
                             positions[wordId].add(docPosEnum.nextPosition());
+                        }
+                        if (!docLengths.containsKey(docId)) {
+                            // Get the length of the document
+                            docLengths.put(docId, reader[i].document(docId).getField(docLengthFieldName).numericValue()
+                                    .intValue());
                         }
                     }
                 }

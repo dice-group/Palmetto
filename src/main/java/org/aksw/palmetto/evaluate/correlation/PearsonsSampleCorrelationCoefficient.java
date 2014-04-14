@@ -27,22 +27,45 @@ public class PearsonsSampleCorrelationCoefficient implements RankCorrelationCalc
         }
 
         double avgX = 0, avgY = 0;
+        int pairs = 0;
         for (int i = 0; i < x.length; ++i) {
-            avgX += x[i];
-            avgY += y[i];
+            if ((!Double.isNaN(x[i])) && (!Double.isNaN(y[i]))) {
+                avgX += x[i];
+                avgY += y[i];
+                ++pairs;
+            }
         }
-        avgX /= x.length;
-        avgY /= y.length;
+        // If there are no valid pairs
+        if (pairs == 0) {
+            return 0;
+        }
+        avgX /= pairs;
+        avgY /= pairs;
 
         double tempX, tempY, varianceX = 0, varianceY = 0, covarianceXY = 0;
         for (int i = 0; i < x.length; ++i) {
-            tempX = x[i] - avgX;
-            varianceX += tempX * tempX;
-            tempY = y[i] - avgY;
-            varianceY += tempY * tempY;
-            covarianceXY += tempX * tempY;
+            if ((!Double.isNaN(x[i])) && (!Double.isNaN(y[i]))) {
+                tempX = x[i] - avgX;
+                varianceX += tempX * tempX;
+                tempY = y[i] - avgY;
+                varianceY += tempY * tempY;
+                covarianceXY += tempX * tempY;
+            }
         }
-
-        return covarianceXY / (Math.sqrt(varianceX) * Math.sqrt(varianceY));
+        if (varianceX == 0) {
+            if (varianceY == 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+        if (varianceY == 0) {
+            return 0;
+        }
+        double corr = covarianceXY / (Math.sqrt(varianceX) * Math.sqrt(varianceY));
+        if(Double.isNaN(corr) || Double.isInfinite(corr)) {
+            System.out.println("STOP!");
+        }
+        return corr;
     }
 }

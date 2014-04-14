@@ -18,9 +18,17 @@ package org.aksw.palmetto.subsets;
 
 import com.carrotsearch.hppc.BitSet;
 
-public class OneAny implements SubsetCreator {
+public class OneAny extends AbstractAnyBasedSubsetCreator {
 
-    public SubsetDefinition getSubsetDefinition(int wordsetSize) {
+    public OneAny() {
+    }
+
+    public OneAny(int maxSubSetSize, boolean isSubSetUnionSize) {
+        super(maxSubSetSize, isSubSetUnionSize);
+    }
+
+    @Override
+    protected SubsetDefinition getSubsetDefinitionWithoutRestrictions(int wordsetSize) {
         /*
          * Code the combinations of elements not with ids but with bits. 01 is
          * only the first element, 10 is the second and 11 is the combination of
@@ -45,30 +53,49 @@ public class OneAny implements SubsetCreator {
         return new SubsetDefinition(segments, conditions, neededCounts);
     }
 
-    protected int[] createConditions(int condition) {
-        int card = Integer.bitCount(condition);
-        // create all combinations of condition including the one which contains
-        // all
-        int conditions[] = new int[(1 << card) - 1];
-        int bit = 1, count = 0, pos, pos2, j;
-        while (count < card) {
-            if ((bit & condition) > 0) {
-                pos = (1 << count) - 1;
-                conditions[pos] = bit;
-                pos2 = pos + 1;
-                for (j = 0; j < pos; j++) {
-                    conditions[pos2] = conditions[j] | bit;
-                    ++pos2;
-                }
-                ++count;
-            }
+    @Override
+    protected SubsetDefinition getSubsetDefinitionWithRestrictions(int wordsetSize, int maxSingleSubSetSize,
+            int maxSubSetUnionSize) {
+        /*
+         * Code the combinations of elements not with ids but with bits. 01 is
+         * only the first element, 10 is the second and 11 is the combination of
+         * both.
+         */
+        int mask = (1 << wordsetSize) - 1;
+        int posInResult = 0;
+        int segments[] = new int[wordsetSize];
+        int conditions[][] = new int[segments.length][];
+        int bit = 1;
+        int conditionRestriction = maxSubSetUnionSize > maxSingleSubSetSize ? maxSingleSubSetSize
+                : (maxSubSetUnionSize - 1);
+        // Go through all possible probabilities
+        while (bit < mask) {
+            segments[posInResult] = bit;
+            // invert the probability elements to get the possible conditions
+            conditions[posInResult] = createRestrictedConditions(mask - bit, conditionRestriction);
             bit = bit << 1;
+            ++posInResult;
         }
-        return conditions;
+
+        BitSet neededCounts = new BitSet(1 << wordsetSize);
+        neededCounts.set(1, 1 << wordsetSize);
+        return new SubsetDefinition(segments, conditions, neededCounts);
     }
 
     @Override
     public String getName() {
-        return "S_one-any";
+        if (isSingleSubSetSizeRestricted()) {
+            if (isSubSetUnionSizeRestricted()) {
+                return "S_one-any(" + getMaxSingleSubSetSize() + ")_(" + getMaxSubSetUnionSize() + ")";
+            } else {
+                return "S_one-any(" + getMaxSingleSubSetSize() + ")";
+            }
+        } else {
+            if (isSubSetUnionSizeRestricted()) {
+                return "S_one-any_(" + getMaxSubSetUnionSize() + ")";
+            } else {
+                return "S_one-any";
+            }
+        }
     }
 }

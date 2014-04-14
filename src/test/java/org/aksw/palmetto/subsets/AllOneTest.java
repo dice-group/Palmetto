@@ -24,6 +24,6 @@ public class AllOneTest extends AbstractSubsetCreatorTest {
     public void testWordSetLength4() {
         int expectedSegments[] = new int[] { 14, 13, 11, 7 };
         int expectedConditions[][] = new int[][] { { 1 }, { 2 }, { 4 }, { 8 } };
-        testSubsetCreator(new AllOne(), expectedSegments, expectedConditions);
+        testSubsetCreator(4, new AllOne(), expectedSegments, expectedConditions);
     }
 }

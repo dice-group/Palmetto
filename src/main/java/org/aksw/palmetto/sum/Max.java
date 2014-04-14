@@ -16,7 +16,6 @@
  */
 package org.aksw.palmetto.sum;
 
-
 public class Max implements Summarization {
 
     @Override
@@ -40,12 +39,18 @@ public class Max implements Summarization {
     public double summarize(double[] values, double[] weights) {
         double value, max = Double.NEGATIVE_INFINITY;
         for (int i = 0; i < values.length; ++i) {
-            value = values[i] * weights[i];
-            if (value > max) {
-                max = value;
+            if (!Double.isNaN(values[i])) {
+                value = values[i] * weights[i];
+                if (value > max) {
+                    max = value;
+                }
             }
         }
-        return max;
+        if (Double.isInfinite(max)) {
+            return RETURN_VALUE_FOR_UNDEFINED;
+        } else {
+            return max;
+        }
     }
 
 }

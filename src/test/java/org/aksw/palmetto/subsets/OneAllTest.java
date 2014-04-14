@@ -26,6 +26,6 @@ public class OneAllTest extends AbstractSubsetCreatorTest {
 	int expectedConditions[][] = new int[][] { { 14 }, { 13 }, { 11 },
 		{ 7 } };
 
-	testSubsetCreator(new OneAll(), expectedSegments, expectedConditions);
+	testSubsetCreator(4, new OneAll(), expectedSegments, expectedConditions);
     }
 }

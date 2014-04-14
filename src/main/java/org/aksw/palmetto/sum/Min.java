@@ -16,7 +16,6 @@
  */
 package org.aksw.palmetto.sum;
 
-
 public class Min implements Summarization {
 
     @Override
@@ -40,12 +39,18 @@ public class Min implements Summarization {
     public double summarize(double[] values, double[] weights) {
         double value, min = Double.POSITIVE_INFINITY;
         for (int i = 0; i < values.length; ++i) {
-            value = values[i] * weights[i];
-            if (value < min) {
-                min = value;
+            if (!Double.isNaN(values[i])) {
+                value = values[i] * weights[i];
+                if (value < min) {
+                    min = value;
+                }
             }
         }
-        return min;
+        if (Double.isInfinite(min)) {
+            return RETURN_VALUE_FOR_UNDEFINED;
+        } else {
+            return min;
+        }
     }
 
 }

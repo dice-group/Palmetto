@@ -18,7 +18,15 @@ package org.aksw.palmetto.calculations;
 
 import org.aksw.palmetto.subsets.SubsetProbabilities;
 
-public class FitelsonCoherenceCalculation implements CoherenceCalculation {
+public class FitelsonCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation {
+
+    public FitelsonCoherenceCalculation() {
+        super();
+    }
+
+    public FitelsonCoherenceCalculation(double resultIfCalcUndefined) {
+        super(resultIfCalcUndefined);
+    }
 
     @Override
     public double[] calculateCoherenceValues(SubsetProbabilities subsetProbabilities) {
@@ -50,7 +58,7 @@ public class FitelsonCoherenceCalculation implements CoherenceCalculation {
                 if ((conditionalProbability > 0) || (otherCondProb > 0)) {
                     values[pos] = (conditionalProbability - otherCondProb) / (conditionalProbability + otherCondProb);
                 } else {
-                    values[pos] = 0;
+                    values[pos] = resultIfCalcUndefined;
                 }
                 ++pos;
             }
@@ -59,7 +67,7 @@ public class FitelsonCoherenceCalculation implements CoherenceCalculation {
     }
 
     @Override
-    public String getCalculationName() {
+    protected String getName() {
         return "m_f";
     }
 }

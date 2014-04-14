@@ -70,4 +70,9 @@ public class BooleanBigramStatsProbabilitySupplier extends AbstractProbabilitySu
         return "P_sw";
     }
 
+    @Override
+    public double getInverseProbability(int wordSetDef, int invertingWordSet, double[] probabilities) {
+        throw new IllegalAccessError("method hasn't been implemented");
+    }
+
 }

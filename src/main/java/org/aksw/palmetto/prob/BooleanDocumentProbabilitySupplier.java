@@ -23,10 +23,16 @@ import org.aksw.palmetto.subsets.SubsetProbabilities;
 
 public class BooleanDocumentProbabilitySupplier extends AbstractProbabilitySupplier {
 
+    private static final String DEFAULT_PROB_MODEL_NAME = "bd";
+
     public static BooleanDocumentProbabilitySupplier create(CorpusAdapter adapter) {
+        return create(adapter, DEFAULT_PROB_MODEL_NAME);
+    }
+
+    public static BooleanDocumentProbabilitySupplier create(CorpusAdapter adapter, String probModelName) {
         BooleanDocumentFrequencyDeterminer determiner = createFrequencyDeterminer(adapter);
         if (determiner != null) {
-            return new BooleanDocumentProbabilitySupplier(determiner);
+            return new BooleanDocumentProbabilitySupplier(determiner, probModelName);
         }
         return null;
     }
@@ -39,9 +45,12 @@ public class BooleanDocumentProbabilitySupplier extends AbstractProbabilitySuppl
     }
 
     private int numberOfDocuments;
+    private String probModelName;
 
-    protected BooleanDocumentProbabilitySupplier(BooleanDocumentFrequencyDeterminer freqDeterminer) {
+    protected BooleanDocumentProbabilitySupplier(BooleanDocumentFrequencyDeterminer freqDeterminer,
+            String probModelName) {
         super(freqDeterminer);
+        this.probModelName = probModelName;
         /*
          * FIXME move this to a better place. Not all frequency determiner will
          * know the number of documents at this point.
@@ -65,6 +74,11 @@ public class BooleanDocumentProbabilitySupplier extends AbstractProbabilitySuppl
 
     @Override
     public String getProbabilityModelName() {
-        return "P_bd";
+        return "P_" + probModelName;
+    }
+
+    @Override
+    public double getInverseProbability(int wordSetDef, int invertingWordSet, double[] probabilities) {
+        return probabilities[wordSetDef] - probabilities[wordSetDef | invertingWordSet];
     }
 }

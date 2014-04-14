@@ -18,7 +18,15 @@ package org.aksw.palmetto.calculations;
 
 import org.aksw.palmetto.subsets.SubsetProbabilities;
 
-public class OlssonsCoherenceCalculation implements CoherenceCalculation {
+public class OlssonsCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation {
+
+    public OlssonsCoherenceCalculation() {
+        super();
+    }
+
+    public OlssonsCoherenceCalculation(double resultIfCalcUndefined) {
+        super(resultIfCalcUndefined);
+    }
 
     @Override
     public double[] calculateCoherenceValues(SubsetProbabilities subsetProbabilities) {
@@ -34,12 +42,12 @@ public class OlssonsCoherenceCalculation implements CoherenceCalculation {
             for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
                 intersectionProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]
                         | subsetProbabilities.conditions[i][j]];
-                if (intersectionProbability > 0) {
-                    jointProbability = determineJointProbability(subsetProbabilities.segments[i]
-                            | subsetProbabilities.conditions[i][j], subsetProbabilities.probabilities);
-                    if (jointProbability > 0) {
-                        values[pos] = intersectionProbability / jointProbability;
-                    }
+                jointProbability = determineJointProbability(subsetProbabilities.segments[i]
+                        | subsetProbabilities.conditions[i][j], subsetProbabilities.probabilities);
+                if (jointProbability > 0) {
+                    values[pos] = intersectionProbability / jointProbability;
+                } else {
+                    values[pos] = resultIfCalcUndefined;
                 }
                 ++pos;
             }
@@ -65,7 +73,7 @@ public class OlssonsCoherenceCalculation implements CoherenceCalculation {
     }
 
     @Override
-    public String getCalculationName() {
+    protected String getName() {
         return "m_o";
     }
 }

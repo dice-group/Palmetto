@@ -51,4 +51,13 @@ public abstract class AbstractSlidingWindowFrequencyDeterminerDecorator extends 
         }
     }
 
+    @Override
+    public int getWindowSize() {
+        if (determiner instanceof SlidingWindowFrequencyDeterminer) {
+            return ((SlidingWindowFrequencyDeterminer) determiner).getWindowSize();
+        } else {
+            return 0;
+        }
+    }
+
 }

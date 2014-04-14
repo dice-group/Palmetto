@@ -62,7 +62,8 @@ public class Palmetto {
     private static final String INDEX_FIELD_NAME_CMD = "indexFieldName";
     private static final String MIN_FREQUENCY_CMD = "minFreq";
 
-    public static final String DEFAULT_INDEX_FIELD_NAME = "text";
+    public static final String DEFAULT_TEXT_INDEX_FIELD_NAME = "text";
+    public static final String DEFAULT_DOCUMENT_LENGTH_INDEX_FIELD_NAME = "length";
 
     public static void main(String[] args) {
         CommandLineParser parser = new BasicParser();
@@ -85,7 +86,7 @@ public class Palmetto {
         String inputFile = cmd.getOptionValue(INPUT_FILE_CMD);
 
         String fieldName = cmd.hasOption(INDEX_FIELD_NAME_CMD) ? cmd.getOptionValue(INDEX_FIELD_NAME_CMD)
-                : DEFAULT_INDEX_FIELD_NAME;
+                : DEFAULT_TEXT_INDEX_FIELD_NAME;
 
         int minFrequency = -1;
         if (cmd.hasOption(MIN_FREQUENCY_CMD)) {

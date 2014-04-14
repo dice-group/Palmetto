@@ -26,6 +26,6 @@ public class OneOneTest extends AbstractSubsetCreatorTest {
 	int expectedConditions[][] = new int[][] { { 2, 4, 8 }, { 1, 4, 8 },
 		{ 1, 2, 8 }, { 1, 2, 4 } };
 
-	testSubsetCreator(new OneOne(), expectedSegments, expectedConditions);
+	testSubsetCreator(4, new OneOne(), expectedSegments, expectedConditions);
     }
 }

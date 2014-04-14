@@ -1,6 +1,7 @@
 package org.aksw.palmetto.corpus;
 
 import com.carrotsearch.hppc.IntArrayList;
+import com.carrotsearch.hppc.IntIntOpenHashMap;
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 public interface SlidingWindowSupportingAdapter extends CorpusAdapter {
@@ -20,5 +21,5 @@ public interface SlidingWindowSupportingAdapter extends CorpusAdapter {
 
     public int[][] getDocumentSizeHistogram();
 
-    public IntObjectOpenHashMap<IntArrayList[]> requestWordPositionsInDocuments(String words[]);
+    public IntObjectOpenHashMap<IntArrayList[]> requestWordPositionsInDocuments(String words[], IntIntOpenHashMap docLengths);
 }

@@ -17,7 +17,8 @@ public class LuceneCorpusAdapterForSlidingWindowsTest {
     @Test
     public void test() throws CorruptIndexException, IOException {
         LuceneCorpusAdapterForSlidingWindows corpusAdapter = LuceneCorpusAdapterForSlidingWindows.create(
-                TEST_INDEX_PATH, Palmetto.DEFAULT_INDEX_FIELD_NAME);
+                TEST_INDEX_PATH, Palmetto.DEFAULT_TEXT_INDEX_FIELD_NAME,
+                Palmetto.DEFAULT_DOCUMENT_LENGTH_INDEX_FIELD_NAME);
         BooleanSlidingWindowFrequencyDeterminer determiner = new BooleanSlidingWindowFrequencyDeterminer(corpusAdapter,
                 10);
         int counts[] = determiner.determineCounts(new String[][] { { "new", "york" } },

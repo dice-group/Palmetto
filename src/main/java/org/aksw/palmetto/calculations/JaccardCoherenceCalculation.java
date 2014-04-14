@@ -18,7 +18,15 @@ package org.aksw.palmetto.calculations;
 
 import org.aksw.palmetto.subsets.SubsetProbabilities;
 
-public class JaccardCoherenceCalculation implements CoherenceCalculation {
+public class JaccardCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation {
+
+    public JaccardCoherenceCalculation() {
+        super();
+    }
+
+    public JaccardCoherenceCalculation(double resultIfCalcUndefined) {
+        super(resultIfCalcUndefined);
+    }
 
     @Override
     public double[] calculateCoherenceValues(SubsetProbabilities subsetProbabilities) {
@@ -40,6 +48,8 @@ public class JaccardCoherenceCalculation implements CoherenceCalculation {
                 joinProbability -= intersectionProbability;
                 if (joinProbability > 0) {
                     values[pos] = intersectionProbability / joinProbability;
+                } else {
+                    values[pos] = resultIfCalcUndefined;
                 }
                 ++pos;
             }
@@ -48,7 +58,7 @@ public class JaccardCoherenceCalculation implements CoherenceCalculation {
     }
 
     @Override
-    public String getCalculationName() {
+    protected String getName() {
         return "m_j";
     }
 }

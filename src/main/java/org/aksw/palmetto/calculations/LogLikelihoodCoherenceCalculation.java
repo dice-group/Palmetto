@@ -18,7 +18,16 @@ package org.aksw.palmetto.calculations;
 
 import org.aksw.palmetto.subsets.SubsetProbabilities;
 
-public class LogLikelihoodCoherenceCalculation implements CoherenceCalculation {
+public class LogLikelihoodCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation implements
+        LogBasedCalculation {
+
+    public LogLikelihoodCoherenceCalculation() {
+        super();
+    }
+
+    public LogLikelihoodCoherenceCalculation(double resultIfCalcUndefined) {
+        super(resultIfCalcUndefined);
+    }
 
     @Override
     public double[] calculateCoherenceValues(SubsetProbabilities subsetProbabilities) {
@@ -42,23 +51,28 @@ public class LogLikelihoodCoherenceCalculation implements CoherenceCalculation {
                         if (conditionProbability < 1) {
                             inverseCondProbability = (segmentProbability - intersectionProbability)
                                     / (1 - conditionProbability);
+                            values[pos] = Math.log((conditionalProbability + LogBasedCalculation.EPSILON)
+                                    / (inverseCondProbability + LogBasedCalculation.EPSILON));
                         } else {
-                            inverseCondProbability = 0;
+                            values[pos] = resultIfCalcUndefined;
                         }
-                        values[pos] = Math.log((conditionalProbability + LogBasedCalculation.EPSILON)
-                                / (inverseCondProbability + LogBasedCalculation.EPSILON));
+                    } else {
+                        values[pos] = resultIfCalcUndefined;
                     }
                     ++pos;
                 }
             } else {
-                pos += subsetProbabilities.conditions[i].length;
+                for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
+                    values[pos] = resultIfCalcUndefined;
+                    ++pos;
+                }
             }
         }
         return values;
     }
 
     @Override
-    public String getCalculationName() {
+    protected String getName() {
         return "m_ll";
     }
 }

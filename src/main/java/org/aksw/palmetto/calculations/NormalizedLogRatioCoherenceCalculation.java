@@ -18,7 +18,16 @@ package org.aksw.palmetto.calculations;
 
 import org.aksw.palmetto.subsets.SubsetProbabilities;
 
-public class NormalizedLogRatioCoherenceCalculation implements CoherenceCalculation {
+public class NormalizedLogRatioCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation
+        implements LogBasedCalculation {
+
+    public NormalizedLogRatioCoherenceCalculation() {
+        super();
+    }
+
+    public NormalizedLogRatioCoherenceCalculation(double resultIfCalcUndefined) {
+        super(resultIfCalcUndefined);
+    }
 
     @Override
     public double[] calculateCoherenceValues(SubsetProbabilities subsetProbabilities) {
@@ -41,18 +50,23 @@ public class NormalizedLogRatioCoherenceCalculation implements CoherenceCalculat
                         intersectionProbability += LogBasedCalculation.EPSILON;
                         values[pos] = Math.log(intersectionProbability / (segmentProbability * conditionProbability))
                                 / -Math.log(intersectionProbability);
+                    } else {
+                        values[pos] = resultIfCalcUndefined;
                     }
                     ++pos;
                 }
             } else {
-                pos += subsetProbabilities.conditions[i].length;
+                for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
+                    values[pos] = resultIfCalcUndefined;
+                    ++pos;
+                }
             }
         }
         return values;
     }
 
     @Override
-    public String getCalculationName() {
+    protected String getName() {
         return "m_nlr";
     }
 }

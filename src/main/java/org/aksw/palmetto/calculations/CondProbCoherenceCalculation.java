@@ -18,7 +18,15 @@ package org.aksw.palmetto.calculations;
 
 import org.aksw.palmetto.subsets.SubsetProbabilities;
 
-public class CondProbCoherenceCalculation implements CoherenceCalculation {
+public class CondProbCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation {
+
+    public CondProbCoherenceCalculation() {
+        super();
+    }
+
+    public CondProbCoherenceCalculation(double resultIfCalcUndefined) {
+        super(resultIfCalcUndefined);
+    }
 
     @Override
     public double[] calculateCoherenceValues(SubsetProbabilities subsetProbabilities) {
@@ -37,11 +45,10 @@ public class CondProbCoherenceCalculation implements CoherenceCalculation {
                     conditionProbability = subsetProbabilities.probabilities[subsetProbabilities.conditions[i][j]];
                     intersectionProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]
                             | subsetProbabilities.conditions[i][j]];
-                    if ((conditionProbability > 0) && (intersectionProbability > 0)) {
+                    if (conditionProbability > 0) {
                         values[pos] = intersectionProbability / conditionProbability;
-                    }
-                    if(Double.isNaN(values[pos])) {
-                        System.out.println("STOP!");
+                    } else {
+                        values[pos] = resultIfCalcUndefined;
                     }
                     ++pos;
                 }
@@ -53,7 +60,7 @@ public class CondProbCoherenceCalculation implements CoherenceCalculation {
     }
 
     @Override
-    public String getCalculationName() {
+    protected String getName() {
         return "m_c";
     }
 }

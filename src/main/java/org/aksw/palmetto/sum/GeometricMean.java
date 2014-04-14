@@ -44,18 +44,21 @@ public class GeometricMean implements Summarization {
 
     @Override
     public double summarize(double[] values, double[] weights) {
-        double weightSum = 0, prod = 1;
+        double weightSum = 0, prod = 0;
         for (int i = 0; i < values.length; ++i) {
-            if (values[i] <= 0) {
-                // the geometric mean is not defined for negative numbers
-                return 0;
+            if (!Double.isNaN(values[i])) {
+                if (values[i] <= 0) {
+                    // the geometric mean is not defined for negative numbers
+                    return 0;
+                }
+
+                prod += weights[i] * Math.log(values[i]);
+                weightSum += weights[i];
             }
-            prod *= Math.pow(values[i], weights[i]);
-            weightSum += weights[i];
         }
 
         if (weightSum > 0) {
-            return Math.pow(prod, 1.0 / weightSum);
+            return Math.exp(prod / weightSum);
         } else {
             return 0;
         }

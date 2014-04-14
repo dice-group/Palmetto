@@ -18,7 +18,15 @@ package org.aksw.palmetto.calculations;
 
 import org.aksw.palmetto.subsets.SubsetProbabilities;
 
-public class ShogenjisCoherenceCalculation implements CoherenceCalculation {
+public class ShogenjisCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation {
+
+    public ShogenjisCoherenceCalculation() {
+        super();
+    }
+
+    public ShogenjisCoherenceCalculation(double resultIfCalcUndefined) {
+        super(resultIfCalcUndefined);
+    }
 
     @Override
     public double[] calculateCoherenceValues(SubsetProbabilities subsetProbabilities) {
@@ -31,25 +39,31 @@ public class ShogenjisCoherenceCalculation implements CoherenceCalculation {
         double conditionProbability, intersectionProbability;
         int pos = 0;
         for (int i = 0; i < subsetProbabilities.segments.length; ++i) {
-            if (subsetProbabilities.probabilities[subsetProbabilities.segments[i]] > 0) {
+//            if (subsetProbabilities.probabilities[subsetProbabilities.segments[i]] > 0) {
                 for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
                     conditionProbability = subsetProbabilities.probabilities[subsetProbabilities.conditions[i][j]];
                     intersectionProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]
                             | subsetProbabilities.conditions[i][j]];
-                    if ((conditionProbability > 0) && (intersectionProbability > 0)) {
-                        values[pos] = intersectionProbability / Math.pow(conditionProbability, numberOfPairs);
-                    }
+//                    if (conditionProbability > 0) {
+                        values[pos] = Math.log(intersectionProbability + LogBasedCalculation.EPSILON) - numberOfPairs
+                                * Math.log(conditionProbability + LogBasedCalculation.EPSILON);
+//                    } else {
+//                        values[pos] = resultIfCalcUndefined;
+//                    }
                     ++pos;
                 }
-            } else {
-                pos += subsetProbabilities.conditions[i].length;
-            }
+//            } else {
+//                for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
+//                    values[pos] = resultIfCalcUndefined;
+//                    ++pos;
+//                }
+//            }
         }
         return values;
     }
 
     @Override
-    public String getCalculationName() {
-        return "m_s";
+    protected String getName() {
+        return "m_ls";
     }
 }

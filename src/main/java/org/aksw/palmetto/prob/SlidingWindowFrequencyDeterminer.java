@@ -7,4 +7,6 @@ public interface SlidingWindowFrequencyDeterminer extends FrequencyDeterminer {
     public long[] getCooccurrenceCounts();
 
     public String getSlidingWindowModelName();
+    
+    public int getWindowSize();
 }

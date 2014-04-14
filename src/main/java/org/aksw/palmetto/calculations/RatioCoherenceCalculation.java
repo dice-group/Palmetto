@@ -18,7 +18,15 @@ package org.aksw.palmetto.calculations;
 
 import org.aksw.palmetto.subsets.SubsetProbabilities;
 
-public class RatioCoherenceCalculation implements CoherenceCalculation {
+public class RatioCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation {
+
+    public RatioCoherenceCalculation() {
+        super();
+    }
+
+    public RatioCoherenceCalculation(double resultIfCalcUndefined) {
+        super(resultIfCalcUndefined);
+    }
 
     @Override
     public double[] calculateCoherenceValues(SubsetProbabilities subsetProbabilities) {
@@ -37,20 +45,25 @@ public class RatioCoherenceCalculation implements CoherenceCalculation {
                     conditionProbability = subsetProbabilities.probabilities[subsetProbabilities.conditions[i][j]];
                     intersectionProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]
                             | subsetProbabilities.conditions[i][j]];
-                    if ((conditionProbability > 0) && (intersectionProbability > 0)) {
+                    if (conditionProbability > 0) {
                         values[pos] = intersectionProbability / (segmentProbability * conditionProbability);
+                    } else {
+                        values[pos] = resultIfCalcUndefined;
                     }
                     ++pos;
                 }
             } else {
-                pos += subsetProbabilities.conditions[i].length;
+                for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
+                    values[pos] = resultIfCalcUndefined;
+                    ++pos;
+                }
             }
         }
         return values;
     }
 
     @Override
-    public String getCalculationName() {
+    protected String getName() {
         return "m_r";
     }
 }

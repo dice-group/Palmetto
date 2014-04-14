@@ -14,19 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.aksw.palmetto.prob;
+package org.aksw.palmetto.subsets;
 
-import org.aksw.palmetto.subsets.SubsetDefinition;
-import org.aksw.palmetto.subsets.SubsetProbabilities;
+import org.junit.Test;
 
-public interface ProbabilitySupplier extends InverseProbabilitySupplier {
+public class OneSubsequentTest extends AbstractSubsetCreatorTest {
 
-    public SubsetProbabilities[] getProbabilities(String wordsets[][],
-            SubsetDefinition definitions[]);
+    @Test
+    public void testWordSetLength4() {
+        int expectedSegments[] = new int[] { 1, 2, 4, 8 };
+        int expectedConditions[][] = new int[][] { { 2, 4, 8 }, { 4, 8 }, { 8 },
+                {} };
 
-    public FrequencyDeterminer getFrequencyDeterminer();
-
-    public String getProbabilityModelName();
-
-    public void setMinFrequency(int minFrequency);
+        testSubsetCreator(4, new OneSubsequent(), expectedSegments,
+                expectedConditions);
+    }
 }

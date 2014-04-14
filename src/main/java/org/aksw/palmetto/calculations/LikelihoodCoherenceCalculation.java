@@ -18,7 +18,15 @@ package org.aksw.palmetto.calculations;
 
 import org.aksw.palmetto.subsets.SubsetProbabilities;
 
-public class LikelihoodCoherenceCalculation implements CoherenceCalculation {
+public class LikelihoodCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation {
+
+    public LikelihoodCoherenceCalculation() {
+        super();
+    }
+
+    public LikelihoodCoherenceCalculation(double resultIfCalcUndefined) {
+        super(resultIfCalcUndefined);
+    }
 
     @Override
     public double[] calculateCoherenceValues(SubsetProbabilities subsetProbabilities) {
@@ -42,22 +50,28 @@ public class LikelihoodCoherenceCalculation implements CoherenceCalculation {
                         if (conditionProbability < 1) {
                             inverseCondProbability = (segmentProbability - intersectionProbability)
                                     / (1 - conditionProbability);
+                            values[pos] = conditionalProbability
+                                    / (inverseCondProbability + LogBasedCalculation.EPSILON);
                         } else {
-                            inverseCondProbability = 0;
+                            values[pos] = resultIfCalcUndefined;
                         }
-                        values[pos] = conditionalProbability / (inverseCondProbability + LogBasedCalculation.EPSILON);
+                    } else {
+                        values[pos] = resultIfCalcUndefined;
                     }
                     ++pos;
                 }
             } else {
-                pos += subsetProbabilities.conditions[i].length;
+                for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
+                    values[pos] = resultIfCalcUndefined;
+                    ++pos;
+                }
             }
         }
         return values;
     }
 
     @Override
-    public String getCalculationName() {
+    protected String getName() {
         return "m_l";
     }
 }

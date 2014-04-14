@@ -51,4 +51,31 @@ public class SlidingWindowProbabilitySupplier extends AbstractProbabilitySupplie
         return ((SlidingWindowFrequencyDeterminer) freqDeterminer).getSlidingWindowModelName();
     }
 
+    @Deprecated
+    @Override
+    public double getInverseProbability(int wordSetDef, int invertingWordSet, double[] probabilities) {
+        int windowSize = ((SlidingWindowFrequencyDeterminer) this.freqDeterminer).getWindowSize();
+        int wordSetSize = Integer.bitCount(wordSetDef);
+        int invertWordSetSize = Integer.bitCount(invertingWordSet);
+        int intersectionWordSetSize = wordSetSize + invertWordSetSize;
+        double intersectionCount = probabilities[wordSetDef | invertingWordSet]
+                * cooccurrenceCountsSums[intersectionWordSetSize - 1];
+
+        // we will need factorial numbers for this step
+        int factorials[] = new int[windowSize + 1];
+        factorials[0] = 1;
+        for (int i = 1; i < factorials.length; ++i) {
+            factorials[i] = factorials[i - 1] * i;
+        }
+
+        // determine the number of word sets with the size of the intersection and containing the wordSetDef part
+        double wordSetCount = probabilities[wordSetDef] * cooccurrenceCountsSums[wordSetSize - 1];
+        // determine the number of combinations of the word set and other sets that have the size of the inverting word
+        // set inside a single window
+        double maxIntersectionCount = (factorials[windowSize - wordSetSize]
+                / (factorials[invertWordSetSize] * factorials[windowSize - invertWordSetSize]));
+        // add the number of word sets which would be created by moving the window
+        maxIntersectionCount += wordSetCount * (windowSize - (wordSetSize + 1));
+        return (maxIntersectionCount - intersectionCount) / cooccurrenceCountsSums[intersectionWordSetSize - 1];
+    }
 }

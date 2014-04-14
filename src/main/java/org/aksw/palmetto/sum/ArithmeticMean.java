@@ -42,8 +42,10 @@ public class ArithmeticMean implements Summarization {
     public double summarize(double[] values, double[] weights) {
         double weightSum = 0, sum = 0;
         for (int i = 0; i < values.length; ++i) {
-            sum += weights[i] * values[i];
-            weightSum += weights[i];
+            if (!Double.isNaN(values[i])) {
+                sum += weights[i] * values[i];
+                weightSum += weights[i];
+            }
         }
         if (weightSum > 0) {
             return sum / weightSum;

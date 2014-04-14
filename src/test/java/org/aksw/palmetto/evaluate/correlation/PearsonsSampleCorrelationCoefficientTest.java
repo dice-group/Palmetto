@@ -36,7 +36,9 @@ public class PearsonsSampleCorrelationCoefficientTest {
                 { new double[] { 0.1, 0.2, 0.3 }, new double[] { 1.0, 2.0, 3.0 }, 1.0 },
                 { new double[] { 0.2, 0.2, 0.3 }, new double[] { 1.0, 2.0, 3.0 }, 0.8660254038 },
                 { new double[] { 0.1, 0.2, 0.3 }, new double[] { 3.0, 2.0, 1.0 }, -1.0 },
-                { new double[] { 0.1, 0.2, 0.3 }, new double[] { 3.0, 1.0, 3.0 }, 0.0 }});
+                { new double[] { 0.1, 0.2, 0.3 }, new double[] { 3.0, 1.0, 3.0 }, 0.0 },
+                { new double[] { 0.0, 0.0, 0.0 }, new double[] { 3.0, 1.0, 3.0 }, 0.0 },
+                { new double[] { 0.0, 0.0, 0.0 }, new double[] { 3.0, 3.0, 3.0 }, 1.0 } });
     }
 
     private double x[];

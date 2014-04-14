@@ -12,6 +12,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.carrotsearch.hppc.IntArrayList;
+import com.carrotsearch.hppc.IntIntOpenHashMap;
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 @RunWith(Parameterized.class)
@@ -26,39 +27,45 @@ public class BooleanSlidingWindowFrequencyDeterminerCountingTest implements Slid
                          * A B C B A C C
                          */
                         // We ask for A and B with a window size of 3
-                        { new int[][] { { 7, 1 } }, new int[][] { { 0, 4 }, { 1, 3 }, {} }, 3,
-                                new int[] { 0, 2, 2, 2, 0, 0, 0, 0 } },
+                        { 7, new int[][] { { 0, 4 }, { 1, 3 }, {} }, 3,
+                                new int[] { 0, 4, 4, 3, 0, 0, 0, 0 } },
                         // We ask for A and C with a window size of 3
-                        { new int[][] { { 7, 1 } }, new int[][] { { 0, 4 }, {}, { 2, 5, 6 } }, 3,
-                                new int[] { 0, 2, 0, 0, 3, 4, 0, 0 } },
+                        { 7, new int[][] { { 0, 4 }, {}, { 2, 5, 6 } }, 3,
+                                new int[] { 0, 4, 0, 0, 5, 4, 0, 0 } },
                         // We ask for B and C with a window size of 3
-                        { new int[][] { { 7, 1 } }, new int[][] { {}, { 1, 3 }, { 2, 5, 6 } }, 3,
-                                new int[] { 0, 0, 2, 0, 3, 0, 3, 0 } },
+                        { 7, new int[][] { {}, { 1, 3 }, { 2, 5, 6 } }, 3,
+                                new int[] { 0, 0, 4, 0, 5, 0, 4, 0 } },
                         // We ask for A, B and C with a window size of 3
-                        { new int[][] { { 7, 1 } }, new int[][] { { 0, 4 }, { 1, 3 }, { 2, 5, 6 } }, 3,
-                                new int[] { 0, 2, 2, 2, 3, 4, 3, 3 } },
+                        { 7, new int[][] { { 0, 4 }, { 1, 3 }, { 2, 5, 6 } }, 3,
+                                new int[] { 0, 4, 4, 3, 5, 4, 4, 3 } },
                         // We ask for A and B with a window size of 4
-                        { new int[][] { { 7, 1 } }, new int[][] { { 0, 4 }, { 1, 3 }, {} }, 4,
-                                new int[] { 0, 2, 2, 4, 0, 0, 0, 0 } },
+                        { 7, new int[][] { { 0, 4 }, { 1, 3 }, {} }, 4,
+                                new int[] { 0, 4, 4, 4, 0, 0, 0, 0 } },
                         // We ask for A and C with a window size of 4
-                        { new int[][] { { 7, 1 } }, new int[][] { { 0, 4 }, {}, { 2, 5, 6 } }, 4,
-                                new int[] { 0, 2, 0, 0, 3, 4, 0, 0 } },
+                        { 7, new int[][] { { 0, 4 }, {}, { 2, 5, 6 } }, 4,
+                                new int[] { 0, 4, 0, 0, 4, 4, 0, 0 } },
                         // We ask for B and C with a window size of 4
-                        { new int[][] { { 7, 1 } }, new int[][] { {}, { 1, 3 }, { 2, 5, 6 } }, 4,
-                                new int[] { 0, 0, 2, 0, 3, 0, 4, 0 } },
-                        // We ask for A, B and C with a window size of 3
-                        { new int[][] { { 7, 1 } }, new int[][] { { 0, 4 }, { 1, 3 }, { 2, 5, 6 } }, 4,
-                                new int[] { 0, 2, 2, 4, 3, 4, 4, 6 } } });
+                        { 7, new int[][] { {}, { 1, 3 }, { 2, 5, 6 } }, 4,
+                                new int[] { 0, 0, 4, 0, 4, 0, 4, 0 } },
+                        // We ask for A, B and C with a window size of 4
+                        { 7, new int[][] { { 0, 4 }, { 1, 3 }, { 2, 5, 6 } }, 4,
+                                new int[] { 0, 4, 4, 4, 4, 4, 4, 4 } },
+                        // We have a new very short document A B C
+                        { 3, new int[][] { { 0 }, { 1 }, { 2 } }, 4,
+                                new int[] { 0, 1, 1, 1, 1, 1, 1, 1 } }
+                });
     }
 
     private int histogram[][];
+    private int docLength;
     private int positions[][];
     private int windowSize;
     private int expectedCounts[];
 
-    public BooleanSlidingWindowFrequencyDeterminerCountingTest(int[][] histogram, int[][] positions, int windowSize,
+    public BooleanSlidingWindowFrequencyDeterminerCountingTest(int docLength, int[][] positions, int windowSize,
             int expectedCounts[]) {
-        this.histogram = histogram;
+        this.docLength = docLength;
+        this.histogram = new int[][] { { docLength, 1 } };
         this.positions = positions;
         this.windowSize = windowSize;
         this.expectedCounts = expectedCounts;
@@ -85,7 +92,8 @@ public class BooleanSlidingWindowFrequencyDeterminerCountingTest implements Slid
     }
 
     @Override
-    public IntObjectOpenHashMap<IntArrayList[]> requestWordPositionsInDocuments(String[] words) {
+    public IntObjectOpenHashMap<IntArrayList[]> requestWordPositionsInDocuments(String[] words,
+            IntIntOpenHashMap docLengths) {
         IntObjectOpenHashMap<IntArrayList[]> positionsInDocuments = new IntObjectOpenHashMap<IntArrayList[]>();
         IntArrayList[] positionsInDocument = new IntArrayList[positions.length];
         for (int i = 0; i < positionsInDocument.length; ++i) {
@@ -95,6 +103,7 @@ public class BooleanSlidingWindowFrequencyDeterminerCountingTest implements Slid
             }
         }
         positionsInDocuments.put(0, positionsInDocument);
+        docLengths.put(0, docLength);
         return positionsInDocuments;
     }
 }

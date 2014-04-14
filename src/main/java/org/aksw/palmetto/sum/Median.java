@@ -18,6 +18,8 @@ package org.aksw.palmetto.sum;
 
 import java.util.Arrays;
 
+import com.carrotsearch.hppc.DoubleArrayList;
+
 public class Median implements Summarization {
 
     @Override
@@ -46,15 +48,21 @@ public class Median implements Summarization {
             throw new IllegalArgumentException(
                     "The given array has to have at least one element to determine the modus.");
         }
-        double weightedValues[] = new double[values.length];
-        for (int i = 0; i < weightedValues.length; ++i) {
-            weightedValues[i] = weights[i] * values[i];
+        DoubleArrayList weightedValues = new DoubleArrayList(values.length);
+        for (int i = 0; i < values.length; ++i) {
+            if (!Double.isNaN(values[i])) {
+                weightedValues.add(weights[i] * values[i]);
+            }
         }
-        Arrays.sort(weightedValues);
-        if ((weightedValues.length & 1) > 0) {
-            return weightedValues[weightedValues.length / 2];
+        if (weightedValues.size() == 0) {
+            return 0;
+        }
+        double weightedValuesAsArray[] = weightedValues.toArray();
+        Arrays.sort(weightedValuesAsArray);
+        if ((weightedValuesAsArray.length & 1) > 0) {
+            return weightedValuesAsArray[weightedValuesAsArray.length / 2];
         } else {
-            return (weightedValues[weightedValues.length / 2] + weightedValues[(weightedValues.length / 2) - 1]) / 2.0;
+            return (weightedValuesAsArray[weightedValuesAsArray.length / 2] + weightedValuesAsArray[(weightedValuesAsArray.length / 2) - 1]) / 2.0;
         }
     }
 
