@@ -209,7 +209,7 @@ public class BooleanSlidingWindowFrequencyDeterminer implements SlidingWindowFre
 
     @Override
     public String getSlidingWindowModelName() {
-        return "P_sw";
+        return "P_sw" + windowSize;
     }
 
     private boolean checkWordsInsideSingleWindow(int[] posInText) {
