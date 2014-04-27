@@ -16,8 +16,8 @@
  */
 package org.aksw.palmetto.prob;
 
-import org.aksw.palmetto.subsets.SubsetDefinition;
-import org.aksw.palmetto.subsets.SubsetProbabilities;
+import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SubsetProbabilities;
 
 public interface ProbabilitySupplier extends InverseProbabilitySupplier {
 

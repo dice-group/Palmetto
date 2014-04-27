@@ -20,9 +20,9 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.aksw.palmetto.corpus.BooleanBigramStatsSupportingAdapter;
+import org.aksw.palmetto.data.CountedSubsets;
+import org.aksw.palmetto.data.SubsetDefinition;
 import org.aksw.palmetto.subsets.AnyAny;
-import org.aksw.palmetto.subsets.CountedSubsets;
-import org.aksw.palmetto.subsets.SubsetDefinition;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

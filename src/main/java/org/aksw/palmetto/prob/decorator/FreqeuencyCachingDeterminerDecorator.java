@@ -18,9 +18,9 @@ package org.aksw.palmetto.prob.decorator;
 
 import java.util.Arrays;
 
+import org.aksw.palmetto.data.CountedSubsets;
+import org.aksw.palmetto.data.SubsetDefinition;
 import org.aksw.palmetto.prob.FrequencyDeterminer;
-import org.aksw.palmetto.subsets.CountedSubsets;
-import org.aksw.palmetto.subsets.SubsetDefinition;
 
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
 

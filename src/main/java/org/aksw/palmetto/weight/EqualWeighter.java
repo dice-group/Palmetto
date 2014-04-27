@@ -18,7 +18,7 @@ package org.aksw.palmetto.weight;
 
 import java.util.Arrays;
 
-import org.aksw.palmetto.subsets.SubsetProbabilities;
+import org.aksw.palmetto.data.SubsetProbabilities;
 
 public class EqualWeighter implements Weighter {
 

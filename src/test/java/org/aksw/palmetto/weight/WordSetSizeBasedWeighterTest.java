@@ -19,12 +19,12 @@ package org.aksw.palmetto.weight;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SubsetProbabilities;
 import org.aksw.palmetto.subsets.AnyAny;
 import org.aksw.palmetto.subsets.OneAll;
 import org.aksw.palmetto.subsets.OneAny;
 import org.aksw.palmetto.subsets.SubsetCreator;
-import org.aksw.palmetto.subsets.SubsetDefinition;
-import org.aksw.palmetto.subsets.SubsetProbabilities;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

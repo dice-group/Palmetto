@@ -16,6 +16,8 @@
  */
 package org.aksw.palmetto.subsets;
 
+import org.aksw.palmetto.data.SubsetDefinition;
+
 /**
  * A {@link SubsetCreator} generates the {@link SubsetDefinition} object for a
  * word set with the given size.

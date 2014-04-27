@@ -18,6 +18,7 @@ package org.aksw.palmetto.subsets;
 
 import java.util.Arrays;
 
+import org.aksw.palmetto.data.SubsetDefinition;
 import org.junit.Assert;
 
 import com.carrotsearch.hppc.BitSet;

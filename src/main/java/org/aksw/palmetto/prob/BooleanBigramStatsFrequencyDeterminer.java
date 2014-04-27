@@ -17,8 +17,8 @@
 package org.aksw.palmetto.prob;
 
 import org.aksw.palmetto.corpus.BooleanBigramStatsSupportingAdapter;
-import org.aksw.palmetto.subsets.CountedSubsets;
-import org.aksw.palmetto.subsets.SubsetDefinition;
+import org.aksw.palmetto.data.CountedSubsets;
+import org.aksw.palmetto.data.SubsetDefinition;
 
 @Deprecated
 public class BooleanBigramStatsFrequencyDeterminer implements FrequencyDeterminer {

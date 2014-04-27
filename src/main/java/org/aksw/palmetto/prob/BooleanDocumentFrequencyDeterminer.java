@@ -17,8 +17,8 @@
 package org.aksw.palmetto.prob;
 
 import org.aksw.palmetto.corpus.BooleanDocumentSupportingAdapter;
-import org.aksw.palmetto.subsets.CountedSubsets;
-import org.aksw.palmetto.subsets.SubsetDefinition;
+import org.aksw.palmetto.data.CountedSubsets;
+import org.aksw.palmetto.data.SubsetDefinition;
 
 import com.carrotsearch.hppc.BitSet;
 import com.carrotsearch.hppc.IntOpenHashSet;

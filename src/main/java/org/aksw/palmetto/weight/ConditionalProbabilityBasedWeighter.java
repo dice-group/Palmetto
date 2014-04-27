@@ -16,7 +16,7 @@
  */
 package org.aksw.palmetto.weight;
 
-import org.aksw.palmetto.subsets.SubsetProbabilities;
+import org.aksw.palmetto.data.SubsetProbabilities;
 
 public class ConditionalProbabilityBasedWeighter implements Weighter {
 

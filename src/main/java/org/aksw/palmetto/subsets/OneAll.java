@@ -16,6 +16,8 @@
  */
 package org.aksw.palmetto.subsets;
 
+import org.aksw.palmetto.data.SubsetDefinition;
+
 import com.carrotsearch.hppc.BitSet;
 
 public class OneAll implements SubsetCreator {

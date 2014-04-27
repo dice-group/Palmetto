@@ -16,8 +16,8 @@
  */
 package org.aksw.palmetto.prob;
 
-import org.aksw.palmetto.subsets.CountedSubsets;
-import org.aksw.palmetto.subsets.SubsetProbabilities;
+import org.aksw.palmetto.data.CountedSubsets;
+import org.aksw.palmetto.data.SubsetProbabilities;
 
 public class SlidingWindowProbabilitySupplier extends AbstractProbabilitySupplier {
 

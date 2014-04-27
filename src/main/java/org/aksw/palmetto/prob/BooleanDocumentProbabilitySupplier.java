@@ -18,8 +18,8 @@ package org.aksw.palmetto.prob;
 
 import org.aksw.palmetto.corpus.BooleanDocumentSupportingAdapter;
 import org.aksw.palmetto.corpus.CorpusAdapter;
-import org.aksw.palmetto.subsets.CountedSubsets;
-import org.aksw.palmetto.subsets.SubsetProbabilities;
+import org.aksw.palmetto.data.CountedSubsets;
+import org.aksw.palmetto.data.SubsetProbabilities;
 
 public class BooleanDocumentProbabilitySupplier extends AbstractProbabilitySupplier {
 

@@ -16,11 +16,11 @@
  */
 package org.aksw.palmetto;
 
-import org.aksw.palmetto.calculations.CoherenceCalculation;
+import org.aksw.palmetto.calculations.probbased.ProbabilityBasedCalculation;
+import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SubsetProbabilities;
 import org.aksw.palmetto.prob.ProbabilitySupplier;
 import org.aksw.palmetto.subsets.SubsetCreator;
-import org.aksw.palmetto.subsets.SubsetDefinition;
-import org.aksw.palmetto.subsets.SubsetProbabilities;
 import org.aksw.palmetto.sum.Summarization;
 import org.aksw.palmetto.weight.Weighter;
 
@@ -28,12 +28,12 @@ public class Coherence {
 
     protected SubsetCreator subsetCreator;
     protected ProbabilitySupplier probSupplier;
-    protected CoherenceCalculation calculation;
+    protected ProbabilityBasedCalculation calculation;
     protected Summarization summarizer;
     protected Weighter weighter;
     protected String dataSource = "unkown";
 
-    public Coherence(SubsetCreator subsetCreator, ProbabilitySupplier probSupplier, CoherenceCalculation calculation,
+    public Coherence(SubsetCreator subsetCreator, ProbabilitySupplier probSupplier, ProbabilityBasedCalculation calculation,
             Summarization summarizer, Weighter weighter) {
         this.subsetCreator = subsetCreator;
         this.probSupplier = probSupplier;
@@ -42,7 +42,7 @@ public class Coherence {
         this.weighter = weighter;
     }
 
-    public Coherence(SubsetCreator subsetCreator, ProbabilitySupplier probSupplier, CoherenceCalculation calculation,
+    public Coherence(SubsetCreator subsetCreator, ProbabilitySupplier probSupplier, ProbabilityBasedCalculation calculation,
             Summarization summarizer, Weighter weighter, String dataSource) {
         this.subsetCreator = subsetCreator;
         this.probSupplier = probSupplier;

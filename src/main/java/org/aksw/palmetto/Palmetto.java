@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.PrintStream;
 import java.util.Arrays;
 
-import org.aksw.palmetto.calculations.DifferenceBasedCoherenceCalculation;
+import org.aksw.palmetto.calculations.probbased.DifferenceBasedCoherenceCalculation;
 import org.aksw.palmetto.corpus.CorpusAdapter;
 import org.aksw.palmetto.corpus.lucene.IndexCreator;
 import org.aksw.palmetto.corpus.lucene.LuceneCorpusAdapter;

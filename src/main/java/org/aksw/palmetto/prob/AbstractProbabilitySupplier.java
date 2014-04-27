@@ -16,9 +16,9 @@
  */
 package org.aksw.palmetto.prob;
 
-import org.aksw.palmetto.subsets.CountedSubsets;
-import org.aksw.palmetto.subsets.SubsetDefinition;
-import org.aksw.palmetto.subsets.SubsetProbabilities;
+import org.aksw.palmetto.data.CountedSubsets;
+import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SubsetProbabilities;
 
 public abstract class AbstractProbabilitySupplier implements
         ProbabilitySupplier {

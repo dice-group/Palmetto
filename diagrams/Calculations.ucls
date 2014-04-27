@@ -1,8 +1,9 @@
 <class-diagram version="1.0.10" icons="true" automaticImage="PNG" always-add-relationships="false" 
   generalizations="true" realizations="true" associations="true" dependencies="false" nesting-relationships="true">  
   <class id="1" corner="BOTTOM_RIGHT" language="java" 
-    name="org.aksw.palmetto.calculations.ShogenjisCoherenceCalculation" project="Palmetto" 
-    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/ShogenjisCoherenceCalculation.java" binary="false">    
+    name="org.aksw.palmetto.calculations.probbased.ShogenjisCoherenceCalculation" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/probbased/ShogenjisCoherenceCalculation.java" 
+    binary="false">    
     <position height="-1" width="-1" x="1185" y="318"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -10,8 +11,8 @@
     </display>  
   </class>  
   <class id="2" corner="BOTTOM_RIGHT" language="java" 
-    name="org.aksw.palmetto.calculations.DifferenceBasedCoherenceCalculation" project="Palmetto" 
-    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/DifferenceBasedCoherenceCalculation.java" 
+    name="org.aksw.palmetto.calculations.probbased.DifferenceBasedCoherenceCalculation" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/probbased/DifferenceBasedCoherenceCalculation.java" 
     binary="false">    
     <position height="-1" width="-1" x="178" y="317"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
@@ -19,8 +20,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="3" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.calculations.CondProbCoherenceCalculation" 
-    project="Palmetto" file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/CondProbCoherenceCalculation.java" 
+  <class id="3" corner="BOTTOM_RIGHT" language="java" 
+    name="org.aksw.palmetto.calculations.probbased.CondProbCoherenceCalculation" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/probbased/CondProbCoherenceCalculation.java" 
     binary="false">    
     <position height="-1" width="-1" x="511" y="317"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
@@ -28,8 +30,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="4" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.calculations.RatioCoherenceCalculation" 
-    project="Palmetto" file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/RatioCoherenceCalculation.java" 
+  <class id="4" corner="BOTTOM_RIGHT" language="java" 
+    name="org.aksw.palmetto.calculations.probbased.RatioCoherenceCalculation" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/probbased/RatioCoherenceCalculation.java" 
     binary="false">    
     <position height="-1" width="-1" x="844" y="317"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
@@ -38,16 +41,18 @@
     </display>  
   </class>  
   <class id="5" corner="BOTTOM_RIGHT" language="java" 
-    name="org.aksw.palmetto.calculations.LogCondProbCoherenceCalculation" project="Palmetto" 
-    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/LogCondProbCoherenceCalculation.java" binary="false">    
+    name="org.aksw.palmetto.calculations.probbased.LogCondProbCoherenceCalculation" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/probbased/LogCondProbCoherenceCalculation.java" 
+    binary="false">    
     <position height="-1" width="-1" x="511" y="436"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="6" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.calculations.JaccardCoherenceCalculation" 
-    project="Palmetto" file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/JaccardCoherenceCalculation.java" 
+  <class id="6" corner="BOTTOM_RIGHT" language="java" 
+    name="org.aksw.palmetto.calculations.probbased.JaccardCoherenceCalculation" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/probbased/JaccardCoherenceCalculation.java" 
     binary="false">    
     <position height="-1" width="-1" x="1510" y="317"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
@@ -55,8 +60,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="7" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.calculations.LogRatioCoherenceCalculation" 
-    project="Palmetto" file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/LogRatioCoherenceCalculation.java" 
+  <class id="7" corner="BOTTOM_RIGHT" language="java" 
+    name="org.aksw.palmetto.calculations.probbased.LogRatioCoherenceCalculation" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/probbased/LogRatioCoherenceCalculation.java" 
     binary="false">    
     <position height="-1" width="-1" x="843" y="440"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
@@ -64,8 +70,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="8" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.calculations.FitelsonCoherenceCalculation" 
-    project="Palmetto" file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/FitelsonCoherenceCalculation.java" 
+  <class id="8" corner="BOTTOM_RIGHT" language="java" 
+    name="org.aksw.palmetto.calculations.probbased.FitelsonCoherenceCalculation" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/probbased/FitelsonCoherenceCalculation.java" 
     binary="false">    
     <position height="-1" width="-1" x="1185" y="442"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
@@ -73,8 +80,9 @@
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <class id="9" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.calculations.OlssonsCoherenceCalculation" 
-    project="Palmetto" file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/OlssonsCoherenceCalculation.java" 
+  <class id="9" corner="BOTTOM_RIGHT" language="java" 
+    name="org.aksw.palmetto.calculations.probbased.OlssonsCoherenceCalculation" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/probbased/OlssonsCoherenceCalculation.java" 
     binary="false">    
     <position height="-1" width="-1" x="1185" y="571"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
@@ -83,8 +91,9 @@
     </display>  
   </class>  
   <class id="10" corner="BOTTOM_RIGHT" language="java" 
-    name="org.aksw.palmetto.calculations.LogLikelihoodCoherenceCalculation" project="Palmetto" 
-    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/LogLikelihoodCoherenceCalculation.java" binary="false">    
+    name="org.aksw.palmetto.calculations.probbased.LogLikelihoodCoherenceCalculation" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/probbased/LogLikelihoodCoherenceCalculation.java" 
+    binary="false">    
     <position height="-1" width="-1" x="1834" y="437"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -92,8 +101,9 @@
     </display>  
   </class>  
   <class id="11" corner="BOTTOM_RIGHT" language="java" 
-    name="org.aksw.palmetto.calculations.LikelihoodCoherenceCalculation" project="Palmetto" 
-    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/LikelihoodCoherenceCalculation.java" binary="false">    
+    name="org.aksw.palmetto.calculations.probbased.LikelihoodCoherenceCalculation" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/probbased/LikelihoodCoherenceCalculation.java" 
+    binary="false">    
     <position height="-1" width="-1" x="1834" y="318"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -110,17 +120,18 @@
     </display>  
   </interface>  
   <class id="13" corner="BOTTOM_RIGHT" language="java" 
-    name="org.aksw.palmetto.calculations.LogJaccardCoherenceCalculation" project="Palmetto" 
-    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/LogJaccardCoherenceCalculation.java" binary="false">    
+    name="org.aksw.palmetto.calculations.probbased.LogJaccardCoherenceCalculation" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/probbased/LogJaccardCoherenceCalculation.java" 
+    binary="false">    
     <position height="-1" width="-1" x="1510" y="437"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
       <operations public="true" package="true" protected="true" private="true"/>    
     </display>  
   </class>  
-  <interface id="14" corner="BOTTOM_RIGHT" language="java" name="org.aksw.palmetto.calculations.LogBasedCalculation" 
-    project="Palmetto" file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/LogBasedCalculation.java" 
-    binary="false">    
+  <interface id="14" corner="BOTTOM_RIGHT" language="java" 
+    name="org.aksw.palmetto.calculations.probbased.LogBasedCalculation" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/probbased/LogBasedCalculation.java" binary="false">    
     <position height="77" width="144" x="1823" y="54"/>    
     <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true"/>      
@@ -128,8 +139,8 @@
     </display>  
   </interface>  
   <class id="15" corner="BOTTOM_RIGHT" language="java" 
-    name="org.aksw.palmetto.calculations.NormalizedLogRatioCoherenceCalculation" project="Palmetto" 
-    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/NormalizedLogRatioCoherenceCalculation.java" 
+    name="org.aksw.palmetto.calculations.probbased.NormalizedLogRatioCoherenceCalculation" project="Palmetto" 
+    file="/Palmetto/src/main/java/org/aksw/palmetto/calculations/probbased/NormalizedLogRatioCoherenceCalculation.java" 
     binary="false">    
     <position height="-1" width="-1" x="1510" y="557"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" visibility="true">      
