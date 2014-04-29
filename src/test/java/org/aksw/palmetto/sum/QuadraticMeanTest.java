@@ -28,10 +28,10 @@ public class QuadraticMeanTest extends AbstractSummarizationTest {
 
     @Parameters
     public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][] { { new double[] { 1, 2, 3 }, 2.1602469 },
-                { new double[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 5.338539126 },
-                { new double[] { 0 }, 0 }, { new double[] { -1, 0, 1 }, 0.816496581 },
-                { new double[] { -1, 1 }, 1 } });
+        return Arrays.asList(new Object[][] { { new double[] { 1, 2, 3 }, 3.7416573868 },
+                { new double[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 16.8819430161 },
+                { new double[] { 0 }, 0 }, { new double[] { -1, 0, 1 }, 1.4142135624 },
+                { new double[] { -1, 1 }, 1.4142135624 } });
     }
 
     public QuadraticMeanTest(double[] values, double expectedSum) {

@@ -43,15 +43,15 @@ public class LogLikelihoodCoherenceCalculationTest extends AbstractProbabilityBa
                  * C_ll,oneone= 1/3 * (log(P(w_1|w_2)/P(w_1|-w_2)) +
                  * log(P(w_1|w_3)/P(w_1|-w_3)) + log(P(w_2|w_1)/P(w_2|-w_1)) +
                  * log(P(w_2|w_3)/P(w_2|-w_3)) + log(P(w_3|w_1)/P(w_3|-w_1)) +
-                 * log(P(w_3|w_1)/P(w_3|-w_2))) = 1/6 * (log(1) + log(1) + NaN +
-                 * log(1/eps) + NaN + log(1/eps) = log(1/eps) / 2
+                 * log(P(w_3|w_1)/P(w_3|-w_2))) = 1/6 * (log(1) + log(1) + 0 +
+                 * log(1/eps) + 0 + log(1/eps) = log(1/eps) / 3
                  * 
                  * only divided by 2 because the NaN are not used for the mean
                  * calculation
                  */
                 { new OneOne(), 3,
                         new double[] { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
-                        (Math.log(1.0 / LogBasedCalculation.EPSILON)) / 2.0 },
+                        (Math.log(1.0 / LogBasedCalculation.EPSILON)) / 3.0 },
 
                 /*
                  * word1 0 1 1

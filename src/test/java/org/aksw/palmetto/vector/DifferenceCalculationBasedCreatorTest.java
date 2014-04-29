@@ -46,8 +46,10 @@ public class DifferenceCalculationBasedCreatorTest extends AbstractProbCalcBased
                          */
                         {
                                 3,
-                                new double[] { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
-                                new double[][] { { 0, 0, 0 }, { 0, 1.0 / 3.0, 1.0 / 3.0 }, { 0, 1.0 / 3.0, 1.0 / 3.0 } },
+                                new double[][] { { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0,
+                                        2.0 / 3.0 } },
+                                new double[][][] { { { 0, 0, 0 }, { 0, 1.0 / 3.0, 1.0 / 3.0 },
+                                { 0, 1.0 / 3.0, 1.0 / 3.0 } } },
                                 "V_d" },
 
                         /*
@@ -64,9 +66,10 @@ public class DifferenceCalculationBasedCreatorTest extends AbstractProbCalcBased
                          * vector3 -1/6 -1/6 1/3
                          */{
                                 3,
-                                new double[] { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0, 0 },
-                                new double[][] { { 1.0 / 3.0, -1.0 / 6.0, -1.0 / 6.0 },
-                                        { -1.0 / 6.0, 1.0 / 3.0, -1.0 / 6.0 }, { -1.0 / 6.0, -1.0 / 6.0, 1.0 / 3.0 } },
+                                new double[][] { { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0,
+                                        0 } },
+                                new double[][][] { { { 1.0 / 3.0, -1.0 / 6.0, -1.0 / 6.0 },
+                                { -1.0 / 6.0, 1.0 / 3.0, -1.0 / 6.0 }, { -1.0 / 6.0, -1.0 / 6.0, 1.0 / 3.0 } } },
                                 "V_d" },
                         /*
                          * word1 0 0 0 1
@@ -83,12 +86,28 @@ public class DifferenceCalculationBasedCreatorTest extends AbstractProbCalcBased
                          */
                         {
                                 3,
-                                new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 },
-                                new double[][] { { 3.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0 }, { 1.0 / 2.0, 1.0 / 2.0, 0 },
-                                        { 1.0 / 2.0, 0, 1.0 / 2.0 } }, "V_d" } });
+                                new double[][] { { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } },
+                                new double[][][] { { { 3.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0 }, { 1.0 / 2.0, 1.0 / 2.0, 0 },
+                                { 1.0 / 2.0, 0, 1.0 / 2.0 } } }, "V_d" },
+                        // all together
+                        {
+                                3,
+                                new double[][] { { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0,
+                                        2.0 / 3.0 },
+                                { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0,
+                                        0 },
+                                { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } },
+                                new double[][][] {
+                                { { 0, 0, 0 }, { 0, 1.0 / 3.0, 1.0 / 3.0 },
+                                { 0, 1.0 / 3.0, 1.0 / 3.0 } },
+                                { { 1.0 / 3.0, -1.0 / 6.0, -1.0 / 6.0 },
+                                { -1.0 / 6.0, 1.0 / 3.0, -1.0 / 6.0 }, { -1.0 / 6.0, -1.0 / 6.0, 1.0 / 3.0 } },
+                                { { 3.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0 }, { 1.0 / 2.0, 1.0 / 2.0, 0 },
+                                { 1.0 / 2.0, 0, 1.0 / 2.0 } } }, "V_d" } });
     }
 
-    public DifferenceCalculationBasedCreatorTest(int wordsetSize, double[] probabilities, double[][] expectedVectors,
+    public DifferenceCalculationBasedCreatorTest(int wordsetSize, double[][] probabilities,
+            double[][][] expectedVectors,
             String expectedCreatorName) {
         super(new DifferenceBasedCoherenceCalculation(), wordsetSize, probabilities, expectedVectors,
                 expectedCreatorName);

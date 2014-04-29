@@ -29,61 +29,81 @@ public class ProbabilityBasedVectorCreatorTest extends AbstractVectorCreatorTest
 
     @Parameters
     public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][] {
-                /*
-                 * word1 1 1 1
-                 * 
-                 * word2 0 1 1
-                 * 
-                 * word3 0 1 1
-                 * 
-                 * vector1 1.0 2/3 2/3
-                 * 
-                 * vector2 2/3 2/3 2/3
-                 * 
-                 * vector2 2/3 2/3 2/3
-                 */
-                {
-                        3,
-                        new double[] { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
-                        new double[][] { { 1.0, 2.0 / 3.0, 2.0 / 3.0 }, { 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
-                                { 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 } } },
+        return Arrays
+                .asList(new Object[][] {
+                        /*
+                         * word1 1 1 1
+                         * 
+                         * word2 0 1 1
+                         * 
+                         * word3 0 1 1
+                         * 
+                         * vector1 1.0 2/3 2/3
+                         * 
+                         * vector2 2/3 2/3 2/3
+                         * 
+                         * vector2 2/3 2/3 2/3
+                         */
+                        {
+                                3,
+                                new double[][] { { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0,
+                                        2.0 / 3.0 } },
+                                new double[][][] { { { 1.0, 2.0 / 3.0, 2.0 / 3.0 },
+                                { 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
+                                { 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 } } } },
 
-                /*
-                 * word1 0 1 1
-                 * 
-                 * word2 1 0 1
-                 * 
-                 * word3 1 1 0
-                 * 
-                 * vector1 2/3 1/3 1/3
-                 * 
-                 * vector2 1/3 2/3 1/3
-                 * 
-                 * vector2 1/3 1/3 2/3
-                 */{
-                        3,
-                        new double[] { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0, 0 },
-                        new double[][] { { 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0 }, { 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0 },
-                                { 1.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0 } } },
-                /*
-                 * word1 0 0 0 1
-                 * 
-                 * word2 0 1 0 1
-                 * 
-                 * word3 0 0 1 1
-                 * 
-                 * vector1 1/4 1/4 1/4
-                 * 
-                 * vector2 1/4 1/2 1/4
-                 * 
-                 * vector2 1/4 1/4 1/2
-                 */
-                { 3, new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 },
-                        new double[][] { { 0.25, 0.25, 0.25 }, { 0.25, 0.5, 0.25 }, { 0.25, 0.25, 0.5 } } } });
+                        /*
+                         * word1 0 1 1
+                         * 
+                         * word2 1 0 1
+                         * 
+                         * word3 1 1 0
+                         * 
+                         * vector1 2/3 1/3 1/3
+                         * 
+                         * vector2 1/3 2/3 1/3
+                         * 
+                         * vector2 1/3 1/3 2/3
+                         */{
+                                3,
+                                new double[][] { { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0,
+                                        0 } },
+                                new double[][][] { { { 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0 },
+                                { 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0 },
+                                { 1.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0 } } } },
+                        /*
+                         * word1 0 0 0 1
+                         * 
+                         * word2 0 1 0 1
+                         * 
+                         * word3 0 0 1 1
+                         * 
+                         * vector1 1/4 1/4 1/4
+                         * 
+                         * vector2 1/4 1/2 1/4
+                         * 
+                         * vector2 1/4 1/4 1/2
+                         */
+                        { 3, new double[][] { { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } },
+                                new double[][][] { { { 0.25, 0.25, 0.25 }, { 0.25, 0.5, 0.25 }, { 0.25, 0.25, 0.5 } } } },
+                        // all together
+                        {
+                                3,
+                                new double[][] { { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0,
+                                        2.0 / 3.0 },
+                                { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0,
+                                        0 },
+                                { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } },
+                                new double[][][] {
+                                { { 1.0, 2.0 / 3.0, 2.0 / 3.0 }, { 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
+                                { 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 } },
+                                { { 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0 }, { 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0 },
+                                { 1.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0 } },
+                                { { 0.25, 0.25, 0.25 }, { 0.25, 0.5, 0.25 }, { 0.25, 0.25, 0.5 } } } }
+                });
     }
 
-    public ProbabilityBasedVectorCreatorTest(int wordsetSize, double[] probabilities, double[][] expectedVectors) {
+    public ProbabilityBasedVectorCreatorTest(int wordsetSize, double[][] probabilities, double[][][] expectedVectors) {
         super(new ProbabilityBasedVectorCreator(null), new OneOne(), wordsetSize, probabilities, expectedVectors);
     }
 

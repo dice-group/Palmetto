@@ -16,10 +16,10 @@
  */
 package org.aksw.palmetto.calculations.probbased;
 
-
 public abstract class AbstractUndefinedResultHandlingCoherenceCalculation implements ProbabilityBasedCalculation {
 
-    private static final double DEFAULT_RESULT_FOR_UNDIFEND_CALCULATIONS = Double.NaN;
+    // private static final double DEFAULT_RESULT_FOR_UNDIFEND_CALCULATIONS = Double.NaN;
+    private static final double DEFAULT_RESULT_FOR_UNDIFEND_CALCULATIONS = 0;
 
     protected double resultIfCalcUndefined;
 
@@ -41,11 +41,11 @@ public abstract class AbstractUndefinedResultHandlingCoherenceCalculation implem
 
     @Override
     public String getCalculationName() {
-        if (Double.isNaN(resultIfCalcUndefined)) {
+//        if (Double.isNaN(resultIfCalcUndefined)) {
             return getName();
-        } else {
-            return getName() + "_(" + resultIfCalcUndefined + ")";
-        }
+        // } else {
+        // return getName() + "_(" + resultIfCalcUndefined + ")";
+        // }
     }
 
     protected abstract String getName();

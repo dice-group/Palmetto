@@ -46,9 +46,10 @@ public class RatioCoherenceCalculationTest extends AbstractProbCalcBasedVectorCr
                          */
                         {
                                 3,
-                                new double[] { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
-                                new double[][] { { 1, 1, 1 }, { 1, (3.0 / 2.0), (3.0 / 2.0) },
-                                        { 1, (3.0 / 2.0), (3.0 / 2.0) } }, "V_r" },
+                                new double[][] { { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0,
+                                        2.0 / 3.0 } },
+                                new double[][][] { { { 1, 1, 1 }, { 1, (3.0 / 2.0), (3.0 / 2.0) },
+                                { 1, (3.0 / 2.0), (3.0 / 2.0) } } }, "V_r" },
 
                         /*
                          * word1 0 1 1
@@ -64,10 +65,11 @@ public class RatioCoherenceCalculationTest extends AbstractProbCalcBasedVectorCr
                          * vector3 3/4 3/4 3/2
                          */{
                                 3,
-                                new double[] { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0, 0 },
-                                new double[][] { { (3.0 / 2.0), (3.0 / 4.0), (3.0 / 4.0) },
-                                        { (3.0 / 4.0), (3.0 / 2.0), (3.0 / 4.0) },
-                                        { (3.0 / 4.0), (3.0 / 4.0), (3.0 / 2.0) } }, "V_r" },
+                                new double[][] { { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0,
+                                        0 } },
+                                new double[][][] { { { (3.0 / 2.0), (3.0 / 4.0), (3.0 / 4.0) },
+                                { (3.0 / 4.0), (3.0 / 2.0), (3.0 / 4.0) },
+                                { (3.0 / 4.0), (3.0 / 4.0), (3.0 / 2.0) } } }, "V_r" },
                         /*
                          * word1 0 0 0 1
                          * 
@@ -81,8 +83,8 @@ public class RatioCoherenceCalculationTest extends AbstractProbCalcBasedVectorCr
                          * 
                          * vector3 2 1 2
                          */
-                        { 3, new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 },
-                                new double[][] { { 4, 2, 2 }, { 2, 2, 1 }, { 2, 1, 2 } }, "V_r" },
+                        { 3, new double[][] { { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } },
+                                new double[][][] { { { 4, 2, 2 }, { 2, 2, 1 }, { 2, 1, 2 } } }, "V_r" },
                         /*
                          * word1 1 0 0 0
                          * 
@@ -96,11 +98,27 @@ public class RatioCoherenceCalculationTest extends AbstractProbCalcBasedVectorCr
                          * 
                          * vector3 0 1 2
                          */
-                        { 3, new double[] { 0, 0.25, 0.5, 0, 0.5, 0, 0.25, 0 },
-                                new double[][] { { 4, 0, 0 }, { 0, 2, 1 }, { 0, 1, 2 } }, "V_r" } });
+                        { 3, new double[][] { { 0, 0.25, 0.5, 0, 0.5, 0, 0.25, 0 } },
+                                new double[][][] { { { 4, 0, 0 }, { 0, 2, 1 }, { 0, 1, 2 } } }, "V_r" },
+                        // all together
+                        {
+                                3,
+                                new double[][] { { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0,
+                                        2.0 / 3.0 },
+                                { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0,
+                                        0 },
+                                { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 }, { 0, 0.25, 0.5, 0, 0.5, 0, 0.25, 0 } },
+                                new double[][][] {
+                                { { 1, 1, 1 }, { 1, (3.0 / 2.0), (3.0 / 2.0) },
+                                { 1, (3.0 / 2.0), (3.0 / 2.0) } },
+                                { { (3.0 / 2.0), (3.0 / 4.0), (3.0 / 4.0) },
+                                { (3.0 / 4.0), (3.0 / 2.0), (3.0 / 4.0) },
+                                { (3.0 / 4.0), (3.0 / 4.0), (3.0 / 2.0) } },
+                                { { 4, 2, 2 }, { 2, 2, 1 }, { 2, 1, 2 } }, { { 4, 0, 0 }, { 0, 2, 1 }, { 0, 1, 2 } } },
+                                "V_r" } });
     }
 
-    public RatioCoherenceCalculationTest(int wordsetSize, double[] probabilities, double[][] expectedVectors,
+    public RatioCoherenceCalculationTest(int wordsetSize, double[][] probabilities, double[][][] expectedVectors,
             String expectedCreatorName) {
         super(new RatioCoherenceCalculation(), wordsetSize, probabilities, expectedVectors, expectedCreatorName);
     }

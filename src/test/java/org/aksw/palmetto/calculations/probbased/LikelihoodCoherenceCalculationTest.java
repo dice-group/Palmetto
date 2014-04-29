@@ -44,16 +44,14 @@ public class LikelihoodCoherenceCalculationTest extends AbstractProbabilityBased
                          * C_l,oneone= 1/3 * ((P(w_1|w_2)/P(w_1|-w_2)) +
                          * (P(w_1|w_3)/P(w_1|-w_3)) + (P(w_2|w_1)/P(w_2|-w_1)) +
                          * (P(w_2|w_3)/P(w_2|-w_3)) + (P(w_3|w_1)/P(w_3|-w_1)) +
-                         * (P(w_3|w_1)/P(w_3|-w_2))) = 1/6 * ((1 / 1) + (1 / 1) + NaN + (1/eps) + NaN +
-                         * (1/eps)) = (1 + 1/eps) / 2
-                         * 
-                         * only divided by 2 because the NaN are not used for the mean calculation
+                         * (P(w_3|w_1)/P(w_3|-w_2))) = 1/6 * ((1 / 1) + (1 / 1) + 0 + (1/eps) + 0 +
+                         * (1/eps)) = (1 + 1/eps) / 3
                          */
                         {
                                 new OneOne(),
                                 3,
                                 new double[] { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
-                                (1 + (1.0 / LogBasedCalculation.EPSILON)) / 2.0 },
+                                (1 + (1.0 / LogBasedCalculation.EPSILON)) / 3.0 },
 
                         /*
                          * word1 0 1 1

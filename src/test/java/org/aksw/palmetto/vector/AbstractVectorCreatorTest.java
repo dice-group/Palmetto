@@ -32,11 +32,11 @@ public abstract class AbstractVectorCreatorTest implements ProbabilitySupplier {
     protected VectorCreator vectorCreator;
     protected SubsetCreator subsetCreator;
     protected int wordsetSize;
-    protected double probabilities[];
-    protected double expectedVectors[][];
+    protected double probabilities[][];
+    protected double expectedVectors[][][];
 
     public AbstractVectorCreatorTest(VectorCreator vectorCreator, SubsetCreator subsetCreator, int wordsetSize,
-            double[] probabilities, double expectedVectors[][]) {
+            double[][] probabilities, double expectedVectors[][][]) {
         this.vectorCreator = vectorCreator;
         vectorCreator.setProbabilitySupplier(this);
         this.probabilities = probabilities;
@@ -47,19 +47,28 @@ public abstract class AbstractVectorCreatorTest implements ProbabilitySupplier {
 
     @Test
     public void test() {
-        SubsetVectors vectors = vectorCreator.getVectors(new String[1][wordsetSize],
-                new SubsetDefinition[] { subsetCreator.getSubsetDefinition(wordsetSize) })[0];
-        Assert.assertEquals(expectedVectors.length, vectors.vectors.length);
-        for (int i = 0; i < expectedVectors.length; i++) {
-            Assert.assertArrayEquals("The " + i + "th vectors are not equal.", expectedVectors[i], vectors.vectors[i],
-                    DOUBLE_PRECISION_DELTA);
+        SubsetDefinition definitions[] = new SubsetDefinition[probabilities.length];
+        for (int i = 0; i < definitions.length; ++i) {
+            definitions[i] = subsetCreator.getSubsetDefinition(wordsetSize);
+        }
+        SubsetVectors vectors[] = vectorCreator.getVectors(new String[probabilities.length][wordsetSize], definitions);
+        for (int i = 0; i < probabilities.length; ++i) {
+            Assert.assertEquals(expectedVectors[i].length, vectors[i].vectors.length);
+            for (int j = 0; j < expectedVectors[i].length; ++j) {
+                Assert.assertArrayEquals("Vector " + j + " of wordset " + i + " is not equal to the expected one.",
+                        expectedVectors[i][j], vectors[i].vectors[j], DOUBLE_PRECISION_DELTA);
+            }
         }
     }
 
     @Override
     public SubsetProbabilities[] getProbabilities(String[][] wordsets, SubsetDefinition[] definitions) {
-        return new SubsetProbabilities[] { new SubsetProbabilities(definitions[0].segments, definitions[0].conditions,
-                probabilities) };
+        SubsetProbabilities subsetProbs[] = new SubsetProbabilities[wordsets.length];
+        for (int i = 0; i < wordsets.length; ++i) {
+            subsetProbs[i] = new SubsetProbabilities(definitions[i].segments, definitions[i].conditions,
+                    probabilities[i]);
+        }
+        return subsetProbs;
     }
 
     @Override

@@ -47,13 +47,14 @@ public class NormalizedLogRatioCalculationBasedCreatorTest extends AbstractProbC
                          */
                         {
                                 3,
-                                new double[] { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
-                                new double[][] {
-                                        { -1, 0, 0 },
-                                        { 0, Math.log(3.0 / 2.0) / (-Math.log(2.0 / 3.0)),
-                                                Math.log(3.0 / 2.0) / (-Math.log(2.0 / 3.0)) },
-                                        { 0, Math.log(3.0 / 2.0) / (-Math.log(2.0 / 3.0)),
-                                                Math.log(3.0 / 2.0) / (-Math.log(2.0 / 3.0)) } }, "V_nlr_(0.0)" },
+                                new double[][] { { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0,
+                                        2.0 / 3.0 } },
+                                new double[][][] { {
+                                { -1, 0, 0 },
+                                { 0, Math.log(3.0 / 2.0) / (-Math.log(2.0 / 3.0)),
+                                        Math.log(3.0 / 2.0) / (-Math.log(2.0 / 3.0)) },
+                                { 0, Math.log(3.0 / 2.0) / (-Math.log(2.0 / 3.0)),
+                                        Math.log(3.0 / 2.0) / (-Math.log(2.0 / 3.0)) } } }, "V_nlr" },
 
                         /*
                          * word1 0 1 1
@@ -72,17 +73,18 @@ public class NormalizedLogRatioCalculationBasedCreatorTest extends AbstractProbC
                          * log(3/2)/-log(2/3)
                          */{
                                 3,
-                                new double[] { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0, 0 },
-                                new double[][] {
-                                        { Math.log(3.0 / 2.0) / -Math.log(2.0 / 3.0),
-                                                Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0),
-                                                Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0) },
-                                        { Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0),
-                                                Math.log(3.0 / 2.0) / -Math.log(2.0 / 3.0),
-                                                Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0) },
-                                        { Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0),
-                                                Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0),
-                                                Math.log(3.0 / 2.0) / -Math.log(2.0 / 3.0) } }, "V_nlr_(0.0)" },
+                                new double[][] { { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0,
+                                        0 } },
+                                new double[][][] { {
+                                { Math.log(3.0 / 2.0) / -Math.log(2.0 / 3.0),
+                                        Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0),
+                                        Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0) },
+                                { Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0),
+                                        Math.log(3.0 / 2.0) / -Math.log(2.0 / 3.0),
+                                        Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0) },
+                                { Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0),
+                                        Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0),
+                                        Math.log(3.0 / 2.0) / -Math.log(2.0 / 3.0) } } }, "V_nlr" },
                         /*
                          * word1 0 0 0 1
                          * 
@@ -99,15 +101,15 @@ public class NormalizedLogRatioCalculationBasedCreatorTest extends AbstractProbC
                          */
                         {
                                 3,
-                                new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 },
-                                new double[][] {
-                                        { Math.log(4.0) / (-Math.log(1.0 / 4.0)),
-                                                Math.log(2.0) / (-Math.log(1.0 / 4.0)),
-                                                Math.log(2.0) / (-Math.log(1.0 / 4.0)) },
-                                        { Math.log(2.0) / (-Math.log(1.0 / 4.0)),
-                                                Math.log(2.0) / (-Math.log(1.0 / 2.0)), 0 },
-                                        { Math.log(2.0) / (-Math.log(1.0 / 4.0)), 0,
-                                                Math.log(2.0) / (-Math.log(1.0 / 2.0)) } }, "V_nlr_(0.0)" },
+                                new double[][] { { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } },
+                                new double[][][] { {
+                                { Math.log(4.0) / (-Math.log(1.0 / 4.0)),
+                                        Math.log(2.0) / (-Math.log(1.0 / 4.0)),
+                                        Math.log(2.0) / (-Math.log(1.0 / 4.0)) },
+                                { Math.log(2.0) / (-Math.log(1.0 / 4.0)),
+                                        Math.log(2.0) / (-Math.log(1.0 / 2.0)), 0 },
+                                { Math.log(2.0) / (-Math.log(1.0 / 4.0)), 0,
+                                        Math.log(2.0) / (-Math.log(1.0 / 2.0)) } } }, "V_nlr" },
                         /*
                          * word1 1 0 0 0
                          * 
@@ -124,26 +126,72 @@ public class NormalizedLogRatioCalculationBasedCreatorTest extends AbstractProbC
                          */
                         {
                                 3,
-                                new double[] { 0, 0.25, 0.5, 0, 0.5, 0, 0.25, 0 },
-                                new double[][] {
-                                        {
-                                                Math.log(4.0) / (-Math.log(1.0 / 4.0)),
-                                                Math.log(8 * LogBasedCalculation.EPSILON)
-                                                        / -Math.log(LogBasedCalculation.EPSILON),
-                                                Math.log(8 * LogBasedCalculation.EPSILON)
-                                                        / -Math.log(LogBasedCalculation.EPSILON) },
-                                        {
-                                                Math.log(8 * LogBasedCalculation.EPSILON)
-                                                        / -Math.log(LogBasedCalculation.EPSILON),
-                                                Math.log(2.0) / (-Math.log(1.0 / 2.0)), 0 },
-                                        {
-                                                Math.log(8 * LogBasedCalculation.EPSILON)
-                                                        / -Math.log(LogBasedCalculation.EPSILON), 0,
-                                                Math.log(2.0) / (-Math.log(1.0 / 2.0)) } }, "V_nlr_(0.0)" } });
+                                new double[][] { { 0, 0.25, 0.5, 0, 0.5, 0, 0.25, 0 } },
+                                new double[][][] {
+                                { {
+                                        Math.log(4.0) / (-Math.log(1.0 / 4.0)),
+                                        Math.log(8 * LogBasedCalculation.EPSILON)
+                                                / -Math.log(LogBasedCalculation.EPSILON),
+                                        Math.log(8 * LogBasedCalculation.EPSILON)
+                                                / -Math.log(LogBasedCalculation.EPSILON) },
+                                {
+                                        Math.log(8 * LogBasedCalculation.EPSILON)
+                                                / -Math.log(LogBasedCalculation.EPSILON),
+                                        Math.log(2.0) / (-Math.log(1.0 / 2.0)), 0 },
+                                {
+                                        Math.log(8 * LogBasedCalculation.EPSILON)
+                                                / -Math.log(LogBasedCalculation.EPSILON), 0,
+                                        Math.log(2.0) / (-Math.log(1.0 / 2.0)) } } }, "V_nlr" },
+                        // all together
+                        {
+                                3,
+                                new double[][] { { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0,
+                                        2.0 / 3.0 },
+                                { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0,
+                                        0 },
+                                { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 }, { 0, 0.25, 0.5, 0, 0.5, 0, 0.25, 0 } },
+                                new double[][][] {
+                                {
+                                { -1, 0, 0 },
+                                { 0, Math.log(3.0 / 2.0) / (-Math.log(2.0 / 3.0)),
+                                        Math.log(3.0 / 2.0) / (-Math.log(2.0 / 3.0)) },
+                                { 0, Math.log(3.0 / 2.0) / (-Math.log(2.0 / 3.0)),
+                                        Math.log(3.0 / 2.0) / (-Math.log(2.0 / 3.0)) } },
+                                {
+                                { Math.log(3.0 / 2.0) / -Math.log(2.0 / 3.0),
+                                        Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0),
+                                        Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0) },
+                                { Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0),
+                                        Math.log(3.0 / 2.0) / -Math.log(2.0 / 3.0),
+                                        Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0) },
+                                { Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0),
+                                        Math.log(3.0 / 4.0) / -Math.log(1.0 / 3.0),
+                                        Math.log(3.0 / 2.0) / -Math.log(2.0 / 3.0) } },
+                                {
+                                { Math.log(4.0) / (-Math.log(1.0 / 4.0)),
+                                        Math.log(2.0) / (-Math.log(1.0 / 4.0)),
+                                        Math.log(2.0) / (-Math.log(1.0 / 4.0)) },
+                                { Math.log(2.0) / (-Math.log(1.0 / 4.0)),
+                                        Math.log(2.0) / (-Math.log(1.0 / 2.0)), 0 },
+                                { Math.log(2.0) / (-Math.log(1.0 / 4.0)), 0,
+                                        Math.log(2.0) / (-Math.log(1.0 / 2.0)) } }, { {
+                                        Math.log(4.0) / (-Math.log(1.0 / 4.0)),
+                                        Math.log(8 * LogBasedCalculation.EPSILON)
+                                                / -Math.log(LogBasedCalculation.EPSILON),
+                                        Math.log(8 * LogBasedCalculation.EPSILON)
+                                                / -Math.log(LogBasedCalculation.EPSILON) },
+                                {
+                                        Math.log(8 * LogBasedCalculation.EPSILON)
+                                                / -Math.log(LogBasedCalculation.EPSILON),
+                                        Math.log(2.0) / (-Math.log(1.0 / 2.0)), 0 },
+                                {
+                                        Math.log(8 * LogBasedCalculation.EPSILON)
+                                                / -Math.log(LogBasedCalculation.EPSILON), 0,
+                                        Math.log(2.0) / (-Math.log(1.0 / 2.0)) } } }, "V_nlr" } });
     }
 
-    public NormalizedLogRatioCalculationBasedCreatorTest(int wordsetSize, double[] probabilities,
-            double[][] expectedVectors, String expectedCreatorName) {
+    public NormalizedLogRatioCalculationBasedCreatorTest(int wordsetSize, double[][] probabilities,
+            double[][][] expectedVectors, String expectedCreatorName) {
         super(new NormalizedLogRatioCoherenceCalculation(0), wordsetSize, probabilities, expectedVectors,
                 expectedCreatorName);
     }

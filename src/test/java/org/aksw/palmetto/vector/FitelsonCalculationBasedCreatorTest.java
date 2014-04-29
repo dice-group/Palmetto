@@ -43,8 +43,8 @@ public class FitelsonCalculationBasedCreatorTest extends AbstractProbCalcBasedVe
                  * 
                  * vector3 1 1 1
                  */
-                { 3, new double[] { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
-                        new double[][] { { 1, 0, 0 }, { 1, 1, 1 }, { 1, 1, 1 } }, "V_f" },
+                { 3, new double[][] { { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 } },
+                        new double[][][] { { { 1, 0, 0 }, { 1, 1, 1 }, { 1, 1, 1 } } }, "V_f" },
 
                 /*
                  * word1 0 1 1
@@ -60,9 +60,9 @@ public class FitelsonCalculationBasedCreatorTest extends AbstractProbCalcBasedVe
                  * vector3 -1/3 -1/3 1
                  */{
                         3,
-                        new double[] { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0, 0 },
-                        new double[][] { { 1, -1. / 3.0, -1. / 3.0 }, { -1. / 3.0, 1, -1. / 3.0 },
-                                { -1. / 3.0, -1. / 3.0, 1 } }, "V_f" },
+                        new double[][] { { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0, 0 } },
+                        new double[][][] { { { 1, -1. / 3.0, -1. / 3.0 }, { -1. / 3.0, 1, -1. / 3.0 },
+                        { -1. / 3.0, -1. / 3.0, 1 } } }, "V_f" },
                 /*
                  * word1 0 0 0 1
                  * 
@@ -76,11 +76,24 @@ public class FitelsonCalculationBasedCreatorTest extends AbstractProbCalcBasedVe
                  * 
                  * vector3 1/2 0 1
                  */
-                { 3, new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 },
-                        new double[][] { { 1, 1, 1 }, { 1.0 / 2.0, 1, 0 }, { 1.0 / 2.0, 0, 1 } }, "V_f" } });
+                { 3, new double[][] { { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } },
+                        new double[][][] { { { 1, 1, 1 }, { 1.0 / 2.0, 1, 0 }, { 1.0 / 2.0, 0, 1 } } }, "V_f" },
+                // all together
+                {
+                        3,
+                        new double[][] { { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0,
+                                2.0 / 3.0 },
+                        { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0,
+                                0 },
+                        { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } },
+                        new double[][][] {
+                        { { 1, 0, 0 }, { 1, 1, 1 }, { 1, 1, 1 } },
+                        { { 1, -1. / 3.0, -1. / 3.0 }, { -1. / 3.0, 1, -1. / 3.0 },
+                            { -1. / 3.0, -1. / 3.0, 1 } },
+                        { { 1, 1, 1 }, { 1.0 / 2.0, 1, 0 }, { 1.0 / 2.0, 0, 1 } } }, "V_f" } });
     }
 
-    public FitelsonCalculationBasedCreatorTest(int wordsetSize, double[] probabilities, double[][] expectedVectors,
+    public FitelsonCalculationBasedCreatorTest(int wordsetSize, double[][] probabilities, double[][][] expectedVectors,
             String expectedCreatorName) {
         super(new FitelsonCoherenceCalculation(), wordsetSize, probabilities, expectedVectors, expectedCreatorName);
     }

@@ -46,8 +46,10 @@ public class JaccardCalculationBasedCreatorTest extends AbstractProbCalcBasedVec
                          */
                         {
                                 3,
-                                new double[] { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
-                                new double[][] { { 1, 2.0 / 3.0, 2.0 / 3.0 }, { 2.0 / 3.0, 1, 1 }, { 2.0 / 3.0, 1, 1 } },
+                                new double[][] { { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0,
+                                        2.0 / 3.0 } },
+                                new double[][][] { { { 1, 2.0 / 3.0, 2.0 / 3.0 }, { 2.0 / 3.0, 1, 1 },
+                                        { 2.0 / 3.0, 1, 1 } } },
                                 "V_j" },
 
                         /*
@@ -64,9 +66,10 @@ public class JaccardCalculationBasedCreatorTest extends AbstractProbCalcBasedVec
                          * vector3 1/3 1/3 1
                          */{
                                 3,
-                                new double[] { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0, 0 },
-                                new double[][] { { 1, 1.0 / 3.0, 1.0 / 3.0 }, { 1.0 / 3.0, 1, 1.0 / 3.0 },
-                                        { 1.0 / 3.0, 1.0 / 3.0, 1 } }, "V_j" },
+                                new double[][] { { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0,
+                                        0 } },
+                                new double[][][] { { { 1, 1.0 / 3.0, 1.0 / 3.0 }, { 1.0 / 3.0, 1, 1.0 / 3.0 },
+                                { 1.0 / 3.0, 1.0 / 3.0, 1 } } }, "V_j" },
                         /*
                          * word1 0 0 0 1
                          * 
@@ -82,12 +85,27 @@ public class JaccardCalculationBasedCreatorTest extends AbstractProbCalcBasedVec
                          */
                         {
                                 3,
-                                new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 },
-                                new double[][] { { 1, 1.0 / 2.0, 1.0 / 2.0 }, { 1.0 / 2.0, 1, 1.0 / 3.0 },
-                                        { 1.0 / 2.0, 1.0 / 3.0, 1 } }, "V_j" } });
+                                new double[][] { { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } },
+                                new double[][][] { { { 1, 1.0 / 2.0, 1.0 / 2.0 }, { 1.0 / 2.0, 1, 1.0 / 3.0 },
+                                { 1.0 / 2.0, 1.0 / 3.0, 1 } } }, "V_j" } ,
+                                // all together
+                                {
+                                        3,
+                                        new double[][] { { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0,
+                                                2.0 / 3.0 },
+                                        { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0,
+                                                0 },
+                                        { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } },
+                                        new double[][][] {
+                                        { { 1, 2.0 / 3.0, 2.0 / 3.0 }, { 2.0 / 3.0, 1, 1 },
+                                            { 2.0 / 3.0, 1, 1 } },
+                                        { { 1, 1.0 / 3.0, 1.0 / 3.0 }, { 1.0 / 3.0, 1, 1.0 / 3.0 },
+                                            { 1.0 / 3.0, 1.0 / 3.0, 1 } },
+                                        { { 1, 1.0 / 2.0, 1.0 / 2.0 }, { 1.0 / 2.0, 1, 1.0 / 3.0 },
+                                            { 1.0 / 2.0, 1.0 / 3.0, 1 } } }, "V_j" } });
     }
 
-    public JaccardCalculationBasedCreatorTest(int wordsetSize, double[] probabilities, double[][] expectedVectors,
+    public JaccardCalculationBasedCreatorTest(int wordsetSize, double[][] probabilities, double[][][] expectedVectors,
             String expectedCreatorName) {
         super(new JaccardCoherenceCalculation(), wordsetSize, probabilities, expectedVectors, expectedCreatorName);
     }

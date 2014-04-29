@@ -129,7 +129,7 @@ public class Palmetto {
             supplier.setMinFrequency(minFrequency);
         }
 
-        Coherence coherence = getCoherence(calcType, supplier);
+        ProbabilityBasedCoherence coherence = getCoherence(calcType, supplier);
         if (coherence == null) {
             LOGGER.error("Unknown calculation type \"" + calcType + "\". Aborting");
             return;
@@ -150,7 +150,7 @@ public class Palmetto {
         }
     }
 
-    private static Coherence getCoherence(String calcType, BooleanDocumentProbabilitySupplier probSupplier) {
+    private static ProbabilityBasedCoherence getCoherence(String calcType, BooleanDocumentProbabilitySupplier probSupplier) {
         String parts[] = calcType.toLowerCase().split("-");
         if ((parts.length < 1) || (parts.length > 2)) {
             return null;
@@ -176,7 +176,7 @@ public class Palmetto {
             return null;
         }
         if (parts[1].equals("diff")) {
-            return new Coherence(creator, probSupplier, new DifferenceBasedCoherenceCalculation(),
+            return new ProbabilityBasedCoherence(creator, probSupplier, new DifferenceBasedCoherenceCalculation(),
                     new ArithmeticMean(), new EqualWeighter());
         } else {
             return null;
