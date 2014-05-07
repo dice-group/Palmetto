@@ -64,6 +64,6 @@ public class OneOneAndSelf implements SubsetCreator {
 
     @Override
     public String getName() {
-        return "S_one-one&self";
+        return "S^{one}_{o&s}";
     }
 }

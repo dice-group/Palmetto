@@ -30,16 +30,24 @@ public class BooleanDocumentProbabilitySupplier extends AbstractProbabilitySuppl
     }
 
     public static BooleanDocumentProbabilitySupplier create(CorpusAdapter adapter, String probModelName) {
-        BooleanDocumentFrequencyDeterminer determiner = createFrequencyDeterminer(adapter);
+        return create(adapter, probModelName, false);
+    }
+
+    public static BooleanDocumentProbabilitySupplier create(CorpusAdapter adapter, String probModelName,
+            boolean corpusIsLarge) {
+        BooleanDocumentFrequencyDeterminer determiner = createFrequencyDeterminer(adapter, corpusIsLarge);
         if (determiner != null) {
             return new BooleanDocumentProbabilitySupplier(determiner, probModelName);
         }
         return null;
     }
 
-    protected static BooleanDocumentFrequencyDeterminer createFrequencyDeterminer(CorpusAdapter adapter) {
+    protected static BooleanDocumentFrequencyDeterminer createFrequencyDeterminer(CorpusAdapter adapter,
+            boolean corpusIsLarge) {
         if (adapter instanceof BooleanDocumentSupportingAdapter) {
-            return new BooleanDocumentFrequencyDeterminer((BooleanDocumentSupportingAdapter) adapter);
+            return (corpusIsLarge ? new ListBasedBooleanDocumentFrequencyDeterminer(
+                    (BooleanDocumentSupportingAdapter) adapter) : new BitSetBasedBooleanDocumentFrequencyDeterminer(
+                    (BooleanDocumentSupportingAdapter) adapter));
         }
         return null;
     }

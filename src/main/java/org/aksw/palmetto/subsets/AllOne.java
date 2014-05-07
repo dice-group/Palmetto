@@ -46,6 +46,6 @@ public class AllOne implements SubsetCreator {
 
     @Override
     public String getName() {
-        return "S_all-one";
+        return "S^{all}_{one}";
     }
 }

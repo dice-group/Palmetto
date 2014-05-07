@@ -26,6 +26,8 @@ public interface ProbabilitySupplier extends InverseProbabilitySupplier {
 
     public FrequencyDeterminer getFrequencyDeterminer();
 
+    public void setFrequencyDeterminer(FrequencyDeterminer determiner);
+
     public String getProbabilityModelName();
 
     public void setMinFrequency(int minFrequency);

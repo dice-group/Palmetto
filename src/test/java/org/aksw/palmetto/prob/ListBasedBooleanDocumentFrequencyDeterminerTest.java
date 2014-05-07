@@ -19,7 +19,6 @@ package org.aksw.palmetto.prob;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.corpus.BooleanDocumentSupportingAdapter;
 import org.aksw.palmetto.data.CountedSubsets;
 import org.aksw.palmetto.data.SubsetDefinition;
 import org.aksw.palmetto.subsets.AnyAny;
@@ -29,11 +28,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
-import com.carrotsearch.hppc.IntOpenHashSet;
-import com.carrotsearch.hppc.ObjectObjectOpenHashMap;
-
 @RunWith(Parameterized.class)
-public class BooleanDocumentFrequencyDeterminerTest implements BooleanDocumentSupportingAdapter {
+public class ListBasedBooleanDocumentFrequencyDeterminerTest extends AbstractBooleanDocumentSupportingAdapterBasedTest {
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -76,7 +72,8 @@ public class BooleanDocumentFrequencyDeterminerTest implements BooleanDocumentSu
     private int wordDocuments[][];
     private int expectedCounts[];
 
-    public BooleanDocumentFrequencyDeterminerTest(int[][] wordDocuments, int[] expectedCounts) {
+    public ListBasedBooleanDocumentFrequencyDeterminerTest(int[][] wordDocuments, int[] expectedCounts) {
+        super(wordDocuments, 0);
         this.wordDocuments = wordDocuments;
         this.expectedCounts = expectedCounts;
     }
@@ -88,25 +85,11 @@ public class BooleanDocumentFrequencyDeterminerTest implements BooleanDocumentSu
             words[i] = Integer.toString(i);
         }
 
-        BooleanDocumentFrequencyDeterminer freqDeterminer = new BooleanDocumentFrequencyDeterminer(this);
+        ListBasedBooleanDocumentFrequencyDeterminer freqDeterminer = new ListBasedBooleanDocumentFrequencyDeterminer(this);
         CountedSubsets countedSubsets[] = freqDeterminer.determineCounts(new String[][] { words },
                 new SubsetDefinition[] { (new AnyAny()).getSubsetDefinition(words.length) });
 
         int counts[] = countedSubsets[0].counts;
         Assert.assertArrayEquals(expectedCounts, counts);
-    }
-
-    public void getDocumentsWithWords(ObjectObjectOpenHashMap<String, IntOpenHashSet> wordDocMapping) {
-        Object keys[] = (Object[]) wordDocMapping.keys;
-        Object values[] = (Object[]) wordDocMapping.values;
-        for (int i = 0; i < wordDocMapping.allocated.length; ++i) {
-            if (wordDocMapping.allocated[i]) {
-                ((IntOpenHashSet) values[i]).add(wordDocuments[Integer.parseInt((String) keys[i])]);
-            }
-        }
-    }
-
-    public int getNumberOfDocuments() {
-        return 0;
     }
 }

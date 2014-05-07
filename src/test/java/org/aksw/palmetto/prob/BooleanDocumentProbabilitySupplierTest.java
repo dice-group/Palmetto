@@ -19,7 +19,6 @@ package org.aksw.palmetto.prob;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.corpus.BooleanDocumentSupportingAdapter;
 import org.aksw.palmetto.data.SubsetDefinition;
 import org.aksw.palmetto.data.SubsetProbabilities;
 import org.junit.Assert;
@@ -29,11 +28,9 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 import com.carrotsearch.hppc.BitSet;
-import com.carrotsearch.hppc.IntOpenHashSet;
-import com.carrotsearch.hppc.ObjectObjectOpenHashMap;
 
 @RunWith(Parameterized.class)
-public class BooleanDocumentProbabilitySupplierTest implements BooleanDocumentSupportingAdapter {
+public class BooleanDocumentProbabilitySupplierTest extends AbstractBooleanDocumentSupportingAdapterBasedTest {
 
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
@@ -84,15 +81,12 @@ public class BooleanDocumentProbabilitySupplierTest implements BooleanDocumentSu
                         new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } } });
     }
 
-    private int wordDocuments[][];
-    private int numberOfDocuments;
     private int minFrequency;
     private double expectedProbabilities[];
 
     public BooleanDocumentProbabilitySupplierTest(int[][] wordDocuments, int numberOfDocuments, int minFrequency,
             double[] expectedProbabilities) {
-        this.wordDocuments = wordDocuments;
-        this.numberOfDocuments = numberOfDocuments;
+        super(wordDocuments, numberOfDocuments);
         this.minFrequency = minFrequency;
         this.expectedProbabilities = expectedProbabilities;
     }
@@ -112,19 +106,5 @@ public class BooleanDocumentProbabilitySupplierTest implements BooleanDocumentSu
 
         double probabilities[] = subsetProbs[0].probabilities;
         Assert.assertArrayEquals(expectedProbabilities, probabilities, DOUBLE_PRECISION_DELTA);
-    }
-
-    public void getDocumentsWithWords(ObjectObjectOpenHashMap<String, IntOpenHashSet> wordDocMapping) {
-        Object keys[] = (Object[]) wordDocMapping.keys;
-        Object values[] = (Object[]) wordDocMapping.values;
-        for (int i = 0; i < wordDocMapping.allocated.length; ++i) {
-            if (wordDocMapping.allocated[i]) {
-                ((IntOpenHashSet) values[i]).add(wordDocuments[Integer.parseInt((String) keys[i])]);
-            }
-        }
-    }
-
-    public int getNumberOfDocuments() {
-        return numberOfDocuments;
     }
 }

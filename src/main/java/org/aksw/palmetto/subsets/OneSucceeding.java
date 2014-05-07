@@ -20,7 +20,7 @@ import org.aksw.palmetto.data.SubsetDefinition;
 
 import com.carrotsearch.hppc.BitSet;
 
-public class OneSubsequent implements SubsetCreator {
+public class OneSucceeding implements SubsetCreator {
 
     public SubsetDefinition getSubsetDefinition(int wordsetSize) {
         /*
@@ -49,6 +49,6 @@ public class OneSubsequent implements SubsetCreator {
 
     @Override
     public String getName() {
-        return "S_one-subsequent";
+        return "S^{one}_{suc}";
     }
 }

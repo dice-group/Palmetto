@@ -80,17 +80,12 @@ public class AnyAny extends AbstractAnyBasedSubsetCreator {
     @Override
     public String getName() {
         if (isSingleSubSetSizeRestricted()) {
-            if (isSubSetUnionSizeRestricted()) {
-                return "S_any(" + getMaxSingleSubSetSize() + ")-any(" + getMaxSingleSubSetSize() + ")_("
-                        + getMaxSubSetUnionSize() + ")";
-            } else {
-                return "S_any(" + getMaxSingleSubSetSize() + ")-any(" + getMaxSingleSubSetSize() + ")";
-            }
+            return "S^{any(" + getMaxSingleSubSetSize() + ")}_{any(" + getMaxSingleSubSetSize() + ")}";
         } else {
             if (isSubSetUnionSizeRestricted()) {
-                return "S_any-any_(" + getMaxSubSetUnionSize() + ")";
+                return "S^{any}_{any}(" + getMaxSubSetUnionSize() + ")";
             } else {
-                return "S_any-any";
+                return "S^{any}_{any}";
             }
         }
     }

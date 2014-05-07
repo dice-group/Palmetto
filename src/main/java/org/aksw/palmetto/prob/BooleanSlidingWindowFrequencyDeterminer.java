@@ -58,9 +58,11 @@ public class BooleanSlidingWindowFrequencyDeterminer implements SlidingWindowFre
                 addCountsFromDocument(positions, counts, docLengths.get(positionsInDocs.keys[i]));
             }
         }
+        addCountsOfSubsets(counts);
         return counts;
     }
 
+    @Deprecated
     private void addCounts(BitSet bitsets[], int counts[]) {
         BitSet[] combinations = new BitSet[(1 << bitsets.length)];
         int pos, pos2;
@@ -79,7 +81,9 @@ public class BooleanSlidingWindowFrequencyDeterminer implements SlidingWindowFre
         }
     }
 
-    private void addCountsFromDocument(IntArrayList[] positions, int[] counts, int docLength) {
+    @SuppressWarnings("unused")
+    @Deprecated
+    private void addCountsFromDocument_BitSetBased(IntArrayList[] positions, int[] counts, int docLength) {
         if (docLength <= windowSize) {
             addCountsFromSmallDocument(positions, counts);
             return;
@@ -105,7 +109,110 @@ public class BooleanSlidingWindowFrequencyDeterminer implements SlidingWindowFre
         addCounts(bitsets, counts);
     }
 
+    private void addCountsFromDocument(IntArrayList[] positions, int[] counts, int docLength) {
+        if (docLength <= windowSize) {
+            addCountsFromSmallDocument(positions, counts);
+            return;
+        }
+        int posInList[] = new int[positions.length + 1];
+        int nextWordId = 0, nextWordPos = Integer.MAX_VALUE;
+        int wordCount = 0;
+        // determine the first token which we should look at
+        for (int i = 0; i < positions.length; ++i) {
+            if (positions[i] != null) {
+                if (positions[i].buffer[0] < nextWordPos) {
+                    nextWordPos = positions[i].buffer[0];
+                    nextWordId = i;
+                }
+                wordCount += positions[i].elementsCount;
+            }
+        }
+
+        IntArrayList wordIdsInWindow = new IntArrayList(wordCount);
+        IntArrayList wordPositionsInWindow = new IntArrayList(wordCount);
+        int romaveableWordsPosId = posInList.length - 1;
+        int windowWords = 0;
+        int lastWordPos, wordEndPos;
+        boolean countingEnabled = false;
+        while (nextWordPos < docLength) {
+            // create (or udpate) a signature containing a 1 for every word type inside this window
+            // check whether a word will be removed
+            if (nextWordId == positions.length) {
+                windowWords &= ~(1 << wordIdsInWindow.buffer[posInList[romaveableWordsPosId]]);
+                ++posInList[romaveableWordsPosId];
+            } else {
+                // if this word is already inside the window
+                if ((windowWords & (1 << nextWordId)) > 0) {
+                    // we have to remove its first occurrence from the list
+                    for (int i = posInList[romaveableWordsPosId]; i < wordIdsInWindow.elementsCount; ++i) {
+                        if (wordIdsInWindow.buffer[i] == nextWordId) {
+                            wordIdsInWindow.remove(i);
+                            wordPositionsInWindow.remove(i);
+                        }
+                    }
+                } else {
+                    // add the word
+                    windowWords |= (1 << nextWordId);
+                }
+                // add its position to the list of tokens that should be removed (if this would be inside this document)
+                wordEndPos = nextWordPos + windowSize;
+                if (wordEndPos < docLength) {
+                    wordIdsInWindow.add(nextWordId);
+                    wordPositionsInWindow.add(wordEndPos);
+                }
+                // check if on the same position a word should be removed
+                if ((posInList[romaveableWordsPosId] < wordPositionsInWindow.elementsCount)
+                        && (wordPositionsInWindow.buffer[posInList[romaveableWordsPosId]] == nextWordPos)) {
+                    windowWords &= ~(1 << wordIdsInWindow.buffer[posInList[romaveableWordsPosId]]);
+                    ++posInList[romaveableWordsPosId];
+                }
+                ++posInList[nextWordId];
+            }
+
+            // Find the next position we should look at
+            lastWordPos = nextWordPos;
+            nextWordPos = Integer.MAX_VALUE;
+            for (int i = 0; i < positions.length; ++i) {
+                if ((positions[i] != null) && (posInList[i] < positions[i].elementsCount)
+                        && (positions[i].buffer[posInList[i]] < nextWordPos)) {
+                    nextWordPos = positions[i].buffer[posInList[i]];
+                    nextWordId = i;
+                }
+            }
+            if ((posInList[romaveableWordsPosId] < wordPositionsInWindow.elementsCount)
+                    && (wordPositionsInWindow.buffer[posInList[romaveableWordsPosId]] < nextWordPos)) {
+                nextWordPos = wordPositionsInWindow.buffer[posInList[romaveableWordsPosId]];
+                nextWordId = positions.length;
+            }
+            // Make sure that counting only starts if the first window is complete
+            if ((!countingEnabled) && (nextWordPos >= windowSize)) {
+                lastWordPos = windowSize - 1;
+                countingEnabled = true;
+            }
+            if (countingEnabled) {
+                // increase counts
+                if (nextWordPos < docLength) {
+                    counts[windowWords] += nextWordPos - lastWordPos;
+                } else {
+                    counts[windowWords] += docLength - lastWordPos;
+                }
+            }
+        }
+    }
+
     private void addCountsFromSmallDocument(IntArrayList[] positions, int[] counts) {
+        int signature = 0;
+        for (int i = 0; i < positions.length; ++i) {
+            if ((positions[i] != null) && (positions[i].size() > 0)) {
+                signature |= 1 << i;
+            }
+        }
+        ++counts[signature];
+    }
+
+    @SuppressWarnings("unused")
+    @Deprecated
+    private void addCountsFromSmallDocument_BitSetBased(IntArrayList[] positions, int[] counts) {
         BitSet bitsets[] = new BitSet[positions.length];
         for (int i = 0; i < positions.length; ++i) {
             bitsets[i] = new BitSet(1);
@@ -194,9 +301,7 @@ public class BooleanSlidingWindowFrequencyDeterminer implements SlidingWindowFre
         }
     }
 
-    @SuppressWarnings("unused")
-    @Deprecated
-    private void addCountsSubsets(int[] counts) {
+    private void addCountsOfSubsets(int[] counts) {
         // until now the counts contain only the windows which have exactly the matching word combination
         // --> we have to add the counts of the larger word sets to their subsets
         for (int i = 1; i < counts.length; ++i) {

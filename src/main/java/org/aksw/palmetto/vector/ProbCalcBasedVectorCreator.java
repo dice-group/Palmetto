@@ -16,6 +16,8 @@
  */
 package org.aksw.palmetto.vector;
 
+import java.util.Arrays;
+
 import org.aksw.palmetto.calculations.probbased.ProbabilityBasedCalculation;
 import org.aksw.palmetto.data.SubsetDefinition;
 import org.aksw.palmetto.data.SubsetProbabilities;
@@ -26,7 +28,7 @@ import org.aksw.palmetto.subsets.OneOneAndSelf;
 public class ProbCalcBasedVectorCreator extends AbstractVectorCreator {
 
     private ProbabilityBasedCalculation calculation;
-    private OneOneAndSelf oneOneCreator = new OneOneAndSelf();
+    private OneOneAndSelf oneOneAndSelfCreator = new OneOneAndSelf();
 
     public ProbCalcBasedVectorCreator(ProbabilitySupplier supplier, ProbabilityBasedCalculation calculation) {
         super(supplier);
@@ -43,19 +45,25 @@ public class ProbCalcBasedVectorCreator extends AbstractVectorCreator {
             SubsetProbabilities[] probabilities) {
         SubsetVectors vectors[] = new SubsetVectors[wordsets.length];
         double currentVectors[][];
-        SubsetDefinition oneOneDef = oneOneCreator.getSubsetDefinition(wordsets[0].length);
-        SubsetProbabilities oneOneProbabilities = new SubsetProbabilities(oneOneDef.segments, oneOneDef.conditions,
+        SubsetDefinition oneOneAndSelfDef = oneOneAndSelfCreator.getSubsetDefinition(wordsets[0].length);
+        SubsetProbabilities oneOneAndSelfProbabilities = new SubsetProbabilities(oneOneAndSelfDef.segments,
+                oneOneAndSelfDef.conditions,
                 null);
         double calcResult[];
         int startId;
         for (int w = 0; w < wordsets.length; ++w) {
-            oneOneProbabilities.probabilities = probabilities[w].probabilities;
-            calcResult = calculation.calculateCoherenceValues(oneOneProbabilities);
+            oneOneAndSelfProbabilities.probabilities = probabilities[w].probabilities;
+            calcResult = calculation.calculateCoherenceValues(oneOneAndSelfProbabilities);
             currentVectors = new double[wordsets[w].length][wordsets[w].length];
             startId = 0;
-            for (int i = 0; i < wordsets[w].length; ++i) {
-                System.arraycopy(calcResult, startId, currentVectors[i], 0, wordsets[w].length);
-                startId += wordsets[w].length;
+            try {
+                for (int i = 0; i < wordsets[w].length; ++i) {
+                    System.arraycopy(calcResult, startId, currentVectors[i], 0, wordsets[w].length);
+                    startId += wordsets[w].length;
+                }
+            } catch (Exception e) {
+                System.err.println("ERROR w=" + w + " wordsets[w]=" + Arrays.toString(wordsets[w]) + " calcResult="
+                        + Arrays.toString(calcResult));
             }
             vectors[w] = new SubsetVectors(definitions[w].segments, definitions[w].conditions, currentVectors,
                     probabilities[w].probabilities);

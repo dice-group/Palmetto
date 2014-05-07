@@ -26,7 +26,7 @@ public class OneSubsequentTest extends AbstractSubsetCreatorTest {
         int expectedConditions[][] = new int[][] { { 2, 4, 8 }, { 4, 8 }, { 8 },
                 {} };
 
-        testSubsetCreator(4, new OneSubsequent(), expectedSegments,
+        testSubsetCreator(4, new OneSucceeding(), expectedSegments,
                 expectedConditions);
     }
 }

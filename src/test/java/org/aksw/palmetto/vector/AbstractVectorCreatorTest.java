@@ -91,4 +91,9 @@ public abstract class AbstractVectorCreatorTest implements ProbabilitySupplier {
     public void setMinFrequency(int minFrequency) {
         throw new IllegalAccessError("This method shouldn't be accessed. Therefore it have not been implemented.");
     }
+
+    @Override
+    public void setFrequencyDeterminer(FrequencyDeterminer determiner) {
+        throw new IllegalAccessError("This method shouldn't be accessed. Therefore it have not been implemented.");
+    }
 }

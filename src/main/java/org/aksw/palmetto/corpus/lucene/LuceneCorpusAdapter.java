@@ -31,6 +31,7 @@ import org.apache.lucene.store.SimpleFSDirectory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.carrotsearch.hppc.IntArrayList;
 import com.carrotsearch.hppc.IntOpenHashSet;
 import com.carrotsearch.hppc.ObjectObjectOpenHashMap;
 
@@ -61,7 +62,7 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
         this.fieldName = fieldName;
     }
 
-    private void requestDocumentsWithWord(String word, IntOpenHashSet documents) {
+    private void requestDocumentsWithWordAsSet(String word, IntOpenHashSet documents) {
         DocsEnum docs = null;
         Term term = new Term(fieldName, word);
         try {
@@ -103,15 +104,45 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
         return dirReader.numDocs();
     }
 
-    public void getDocumentsWithWords(
+    public void getDocumentsWithWordsAsSet(
             ObjectObjectOpenHashMap<String, IntOpenHashSet> wordDocMapping) {
         Object keys[] = (Object[]) wordDocMapping.keys;
         Object values[] = (Object[]) wordDocMapping.values;
         for (int i = 0; i < wordDocMapping.allocated.length; ++i) {
             if (wordDocMapping.allocated[i]) {
-                requestDocumentsWithWord((String) keys[i],
+                requestDocumentsWithWordAsSet((String) keys[i],
                         (IntOpenHashSet) values[i]);
             }
+        }
+    }
+
+    @Override
+    public void getDocumentsWithWords(ObjectObjectOpenHashMap<String, IntArrayList> wordDocMapping) {
+        Object keys[] = (Object[]) wordDocMapping.keys;
+        Object values[] = (Object[]) wordDocMapping.values;
+        for (int i = 0; i < wordDocMapping.allocated.length; ++i) {
+            if (wordDocMapping.allocated[i]) {
+                requestDocumentsWithWord((String) keys[i],
+                        (IntArrayList) values[i]);
+            }
+        }
+    }
+
+    private void requestDocumentsWithWord(String word, IntArrayList documents) {
+        DocsEnum docs = null;
+        Term term = new Term(fieldName, word);
+        try {
+            for (int i = 0; i < reader.length; i++) {
+                docs = reader[i].termDocsEnum(term);
+                if (docs != null) {
+                    while (docs.nextDoc() != DocsEnum.NO_MORE_DOCS) {
+                        documents.add(docs.docID());
+                    }
+                }
+            }
+        } catch (IOException e) {
+            LOGGER.error("Error while requesting documents for word \"" + word
+                    + "\".", e);
         }
     }
 }

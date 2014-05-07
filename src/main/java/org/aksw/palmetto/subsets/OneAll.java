@@ -46,6 +46,6 @@ public class OneAll implements SubsetCreator {
 
     @Override
     public String getName() {
-        return "S_one-all";
+        return "S^{one}_{all}";
     }
 }

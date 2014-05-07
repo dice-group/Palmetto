@@ -38,6 +38,6 @@ public class AllAll implements SubsetCreator {
 
     @Override
     public String getName() {
-        return "S_all-all";
+        return "S^{all}_{all}";
     }
 }

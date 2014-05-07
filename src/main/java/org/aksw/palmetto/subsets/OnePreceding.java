@@ -49,6 +49,6 @@ public class OnePreceding implements SubsetCreator {
 
     @Override
     public String getName() {
-        return "S_one-preceding";
+        return "S^{one}_{pre}";
     }
 }
