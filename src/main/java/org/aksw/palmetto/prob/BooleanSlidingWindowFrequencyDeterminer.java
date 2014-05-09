@@ -16,11 +16,12 @@
  */
 package org.aksw.palmetto.prob;
 
+import java.util.Arrays;
+
 import org.aksw.palmetto.corpus.SlidingWindowSupportingAdapter;
 import org.aksw.palmetto.data.CountedSubsets;
 import org.aksw.palmetto.data.SubsetDefinition;
 
-import com.carrotsearch.hppc.BitSet;
 import com.carrotsearch.hppc.IntArrayList;
 import com.carrotsearch.hppc.IntIntOpenHashMap;
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
@@ -62,53 +63,6 @@ public class BooleanSlidingWindowFrequencyDeterminer implements SlidingWindowFre
         return counts;
     }
 
-    @Deprecated
-    private void addCounts(BitSet bitsets[], int counts[]) {
-        BitSet[] combinations = new BitSet[(1 << bitsets.length)];
-        int pos, pos2;
-        for (int i = 0; i < bitsets.length; ++i) {
-            pos = (1 << i);
-            combinations[pos] = bitsets[i];
-            pos2 = pos + 1;
-            for (int j = 1; j < pos; ++j) {
-                combinations[pos2] = ((BitSet) bitsets[i].clone());
-                combinations[pos2].intersect(combinations[j]);
-                ++pos2;
-            }
-        }
-        for (int i = 1; i < combinations.length; ++i) {
-            counts[i] += (int) combinations[i].cardinality();
-        }
-    }
-
-    @SuppressWarnings("unused")
-    @Deprecated
-    private void addCountsFromDocument_BitSetBased(IntArrayList[] positions, int[] counts, int docLength) {
-        if (docLength <= windowSize) {
-            addCountsFromSmallDocument(positions, counts);
-            return;
-        }
-        BitSet bitsets[] = new BitSet[positions.length];
-        int smallerWindowSize = windowSize - 1;
-        int maxPos, start, end, lastWindowPos = docLength - smallerWindowSize;
-        for (int i = 0; i < positions.length; ++i) {
-            if ((positions[i] != null) && (positions[i].size() > 0)) {
-                maxPos = positions[i].buffer[positions[i].elementsCount - 1];
-                bitsets[i] = new BitSet(maxPos >= lastWindowPos ? lastWindowPos : maxPos + 1);
-                for (int j = 0; j < positions[i].elementsCount; ++j) {
-                    start = positions[i].buffer[j] - smallerWindowSize;
-                    // end has to be +1 because the set method is excluding it
-                    end = positions[i].buffer[j] + 1;
-                    bitsets[i].set(start < 0 ? 0 : start,
-                            end > lastWindowPos ? lastWindowPos : end);
-                }
-            } else {
-                bitsets[i] = new BitSet(0);
-            }
-        }
-        addCounts(bitsets, counts);
-    }
-
     private void addCountsFromDocument(IntArrayList[] positions, int[] counts, int docLength) {
         if (docLength <= windowSize) {
             addCountsFromSmallDocument(positions, counts);
@@ -120,6 +74,7 @@ public class BooleanSlidingWindowFrequencyDeterminer implements SlidingWindowFre
         // determine the first token which we should look at
         for (int i = 0; i < positions.length; ++i) {
             if (positions[i] != null) {
+                Arrays.sort(positions[i].buffer, 0, positions[i].elementsCount);
                 if (positions[i].buffer[0] < nextWordPos) {
                     nextWordPos = positions[i].buffer[0];
                     nextWordId = i;
@@ -128,8 +83,8 @@ public class BooleanSlidingWindowFrequencyDeterminer implements SlidingWindowFre
             }
         }
 
-        IntArrayList wordIdsInWindow = new IntArrayList(wordCount);
-        IntArrayList wordPositionsInWindow = new IntArrayList(wordCount);
+        IntArrayList wordIdsInWindow = new IntArrayList(wordCount < windowSize ? wordCount : windowSize);
+        IntArrayList wordPositionsInWindow = new IntArrayList(wordCount < windowSize ? wordCount : windowSize);
         int romaveableWordsPosId = posInList.length - 1;
         int windowWords = 0;
         int lastWordPos, wordEndPos;
@@ -186,10 +141,12 @@ public class BooleanSlidingWindowFrequencyDeterminer implements SlidingWindowFre
             }
             // Make sure that counting only starts if the first window is complete
             if ((!countingEnabled) && (nextWordPos >= windowSize)) {
-                lastWordPos = windowSize - 1;
+                if (lastWordPos < windowSize) {
+                    lastWordPos = windowSize - 1;
+                }
                 countingEnabled = true;
             }
-            if (countingEnabled) {
+            if ((countingEnabled) && (windowWords != 0)) {
                 // increase counts
                 if (nextWordPos < docLength) {
                     counts[windowWords] += nextWordPos - lastWordPos;
@@ -208,19 +165,6 @@ public class BooleanSlidingWindowFrequencyDeterminer implements SlidingWindowFre
             }
         }
         ++counts[signature];
-    }
-
-    @SuppressWarnings("unused")
-    @Deprecated
-    private void addCountsFromSmallDocument_BitSetBased(IntArrayList[] positions, int[] counts) {
-        BitSet bitsets[] = new BitSet[positions.length];
-        for (int i = 0; i < positions.length; ++i) {
-            bitsets[i] = new BitSet(1);
-            if ((positions[i] != null) && (positions[i].size() > 0)) {
-                bitsets[i].set(0);
-            }
-        }
-        addCounts(bitsets, counts);
     }
 
     @SuppressWarnings("unused")

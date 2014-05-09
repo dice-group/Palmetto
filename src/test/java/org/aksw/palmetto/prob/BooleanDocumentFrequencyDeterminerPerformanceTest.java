@@ -96,7 +96,7 @@ public class BooleanDocumentFrequencyDeterminerPerformanceTest extends
             neededTimes[0] = System.currentTimeMillis() - time;
         }
 
-        System.out.println("BitSetBased: " + neededTimes[0] + " ms\tListBased: " + neededTimes[1] + " ms");
+        System.out.println("BooleanDocument performance test BitSetBased: " + neededTimes[0] + " ms\tListBased: " + neededTimes[1] + " ms");
         Assert.assertArrayEquals(subsets[0][0].counts, subsets[1][0].counts);
     }
 }
