@@ -27,12 +27,23 @@ import org.aksw.palmetto.subsets.OneOneAndSelf;
 
 public class ProbCalcBasedVectorCreator extends AbstractVectorCreator {
 
+    private static final int DEFAULT_GAMMA = 2;
+
     private ProbabilityBasedCalculation calculation;
     private OneOneAndSelf oneOneAndSelfCreator = new OneOneAndSelf();
+    private double gamma;
 
     public ProbCalcBasedVectorCreator(ProbabilitySupplier supplier, ProbabilityBasedCalculation calculation) {
         super(supplier);
         this.calculation = calculation;
+        this.gamma = DEFAULT_GAMMA;
+    }
+
+    public ProbCalcBasedVectorCreator(ProbabilitySupplier supplier, ProbabilityBasedCalculation calculation,
+            double gamma) {
+        super(supplier);
+        this.calculation = calculation;
+        this.gamma = gamma;
     }
 
     @Override
@@ -65,10 +76,25 @@ public class ProbCalcBasedVectorCreator extends AbstractVectorCreator {
                 System.err.println("ERROR w=" + w + " wordsets[w]=" + Arrays.toString(wordsets[w]) + " calcResult="
                         + Arrays.toString(calcResult));
             }
+
+            if (gamma != 1) {
+                for (int i = 0; i < wordsets[w].length; ++i) {
+                    for (int j = 0; j < currentVectors[i].length; ++j) {
+                        currentVectors[i][j] = Math.pow(currentVectors[i][j], gamma);
+                    }
+                }
+            }
             vectors[w] = new SubsetVectors(definitions[w].segments, definitions[w].conditions, currentVectors,
                     probabilities[w].probabilities);
         }
         return vectors;
     }
 
+    public void setGamma(double gamma) {
+        this.gamma = gamma;
+    }
+
+    public double getGamma() {
+        return gamma;
+    }
 }
