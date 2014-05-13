@@ -48,7 +48,7 @@ public class ProbCalcBasedVectorCreator extends AbstractVectorCreator {
 
     @Override
     public String getVectorCreatorName() {
-        return 'V' + calculation.getCalculationName().substring(1);
+        return 'V' + calculation.getCalculationName().substring(1) + "(" + ((int) gamma) + ")";
     }
 
     @Override
@@ -58,8 +58,7 @@ public class ProbCalcBasedVectorCreator extends AbstractVectorCreator {
         double currentVectors[][];
         SubsetDefinition oneOneAndSelfDef = oneOneAndSelfCreator.getSubsetDefinition(wordsets[0].length);
         SubsetProbabilities oneOneAndSelfProbabilities = new SubsetProbabilities(oneOneAndSelfDef.segments,
-                oneOneAndSelfDef.conditions,
-                null);
+                oneOneAndSelfDef.conditions, null);
         double calcResult[];
         int startId;
         for (int w = 0; w < wordsets.length; ++w) {
