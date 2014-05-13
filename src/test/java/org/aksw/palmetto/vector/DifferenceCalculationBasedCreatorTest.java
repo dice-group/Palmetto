@@ -50,7 +50,7 @@ public class DifferenceCalculationBasedCreatorTest extends AbstractProbCalcBased
                                         2.0 / 3.0 } },
                                 new double[][][] { { { 0, 0, 0 }, { 0, 1.0 / 3.0, 1.0 / 3.0 },
                                 { 0, 1.0 / 3.0, 1.0 / 3.0 } } },
-                                "V_d" },
+                                "V_d1", 1 },
 
                         /*
                          * word1 0 1 1
@@ -70,7 +70,7 @@ public class DifferenceCalculationBasedCreatorTest extends AbstractProbCalcBased
                                         0 } },
                                 new double[][][] { { { 1.0 / 3.0, -1.0 / 6.0, -1.0 / 6.0 },
                                 { -1.0 / 6.0, 1.0 / 3.0, -1.0 / 6.0 }, { -1.0 / 6.0, -1.0 / 6.0, 1.0 / 3.0 } } },
-                                "V_d" },
+                                "V_d1", 1 },
                         /*
                          * word1 0 0 0 1
                          * 
@@ -88,7 +88,7 @@ public class DifferenceCalculationBasedCreatorTest extends AbstractProbCalcBased
                                 3,
                                 new double[][] { { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } },
                                 new double[][][] { { { 3.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0 }, { 1.0 / 2.0, 1.0 / 2.0, 0 },
-                                { 1.0 / 2.0, 0, 1.0 / 2.0 } } }, "V_d" },
+                                { 1.0 / 2.0, 0, 1.0 / 2.0 } } }, "V_d1", 1 },
                         // all together
                         {
                                 3,
@@ -103,13 +103,85 @@ public class DifferenceCalculationBasedCreatorTest extends AbstractProbCalcBased
                                 { { 1.0 / 3.0, -1.0 / 6.0, -1.0 / 6.0 },
                                 { -1.0 / 6.0, 1.0 / 3.0, -1.0 / 6.0 }, { -1.0 / 6.0, -1.0 / 6.0, 1.0 / 3.0 } },
                                 { { 3.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0 }, { 1.0 / 2.0, 1.0 / 2.0, 0 },
-                                { 1.0 / 2.0, 0, 1.0 / 2.0 } } }, "V_d" } });
+                                { 1.0 / 2.0, 0, 1.0 / 2.0 } } }, "V_d1", 1 },
+                        /*
+                         * word1 1 1 1
+                         * 
+                         * word2 0 1 1
+                         * 
+                         * word3 0 1 1
+                         * 
+                         * vector1 0 0 0
+                         * 
+                         * vector2 0 1/3 1/3
+                         * 
+                         * vector3 0 1/3 1/3
+                         */
+                        {
+                                3,
+                                new double[][] { { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0,
+                                        2.0 / 3.0 } },
+                                new double[][][] { { { 0, 0, 0 }, { 0, 1.0 / 3.0, 1.0 / 3.0 },
+                                { 0, 1.0 / 3.0, 1.0 / 3.0 } } },
+                                "V_d2", 2 },
+
+                        /*
+                         * word1 0 1 1
+                         * 
+                         * word2 1 0 1
+                         * 
+                         * word3 1 1 0
+                         * 
+                         * vector1 1/3 -1/6 -1/6
+                         * 
+                         * vector2 -1/6 1/3 -1/6
+                         * 
+                         * vector3 -1/6 -1/6 1/3
+                         */{
+                                3,
+                                new double[][] { { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0,
+                                        0 } },
+                                new double[][][] { { { 1.0 / 3.0, -1.0 / 6.0, -1.0 / 6.0 },
+                                { -1.0 / 6.0, 1.0 / 3.0, -1.0 / 6.0 }, { -1.0 / 6.0, -1.0 / 6.0, 1.0 / 3.0 } } },
+                                "V_d2", 2 },
+                        /*
+                         * word1 0 0 0 1
+                         * 
+                         * word2 0 1 0 1
+                         * 
+                         * word3 0 0 1 1
+                         * 
+                         * vector1 3/4 1/4 1/4
+                         * 
+                         * vector2 1/2 1/2 0
+                         * 
+                         * vector3 1/2 0 1/2
+                         */
+                        {
+                                3,
+                                new double[][] { { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } },
+                                new double[][][] { { { 3.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0 }, { 1.0 / 2.0, 1.0 / 2.0, 0 },
+                                { 1.0 / 2.0, 0, 1.0 / 2.0 } } }, "V_d2", 2 },
+                        // all together
+                        {
+                                3,
+                                new double[][] { { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0,
+                                        2.0 / 3.0 },
+                                { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0,
+                                        0 },
+                                { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } },
+                                new double[][][] {
+                                { { 0, 0, 0 }, { 0, 1.0 / 3.0, 1.0 / 3.0 },
+                                { 0, 1.0 / 3.0, 1.0 / 3.0 } },
+                                { { 1.0 / 3.0, -1.0 / 6.0, -1.0 / 6.0 },
+                                { -1.0 / 6.0, 1.0 / 3.0, -1.0 / 6.0 }, { -1.0 / 6.0, -1.0 / 6.0, 1.0 / 3.0 } },
+                                { { 3.0 / 4.0, 1.0 / 4.0, 1.0 / 4.0 }, { 1.0 / 2.0, 1.0 / 2.0, 0 },
+                                { 1.0 / 2.0, 0, 1.0 / 2.0 } } }, "V_d2", 2 } });
     }
 
     public DifferenceCalculationBasedCreatorTest(int wordsetSize, double[][] probabilities,
-            double[][][] expectedVectors,
-            String expectedCreatorName) {
+            double[][][] expectedVectors, String expectedCreatorName, double gamma) {
         super(new DifferenceBasedCoherenceCalculation(), wordsetSize, probabilities, expectedVectors,
-                expectedCreatorName);
+                expectedCreatorName, gamma);
     }
 }

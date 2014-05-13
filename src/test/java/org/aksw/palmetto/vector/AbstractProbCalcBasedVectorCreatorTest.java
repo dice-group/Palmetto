@@ -27,8 +27,8 @@ public abstract class AbstractProbCalcBasedVectorCreatorTest extends AbstractVec
     protected String expectedCreatorName;
 
     public AbstractProbCalcBasedVectorCreatorTest(ProbabilityBasedCalculation calculation, int wordsetSize,
-            double[][] probabilities, double[][][] expectedVectors, String expectedCreatorName) {
-        super(new ProbCalcBasedVectorCreator(null, calculation), new OneOne(), wordsetSize, probabilities,
+            double[][] probabilities, double[][][] expectedVectors, String expectedCreatorName, double gamma) {
+        super(new ProbCalcBasedVectorCreator(null, calculation, gamma), new OneOne(), wordsetSize, probabilities,
                 expectedVectors);
         this.expectedCreatorName = expectedCreatorName;
     }

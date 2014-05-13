@@ -47,28 +47,28 @@ public class ContextWindowFrequencyDeterminerCountingTest implements SlidingWind
                                 new int[] { 0, 2, 2, 2, 0, 0, 0, 0 } },
                         // We ask for A and C with a window size of +-1
                         { 7, new int[][] { { 0, 4 }, {}, { 2, 5, 6 } }, 1,
-                                new int[] { 0, 2, 0, 0, 3, 2, 0, 0 } },
+                                new int[] { 0, 2, 0, 0, 3, 1, 0, 0 } },
                         // We ask for B and C with a window size of +-1
                         { 7, new int[][] { {}, { 1, 3 }, { 2, 5, 6 } }, 1,
-                                new int[] { 0, 0, 2, 0, 3, 2, 2, 0 } },
+                                new int[] { 0, 0, 2, 0, 3, 0, 2, 0 } },
                         // We ask for A, B and C with a window size of +-1
                         { 7, new int[][] { { 0, 4 }, { 1, 3 }, { 2, 5, 6 } }, 1,
-                                new int[] { 0, 2, 2, 2, 3, 2, 2, 2 } },
+                                new int[] { 0, 2, 2, 2, 3, 1, 2, 0 } },
                         // We ask for A and B with a window size of +-2
                         { 7, new int[][] { { 0, 4 }, { 1, 3 }, {} }, 2,
                                 new int[] { 0, 2, 2, 2, 0, 0, 0, 0 } },
                         // We ask for A and C with a window size of +-2
                         { 7, new int[][] { { 0, 4 }, {}, { 2, 5, 6 } }, 2,
-                                new int[] { 0, 2, 0, 0, 3, 2, 0, 0 } },
+                                new int[] { 0, 2, 0, 0, 3, 4, 0, 0 } },
                         // We ask for B and C with a window size of +-2
                         { 7, new int[][] { {}, { 1, 3 }, { 2, 5, 6 } }, 2,
-                                new int[] { 0, 0, 2, 0, 3, 2, 2, 0 } },
+                                new int[] { 0, 0, 2, 0, 3, 0, 3, 0 } },
                         // We ask for A, B and C with a window size of +-2
                         { 7, new int[][] { { 0, 4 }, { 1, 3 }, { 2, 5, 6 } }, 2,
-                                new int[] { 0, 2, 2, 2, 3, 2, 2, 2 } },
+                                new int[] { 0, 2, 2, 2, 3, 4, 3, 0 } },
                         // We have a new very short document A B C
-                        { 3, new int[][] { { 0 }, { 1 }, { 2 } }, +-2,
-                                new int[] { 0, 1, 1, 1, 1, 1, 1, 1 } }
+                        { 3, new int[][] { { 0 }, { 1 }, { 2 } }, 2,
+                                new int[] { 0, 1, 1, 1, 1, 1, 1, 0 } }
 
                 });
     }
@@ -90,7 +90,7 @@ public class ContextWindowFrequencyDeterminerCountingTest implements SlidingWind
 
     @Test
     public void test() {
-        BooleanSlidingWindowFrequencyDeterminer determiner = new BooleanSlidingWindowFrequencyDeterminer(this,
+        ContextWindowFrequencyDeterminer determiner = new ContextWindowFrequencyDeterminer(this,
                 windowSize);
         IntArrayList lists[] = new IntArrayList[positions.length];
         for (int i = 0; i < lists.length; ++i) {
