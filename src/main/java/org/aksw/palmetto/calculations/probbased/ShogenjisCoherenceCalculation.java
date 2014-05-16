@@ -39,25 +39,25 @@ public class ShogenjisCoherenceCalculation extends AbstractUndefinedResultHandli
         double conditionProbability, intersectionProbability;
         int pos = 0;
         for (int i = 0; i < subsetProbabilities.segments.length; ++i) {
-//            if (subsetProbabilities.probabilities[subsetProbabilities.segments[i]] > 0) {
-                for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
-                    conditionProbability = subsetProbabilities.probabilities[subsetProbabilities.conditions[i][j]];
-                    intersectionProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]
-                            | subsetProbabilities.conditions[i][j]];
-//                    if (conditionProbability > 0) {
-                        values[pos] = Math.log(intersectionProbability + LogBasedCalculation.EPSILON) - numberOfPairs
-                                * Math.log(conditionProbability + LogBasedCalculation.EPSILON);
-//                    } else {
-//                        values[pos] = resultIfCalcUndefined;
-//                    }
-                    ++pos;
-                }
-//            } else {
-//                for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
-//                    values[pos] = resultIfCalcUndefined;
-//                    ++pos;
-//                }
-//            }
+            // if (subsetProbabilities.probabilities[subsetProbabilities.segments[i]] > 0) {
+            for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
+                conditionProbability = subsetProbabilities.probabilities[subsetProbabilities.conditions[i][j]];
+                intersectionProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]
+                        | subsetProbabilities.conditions[i][j]];
+                // if (conditionProbability > 0) {
+                values[pos] = Math.log(intersectionProbability + LogBasedCalculation.EPSILON) - numberOfPairs
+                        * Math.log(conditionProbability + LogBasedCalculation.EPSILON);
+                // } else {
+                // values[pos] = resultIfCalcUndefined;
+                // }
+                ++pos;
+            }
+            // } else {
+            // for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
+            // values[pos] = resultIfCalcUndefined;
+            // ++pos;
+            // }
+            // }
         }
         return values;
     }

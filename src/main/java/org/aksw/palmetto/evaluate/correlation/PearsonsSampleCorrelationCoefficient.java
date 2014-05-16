@@ -63,9 +63,9 @@ public class PearsonsSampleCorrelationCoefficient implements RankCorrelationCalc
             return 0;
         }
         double corr = covarianceXY / (Math.sqrt(varianceX) * Math.sqrt(varianceY));
-        if(Double.isNaN(corr) || Double.isInfinite(corr)) {
-            System.out.println("STOP!");
-        }
+        // if(Double.isNaN(corr) || Double.isInfinite(corr)) {
+        // System.out.println("STOP!");
+        // }
         return corr;
     }
 }

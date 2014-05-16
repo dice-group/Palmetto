@@ -41,16 +41,16 @@ public class QuadraticMean implements Summarization {
     @Override
     public double summarize(double[] values, double[] weights) {
         double sum = 0, weightSum = 0;
-        int count = 0;
+        // int count = 0;
         for (int i = 0; i < values.length; ++i) {
             if (!Double.isNaN(values[i])) {
                 sum += weights[i] * Math.pow(values[i], 2);
                 weightSum += weights[i];
-                ++count;
+                // ++count;
             }
         }
         if (weightSum > 0) {
-            return Math.sqrt((count * sum) / weightSum);
+            return Math.sqrt(sum / weightSum);
         } else {
             return 0;
         }
