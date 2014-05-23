@@ -48,7 +48,7 @@ public abstract class AbstractVectorBasedCalculation implements VectorBasedCalcu
                     conditionVector = vectorCache.lget();
                 } else {
                     conditionVector = createVector(subsetVectors.conditions[i][j], subsetVectors.vectors);
-                    vectorCache.put(subsetVectors.conditions[i][j], segmentVector);
+                    vectorCache.put(subsetVectors.conditions[i][j], conditionVector);
                 }
                 values[pos] = calculateSimilarity(segmentVector, conditionVector);
                 ++pos;

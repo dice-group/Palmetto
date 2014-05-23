@@ -22,7 +22,6 @@ import java.util.Arrays;
 
 import org.aksw.palmetto.calculations.probbased.DifferenceBasedCoherenceCalculation;
 import org.aksw.palmetto.corpus.CorpusAdapter;
-import org.aksw.palmetto.corpus.lucene.IndexCreator;
 import org.aksw.palmetto.corpus.lucene.LuceneCorpusAdapter;
 import org.aksw.palmetto.io.DocumentTextSupplier;
 import org.aksw.palmetto.io.MalletBasedDocumentTextSupplier;
@@ -109,10 +108,10 @@ public class Palmetto {
             if (supplier == null) {
                 return;
             }
-            IndexCreator creator = new IndexCreator(fieldName);
-            if (!creator.createIndex(new File(indexPath), supplier)) {
-                return;
-            }
+            // IndexCreator creator = new IndexCreator(fieldName);
+            // if (!creator.createIndex(new File(indexPath), supplier)) {
+            // return;
+            // }
         }
 
         // coherence calculation

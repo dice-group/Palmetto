@@ -51,8 +51,10 @@ public class LuceneCorpusAdapterForSlidingWindows extends LuceneCorpusAdapter im
                 new File(indexPath)));
         List<AtomicReaderContext> leaves = dirReader.leaves();
         AtomicReader reader[] = new AtomicReader[leaves.size()];
+        AtomicReaderContext contexts[] = new AtomicReaderContext[leaves.size()];
         for (int i = 0; i < reader.length; i++) {
-            reader[i] = leaves.get(i).reader();
+            contexts[i] = leaves.get(i);
+            reader[i] = contexts[i].reader();
         }
         int histogram[][] = null;
         FileInputStream fis = null;
@@ -75,15 +77,16 @@ public class LuceneCorpusAdapterForSlidingWindows extends LuceneCorpusAdapter im
             return null;
         }
 
-        return new LuceneCorpusAdapterForSlidingWindows(dirReader, reader, textFieldName, docLengthFieldName, histogram);
+        return new LuceneCorpusAdapterForSlidingWindows(dirReader, reader, contexts, textFieldName, docLengthFieldName,
+                histogram);
     }
 
     protected int histogram[][];
     protected String docLengthFieldName;
 
     protected LuceneCorpusAdapterForSlidingWindows(DirectoryReader dirReader, AtomicReader[] reader,
-            String textFieldName, String docLengthFieldName, int histogram[][]) {
-        super(dirReader, reader, textFieldName);
+            AtomicReaderContext contexts[], String textFieldName, String docLengthFieldName, int histogram[][]) {
+        super(dirReader, reader, contexts, textFieldName);
         this.histogram = histogram;
         this.docLengthFieldName = docLengthFieldName;
     }
@@ -107,20 +110,22 @@ public class LuceneCorpusAdapterForSlidingWindows extends LuceneCorpusAdapter im
             IntIntOpenHashMap docLengths, int wordId, int numberOfWords) {
         DocsAndPositionsEnum docPosEnum = null;
         Term term = new Term(fieldName, word);
-        int docId;
+        int localDocId, globalDocId, baseDocId;
         IntArrayList positions[];
         try {
             for (int i = 0; i < reader.length; i++) {
                 docPosEnum = reader[i].termPositionsEnum(term);
+                baseDocId = contexts[i].docBase;
                 if (docPosEnum != null) {
                     while (docPosEnum.nextDoc() != DocsEnum.NO_MORE_DOCS) {
-                        docId = docPosEnum.docID();
+                        localDocId = docPosEnum.docID();
+                        globalDocId = localDocId + baseDocId;
                         // if this is the first word and we found a new document
-                        if (!positionsInDocs.containsKey(docId)) {
+                        if (!positionsInDocs.containsKey(globalDocId)) {
                             positions = new IntArrayList[numberOfWords];
-                            positionsInDocs.put(docId, positions);
+                            positionsInDocs.put(globalDocId, positions);
                         } else {
-                            positions = positionsInDocs.get(docId);
+                            positions = positionsInDocs.get(globalDocId);
                         }
                         if (positions[wordId] == null) {
                             positions[wordId] = new IntArrayList();
@@ -129,10 +134,10 @@ public class LuceneCorpusAdapterForSlidingWindows extends LuceneCorpusAdapter im
                         for (int p = 0; p < docPosEnum.freq(); ++p) {
                             positions[wordId].add(docPosEnum.nextPosition());
                         }
-                        if (!docLengths.containsKey(docId)) {
+                        if (!docLengths.containsKey(globalDocId)) {
                             // Get the length of the document
-                            docLengths.put(docId, reader[i].document(docId).getField(docLengthFieldName).numericValue()
-                                    .intValue());
+                            docLengths.put(globalDocId, reader[i].document(localDocId).getField(docLengthFieldName)
+                                    .numericValue().intValue());
                         }
                     }
                 }

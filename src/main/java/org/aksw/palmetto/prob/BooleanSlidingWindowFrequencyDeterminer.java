@@ -167,84 +167,6 @@ public class BooleanSlidingWindowFrequencyDeterminer implements SlidingWindowFre
         ++counts[signature];
     }
 
-    @SuppressWarnings("unused")
-    @Deprecated
-    private void addCountsFromDocument_old(IntArrayList[] positions, int[] counts, int docLength) {
-        // Start from the first token in the document. Go through all tokens using the sliding window and add the counts
-        // depending on every "new" token that enters the window.
-        int posInList[] = new int[positions.length];
-        int nextWordId = 0, minPosition = Integer.MAX_VALUE;
-        // determine the first token which we should look at
-        for (int i = 0; i < positions.length; ++i) {
-            if ((positions[i] != null) && (positions[i].buffer[0] < minPosition)) {
-                minPosition = positions[i].buffer[0];
-                nextWordId = i;
-            }
-        }
-
-        IntArrayList wordIdsInWindow = new IntArrayList(windowSize);
-        IntArrayList wordPositionsInWindow = new IntArrayList(windowSize);
-        int windowWords;
-        int lastWordId, posInWindow, firstTokenInNewWindow;
-        while (minPosition < Integer.MAX_VALUE) {
-            // create a signature containing a 1 for every word type inside this window
-            windowWords = 0;
-            for (int i = 0; i < wordIdsInWindow.elementsCount; ++i) {
-                windowWords |= (1 << wordIdsInWindow.buffer[i]);
-            }
-            windowWords |= (1 << nextWordId);
-            ++counts[windowWords];
-
-            // We have finished this token. So increment the position
-            lastWordId = nextWordId;
-            ++posInList[lastWordId];
-            // Find the next token we should look at
-            minPosition = Integer.MAX_VALUE;
-            for (int i = 0; i < positions.length; ++i) {
-                if ((positions[i] != null) && (posInList[i] < positions[i].elementsCount)
-                        && (positions[i].buffer[posInList[i]] < minPosition)) {
-                    minPosition = positions[i].buffer[posInList[i]];
-                    nextWordId = i;
-                }
-            }
-            if (minPosition < Integer.MAX_VALUE) {
-                firstTokenInNewWindow = positions[nextWordId].buffer[posInList[nextWordId]] - (windowSize - 1);
-                // if the next token and the last one we found are inside a single window
-                if ((positions[lastWordId].buffer[posInList[lastWordId] - 1]) >= firstTokenInNewWindow) {
-                    // check the other words inside the queue
-                    posInWindow = 0;
-                    while ((posInWindow < wordPositionsInWindow.elementsCount)
-                            && (wordPositionsInWindow.buffer[posInWindow] < firstTokenInNewWindow)) {
-                        ++posInWindow;
-                    }
-                    // If there are tokens inside the window which have to be erased
-                    if (posInWindow > 0) {
-                        if (posInWindow == wordPositionsInWindow.elementsCount) {
-                            wordPositionsInWindow.clear();
-                            wordIdsInWindow.clear();
-                        } else {
-                            wordPositionsInWindow.elementsCount = wordPositionsInWindow.elementsCount - posInWindow;
-                            System.arraycopy(wordPositionsInWindow.buffer, posInWindow, wordPositionsInWindow.buffer,
-                                    0, wordPositionsInWindow.elementsCount);
-                            wordIdsInWindow.elementsCount = wordPositionsInWindow.elementsCount;
-                            System.arraycopy(wordIdsInWindow.buffer, posInWindow, wordIdsInWindow.buffer, 0,
-                                    wordIdsInWindow.elementsCount);
-                        }
-                    }
-                    // add the last word found and its position to the queue
-                    wordIdsInWindow.add(lastWordId);
-                    wordPositionsInWindow.add(positions[lastWordId].buffer[posInList[lastWordId] - 1]);
-                } else {
-                    // the next token and the last one are not inside one single window. So we can delete it
-                    if (wordPositionsInWindow.elementsCount > 0) {
-                        wordPositionsInWindow.clear();
-                        wordIdsInWindow.clear();
-                    }
-                }
-            }
-        }
-    }
-
     private void addCountsOfSubsets(int[] counts) {
         // until now the counts contain only the windows which have exactly the matching word combination
         // --> we have to add the counts of the larger word sets to their subsets
@@ -260,9 +182,6 @@ public class BooleanSlidingWindowFrequencyDeterminer implements SlidingWindowFre
 
     @Override
     public void setWindowSize(int windowSize) {
-        if (windowSize > Long.SIZE) {
-            throw new IllegalArgumentException("This class only supports a window size up to " + Long.SIZE + ".");
-        }
         this.windowSize = windowSize;
         determineWordSetCountSum();
     }
@@ -277,18 +196,18 @@ public class BooleanSlidingWindowFrequencyDeterminer implements SlidingWindowFre
         return "P_sw" + windowSize;
     }
 
-    private boolean checkWordsInsideSingleWindow(int[] posInText) {
-        int min = Integer.MAX_VALUE, max = -1;
-        for (int i = 0; i < posInText.length; ++i) {
-            if (posInText[i] > max) {
-                max = posInText[i];
-            }
-            if (posInText[i] < min) {
-                min = posInText[i];
-            }
-        }
-        return (max - min) < this.windowSize;
-    }
+    // private boolean checkWordsInsideSingleWindow(int[] posInText) {
+    // int min = Integer.MAX_VALUE, max = -1;
+    // for (int i = 0; i < posInText.length; ++i) {
+    // if (posInText[i] > max) {
+    // max = posInText[i];
+    // }
+    // if (posInText[i] < min) {
+    // min = posInText[i];
+    // }
+    // }
+    // return (max - min) < this.windowSize;
+    // }
 
     protected void determineWordSetCountSum() {
         // For determining the sum of the counts we rely on a histogram of documents length and the window size
@@ -312,38 +231,38 @@ public class BooleanSlidingWindowFrequencyDeterminer implements SlidingWindowFre
         }
     }
 
-    protected int determineCount(IntArrayList[] positions) {
-        for (int i = 0; i < positions.length; ++i) {
-            if ((positions[i] == null) || (positions[i].size() == 0)) {
-                return 0;
-            }
-        }
-        int posInList[] = new int[positions.length];
-        int posInText[] = new int[positions.length];
-        // determine the first positions of the words
-        for (int i = 0; i < positions.length; ++i) {
-            posInText[i] = positions[i].buffer[0];
-        }
-        // Go through all combinations of words and test if they are inside a single window
-        int currentWordId, count = 0;
-        while (posInList[0] < positions[0].size()) {
-            if (checkWordsInsideSingleWindow(posInText)) {
-                ++count;
-            }
-            currentWordId = positions.length - 1;
-            ++posInList[currentWordId];
-            while ((currentWordId > 0) && (posInList[currentWordId] >= positions[currentWordId].size())) {
-                posInList[currentWordId] = 0;
-                posInText[currentWordId] = positions[currentWordId].buffer[0];
-                --currentWordId;
-                ++posInList[currentWordId];
-            }
-            if (posInList[currentWordId] < positions[currentWordId].size()) {
-                posInText[currentWordId] = positions[currentWordId].buffer[posInList[currentWordId]];
-            }
-        }
-        return count;
-    }
+    // protected int determineCount(IntArrayList[] positions) {
+    // for (int i = 0; i < positions.length; ++i) {
+    // if ((positions[i] == null) || (positions[i].size() == 0)) {
+    // return 0;
+    // }
+    // }
+    // int posInList[] = new int[positions.length];
+    // int posInText[] = new int[positions.length];
+    // // determine the first positions of the words
+    // for (int i = 0; i < positions.length; ++i) {
+    // posInText[i] = positions[i].buffer[0];
+    // }
+    // // Go through all combinations of words and test if they are inside a single window
+    // int currentWordId, count = 0;
+    // while (posInList[0] < positions[0].size()) {
+    // if (checkWordsInsideSingleWindow(posInText)) {
+    // ++count;
+    // }
+    // currentWordId = positions.length - 1;
+    // ++posInList[currentWordId];
+    // while ((currentWordId > 0) && (posInList[currentWordId] >= positions[currentWordId].size())) {
+    // posInList[currentWordId] = 0;
+    // posInText[currentWordId] = positions[currentWordId].buffer[0];
+    // --currentWordId;
+    // ++posInList[currentWordId];
+    // }
+    // if (posInList[currentWordId] < positions[currentWordId].size()) {
+    // posInText[currentWordId] = positions[currentWordId].buffer[posInList[currentWordId]];
+    // }
+    // }
+    // return count;
+    // }
 
     @Override
     public int getWindowSize() {

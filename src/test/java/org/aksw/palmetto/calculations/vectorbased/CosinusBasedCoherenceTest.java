@@ -19,6 +19,8 @@ package org.aksw.palmetto.calculations.vectorbased;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.aksw.palmetto.subsets.AnyAny;
+import org.aksw.palmetto.subsets.OneAll;
 import org.aksw.palmetto.subsets.OneAny;
 import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.SubsetCreator;
@@ -58,7 +60,7 @@ public class CosinusBasedCoherenceTest extends AbstractVectorBasedCoherenceTest 
                         3,
                         new double[] { 0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
                         new double[][] { { 1.0, 2.0 / 3.0, 2.0 / 3.0 }, { 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 },
-                                { 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 } },
+                        { 2.0 / 3.0, 2.0 / 3.0, 2.0 / 3.0 } },
                         (2 * (14.0 / 9.0) / (Math.sqrt(17.0 / 9.0) * Math.sqrt(4.0 / 3.0)) + 1) / 3.0 },
 
                 /*
@@ -86,7 +88,67 @@ public class CosinusBasedCoherenceTest extends AbstractVectorBasedCoherenceTest 
                         3,
                         new double[] { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0, 0 },
                         new double[][] { { 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0 }, { 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0 },
-                                { 1.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0 } }, 5.0 / 6.0 },
+                        { 1.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0 } }, 5.0 / 6.0 },
+                /*
+                 * word1 0 1 1
+                 * 
+                 * word2 1 0 1
+                 * 
+                 * word3 1 1 0
+                 * 
+                 * vector1 2/3 1/3 1/3
+                 * 
+                 * vector2 1/3 2/3 1/3
+                 * 
+                 * vector2 1/3 1/3 2/3
+                 * 
+                 * cos(1,(2 + 3))=(10/9)/(sqrt(6/9)*sqrt(22/9))
+                 * 
+                 * cos(2,(1 + 3))=(10/9)/(sqrt(6/9)*sqrt(22/9))
+                 * 
+                 * cos(3,(1 + 2))=(10/9)/(sqrt(6/9)*sqrt(22/9))
+                 * 
+                 * m_cos=3*(11/9)/(3*sqrt(6/9)*sqrt(22/9))
+                 */{
+                        new OneAll(),
+                        3,
+                        new double[] { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0, 0 },
+                        new double[][] { { 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0 }, { 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0 },
+                        { 1.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0 } },
+                        (10.0 / 9.0) / (Math.sqrt(2.0 / 3.0) * Math.sqrt(22.0 / 9.0)) },
+                /*
+                 * word1 0 1 1
+                 * 
+                 * word2 1 0 1
+                 * 
+                 * word3 1 1 0
+                 * 
+                 * vector1 2/3 1/3 1/3
+                 * 
+                 * vector2 1/3 2/3 1/3
+                 * 
+                 * vector2 1/3 1/3 2/3
+                 * 
+                 * cos(1,2)=(5/9)/(sqrt(6/9)*sqrt(6/9))
+                 * 
+                 * cos(1,3)=(5/9)/(sqrt(6/9)*sqrt(6/9))
+                 * 
+                 * cos(2,3)=(5/9)/(sqrt(6/9)*sqrt(6/9))
+                 * 
+                 * cos(1,(2 + 3))=(10/9)/(sqrt(6/9)*sqrt(22/9))
+                 * 
+                 * cos(2,(1 + 3))=(10/9)/(sqrt(6/9)*sqrt(22/9))
+                 * 
+                 * cos(3,(1 + 2))=(10/9)/(sqrt(6/9)*sqrt(22/9))
+                 * 
+                 * m_cos=((6*5/6) + 6*(11/9)/(sqrt(6/9)*sqrt(22/9)))/12
+                 */{
+                        new AnyAny(),
+                        3,
+                        new double[] { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0, 0 },
+                        new double[][] { { 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0 }, { 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0 },
+                        { 1.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0 } },
+                        (5.0 + 6.0 * (10.0 / 9.0) / (Math.sqrt(2.0 / 3.0) * Math.sqrt(22.0 / 9.0))) / 12.0 },
                 /*
                  * word1 0 1 1
                  * 
@@ -118,7 +180,7 @@ public class CosinusBasedCoherenceTest extends AbstractVectorBasedCoherenceTest 
                         3,
                         new double[] { 0, 2.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0, 0 },
                         new double[][] { { 2.0 / 3.0, 1.0 / 3.0, 1.0 / 3.0 }, { 1.0 / 3.0, 2.0 / 3.0, 1.0 / 3.0 },
-                                { 1.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0 } },
+                        { 1.0 / 3.0, 1.0 / 3.0, 2.0 / 3.0 } },
                         (5.0 + 3.0 * ((10.0 / 9.0) / (Math.sqrt(6.0 / 9.0) * Math.sqrt(22.0 / 9.0)))) / 9.0 },
                 /*
                  * word1 0 0 0 1

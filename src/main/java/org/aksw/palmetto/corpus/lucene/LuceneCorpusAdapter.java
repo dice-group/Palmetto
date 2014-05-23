@@ -43,6 +43,7 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
     protected String fieldName;
     protected DirectoryReader dirReader;
     protected AtomicReader reader[];
+    protected AtomicReaderContext contexts[];
 
     public static LuceneCorpusAdapter create(String indexPath, String fieldName)
             throws CorruptIndexException, IOException {
@@ -50,15 +51,19 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
                 new File(indexPath)));
         List<AtomicReaderContext> leaves = dirReader.leaves();
         AtomicReader reader[] = new AtomicReader[leaves.size()];
+        AtomicReaderContext contexts[] = new AtomicReaderContext[leaves.size()];
         for (int i = 0; i < reader.length; i++) {
-            reader[i] = leaves.get(i).reader();
+            contexts[i] = leaves.get(i);
+            reader[i] = contexts[i].reader();
         }
-        return new LuceneCorpusAdapter(dirReader, reader, fieldName);
+        return new LuceneCorpusAdapter(dirReader, reader, contexts, fieldName);
     }
 
-    protected LuceneCorpusAdapter(DirectoryReader dirReader, AtomicReader reader[], String fieldName) {
+    protected LuceneCorpusAdapter(DirectoryReader dirReader, AtomicReader reader[], AtomicReaderContext contexts[],
+            String fieldName) {
         this.dirReader = dirReader;
         this.reader = reader;
+        this.contexts = contexts;
         this.fieldName = fieldName;
     }
 
@@ -66,11 +71,13 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
         DocsEnum docs = null;
         Term term = new Term(fieldName, word);
         try {
+            int baseDocId;
             for (int i = 0; i < reader.length; i++) {
                 docs = reader[i].termDocsEnum(term);
+                baseDocId = contexts[i].docBase;
                 if (docs != null) {
                     while (docs.nextDoc() != DocsEnum.NO_MORE_DOCS) {
-                        documents.add(docs.docID());
+                        documents.add(baseDocId + docs.docID());
                     }
                 }
             }
@@ -132,11 +139,13 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
         DocsEnum docs = null;
         Term term = new Term(fieldName, word);
         try {
+            int baseDocId;
             for (int i = 0; i < reader.length; i++) {
                 docs = reader[i].termDocsEnum(term);
+                baseDocId = contexts[i].docBase;
                 if (docs != null) {
                     while (docs.nextDoc() != DocsEnum.NO_MORE_DOCS) {
-                        documents.add(docs.docID());
+                        documents.add(docs.docID() + baseDocId);
                     }
                 }
             }
