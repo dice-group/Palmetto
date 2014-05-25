@@ -124,9 +124,6 @@ public class ContextWindowFrequencyDeterminer implements SlidingWindowFrequencyD
 
     @Override
     public void setWindowSize(int windowSize) {
-        if (windowSize > Long.SIZE) {
-            throw new IllegalArgumentException("This class only supports a window size up to " + Long.SIZE + ".");
-        }
         this.windowSize = windowSize;
         determineWordSetCountSum();
     }
