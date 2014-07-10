@@ -20,36 +20,72 @@ import org.aksw.palmetto.calculations.probbased.ProbabilityBasedCalculation;
 import org.aksw.palmetto.data.SubsetDefinition;
 import org.aksw.palmetto.data.SubsetProbabilities;
 import org.aksw.palmetto.prob.ProbabilitySupplier;
-import org.aksw.palmetto.subsets.SubsetCreator;
-import org.aksw.palmetto.sum.Summarization;
+import org.aksw.palmetto.subsets.SegmentationScheme;
+import org.aksw.palmetto.sum.Aggregator;
 import org.aksw.palmetto.weight.Weighter;
 
+/**
+ * This type of coherence measure is a non-vector-based coherence. It uses only
+ * the probabilities derived from the data source to caluclate the coherence.
+ * 
+ * @author Michael Röder
+ * 
+ */
+@SuppressWarnings("deprecation")
 public class ProbabilityBasedCoherence implements Coherence {
 
-    protected SubsetCreator subsetCreator;
-    protected ProbabilitySupplier probSupplier;
-    protected ProbabilityBasedCalculation calculation;
-    protected Summarization summarizer;
-    protected Weighter weighter;
-    protected String dataSource = "unkown";
+    /**
+     * The segmentation scheme used to create the subset pairs.
+     */
+    protected SegmentationScheme subsetScheme;
 
-    public ProbabilityBasedCoherence(SubsetCreator subsetCreator, ProbabilitySupplier probSupplier, ProbabilityBasedCalculation calculation,
-            Summarization summarizer, Weighter weighter) {
-        this.subsetCreator = subsetCreator;
+    /**
+     * The probability supplier used to determine the probabilities.
+     */
+    protected ProbabilitySupplier probSupplier;
+
+    /**
+     * The confirmation measure used to rate the single subset pairs.
+     */
+    protected ProbabilityBasedCalculation calculation;
+
+    /**
+     * The aggregator used to aggregate the single ratings of the subset pairs.
+     */
+    protected Aggregator aggregator;
+
+    @Deprecated
+    protected Weighter weighter = null;
+
+    @Deprecated
+    public ProbabilityBasedCoherence(SegmentationScheme subsetScheme, ProbabilitySupplier probSupplier,
+            ProbabilityBasedCalculation calculation, Aggregator aggregator, Weighter weighter) {
+        this.subsetScheme = subsetScheme;
         this.probSupplier = probSupplier;
         this.calculation = calculation;
-        this.summarizer = summarizer;
+        this.aggregator = aggregator;
         this.weighter = weighter;
     }
 
-    public ProbabilityBasedCoherence(SubsetCreator subsetCreator, ProbabilitySupplier probSupplier, ProbabilityBasedCalculation calculation,
-            Summarization summarizer, Weighter weighter, String dataSource) {
-        this.subsetCreator = subsetCreator;
+    /**
+     * Constructor.
+     * 
+     * @param subsetScheme
+     *            The segmentation scheme used to create the subset pairs.
+     * @param probSupplier
+     *            The probability supplier used to determine the probabilities.
+     * @param calculation
+     *            The confirmation measure used to rate the single subset pairs.
+     * @param aggregator
+     *            The aggregator used to aggregate the single ratings of the
+     *            subset pairs.
+     */
+    public ProbabilityBasedCoherence(SegmentationScheme subsetScheme, ProbabilitySupplier probSupplier,
+            ProbabilityBasedCalculation calculation, Aggregator aggregator) {
+        this.subsetScheme = subsetScheme;
         this.probSupplier = probSupplier;
         this.calculation = calculation;
-        this.summarizer = summarizer;
-        this.weighter = weighter;
-        this.dataSource = dataSource;
+        this.aggregator = aggregator;
     }
 
     @Override
@@ -57,7 +93,7 @@ public class ProbabilityBasedCoherence implements Coherence {
         // create subset definitions
         SubsetDefinition definitions[] = new SubsetDefinition[wordsets.length];
         for (int i = 0; i < definitions.length; i++) {
-            definitions[i] = subsetCreator.getSubsetDefinition(wordsets[i].length);
+            definitions[i] = subsetScheme.getSubsetDefinition(wordsets[i].length);
         }
 
         // get the probabilities
@@ -66,8 +102,10 @@ public class ProbabilityBasedCoherence implements Coherence {
 
         double coherences[] = new double[probabilities.length];
         for (int i = 0; i < probabilities.length; i++) {
-            coherences[i] = summarizer.summarize(calculation.calculateCoherenceValues(probabilities[i]),
-                    weighter.createWeights(probabilities[i]));
+            coherences[i] = aggregator.summarize(calculation.calculateCoherenceValues(probabilities[i]));
+            // coherences[i] =
+            // aggregator.summarize(calculation.calculateCoherenceValues(probabilities[i]),
+            // weighter.createWeights(probabilities[i]));
         }
         return coherences;
     }
@@ -75,18 +113,18 @@ public class ProbabilityBasedCoherence implements Coherence {
     @Override
     public String getName() {
         StringBuilder builder = new StringBuilder();
-        builder.append("C(D_");
-        builder.append(dataSource);
-        builder.append(',');
+        builder.append("C(");
         builder.append(probSupplier.getProbabilityModelName());
         builder.append(',');
-        builder.append(subsetCreator.getName());
+        builder.append(subsetScheme.getName());
         builder.append(',');
         builder.append(calculation.getCalculationName());
         builder.append(',');
-        builder.append(summarizer.getName());
-        builder.append(',');
-        builder.append(weighter.getName());
+        builder.append(aggregator.getName());
+        if (weighter != null) {
+            builder.append(',');
+            builder.append(weighter.getName());
+        }
         builder.append(')');
         return builder.toString();
     }

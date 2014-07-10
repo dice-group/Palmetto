@@ -21,7 +21,7 @@ import org.aksw.palmetto.data.SubsetProbabilities;
 import org.aksw.palmetto.data.SubsetVectors;
 import org.aksw.palmetto.prob.FrequencyDeterminer;
 import org.aksw.palmetto.prob.ProbabilitySupplier;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -30,12 +30,12 @@ public abstract class AbstractVectorCreatorTest implements ProbabilitySupplier {
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
     protected VectorCreator vectorCreator;
-    protected SubsetCreator subsetCreator;
+    protected SegmentationScheme subsetCreator;
     protected int wordsetSize;
     protected double probabilities[][];
     protected double expectedVectors[][][];
 
-    public AbstractVectorCreatorTest(VectorCreator vectorCreator, SubsetCreator subsetCreator, int wordsetSize,
+    public AbstractVectorCreatorTest(VectorCreator vectorCreator, SegmentationScheme subsetCreator, int wordsetSize,
             double[][] probabilities, double expectedVectors[][][]) {
         this.vectorCreator = vectorCreator;
         vectorCreator.setProbabilitySupplier(this);

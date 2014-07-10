@@ -21,7 +21,7 @@ import java.util.Collection;
 
 import org.aksw.palmetto.subsets.OneAny;
 import org.aksw.palmetto.subsets.OneOne;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -144,7 +144,7 @@ public class JaccardBasedCoherenceTest extends AbstractVectorBasedCoherenceTest 
                         0.7 } });
     }
 
-    public JaccardBasedCoherenceTest(SubsetCreator creator, int wordsetSize, double[] probabilities,
+    public JaccardBasedCoherenceTest(SegmentationScheme creator, int wordsetSize, double[] probabilities,
             double[][] vectors, double expectedResult) {
         super(new JaccardBasedCalculation(), creator, wordsetSize, probabilities, vectors, expectedResult);
     }

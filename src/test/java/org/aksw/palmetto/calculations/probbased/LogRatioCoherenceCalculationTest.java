@@ -22,7 +22,7 @@ import java.util.Collection;
 import org.aksw.palmetto.calculations.probbased.LogBasedCalculation;
 import org.aksw.palmetto.calculations.probbased.LogRatioCoherenceCalculation;
 import org.aksw.palmetto.subsets.OneOne;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -103,7 +103,7 @@ public class LogRatioCoherenceCalculationTest extends AbstractProbabilityBasedCa
                                 (2 * Math.log(8 * LogBasedCalculation.EPSILON)) / 3.0 } });
     }
 
-    public LogRatioCoherenceCalculationTest(SubsetCreator subsetCreator, int wordsetSize, double[] probabilities,
+    public LogRatioCoherenceCalculationTest(SegmentationScheme subsetCreator, int wordsetSize, double[] probabilities,
             double expectedCoherence) {
         super(new LogRatioCoherenceCalculation(), subsetCreator, wordsetSize, probabilities, expectedCoherence);
     }

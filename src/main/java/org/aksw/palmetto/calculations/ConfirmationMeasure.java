@@ -14,14 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.aksw.palmetto.weight;
+package org.aksw.palmetto.calculations;
 
-import org.aksw.palmetto.data.SubsetProbabilities;
+/**
+ * The general interface of a confirmation measure.
+ * 
+ * @author Michael Röder
+ *
+ */
+public interface ConfirmationMeasure {
 
-@Deprecated
-public interface Weighter {
-
-    public double[] createWeights(SubsetProbabilities probabilities);
-    
-    public String getName();
+    /**
+     * Returns the name of the measure.
+     * 
+     * @return the name of the measure.
+     */
+    public String getCalculationName();
 }

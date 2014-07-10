@@ -18,7 +18,14 @@ package org.aksw.palmetto.calculations.probbased;
 
 import org.aksw.palmetto.data.SubsetProbabilities;
 
-public class JaccardCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation {
+/**
+ * This confirmation measure calculates the Jaccard similarity between W' and
+ * W*. result = P(W',W*)/P(W' v W*)
+ * 
+ * @author Michael Röder
+ * 
+ */
+public class JaccardCoherenceCalculation extends AbstractUndefinedResultHandlingConfirmationMeasure {
 
     public JaccardCoherenceCalculation() {
         super();

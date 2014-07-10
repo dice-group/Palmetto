@@ -27,7 +27,7 @@ import com.carrotsearch.hppc.IntOpenHashSet;
 
 public abstract class AbstractSubsetCreatorTest {
 
-    public void testSubsetCreator(int wordsetSize, SubsetCreator subsetCreator,
+    public void testSubsetCreator(int wordsetSize, SegmentationScheme subsetCreator,
             int expectedSegments[], int expectedConditions[][]) {
         IntObjectOpenHashMap<IntOpenHashSet> segmentToConditionMapping = new IntObjectOpenHashMap<IntOpenHashSet>();
         BitSet neededCounts = new BitSet();

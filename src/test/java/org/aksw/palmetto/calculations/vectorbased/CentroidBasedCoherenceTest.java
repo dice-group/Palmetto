@@ -21,7 +21,7 @@ import java.util.Collection;
 
 import org.aksw.palmetto.subsets.AnyAny;
 import org.aksw.palmetto.subsets.OneOne;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -166,7 +166,7 @@ public class CentroidBasedCoherenceTest extends AbstractVectorBasedCoherenceTest
                                 / (Math.sqrt(6.0 / 16.0) * Math.sqrt(41.0 / 16.0))) / 3.0 } });
     }
 
-    public CentroidBasedCoherenceTest(SubsetCreator creator, int wordsetSize, double[] probabilities,
+    public CentroidBasedCoherenceTest(SegmentationScheme creator, int wordsetSize, double[] probabilities,
             double[][] vectors, double expectedResult) {
         super(new CentroidBasedCalculation(), creator, wordsetSize, probabilities, vectors, expectedResult);
     }

@@ -16,11 +16,10 @@
  */
 package org.aksw.palmetto.sum;
 
-public interface Summarization {
+public interface Aggregator {
     
     public static final double RETURN_VALUE_FOR_UNDEFINED = 0;
 
-    @Deprecated
     public double summarize(double values[]);
 
     public double summarize(double values[], double weights[]);

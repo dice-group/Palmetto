@@ -18,12 +18,30 @@ package org.aksw.palmetto.calculations.probbased;
 
 import org.aksw.palmetto.data.SubsetProbabilities;
 
-public class LogCondProbCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation implements
+/**
+ * This confirmation measure calculates the logarithm of the conditional
+ * probability of W' given W*. result = log(P(W',W*)/P(W*))
+ * 
+ * @author Michael Röder
+ * 
+ */
+public class LogCondProbCoherenceCalculation extends AbstractUndefinedResultHandlingConfirmationMeasure implements
         LogBasedCalculation {
 
+    /**
+     * Constructor.
+     */
     public LogCondProbCoherenceCalculation() {
-        super(); }
+        super();
+    }
 
+    /**
+     * Constructor.
+     * 
+     * @param resultIfCalcUndefined
+     *            value which should be returned if the calculation is not
+     *            defined.
+     */
     public LogCondProbCoherenceCalculation(double resultIfCalcUndefined) {
         super(resultIfCalcUndefined);
     }

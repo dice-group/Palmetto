@@ -18,7 +18,16 @@ package org.aksw.palmetto.calculations.probbased;
 
 import org.aksw.palmetto.data.SubsetProbabilities;
 
-public class LogJaccardCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation implements
+/**
+ * This confirmation measure calculates the logarithm of the Jaccard similarity
+ * between W' and W*. result = log((P(W',W*) + e)/P(W' v W*))
+ * 
+ * The e is defined by {@link LogBasedCalculation#EPSILON}.
+ * 
+ * @author Michael Röder
+ * 
+ */
+public class LogJaccardCoherenceCalculation extends AbstractUndefinedResultHandlingConfirmationMeasure implements
         LogBasedCalculation {
 
     public LogJaccardCoherenceCalculation() {

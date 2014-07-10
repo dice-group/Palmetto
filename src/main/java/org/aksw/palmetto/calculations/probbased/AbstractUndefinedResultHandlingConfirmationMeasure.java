@@ -16,18 +16,40 @@
  */
 package org.aksw.palmetto.calculations.probbased;
 
-public abstract class AbstractUndefinedResultHandlingCoherenceCalculation implements ProbabilityBasedCalculation {
+/**
+ * An abstract class of all confirmation measures which have to handle undefined
+ * results.
+ * 
+ * @author Michael Röder
+ * 
+ */
+public abstract class AbstractUndefinedResultHandlingConfirmationMeasure implements ProbabilityBasedCalculation {
 
-    // private static final double DEFAULT_RESULT_FOR_UNDIFEND_CALCULATIONS = Double.NaN;
+    /**
+     * Default value for {@link #resultIfCalcUndefined} = {@value} .
+     */
     private static final double DEFAULT_RESULT_FOR_UNDIFEND_CALCULATIONS = 0;
 
+    /**
+     * Value which is returned if the calculation is not defined.
+     */
     protected double resultIfCalcUndefined;
 
-    public AbstractUndefinedResultHandlingCoherenceCalculation() {
+    /**
+     * Constructor.
+     */
+    public AbstractUndefinedResultHandlingConfirmationMeasure() {
         resultIfCalcUndefined = DEFAULT_RESULT_FOR_UNDIFEND_CALCULATIONS;
     }
 
-    public AbstractUndefinedResultHandlingCoherenceCalculation(double resultIfCalcUndefined) {
+    /**
+     * Constructor.
+     * 
+     * @param resultIfCalcUndefined
+     *            value which should be returned if the calculation is not
+     *            defined.
+     */
+    public AbstractUndefinedResultHandlingConfirmationMeasure(double resultIfCalcUndefined) {
         this.resultIfCalcUndefined = resultIfCalcUndefined;
     }
 
@@ -41,8 +63,8 @@ public abstract class AbstractUndefinedResultHandlingCoherenceCalculation implem
 
     @Override
     public String getCalculationName() {
-//        if (Double.isNaN(resultIfCalcUndefined)) {
-            return getName();
+        // if (Double.isNaN(resultIfCalcUndefined)) {
+        return getName();
         // } else {
         // return getName() + "_(" + resultIfCalcUndefined + ")";
         // }

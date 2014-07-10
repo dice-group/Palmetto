@@ -18,7 +18,7 @@ package org.aksw.palmetto.subsets;
 
 import org.aksw.palmetto.data.SubsetDefinition;
 
-public abstract class AbstractAnyBasedSubsetCreator implements SubsetCreator {
+public abstract class AbstractAnyBasedSubsetCreator implements SegmentationScheme {
 
     private int maxSingleSubSetSize = Integer.SIZE;
     private int maxSubSetUnionSize = Integer.SIZE;

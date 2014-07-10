@@ -18,6 +18,7 @@ package org.aksw.palmetto.weight;
 
 import org.aksw.palmetto.data.SubsetProbabilities;
 
+@Deprecated
 public class WordSetSizeBasedWeighter implements Weighter {
 
     @Override

@@ -16,7 +16,7 @@
  */
 package org.aksw.palmetto.sum;
 
-public class Min implements Summarization {
+public class Min implements Aggregator {
 
     @Override
     @Deprecated

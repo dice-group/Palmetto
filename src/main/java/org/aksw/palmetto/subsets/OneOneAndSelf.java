@@ -28,7 +28,7 @@ import com.carrotsearch.hppc.BitSet;
  * @author Micha
  * 
  */
-public class OneOneAndSelf implements SubsetCreator {
+public class OneOneAndSelf implements SegmentationScheme {
 
     public SubsetDefinition getSubsetDefinition(int wordsetSize) {
         /*

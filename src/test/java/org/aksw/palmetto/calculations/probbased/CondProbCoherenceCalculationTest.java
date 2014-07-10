@@ -21,7 +21,7 @@ import java.util.Collection;
 
 import org.aksw.palmetto.calculations.probbased.CondProbCoherenceCalculation;
 import org.aksw.palmetto.subsets.OnePreceding;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -74,7 +74,7 @@ public class CondProbCoherenceCalculationTest extends AbstractProbabilityBasedCa
                 { new OnePreceding(), 3, new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 }, 5.0 / 6.0 } });
     }
 
-    public CondProbCoherenceCalculationTest(SubsetCreator subsetCreator, int wordsetSize, double[] probabilities,
+    public CondProbCoherenceCalculationTest(SegmentationScheme subsetCreator, int wordsetSize, double[] probabilities,
             double expectedCoherence) {
         super(new CondProbCoherenceCalculation(), subsetCreator, wordsetSize, probabilities, expectedCoherence);
     }

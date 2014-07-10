@@ -33,9 +33,8 @@ import org.aksw.palmetto.subsets.OneAll;
 import org.aksw.palmetto.subsets.OneAny;
 import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.OnePreceding;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.aksw.palmetto.sum.ArithmeticMean;
-import org.aksw.palmetto.weight.EqualWeighter;
 import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -149,7 +148,8 @@ public class Palmetto {
         }
     }
 
-    private static ProbabilityBasedCoherence getCoherence(String calcType, BooleanDocumentProbabilitySupplier probSupplier) {
+    private static ProbabilityBasedCoherence getCoherence(String calcType,
+            BooleanDocumentProbabilitySupplier probSupplier) {
         String parts[] = calcType.toLowerCase().split("-");
         if ((parts.length < 1) || (parts.length > 2)) {
             return null;
@@ -160,7 +160,7 @@ public class Palmetto {
                 return null;
             }
         }
-        SubsetCreator creator;
+        SegmentationScheme creator;
         if (parts[0].equals("oneone")) {
             creator = new OneOne();
         } else if (parts[0].equals("onepreceding")) {
@@ -176,7 +176,7 @@ public class Palmetto {
         }
         if (parts[1].equals("diff")) {
             return new ProbabilityBasedCoherence(creator, probSupplier, new DifferenceBasedCoherenceCalculation(),
-                    new ArithmeticMean(), new EqualWeighter());
+                    new ArithmeticMean()/* , new EqualWeighter() */);
         } else {
             return null;
         }

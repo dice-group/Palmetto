@@ -16,7 +16,7 @@
  */
 package org.aksw.palmetto.sum;
 
-public class ArithmeticMean implements Summarization {
+public class ArithmeticMean implements Aggregator {
 
     @Override
     @Deprecated

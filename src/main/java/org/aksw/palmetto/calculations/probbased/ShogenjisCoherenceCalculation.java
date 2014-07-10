@@ -18,7 +18,13 @@ package org.aksw.palmetto.calculations.probbased;
 
 import org.aksw.palmetto.data.SubsetProbabilities;
 
-public class ShogenjisCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation {
+/**
+ * This confirmation measure calculates Shogenjis coherence.
+ * 
+ * @author Michael Röder
+ * 
+ */
+public class ShogenjisCoherenceCalculation extends AbstractUndefinedResultHandlingConfirmationMeasure {
 
     public ShogenjisCoherenceCalculation() {
         super();
@@ -39,7 +45,9 @@ public class ShogenjisCoherenceCalculation extends AbstractUndefinedResultHandli
         double conditionProbability, intersectionProbability;
         int pos = 0;
         for (int i = 0; i < subsetProbabilities.segments.length; ++i) {
-            // if (subsetProbabilities.probabilities[subsetProbabilities.segments[i]] > 0) {
+            // if
+            // (subsetProbabilities.probabilities[subsetProbabilities.segments[i]]
+            // > 0) {
             for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
                 conditionProbability = subsetProbabilities.probabilities[subsetProbabilities.conditions[i][j]];
                 intersectionProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]
@@ -53,7 +61,8 @@ public class ShogenjisCoherenceCalculation extends AbstractUndefinedResultHandli
                 ++pos;
             }
             // } else {
-            // for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
+            // for (int j = 0; j < subsetProbabilities.conditions[i].length;
+            // ++j) {
             // values[pos] = resultIfCalcUndefined;
             // ++pos;
             // }

@@ -16,7 +16,7 @@
  */
 package org.aksw.palmetto.sum;
 
-public class QuadraticMean implements Summarization {
+public class QuadraticMean implements Aggregator {
 
     @Override
     @Deprecated

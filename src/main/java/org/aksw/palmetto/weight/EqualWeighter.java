@@ -20,6 +20,7 @@ import java.util.Arrays;
 
 import org.aksw.palmetto.data.SubsetProbabilities;
 
+@Deprecated
 public class EqualWeighter implements Weighter {
 
     @Override

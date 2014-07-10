@@ -16,7 +16,7 @@
  */
 package org.aksw.palmetto.sum;
 
-public class GeometricMean implements Summarization {
+public class GeometricMean implements Aggregator {
 
     @Override
     @Deprecated

@@ -18,7 +18,17 @@ package org.aksw.palmetto.calculations.probbased;
 
 import org.aksw.palmetto.data.SubsetProbabilities;
 
-public class LogRatioCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation implements
+/**
+ * This confirmation measure calculates the logarithm of the ratio between the
+ * joint probability of W' and W* and the product of the two marginal
+ * probabilities. result = log((P(W',W*) + e)/(P(W')*P(W*)))
+ * 
+ * The e is defined by {@link LogBasedCalculation#EPSILON}.
+ * 
+ * @author Michael Röder
+ * 
+ */
+public class LogRatioCoherenceCalculation extends AbstractUndefinedResultHandlingConfirmationMeasure implements
         LogBasedCalculation {
 
     public LogRatioCoherenceCalculation() {

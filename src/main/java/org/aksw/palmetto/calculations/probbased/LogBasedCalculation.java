@@ -16,7 +16,17 @@
  */
 package org.aksw.palmetto.calculations.probbased;
 
+/**
+ * This interface defines the epsilon used by log based calculations for
+ * avoiding the logarithm of 0.
+ * 
+ * @author Michael Röder
+ * 
+ */
 public interface LogBasedCalculation {
 
+    /**
+     * e={@value}
+     */
     public static final double EPSILON = 0.0000000001;
 }

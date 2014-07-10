@@ -22,7 +22,7 @@ import java.util.Collection;
 import org.aksw.palmetto.calculations.probbased.LogBasedCalculation;
 import org.aksw.palmetto.calculations.probbased.LogLikelihoodCoherenceCalculation;
 import org.aksw.palmetto.subsets.OneOne;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -85,7 +85,7 @@ public class LogLikelihoodCoherenceCalculationTest extends AbstractProbabilityBa
                         (Math.log(0.5 / LogBasedCalculation.EPSILON) + Math.log(3.0)) / 3.0 } });
     }
 
-    public LogLikelihoodCoherenceCalculationTest(SubsetCreator subsetCreator, int wordsetSize, double[] probabilities,
+    public LogLikelihoodCoherenceCalculationTest(SegmentationScheme subsetCreator, int wordsetSize, double[] probabilities,
             double expectedCoherence) {
         super(new LogLikelihoodCoherenceCalculation(), subsetCreator, wordsetSize, probabilities, expectedCoherence);
     }

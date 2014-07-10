@@ -21,7 +21,7 @@ import java.util.Collection;
 
 import org.aksw.palmetto.calculations.probbased.JaccardCoherenceCalculation;
 import org.aksw.palmetto.subsets.OneOne;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -76,7 +76,7 @@ public class JaccardCoherenceCalculationTest extends AbstractProbabilityBasedCal
                 { new OneOne(), 3, new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 }, 4.0 / 9.0 } });
     }
 
-    public JaccardCoherenceCalculationTest(SubsetCreator subsetCreator, int wordsetSize, double[] probabilities,
+    public JaccardCoherenceCalculationTest(SegmentationScheme subsetCreator, int wordsetSize, double[] probabilities,
             double expectedCoherence) {
         super(new JaccardCoherenceCalculation(), subsetCreator, wordsetSize, probabilities, expectedCoherence);
     }

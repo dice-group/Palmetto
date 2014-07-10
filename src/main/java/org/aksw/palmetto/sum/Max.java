@@ -16,7 +16,7 @@
  */
 package org.aksw.palmetto.sum;
 
-public class Max implements Summarization {
+public class Max implements Aggregator {
 
     @Override
     @Deprecated

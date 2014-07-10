@@ -16,10 +16,23 @@
  */
 package org.aksw.palmetto.calculations.probbased;
 
-import org.aksw.palmetto.calculations.CoherenceCalculation;
+import org.aksw.palmetto.calculations.ConfirmationMeasure;
 import org.aksw.palmetto.data.SubsetProbabilities;
 
-public interface ProbabilityBasedCalculation extends CoherenceCalculation {
+/**
+ * This interface is implemented by all confirmation measures which are using
+ * the probabilities directly.
+ * 
+ * @author Michael Röder
+ * 
+ */
+public interface ProbabilityBasedCalculation extends ConfirmationMeasure {
 
+    /**
+     * Calculates the coherence values for the given subset probabilities.
+     * 
+     * @param subsetProbabilities
+     * @return
+     */
     public abstract double[] calculateCoherenceValues(SubsetProbabilities subsetProbabilities);
 }

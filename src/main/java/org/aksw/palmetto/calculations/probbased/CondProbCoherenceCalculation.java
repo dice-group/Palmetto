@@ -18,12 +18,29 @@ package org.aksw.palmetto.calculations.probbased;
 
 import org.aksw.palmetto.data.SubsetProbabilities;
 
-public class CondProbCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation {
+/**
+ * This confirmation measure calculates the conditional probability of W' given
+ * W*. result = P(W',W*)/P(W*)
+ * 
+ * @author Michael Röder
+ * 
+ */
+public class CondProbCoherenceCalculation extends AbstractUndefinedResultHandlingConfirmationMeasure {
 
+    /**
+     * Constructor.
+     */
     public CondProbCoherenceCalculation() {
         super();
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param resultIfCalcUndefined
+     *            value which should be returned if the calculation is not
+     *            defined.
+     */
     public CondProbCoherenceCalculation(double resultIfCalcUndefined) {
         super(resultIfCalcUndefined);
     }

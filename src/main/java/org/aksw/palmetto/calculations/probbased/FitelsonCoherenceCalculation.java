@@ -18,7 +18,16 @@ package org.aksw.palmetto.calculations.probbased;
 
 import org.aksw.palmetto.data.SubsetProbabilities;
 
-public class FitelsonCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation {
+/**
+ * This confirmation measure calculates the difference of the conditional
+ * probability of W' given W* and the conditional probability of W' given ¬W*.
+ * The difference is normalized by the sum of these two probabilities. result =
+ * (P(W'|W*)-P(W'|¬W*))/(P(W'|W*)+P(W'|¬W*))
+ * 
+ * @author Michael Röder
+ * 
+ */
+public class FitelsonCoherenceCalculation extends AbstractUndefinedResultHandlingConfirmationMeasure {
 
     public FitelsonCoherenceCalculation() {
         super();

@@ -18,7 +18,16 @@ package org.aksw.palmetto.calculations.probbased;
 
 import org.aksw.palmetto.data.SubsetProbabilities;
 
-public class LogLikelihoodCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation implements
+/**
+ * This confirmation measure calculates the Likelihood similarity between W' and
+ * W*. result = (P(W'|W*) + e)/(P(W'|¬W*) + e)
+ * 
+ * The e is defined by {@link LogBasedCalculation#EPSILON}.
+ * 
+ * @author Michael Röder
+ * 
+ */
+public class LogLikelihoodCoherenceCalculation extends AbstractUndefinedResultHandlingConfirmationMeasure implements
         LogBasedCalculation {
 
     public LogLikelihoodCoherenceCalculation() {

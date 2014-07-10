@@ -19,7 +19,7 @@ package org.aksw.palmetto.calculations.probbased;
 import org.aksw.palmetto.calculations.probbased.ProbabilityBasedCalculation;
 import org.aksw.palmetto.data.SubsetDefinition;
 import org.aksw.palmetto.data.SubsetProbabilities;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.aksw.palmetto.sum.ArithmeticMean;
 import org.aksw.palmetto.weight.EqualWeighter;
 import org.aksw.palmetto.weight.Weighter;
@@ -31,12 +31,12 @@ public abstract class AbstractProbabilityBasedCalculationTest {
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
     private ProbabilityBasedCalculation calculation;
-    private SubsetCreator subsetCreator;
+    private SegmentationScheme subsetCreator;
     private int wordsetSize;
     private double probabilities[];
     private double expectedCoherence;
 
-    public AbstractProbabilityBasedCalculationTest(ProbabilityBasedCalculation calculation, SubsetCreator subsetCreator, int wordsetSize,
+    public AbstractProbabilityBasedCalculationTest(ProbabilityBasedCalculation calculation, SegmentationScheme subsetCreator, int wordsetSize,
             double[] probabilities, double expectedCoherence) {
         this.calculation = calculation;
         this.probabilities = probabilities;

@@ -16,7 +16,7 @@
  */
 package org.aksw.palmetto.sum;
 
-public class HarmonicMean implements Summarization {
+public class HarmonicMean implements Aggregator {
 
     @Override
     @Deprecated

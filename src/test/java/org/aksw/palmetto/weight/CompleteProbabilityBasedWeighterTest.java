@@ -22,7 +22,7 @@ import java.util.Collection;
 import org.aksw.palmetto.data.SubsetDefinition;
 import org.aksw.palmetto.data.SubsetProbabilities;
 import org.aksw.palmetto.subsets.OneOne;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -68,12 +68,12 @@ public class CompleteProbabilityBasedWeighterTest {
                         new double[] { 0.75, 0.75, 0.75, 1.0, 0.75, 1.0 } } });
     }
 
-    private SubsetCreator subsetCreator;
+    private SegmentationScheme subsetCreator;
     private int wordsetSize;
     private double probabilities[];
     private double expectedWeightings[];
     
-    public CompleteProbabilityBasedWeighterTest(SubsetCreator subsetCreator, int wordsetSize, double[] probabilities,
+    public CompleteProbabilityBasedWeighterTest(SegmentationScheme subsetCreator, int wordsetSize, double[] probabilities,
             double[] expectedWeightings) {
         this.subsetCreator = subsetCreator;
         this.wordsetSize = wordsetSize;

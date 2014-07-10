@@ -21,7 +21,7 @@ import java.util.Collection;
 
 import org.aksw.palmetto.calculations.probbased.OlssonsCoherenceCalculation;
 import org.aksw.palmetto.subsets.OneAll;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -69,7 +69,7 @@ public class OlssonsCoherenceCalculationTest extends AbstractProbabilityBasedCal
                 { new OneAll(), 3, new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 }, 1.0 / 3.0 } });
     }
 
-    public OlssonsCoherenceCalculationTest(SubsetCreator subsetCreator, int wordsetSize, double[] probabilities,
+    public OlssonsCoherenceCalculationTest(SegmentationScheme subsetCreator, int wordsetSize, double[] probabilities,
             double expectedCoherence) {
         super(new OlssonsCoherenceCalculation(), subsetCreator, wordsetSize, probabilities, expectedCoherence);
     }

@@ -18,7 +18,7 @@ package org.aksw.palmetto.calculations.vectorbased;
 
 import org.aksw.palmetto.data.SubsetDefinition;
 import org.aksw.palmetto.data.SubsetVectors;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.aksw.palmetto.sum.ArithmeticMean;
 import org.aksw.palmetto.weight.EqualWeighter;
 import org.aksw.palmetto.weight.Weighter;
@@ -30,13 +30,13 @@ public abstract class AbstractVectorBasedCoherenceTest {
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
     private VectorBasedCalculation calculation;
-    private SubsetCreator subsetCreator;
+    private SegmentationScheme subsetCreator;
     private int wordsetSize;
     private double[] probabilities;
     private double vectors[][];
     private double expectedCoherence;
 
-    public AbstractVectorBasedCoherenceTest(VectorBasedCalculation calculation, SubsetCreator subsetCreator,
+    public AbstractVectorBasedCoherenceTest(VectorBasedCalculation calculation, SegmentationScheme subsetCreator,
             int wordsetSize, double[] probabilities, double[][] vectors, double expectedCoherence) {
         this.calculation = calculation;
         this.probabilities = probabilities;

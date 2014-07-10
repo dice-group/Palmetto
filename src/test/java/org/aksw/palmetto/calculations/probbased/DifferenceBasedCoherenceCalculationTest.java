@@ -23,7 +23,7 @@ import org.aksw.palmetto.calculations.probbased.DifferenceBasedCoherenceCalculat
 import org.aksw.palmetto.subsets.AnyAny;
 import org.aksw.palmetto.subsets.OneAll;
 import org.aksw.palmetto.subsets.OneAny;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -113,7 +113,7 @@ public class DifferenceBasedCoherenceCalculationTest extends AbstractProbability
                 { new AnyAny(), 3, new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 }, 4.5 / 12.0 } });
     }
 
-    public DifferenceBasedCoherenceCalculationTest(SubsetCreator subsetCreator, int wordsetSize,
+    public DifferenceBasedCoherenceCalculationTest(SegmentationScheme subsetCreator, int wordsetSize,
             double[] probabilities, double expectedCoherence) {
         super(new DifferenceBasedCoherenceCalculation(), subsetCreator, wordsetSize, probabilities, expectedCoherence);
     }

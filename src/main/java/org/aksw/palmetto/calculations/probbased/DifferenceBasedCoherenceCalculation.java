@@ -18,6 +18,14 @@ package org.aksw.palmetto.calculations.probbased;
 
 import org.aksw.palmetto.data.SubsetProbabilities;
 
+/**
+ * This confirmation measure calculates the difference between the conditional
+ * probability of W' given W* abd the marginal probability of W'. result =
+ * P(W'|W*)-P(W')
+ * 
+ * @author Michael Röder
+ * 
+ */
 public class DifferenceBasedCoherenceCalculation implements ProbabilityBasedCalculation {
 
     @Override

@@ -20,7 +20,7 @@ import org.aksw.palmetto.data.SubsetDefinition;
 
 import com.carrotsearch.hppc.BitSet;
 
-public class AllAll implements SubsetCreator {
+public class AllAll implements SegmentationScheme {
 
     public SubsetDefinition getSubsetDefinition(int wordsetSize) {
         /*

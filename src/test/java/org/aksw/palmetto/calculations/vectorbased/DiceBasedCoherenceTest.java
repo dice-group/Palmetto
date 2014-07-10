@@ -21,7 +21,7 @@ import java.util.Collection;
 
 import org.aksw.palmetto.subsets.OneAny;
 import org.aksw.palmetto.subsets.OneOne;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -144,7 +144,7 @@ public class DiceBasedCoherenceTest extends AbstractVectorBasedCoherenceTest {
                         (12.0 / 7.0 + 0.75) / 3.0 } });
     }
 
-    public DiceBasedCoherenceTest(SubsetCreator creator, int wordsetSize, double[] probabilities, double[][] vectors,
+    public DiceBasedCoherenceTest(SegmentationScheme creator, int wordsetSize, double[] probabilities, double[][] vectors,
             double expectedResult) {
         super(new DiceBasedCalculation(), creator, wordsetSize, probabilities, vectors, expectedResult);
     }

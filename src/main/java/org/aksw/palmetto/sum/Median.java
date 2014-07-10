@@ -20,7 +20,7 @@ import java.util.Arrays;
 
 import com.carrotsearch.hppc.DoubleArrayList;
 
-public class Median implements Summarization {
+public class Median implements Aggregator {
 
     @Override
     @Deprecated

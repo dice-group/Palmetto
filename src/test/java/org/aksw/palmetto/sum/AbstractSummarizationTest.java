@@ -25,11 +25,11 @@ public abstract class AbstractSummarizationTest {
 
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
-    private Summarization summarizer;
+    private Aggregator summarizer;
     private double values[];
     private double expectedSum;
 
-    public AbstractSummarizationTest(Summarization summarizer, double[] values, double expectedSum) {
+    public AbstractSummarizationTest(Aggregator summarizer, double[] values, double expectedSum) {
         this.summarizer = summarizer;
         this.values = values;
         this.expectedSum = expectedSum;

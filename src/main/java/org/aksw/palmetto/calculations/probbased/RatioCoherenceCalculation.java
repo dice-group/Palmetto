@@ -18,7 +18,15 @@ package org.aksw.palmetto.calculations.probbased;
 
 import org.aksw.palmetto.data.SubsetProbabilities;
 
-public class RatioCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation {
+/**
+ * This confirmation measure calculates the ratio between the joint probability
+ * of W' and W* and the product of the two marginal probabilities. result =
+ * P(W',W*)/(P(W')*P(W*))
+ * 
+ * @author Michael Röder
+ * 
+ */
+public class RatioCoherenceCalculation extends AbstractUndefinedResultHandlingConfirmationMeasure {
 
     public RatioCoherenceCalculation() {
         super();

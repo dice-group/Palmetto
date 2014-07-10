@@ -21,7 +21,7 @@ import java.util.Collection;
 
 import org.aksw.palmetto.calculations.probbased.LogJaccardCoherenceCalculation;
 import org.aksw.palmetto.subsets.OneOne;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -79,7 +79,7 @@ public class LogJaccardCoherenceCalculationTest extends AbstractProbabilityBased
                         (2 * Math.log(0.5) + Math.log(1.0 / 3.0)) / 3.0 } });
     }
 
-    public LogJaccardCoherenceCalculationTest(SubsetCreator subsetCreator, int wordsetSize, double[] probabilities,
+    public LogJaccardCoherenceCalculationTest(SegmentationScheme subsetCreator, int wordsetSize, double[] probabilities,
             double expectedCoherence) {
         super(new LogJaccardCoherenceCalculation(), subsetCreator, wordsetSize, probabilities, expectedCoherence);
     }

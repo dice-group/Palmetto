@@ -14,14 +14,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.aksw.palmetto.weight;
+package org.aksw.palmetto.subsets;
 
-import org.aksw.palmetto.data.SubsetProbabilities;
+import org.aksw.palmetto.data.SubsetDefinition;
 
-@Deprecated
-public interface Weighter {
+/**
+ * A {@link SegmentationScheme} generates the {@link SubsetDefinition} object for a
+ * word set with the given size.
+ * 
+ * @author Michael Röder
+ * 
+ */
+public interface SegmentationScheme {
 
-    public double[] createWeights(SubsetProbabilities probabilities);
-    
+    public SubsetDefinition getSubsetDefinition(int wordsetSize);
+
     public String getName();
 }

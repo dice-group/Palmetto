@@ -16,10 +16,10 @@
  */
 package org.aksw.palmetto.calculations.vectorbased;
 
-import org.aksw.palmetto.calculations.CoherenceCalculation;
+import org.aksw.palmetto.calculations.ConfirmationMeasure;
 import org.aksw.palmetto.data.SubsetVectors;
 
-public interface VectorBasedCalculation extends CoherenceCalculation {
+public interface VectorBasedCalculation extends ConfirmationMeasure {
 
     public abstract double[] calculateCoherenceValues(SubsetVectors subsetVectors);
 }

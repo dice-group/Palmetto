@@ -21,7 +21,7 @@ import java.util.Collection;
 
 import org.aksw.palmetto.calculations.probbased.ShogenjisCoherenceCalculation;
 import org.aksw.palmetto.subsets.OneOne;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -81,7 +81,7 @@ public class ShogenjisCoherenceCalculationTest extends AbstractProbabilityBasedC
                         (2 * Math.log(1024) + 4 * Math.log(16)) / 6 } });
     }
 
-    public ShogenjisCoherenceCalculationTest(SubsetCreator subsetCreator, int wordsetSize, double[] probabilities,
+    public ShogenjisCoherenceCalculationTest(SegmentationScheme subsetCreator, int wordsetSize, double[] probabilities,
             double expectedCoherence) {
         super(new ShogenjisCoherenceCalculation(), subsetCreator, wordsetSize, probabilities, expectedCoherence);
     }

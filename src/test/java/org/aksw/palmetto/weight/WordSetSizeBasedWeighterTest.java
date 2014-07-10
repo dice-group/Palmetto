@@ -24,7 +24,7 @@ import org.aksw.palmetto.data.SubsetProbabilities;
 import org.aksw.palmetto.subsets.AnyAny;
 import org.aksw.palmetto.subsets.OneAll;
 import org.aksw.palmetto.subsets.OneAny;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -102,12 +102,12 @@ public class WordSetSizeBasedWeighterTest {
                                 2.0 / 3.0, 2.0 / 3.0 } } });
     }
 
-    private SubsetCreator subsetCreator;
+    private SegmentationScheme subsetCreator;
     private int wordsetSize;
     private double probabilities[];
     private double expectedWeightings[];
 
-    public WordSetSizeBasedWeighterTest(SubsetCreator subsetCreator, int wordsetSize, double[] probabilities,
+    public WordSetSizeBasedWeighterTest(SegmentationScheme subsetCreator, int wordsetSize, double[] probabilities,
             double[] expectedWeightings) {
         this.subsetCreator = subsetCreator;
         this.wordsetSize = wordsetSize;

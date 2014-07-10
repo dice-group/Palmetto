@@ -18,7 +18,13 @@ package org.aksw.palmetto.calculations.probbased;
 
 import org.aksw.palmetto.data.SubsetProbabilities;
 
-public class OlssonsCoherenceCalculation extends AbstractUndefinedResultHandlingCoherenceCalculation {
+/**
+ * This confirmation measure calculates Olssons coherence.
+ * 
+ * @author Michael Röder
+ * 
+ */
+public class OlssonsCoherenceCalculation extends AbstractUndefinedResultHandlingConfirmationMeasure {
 
     public OlssonsCoherenceCalculation() {
         super();

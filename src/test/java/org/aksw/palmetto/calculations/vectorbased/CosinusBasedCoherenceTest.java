@@ -23,7 +23,7 @@ import org.aksw.palmetto.subsets.AnyAny;
 import org.aksw.palmetto.subsets.OneAll;
 import org.aksw.palmetto.subsets.OneAny;
 import org.aksw.palmetto.subsets.OneOne;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -208,7 +208,7 @@ public class CosinusBasedCoherenceTest extends AbstractVectorBasedCoherenceTest 
                         (0.5 / (Math.sqrt(3.0 / 16.0) * Math.sqrt(6.0 / 16.0)) + 5.0 / 6.0) / 3.0 } });
     }
 
-    public CosinusBasedCoherenceTest(SubsetCreator creator, int wordsetSize, double[] probabilities,
+    public CosinusBasedCoherenceTest(SegmentationScheme creator, int wordsetSize, double[] probabilities,
             double[][] vectors, double expectedResult) {
         super(new CosinusBasedCalculation(), creator, wordsetSize, probabilities, vectors, expectedResult);
     }

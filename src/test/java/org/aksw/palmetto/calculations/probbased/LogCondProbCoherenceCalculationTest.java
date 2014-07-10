@@ -21,7 +21,7 @@ import java.util.Collection;
 
 import org.aksw.palmetto.calculations.probbased.LogCondProbCoherenceCalculation;
 import org.aksw.palmetto.subsets.OnePreceding;
-import org.aksw.palmetto.subsets.SubsetCreator;
+import org.aksw.palmetto.subsets.SegmentationScheme;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -77,7 +77,7 @@ public class LogCondProbCoherenceCalculationTest extends AbstractProbabilityBase
                         Math.log(1.0 / 2.0) / 3.0 } });
     }
 
-    public LogCondProbCoherenceCalculationTest(SubsetCreator subsetCreator, int wordsetSize, double[] probabilities,
+    public LogCondProbCoherenceCalculationTest(SegmentationScheme subsetCreator, int wordsetSize, double[] probabilities,
             double expectedCoherence) {
         super(new LogCondProbCoherenceCalculation(), subsetCreator, wordsetSize, probabilities, expectedCoherence);
     }
