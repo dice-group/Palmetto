@@ -16,11 +16,11 @@
  */
 package org.aksw.palmetto.subsets;
 
-import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SegmentationDefinition;
 
 import com.carrotsearch.hppc.BitSet;
 
-public class OneAny extends AbstractAnyBasedSubsetCreator {
+public class OneAny extends AbstractAnyBasedSegmentator {
 
     public OneAny() {
     }
@@ -30,7 +30,7 @@ public class OneAny extends AbstractAnyBasedSubsetCreator {
     }
 
     @Override
-    protected SubsetDefinition getSubsetDefinitionWithoutRestrictions(int wordsetSize) {
+    protected SegmentationDefinition getSubsetDefinitionWithoutRestrictions(int wordsetSize) {
         /*
          * Code the combinations of elements not with ids but with bits. 01 is
          * only the first element, 10 is the second and 11 is the combination of
@@ -52,11 +52,11 @@ public class OneAny extends AbstractAnyBasedSubsetCreator {
 
         BitSet neededCounts = new BitSet(1 << wordsetSize);
         neededCounts.set(1, 1 << wordsetSize);
-        return new SubsetDefinition(segments, conditions, neededCounts);
+        return new SegmentationDefinition(segments, conditions, neededCounts);
     }
 
     @Override
-    protected SubsetDefinition getSubsetDefinitionWithRestrictions(int wordsetSize, int maxSingleSubSetSize,
+    protected SegmentationDefinition getSubsetDefinitionWithRestrictions(int wordsetSize, int maxSingleSubSetSize,
             int maxSubSetUnionSize) {
         /*
          * Code the combinations of elements not with ids but with bits. 01 is
@@ -81,7 +81,7 @@ public class OneAny extends AbstractAnyBasedSubsetCreator {
 
         BitSet neededCounts = new BitSet(1 << wordsetSize);
         neededCounts.set(1, 1 << wordsetSize);
-        return new SubsetDefinition(segments, conditions, neededCounts);
+        return new SegmentationDefinition(segments, conditions, neededCounts);
     }
 
     @Override

@@ -19,7 +19,7 @@ package org.aksw.palmetto.prob.decorator;
 import java.util.Arrays;
 
 import org.aksw.palmetto.data.CountedSubsets;
-import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SegmentationDefinition;
 import org.aksw.palmetto.prob.FrequencyDeterminer;
 
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
@@ -33,11 +33,11 @@ public class FreqeuencyCachingDeterminerDecorator extends AbstractSlidingWindowF
     }
 
     @Override
-    public CountedSubsets[] determineCounts(String[][] wordsets, SubsetDefinition[] definitions) {
+    public CountedSubsets[] determineCounts(String[][] wordsets, SegmentationDefinition[] definitions) {
         CountedSubsets countedSubsets[] = new CountedSubsets[definitions.length];
         int wordSetHash;
         String singleWordSet[][] = new String[1][];
-        SubsetDefinition singleDefinition[] = new SubsetDefinition[1];
+        SegmentationDefinition singleDefinition[] = new SegmentationDefinition[1];
         for (int i = 0; i < definitions.length; ++i) {
             wordSetHash = Arrays.hashCode(wordsets[i]);
             if (cache.containsKey(wordSetHash)) {

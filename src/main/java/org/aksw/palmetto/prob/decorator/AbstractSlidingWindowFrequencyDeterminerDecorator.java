@@ -17,7 +17,7 @@
 package org.aksw.palmetto.prob.decorator;
 
 import org.aksw.palmetto.prob.FrequencyDeterminer;
-import org.aksw.palmetto.prob.SlidingWindowFrequencyDeterminer;
+import org.aksw.palmetto.prob.window.WindowBasedFrequencyDeterminer;
 
 public abstract class AbstractSlidingWindowFrequencyDeterminerDecorator extends AbstractFrequencyDeterminerDecorator
         implements SlidingWindowFrequencyDeterminerDecorator {
@@ -28,15 +28,15 @@ public abstract class AbstractSlidingWindowFrequencyDeterminerDecorator extends 
 
     @Override
     public void setWindowSize(int windowSize) {
-        if (determiner instanceof SlidingWindowFrequencyDeterminer) {
-            ((SlidingWindowFrequencyDeterminer) determiner).setWindowSize(windowSize);
+        if (determiner instanceof WindowBasedFrequencyDeterminer) {
+            ((WindowBasedFrequencyDeterminer) determiner).setWindowSize(windowSize);
         }
     }
 
     @Override
     public long[] getCooccurrenceCounts() {
-        if (determiner instanceof SlidingWindowFrequencyDeterminer) {
-            return ((SlidingWindowFrequencyDeterminer) determiner).getCooccurrenceCounts();
+        if (determiner instanceof WindowBasedFrequencyDeterminer) {
+            return ((WindowBasedFrequencyDeterminer) determiner).getCooccurrenceCounts();
         } else {
             return null;
         }
@@ -44,8 +44,8 @@ public abstract class AbstractSlidingWindowFrequencyDeterminerDecorator extends 
 
     @Override
     public String getSlidingWindowModelName() {
-        if (determiner instanceof SlidingWindowFrequencyDeterminer) {
-            return ((SlidingWindowFrequencyDeterminer) determiner).getSlidingWindowModelName();
+        if (determiner instanceof WindowBasedFrequencyDeterminer) {
+            return ((WindowBasedFrequencyDeterminer) determiner).getSlidingWindowModelName();
         } else {
             return null;
         }
@@ -53,8 +53,8 @@ public abstract class AbstractSlidingWindowFrequencyDeterminerDecorator extends 
 
     @Override
     public int getWindowSize() {
-        if (determiner instanceof SlidingWindowFrequencyDeterminer) {
-            return ((SlidingWindowFrequencyDeterminer) determiner).getWindowSize();
+        if (determiner instanceof WindowBasedFrequencyDeterminer) {
+            return ((WindowBasedFrequencyDeterminer) determiner).getWindowSize();
         } else {
             return 0;
         }

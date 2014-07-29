@@ -18,7 +18,7 @@ package org.aksw.palmetto.subsets;
 
 import org.junit.Test;
 
-public class OneOneTest extends AbstractSubsetCreatorTest {
+public class OneOneTest extends AbstractSegmentatorTest {
 
     @Test
     public void testWordSetLength4() {

@@ -29,5 +29,5 @@ public interface ConfirmationMeasure {
      * 
      * @return the name of the measure.
      */
-    public String getCalculationName();
+    public String getName();
 }

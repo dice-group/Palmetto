@@ -19,7 +19,7 @@ package org.aksw.palmetto.vector;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.calculations.probbased.LogJaccardCoherenceCalculation;
+import org.aksw.palmetto.calculations.direct.LogJaccardConfirmationMeasure;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -192,7 +192,7 @@ public class LogJaccardCoherenceCalculationTest extends AbstractProbCalcBasedVec
 
     public LogJaccardCoherenceCalculationTest(int wordsetSize, double[][] probabilities, double[][][] expectedVectors,
             String expectedCreatorName, double gamma) {
-        super(new LogJaccardCoherenceCalculation(), wordsetSize, probabilities, expectedVectors, expectedCreatorName,
+        super(new LogJaccardConfirmationMeasure(), wordsetSize, probabilities, expectedVectors, expectedCreatorName,
                 gamma);
     }
 

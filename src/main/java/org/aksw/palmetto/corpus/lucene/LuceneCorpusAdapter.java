@@ -35,6 +35,12 @@ import com.carrotsearch.hppc.IntArrayList;
 import com.carrotsearch.hppc.IntOpenHashSet;
 import com.carrotsearch.hppc.ObjectObjectOpenHashMap;
 
+/**
+ * This class can make usage of a given Lucene index as corpus.
+ * 
+ * @author m.roeder
+ * 
+ */
 public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
 
     private static final Logger LOGGER = LoggerFactory
@@ -45,6 +51,16 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
     protected AtomicReader reader[];
     protected AtomicReaderContext contexts[];
 
+    /**
+     * Creates a corpus adapter which uses the Lucene index with the given path and searches on the field with the given
+     * field name.
+     * 
+     * @param indexPath
+     * @param fieldName
+     * @return
+     * @throws CorruptIndexException
+     * @throws IOException
+     */
     public static LuceneCorpusAdapter create(String indexPath, String fieldName)
             throws CorruptIndexException, IOException {
         DirectoryReader dirReader = DirectoryReader.open(new SimpleFSDirectory(
@@ -87,6 +103,9 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
         }
     }
 
+    /**
+     * Closes the Lucene index.
+     */
     public void close() {
         for (int i = 0; i < reader.length; i++) {
             try {

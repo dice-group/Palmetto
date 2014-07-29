@@ -18,7 +18,7 @@ package org.aksw.palmetto.vector;
 
 import junit.framework.Assert;
 
-import org.aksw.palmetto.calculations.probbased.ProbabilityBasedCalculation;
+import org.aksw.palmetto.calculations.direct.DirectConfirmationMeasure;
 import org.aksw.palmetto.subsets.OneOne;
 import org.junit.Test;
 
@@ -26,9 +26,9 @@ public abstract class AbstractProbCalcBasedVectorCreatorTest extends AbstractVec
 
     protected String expectedCreatorName;
 
-    public AbstractProbCalcBasedVectorCreatorTest(ProbabilityBasedCalculation calculation, int wordsetSize,
+    public AbstractProbCalcBasedVectorCreatorTest(DirectConfirmationMeasure calculation, int wordsetSize,
             double[][] probabilities, double[][][] expectedVectors, String expectedCreatorName, double gamma) {
-        super(new ProbCalcBasedVectorCreator(null, calculation, gamma), new OneOne(), wordsetSize, probabilities,
+        super(new DirectConfirmationBasedVectorCreator(null, calculation, gamma), new OneOne(), wordsetSize, probabilities,
                 expectedVectors);
         this.expectedCreatorName = expectedCreatorName;
     }

@@ -18,6 +18,7 @@ package org.aksw.palmetto.corpus.lucene;
 
 import com.carrotsearch.hppc.IntArrayList;
 
+@Deprecated
 public interface SlidingWindowCounter {
 
     public void setWindowSize(int windowSize);

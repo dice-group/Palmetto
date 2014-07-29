@@ -19,7 +19,7 @@ package org.aksw.palmetto.vector;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.calculations.probbased.JaccardCoherenceCalculation;
+import org.aksw.palmetto.calculations.direct.JaccardConfirmationMeasure;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -173,7 +173,7 @@ public class JaccardCalculationBasedCreatorTest extends AbstractProbCalcBasedVec
 
     public JaccardCalculationBasedCreatorTest(int wordsetSize, double[][] probabilities, double[][][] expectedVectors,
             String expectedCreatorName, double gamma) {
-        super(new JaccardCoherenceCalculation(), wordsetSize, probabilities, expectedVectors, expectedCreatorName,
+        super(new JaccardConfirmationMeasure(), wordsetSize, probabilities, expectedVectors, expectedCreatorName,
                 gamma);
     }
 }

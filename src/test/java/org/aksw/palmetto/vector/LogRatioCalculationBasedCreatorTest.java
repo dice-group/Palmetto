@@ -19,8 +19,8 @@ package org.aksw.palmetto.vector;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.calculations.probbased.LogBasedCalculation;
-import org.aksw.palmetto.calculations.probbased.LogRatioCoherenceCalculation;
+import org.aksw.palmetto.calculations.direct.LogBasedCalculation;
+import org.aksw.palmetto.calculations.direct.LogRatioConfirmationMeasure;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -263,7 +263,7 @@ public class LogRatioCalculationBasedCreatorTest extends AbstractProbCalcBasedVe
 
     public LogRatioCalculationBasedCreatorTest(int wordsetSize, double[][] probabilities, double[][][] expectedVectors,
             String expectedCreatorName, double gamma) {
-        super(new LogRatioCoherenceCalculation(), wordsetSize, probabilities, expectedVectors, expectedCreatorName,
+        super(new LogRatioConfirmationMeasure(), wordsetSize, probabilities, expectedVectors, expectedCreatorName,
                 gamma);
     }
 }

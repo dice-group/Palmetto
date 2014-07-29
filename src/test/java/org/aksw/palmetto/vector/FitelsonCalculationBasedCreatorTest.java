@@ -19,7 +19,7 @@ package org.aksw.palmetto.vector;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.calculations.probbased.FitelsonCoherenceCalculation;
+import org.aksw.palmetto.calculations.direct.FitelsonConfirmationMeasure;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -165,7 +165,7 @@ public class FitelsonCalculationBasedCreatorTest extends AbstractProbCalcBasedVe
 
     public FitelsonCalculationBasedCreatorTest(int wordsetSize, double[][] probabilities, double[][][] expectedVectors,
             String expectedCreatorName, double gamma) {
-        super(new FitelsonCoherenceCalculation(), wordsetSize, probabilities, expectedVectors, expectedCreatorName,
+        super(new FitelsonConfirmationMeasure(), wordsetSize, probabilities, expectedVectors, expectedCreatorName,
                 gamma);
     }
 }

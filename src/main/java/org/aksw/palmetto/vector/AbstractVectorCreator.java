@@ -16,33 +16,39 @@
  */
 package org.aksw.palmetto.vector;
 
-import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SegmentationDefinition;
 import org.aksw.palmetto.data.SubsetProbabilities;
 import org.aksw.palmetto.data.SubsetVectors;
-import org.aksw.palmetto.prob.ProbabilitySupplier;
+import org.aksw.palmetto.prob.ProbabilityEstimator;
 
+/**
+ * Abstract class containing the process of the vector creation.
+ * 
+ * @author m.roeder
+ *
+ */
 public abstract class AbstractVectorCreator implements VectorCreator {
 
     private static final String VECTOR_SPACE_NAME = "V^Top";
 
-    private ProbabilitySupplier supplier;
+    private ProbabilityEstimator supplier;
 
-    public AbstractVectorCreator(ProbabilitySupplier supplier) {
+    public AbstractVectorCreator(ProbabilityEstimator supplier) {
         this.supplier = supplier;
     }
 
     @Override
-    public SubsetVectors[] getVectors(String[][] wordsets, SubsetDefinition[] definitions) {
+    public SubsetVectors[] getVectors(String[][] wordsets, SegmentationDefinition[] definitions) {
         SubsetProbabilities probabilities[] = supplier.getProbabilities(wordsets, definitions);
         return createVectors(wordsets, definitions, probabilities);
     }
 
-    protected abstract SubsetVectors[] createVectors(String[][] wordsets, SubsetDefinition[] definitions,
+    protected abstract SubsetVectors[] createVectors(String[][] wordsets, SegmentationDefinition[] definitions,
             SubsetProbabilities[] probabilities);
 
     @Override
-    public String getProbabilityModelName() {
-        return supplier.getProbabilityModelName();
+    public String getProbabilityEstimatorName() {
+        return supplier.getName();
     }
 
     @Override
@@ -55,7 +61,7 @@ public abstract class AbstractVectorCreator implements VectorCreator {
         supplier.setMinFrequency(minFrequency);
     }
 
-    public void setProbabilitySupplier(ProbabilitySupplier supplier) {
+    public void setProbabilityEstimator(ProbabilityEstimator supplier) {
         this.supplier = supplier;
     }
 }

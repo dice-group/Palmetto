@@ -17,11 +17,11 @@
 package org.aksw.palmetto.prob;
 
 import org.aksw.palmetto.data.CountedSubsets;
-import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SegmentationDefinition;
 import org.aksw.palmetto.data.SubsetProbabilities;
 
 public abstract class AbstractProbabilitySupplier implements
-        ProbabilitySupplier {
+        ProbabilityEstimator {
 
     public static final int DEFAULT_MIN_FREQUENCY = 10;
 
@@ -33,7 +33,7 @@ public abstract class AbstractProbabilitySupplier implements
     }
 
     public SubsetProbabilities[] getProbabilities(String wordsets[][],
-            SubsetDefinition definitions[]) {
+            SegmentationDefinition definitions[]) {
         CountedSubsets subsets[] = freqDeterminer.determineCounts(wordsets,
                 definitions);
         SubsetProbabilities probabilities[] = new SubsetProbabilities[subsets.length];

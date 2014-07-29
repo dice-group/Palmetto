@@ -19,7 +19,7 @@ package org.aksw.palmetto.vector;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.calculations.probbased.DifferenceBasedCoherenceCalculation;
+import org.aksw.palmetto.calculations.direct.DifferenceBasedConfirmationMeasure;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -164,7 +164,7 @@ public class DifferenceCalculationBasedCreatorTest extends AbstractProbCalcBased
 
     public DifferenceCalculationBasedCreatorTest(int wordsetSize, double[][] probabilities,
             double[][][] expectedVectors, String expectedCreatorName, double gamma) {
-        super(new DifferenceBasedCoherenceCalculation(), wordsetSize, probabilities, expectedVectors,
+        super(new DifferenceBasedConfirmationMeasure(), wordsetSize, probabilities, expectedVectors,
                 expectedCreatorName, gamma);
     }
 }

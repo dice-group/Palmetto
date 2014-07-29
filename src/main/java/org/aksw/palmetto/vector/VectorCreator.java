@@ -16,21 +16,61 @@
  */
 package org.aksw.palmetto.vector;
 
-import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SegmentationDefinition;
 import org.aksw.palmetto.data.SubsetVectors;
-import org.aksw.palmetto.prob.ProbabilitySupplier;
+import org.aksw.palmetto.prob.ProbabilityEstimator;
 
+/**
+ * Interface for the vector creation.
+ * 
+ * @author m.roeder
+ * 
+ */
 public interface VectorCreator {
 
-    public SubsetVectors[] getVectors(String wordsets[][], SubsetDefinition definitions[]);
+    /**
+     * Creates vectors for the given word sets and their segmentations.
+     * 
+     * @param wordsets
+     * @param definitions
+     * @return
+     */
+    public SubsetVectors[] getVectors(String wordsets[][], SegmentationDefinition definitions[]);
 
-    public void setProbabilitySupplier(ProbabilitySupplier supplier);
+    /**
+     * Sets the probability estimator used by the vector creator.
+     * 
+     * @param supplier
+     */
+    public void setProbabilityEstimator(ProbabilityEstimator supplier);
 
-    public String getProbabilityModelName();
+    /**
+     * Calls {@link ProbabilityEstimator#getName()} of the probability estimator and returns the
+     * name of
+     * the estimator.
+     * 
+     * @return
+     */
+    public String getProbabilityEstimatorName();
 
+    /**
+     * Returns the name of the vector space.
+     * 
+     * @return
+     */
     public String getVectorSpaceName();
 
+    /**
+     * Returns the name of the direct confirmation measure which is used to create the vectors.
+     * 
+     * @return
+     */
     public String getVectorCreatorName();
 
+    /**
+     * Sets the minimum frequency of the probability estimator.
+     * 
+     * @param minFrequency
+     */
     public void setMinFrequency(int minFrequency);
 }

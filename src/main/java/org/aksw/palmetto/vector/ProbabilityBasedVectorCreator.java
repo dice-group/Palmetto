@@ -16,16 +16,22 @@
  */
 package org.aksw.palmetto.vector;
 
-import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SegmentationDefinition;
 import org.aksw.palmetto.data.SubsetProbabilities;
 import org.aksw.palmetto.data.SubsetVectors;
-import org.aksw.palmetto.prob.ProbabilitySupplier;
+import org.aksw.palmetto.prob.ProbabilityEstimator;
 
+/**
+ * This vector creator uses the marginal probabilities for the vector creation.
+ * 
+ * @author m.roeder
+ * 
+ */
 public class ProbabilityBasedVectorCreator extends AbstractVectorCreator {
 
     private static final String VECTOR_CREATOR_NAME = "V_p";
 
-    public ProbabilityBasedVectorCreator(ProbabilitySupplier supplier) {
+    public ProbabilityBasedVectorCreator(ProbabilityEstimator supplier) {
         super(supplier);
     }
 
@@ -35,7 +41,7 @@ public class ProbabilityBasedVectorCreator extends AbstractVectorCreator {
     }
 
     @Override
-    protected SubsetVectors[] createVectors(String[][] wordsets, SubsetDefinition[] definitions,
+    protected SubsetVectors[] createVectors(String[][] wordsets, SegmentationDefinition[] definitions,
             SubsetProbabilities[] probabilities) {
         SubsetVectors vectors[] = new SubsetVectors[wordsets.length];
         double currentVectors[][];

@@ -20,7 +20,8 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.aksw.palmetto.data.CountedSubsets;
-import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SegmentationDefinition;
+import org.aksw.palmetto.prob.bd.ListBasedBooleanDocumentFrequencyDeterminer;
 import org.aksw.palmetto.subsets.AnyAny;
 import org.junit.Assert;
 import org.junit.Test;
@@ -87,7 +88,7 @@ public class ListBasedBooleanDocumentFrequencyDeterminerTest extends AbstractBoo
 
         ListBasedBooleanDocumentFrequencyDeterminer freqDeterminer = new ListBasedBooleanDocumentFrequencyDeterminer(this);
         CountedSubsets countedSubsets[] = freqDeterminer.determineCounts(new String[][] { words },
-                new SubsetDefinition[] { (new AnyAny()).getSubsetDefinition(words.length) });
+                new SegmentationDefinition[] { (new AnyAny()).getSubsetDefinition(words.length) });
 
         int counts[] = countedSubsets[0].counts;
         Assert.assertArrayEquals(expectedCounts, counts);

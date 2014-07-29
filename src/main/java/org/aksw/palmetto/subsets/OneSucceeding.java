@@ -16,13 +16,13 @@
  */
 package org.aksw.palmetto.subsets;
 
-import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SegmentationDefinition;
 
 import com.carrotsearch.hppc.BitSet;
 
-public class OneSucceeding implements SegmentationScheme {
+public class OneSucceeding implements Segmentator {
 
-    public SubsetDefinition getSubsetDefinition(int wordsetSize) {
+    public SegmentationDefinition getSubsetDefinition(int wordsetSize) {
         /*
          * Code the combinations of elements not with ids but with bits. 01 is
          * only the first element, 10 is the second and 11 is the combination of
@@ -44,7 +44,7 @@ public class OneSucceeding implements SegmentationScheme {
             bit = bit << 1;
             ++pos;
         }
-        return new SubsetDefinition(segments, conditions, neededCounts);
+        return new SegmentationDefinition(segments, conditions, neededCounts);
     }
 
     @Override

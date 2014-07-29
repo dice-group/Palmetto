@@ -21,8 +21,8 @@ import java.io.IOException;
 import junit.framework.Assert;
 
 import org.aksw.palmetto.Palmetto;
-import org.aksw.palmetto.data.SubsetDefinition;
-import org.aksw.palmetto.prob.BooleanSlidingWindowFrequencyDeterminer;
+import org.aksw.palmetto.data.SegmentationDefinition;
+import org.aksw.palmetto.prob.window.BooleanSlidingWindowFrequencyDeterminer;
 import org.apache.lucene.index.CorruptIndexException;
 import org.junit.Test;
 
@@ -32,13 +32,13 @@ public class LuceneCorpusAdapterForSlidingWindowsTest {
 
     @Test
     public void test() throws CorruptIndexException, IOException {
-        LuceneCorpusAdapterForSlidingWindows corpusAdapter = LuceneCorpusAdapterForSlidingWindows.create(
+        WindowSupportingLuceneCorpusAdapter corpusAdapter = WindowSupportingLuceneCorpusAdapter.create(
                 TEST_INDEX_PATH, Palmetto.DEFAULT_TEXT_INDEX_FIELD_NAME,
                 Palmetto.DEFAULT_DOCUMENT_LENGTH_INDEX_FIELD_NAME);
         BooleanSlidingWindowFrequencyDeterminer determiner = new BooleanSlidingWindowFrequencyDeterminer(corpusAdapter,
                 10);
         int counts[] = determiner.determineCounts(new String[][] { { "new", "york" } },
-                new SubsetDefinition[] { new SubsetDefinition(
+                new SegmentationDefinition[] { new SegmentationDefinition(
                         new int[0], new int[0][0], null) })[0].counts;
         // New count
         Assert.assertTrue(counts[1] > 0);
@@ -47,7 +47,7 @@ public class LuceneCorpusAdapterForSlidingWindowsTest {
         // New York count
         Assert.assertTrue(counts[3] > 0);
         int secondCounts[] = determiner.determineCounts(new String[][] { { "york", "new" } },
-                new SubsetDefinition[] { new SubsetDefinition(
+                new SegmentationDefinition[] { new SegmentationDefinition(
                         new int[0], new int[0][0], null) })[0].counts;
         Assert.assertEquals(counts[1], secondCounts[2]);
         Assert.assertEquals(counts[2], secondCounts[1]);

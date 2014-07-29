@@ -17,10 +17,23 @@
 package org.aksw.palmetto.prob;
 
 import org.aksw.palmetto.data.CountedSubsets;
-import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SegmentationDefinition;
 
+/**
+ * Determines the frequencies of words and word sub sets of a given word set.
+ * 
+ * @author m.roeder
+ * 
+ */
 public interface FrequencyDeterminer {
 
+    /**
+     * Returns the frequencies of words and word sub sets of the given word sets.
+     * 
+     * @param wordsets
+     * @param definitions
+     * @return
+     */
     public CountedSubsets[] determineCounts(String wordsets[][],
-	    SubsetDefinition definitions[]);
+            SegmentationDefinition definitions[]);
 }

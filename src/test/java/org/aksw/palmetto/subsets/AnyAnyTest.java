@@ -25,7 +25,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class AnyAnyTest extends AbstractSubsetCreatorTest {
+public class AnyAnyTest extends AbstractSegmentatorTest {
 
     @Parameters
     public static Collection<Object[]> data() {

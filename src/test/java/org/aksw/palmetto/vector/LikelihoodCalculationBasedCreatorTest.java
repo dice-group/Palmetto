@@ -19,8 +19,8 @@ package org.aksw.palmetto.vector;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.calculations.probbased.LikelihoodCoherenceCalculation;
-import org.aksw.palmetto.calculations.probbased.LogBasedCalculation;
+import org.aksw.palmetto.calculations.direct.LikelihoodConfirmationMeasure;
+import org.aksw.palmetto.calculations.direct.LogBasedCalculation;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -275,7 +275,7 @@ public class LikelihoodCalculationBasedCreatorTest extends AbstractProbCalcBased
 
     public LikelihoodCalculationBasedCreatorTest(int wordsetSize, double[][] probabilities,
             double[][][] expectedVectors, String expectedCreatorName, double gamma) {
-        super(new LikelihoodCoherenceCalculation(), wordsetSize, probabilities, expectedVectors, expectedCreatorName,
+        super(new LikelihoodConfirmationMeasure(), wordsetSize, probabilities, expectedVectors, expectedCreatorName,
                 gamma);
     }
 }

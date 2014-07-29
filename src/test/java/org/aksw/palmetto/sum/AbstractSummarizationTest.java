@@ -18,6 +18,7 @@ package org.aksw.palmetto.sum;
 
 import java.util.Arrays;
 
+import org.aksw.palmetto.aggregation.Aggregation;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -25,11 +26,11 @@ public abstract class AbstractSummarizationTest {
 
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
-    private Aggregator summarizer;
+    private Aggregation summarizer;
     private double values[];
     private double expectedSum;
 
-    public AbstractSummarizationTest(Aggregator summarizer, double[] values, double expectedSum) {
+    public AbstractSummarizationTest(Aggregation summarizer, double[] values, double expectedSum) {
         this.summarizer = summarizer;
         this.values = values;
         this.expectedSum = expectedSum;

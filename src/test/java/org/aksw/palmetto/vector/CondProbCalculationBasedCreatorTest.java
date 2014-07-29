@@ -19,7 +19,7 @@ package org.aksw.palmetto.vector;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.calculations.probbased.CondProbCoherenceCalculation;
+import org.aksw.palmetto.calculations.direct.CondProbConfirmationMeasure;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -173,7 +173,7 @@ public class CondProbCalculationBasedCreatorTest extends AbstractProbCalcBasedVe
 
     public CondProbCalculationBasedCreatorTest(int wordsetSize, double[][] probabilities, double[][][] expectedVectors,
             String expectedCreatorName, double gamma) {
-        super(new CondProbCoherenceCalculation(0), wordsetSize, probabilities, expectedVectors, expectedCreatorName,
+        super(new CondProbConfirmationMeasure(0), wordsetSize, probabilities, expectedVectors, expectedCreatorName,
                 gamma);
     }
 }

@@ -18,10 +18,16 @@ package org.aksw.palmetto.weight;
 
 import org.aksw.palmetto.data.SubsetProbabilities;
 
+/**
+ * This is an interface for a class that can be used to weight the single elements of a segmentation scheme.
+ * 
+ * @author m.roeder
+ * 
+ */
 @Deprecated
 public interface Weighter {
 
     public double[] createWeights(SubsetProbabilities probabilities);
-    
+
     public String getName();
 }

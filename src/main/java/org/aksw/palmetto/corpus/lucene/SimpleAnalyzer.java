@@ -27,6 +27,12 @@ import org.apache.lucene.analysis.pattern.PatternTokenizerFactory;
 import org.apache.lucene.analysis.util.AbstractAnalysisFactory;
 import org.apache.lucene.util.Version;
 
+/**
+ * A simple Lucene Analyzer used for the index creation.
+ * 
+ * @author m.roeder
+ * 
+ */
 public class SimpleAnalyzer extends Analyzer {
 
     private static final Version version = Version.LUCENE_44;
@@ -36,32 +42,32 @@ public class SimpleAnalyzer extends Analyzer {
     private LowerCaseFilterFactory lowerCaseFilterFactory;
 
     public SimpleAnalyzer(boolean lowerCase) {
-	Map<String, String> parameters = new HashMap<String, String>();
-	parameters.put(PatternTokenizerFactory.PATTERN, PATTERN);
-	parameters.put(PatternTokenizerFactory.GROUP, "0");
-	parameters.put(AbstractAnalysisFactory.LUCENE_MATCH_VERSION_PARAM,
-		version.name());
-	tokenizerFactory = new PatternTokenizerFactory(parameters);
-	if (lowerCase) {
-	    parameters = new HashMap<String, String>();
-	    parameters.put(AbstractAnalysisFactory.LUCENE_MATCH_VERSION_PARAM,
-		    version.name());
-	    lowerCaseFilterFactory = new LowerCaseFilterFactory(parameters);
-	} else {
-	    lowerCaseFilterFactory = null;
-	}
+        Map<String, String> parameters = new HashMap<String, String>();
+        parameters.put(PatternTokenizerFactory.PATTERN, PATTERN);
+        parameters.put(PatternTokenizerFactory.GROUP, "0");
+        parameters.put(AbstractAnalysisFactory.LUCENE_MATCH_VERSION_PARAM,
+                version.name());
+        tokenizerFactory = new PatternTokenizerFactory(parameters);
+        if (lowerCase) {
+            parameters = new HashMap<String, String>();
+            parameters.put(AbstractAnalysisFactory.LUCENE_MATCH_VERSION_PARAM,
+                    version.name());
+            lowerCaseFilterFactory = new LowerCaseFilterFactory(parameters);
+        } else {
+            lowerCaseFilterFactory = null;
+        }
     }
 
     @Override
     protected TokenStreamComponents createComponents(String fieldName,
-	    Reader reader) {
-	Tokenizer tokenizer = tokenizerFactory.create(reader);
-	if (lowerCaseFilterFactory != null) {
-	    return new TokenStreamComponents(tokenizer,
-		    lowerCaseFilterFactory.create(tokenizer));
-	} else {
-	    return new TokenStreamComponents(tokenizer);
-	}
+            Reader reader) {
+        Tokenizer tokenizer = tokenizerFactory.create(reader);
+        if (lowerCaseFilterFactory != null) {
+            return new TokenStreamComponents(tokenizer,
+                    lowerCaseFilterFactory.create(tokenizer));
+        } else {
+            return new TokenStreamComponents(tokenizer);
+        }
     }
 
 }

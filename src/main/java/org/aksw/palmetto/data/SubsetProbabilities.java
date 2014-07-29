@@ -16,6 +16,12 @@
  */
 package org.aksw.palmetto.data;
 
+/**
+ * This class contains the segmentations and probabilities for a word set.
+ * 
+ * @author m.roeder
+ * 
+ */
 public class SubsetProbabilities {
 
     public int segments[];

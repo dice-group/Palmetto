@@ -1,10 +1,10 @@
 package org.aksw.palmetto;
 
-import org.aksw.palmetto.calculations.vectorbased.VectorBasedCalculation;
-import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.aggregation.Aggregation;
+import org.aksw.palmetto.calculations.indirect.VectorBasedConfirmationMeasure;
+import org.aksw.palmetto.data.SegmentationDefinition;
 import org.aksw.palmetto.data.SubsetVectors;
-import org.aksw.palmetto.subsets.SegmentationScheme;
-import org.aksw.palmetto.sum.Aggregator;
+import org.aksw.palmetto.subsets.Segmentator;
 import org.aksw.palmetto.vector.VectorCreator;
 import org.aksw.palmetto.weight.Weighter;
 
@@ -20,7 +20,7 @@ public class VectorBasedCoherence implements Coherence {
     /**
      * The segmentation scheme used to create the subset pairs.
      */
-    protected SegmentationScheme subsetScheme;
+    protected Segmentator segmentator;
 
     /**
      * The vector creator used to determine the vectors for the given words.
@@ -30,40 +30,40 @@ public class VectorBasedCoherence implements Coherence {
     /**
      * The confirmation measure used to rate the single subset pairs.
      */
-    protected VectorBasedCalculation calculation;
+    protected VectorBasedConfirmationMeasure confirmation;
 
     /**
      * The aggregator used to aggregate the single ratings of the subset pairs.
      */
-    protected Aggregator summarizer;
+    protected Aggregation aggregation;
 
     @Deprecated
     protected Weighter weighter;
 
     @Deprecated
-    public VectorBasedCoherence(SegmentationScheme subsetScheme, VectorCreator vectorCreator,
-            VectorBasedCalculation calculation, Aggregator summarizer, Weighter weighter) {
-        this.subsetScheme = subsetScheme;
+    public VectorBasedCoherence(Segmentator segmentator, VectorCreator vectorCreator,
+            VectorBasedConfirmationMeasure confirmation, Aggregation aggregation, Weighter weighter) {
+        this.segmentator = segmentator;
         this.vectorCreator = vectorCreator;
-        this.calculation = calculation;
-        this.summarizer = summarizer;
+        this.confirmation = confirmation;
+        this.aggregation = aggregation;
         this.weighter = weighter;
     }
 
-    public VectorBasedCoherence(SegmentationScheme subsetScheme, VectorCreator vectorCreator,
-            VectorBasedCalculation calculation, Aggregator summarizer) {
-        this.subsetScheme = subsetScheme;
+    public VectorBasedCoherence(Segmentator segmentator, VectorCreator vectorCreator,
+            VectorBasedConfirmationMeasure confirmation, Aggregation aggregation) {
+        this.segmentator = segmentator;
         this.vectorCreator = vectorCreator;
-        this.calculation = calculation;
-        this.summarizer = summarizer;
+        this.confirmation = confirmation;
+        this.aggregation = aggregation;
     }
 
     @Override
     public double[] calculateCoherences(String[][] wordsets) {
         // create subset definitions
-        SubsetDefinition definitions[] = new SubsetDefinition[wordsets.length];
+        SegmentationDefinition definitions[] = new SegmentationDefinition[wordsets.length];
         for (int i = 0; i < definitions.length; i++) {
-            definitions[i] = subsetScheme.getSubsetDefinition(wordsets[i].length);
+            definitions[i] = segmentator.getSubsetDefinition(wordsets[i].length);
         }
 
         // get the probabilities
@@ -71,11 +71,15 @@ public class VectorBasedCoherence implements Coherence {
         definitions = null;
 
         double coherences[] = new double[vectors.length];
-        for (int i = 0; i < vectors.length; i++) {
-            coherences[i] = summarizer.summarize(calculation.calculateCoherenceValues(vectors[i]));
-            // coherences[i] =
-            // summarizer.summarize(calculation.calculateCoherenceValues(vectors[i]),
-            // weighter.createWeights(vectors[i]));
+        if (weighter != null) {
+            for (int i = 0; i < vectors.length; i++) {
+                coherences[i] = aggregation.summarize(confirmation.calculateConfirmationValues(vectors[i]),
+                        weighter.createWeights(vectors[i]));
+            }
+        } else {
+            for (int i = 0; i < vectors.length; i++) {
+                coherences[i] = aggregation.summarize(confirmation.calculateConfirmationValues(vectors[i]));
+            }
         }
         return coherences;
     }
@@ -84,17 +88,17 @@ public class VectorBasedCoherence implements Coherence {
     public String getName() {
         StringBuilder builder = new StringBuilder();
         builder.append("C(");
-        builder.append(vectorCreator.getProbabilityModelName());
+        builder.append(vectorCreator.getProbabilityEstimatorName());
         builder.append(',');
         builder.append(vectorCreator.getVectorSpaceName());
         builder.append(',');
         builder.append(vectorCreator.getVectorCreatorName());
         builder.append(',');
-        builder.append(subsetScheme.getName());
+        builder.append(segmentator.getName());
         builder.append(',');
-        builder.append(calculation.getCalculationName());
+        builder.append(confirmation.getName());
         builder.append(',');
-        builder.append(summarizer.getName());
+        builder.append(aggregation.getName());
         if (weighter != null) {
             builder.append(',');
             builder.append(weighter.getName());

@@ -19,8 +19,9 @@ package org.aksw.palmetto.prob;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.corpus.SlidingWindowSupportingAdapter;
-import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.corpus.WindowSupportingAdapter;
+import org.aksw.palmetto.data.SegmentationDefinition;
+import org.aksw.palmetto.prob.window.ContextWindowFrequencyDeterminer;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +33,7 @@ import com.carrotsearch.hppc.IntIntOpenHashMap;
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 @RunWith(Parameterized.class)
-public class ContextWindowFrequencyDeterminerCountingTest implements SlidingWindowSupportingAdapter {
+public class ContextWindowFrequencyDeterminerCountingTest implements WindowSupportingAdapter {
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -101,7 +102,7 @@ public class ContextWindowFrequencyDeterminerCountingTest implements SlidingWind
         }
         int counts[] = determiner.determineCounts(
                 new String[1][lists.length]/* new String[][] { { "A", "B", "C" } } */,
-                new SubsetDefinition[] { new SubsetDefinition(
+                new SegmentationDefinition[] { new SegmentationDefinition(
                         new int[0], new int[0][0], null) })[0].counts;
         Assert.assertArrayEquals(expectedCounts, counts);
     }

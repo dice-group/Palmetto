@@ -19,7 +19,7 @@ package org.aksw.palmetto.vector;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.calculations.probbased.RatioCoherenceCalculation;
+import org.aksw.palmetto.calculations.direct.RatioConfirmationMeasure;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
@@ -203,6 +203,6 @@ public class RatioCoherenceCalculationTest extends AbstractProbCalcBasedVectorCr
 
     public RatioCoherenceCalculationTest(int wordsetSize, double[][] probabilities, double[][][] expectedVectors,
             String expectedCreatorName, double gamma) {
-        super(new RatioCoherenceCalculation(), wordsetSize, probabilities, expectedVectors, expectedCreatorName, gamma);
+        super(new RatioConfirmationMeasure(), wordsetSize, probabilities, expectedVectors, expectedCreatorName, gamma);
     }
 }

@@ -16,6 +16,7 @@
  */
 package org.aksw.palmetto.io;
 
+@Deprecated
 public interface DocumentTextSupplier {
 
     public String getNextDocumentText();

@@ -19,16 +19,17 @@ package org.aksw.palmetto.weight;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SegmentationDefinition;
 import org.aksw.palmetto.data.SubsetProbabilities;
 import org.aksw.palmetto.subsets.OneOne;
-import org.aksw.palmetto.subsets.SegmentationScheme;
+import org.aksw.palmetto.subsets.Segmentator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
+@Deprecated
 @RunWith(Parameterized.class)
 public class MarginalProbabilityBasedWeighterTest {
 
@@ -68,12 +69,12 @@ public class MarginalProbabilityBasedWeighterTest {
                         new double[] { 0.25, 0.25, 0.5, 0.5, 0.5, 0.5 } } });
     }
 
-    private SegmentationScheme subsetCreator;
+    private Segmentator subsetCreator;
     private int wordsetSize;
     private double probabilities[];
     private double expectedWeightings[];
     
-    public MarginalProbabilityBasedWeighterTest(SegmentationScheme subsetCreator, int wordsetSize, double[] probabilities,
+    public MarginalProbabilityBasedWeighterTest(Segmentator subsetCreator, int wordsetSize, double[] probabilities,
             double[] expectedWeightings) {
         this.subsetCreator = subsetCreator;
         this.wordsetSize = wordsetSize;
@@ -83,7 +84,7 @@ public class MarginalProbabilityBasedWeighterTest {
 
     @Test
     public void test() {
-        SubsetDefinition subsets = subsetCreator.getSubsetDefinition(wordsetSize);
+        SegmentationDefinition subsets = subsetCreator.getSubsetDefinition(wordsetSize);
         SubsetProbabilities subProbs = new SubsetProbabilities(subsets.segments, subsets.conditions, probabilities);
         Weighter weighter = new MarginalProbabilityBasedWeighter();
         Assert.assertArrayEquals(expectedWeightings, weighter.createWeights(subProbs), DOUBLE_PRECISION_DELTA);

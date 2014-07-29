@@ -16,29 +16,29 @@
  */
 package org.aksw.palmetto.vector;
 
-import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.data.SegmentationDefinition;
 import org.aksw.palmetto.data.SubsetProbabilities;
 import org.aksw.palmetto.data.SubsetVectors;
 import org.aksw.palmetto.prob.FrequencyDeterminer;
-import org.aksw.palmetto.prob.ProbabilitySupplier;
-import org.aksw.palmetto.subsets.SegmentationScheme;
+import org.aksw.palmetto.prob.ProbabilityEstimator;
+import org.aksw.palmetto.subsets.Segmentator;
 import org.junit.Assert;
 import org.junit.Test;
 
-public abstract class AbstractVectorCreatorTest implements ProbabilitySupplier {
+public abstract class AbstractVectorCreatorTest implements ProbabilityEstimator {
 
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
     protected VectorCreator vectorCreator;
-    protected SegmentationScheme subsetCreator;
+    protected Segmentator subsetCreator;
     protected int wordsetSize;
     protected double probabilities[][];
     protected double expectedVectors[][][];
 
-    public AbstractVectorCreatorTest(VectorCreator vectorCreator, SegmentationScheme subsetCreator, int wordsetSize,
+    public AbstractVectorCreatorTest(VectorCreator vectorCreator, Segmentator subsetCreator, int wordsetSize,
             double[][] probabilities, double expectedVectors[][][]) {
         this.vectorCreator = vectorCreator;
-        vectorCreator.setProbabilitySupplier(this);
+        vectorCreator.setProbabilityEstimator(this);
         this.probabilities = probabilities;
         this.wordsetSize = wordsetSize;
         this.subsetCreator = subsetCreator;
@@ -47,7 +47,7 @@ public abstract class AbstractVectorCreatorTest implements ProbabilitySupplier {
 
     @Test
     public void test() {
-        SubsetDefinition definitions[] = new SubsetDefinition[probabilities.length];
+        SegmentationDefinition definitions[] = new SegmentationDefinition[probabilities.length];
         for (int i = 0; i < definitions.length; ++i) {
             definitions[i] = subsetCreator.getSubsetDefinition(wordsetSize);
         }
@@ -62,7 +62,7 @@ public abstract class AbstractVectorCreatorTest implements ProbabilitySupplier {
     }
 
     @Override
-    public SubsetProbabilities[] getProbabilities(String[][] wordsets, SubsetDefinition[] definitions) {
+    public SubsetProbabilities[] getProbabilities(String[][] wordsets, SegmentationDefinition[] definitions) {
         SubsetProbabilities subsetProbs[] = new SubsetProbabilities[wordsets.length];
         for (int i = 0; i < wordsets.length; ++i) {
             subsetProbs[i] = new SubsetProbabilities(definitions[i].segments, definitions[i].conditions,
@@ -72,18 +72,12 @@ public abstract class AbstractVectorCreatorTest implements ProbabilitySupplier {
     }
 
     @Override
-    @Deprecated
-    public double getInverseProbability(int wordSetDef, int invertingWordSet, double[] probabilities) {
-        throw new IllegalAccessError("This method shouldn't be accessed. Therefore it have not been implemented.");
-    }
-
-    @Override
     public FrequencyDeterminer getFrequencyDeterminer() {
         throw new IllegalAccessError("This method shouldn't be accessed. Therefore it have not been implemented.");
     }
 
     @Override
-    public String getProbabilityModelName() {
+    public String getName() {
         throw new IllegalAccessError("This method shouldn't be accessed. Therefore it have not been implemented.");
     }
 

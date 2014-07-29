@@ -70,7 +70,7 @@ public class SimpleWordSetReader {
         StringTokenizer tokenizer = new StringTokenizer(line);
         while ((tokenizer.hasMoreTokens())) {
             String nextToken = tokenizer.nextToken();
-            topic.add(nextToken);
+            topic.add(nextToken.toLowerCase());
         }
         return topic.toArray(new String[topic.size()]);
     }

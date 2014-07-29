@@ -16,7 +16,12 @@
  */
 package org.aksw.palmetto.corpus;
 
-
+/**
+ * This is the interface for a corpus adapter - a component that makes word counts available to the system.
+ * 
+ * @author m.roeder
+ *
+ */
 public interface CorpusAdapter {
 
 }

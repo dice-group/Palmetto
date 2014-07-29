@@ -16,6 +16,12 @@
  */
 package org.aksw.palmetto.data;
 
+/**
+ * This class contains the segmentations and word counts for a word set.
+ * 
+ * @author m.roeder
+ * 
+ */
 public class CountedSubsets {
 
     public int segments[];

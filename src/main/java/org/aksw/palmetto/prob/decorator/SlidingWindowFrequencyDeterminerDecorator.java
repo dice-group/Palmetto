@@ -16,9 +16,9 @@
  */
 package org.aksw.palmetto.prob.decorator;
 
-import org.aksw.palmetto.prob.SlidingWindowFrequencyDeterminer;
+import org.aksw.palmetto.prob.window.WindowBasedFrequencyDeterminer;
 
 public interface SlidingWindowFrequencyDeterminerDecorator extends FrequencyDeterminerDecorator,
-        SlidingWindowFrequencyDeterminer {
+        WindowBasedFrequencyDeterminer {
 
 }

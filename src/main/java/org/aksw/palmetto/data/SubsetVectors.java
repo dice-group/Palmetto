@@ -16,6 +16,12 @@
  */
 package org.aksw.palmetto.data;
 
+/**
+ * This class contains the segmentations, probabilities and context vectors for a word set.
+ * 
+ * @author m.roeder
+ * 
+ */
 public class SubsetVectors extends SubsetProbabilities {
 
     public double vectors[][];

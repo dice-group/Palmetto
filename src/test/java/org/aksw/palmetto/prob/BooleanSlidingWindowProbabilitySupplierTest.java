@@ -19,8 +19,10 @@ package org.aksw.palmetto.prob;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.corpus.SlidingWindowSupportingAdapter;
-import org.aksw.palmetto.data.SubsetDefinition;
+import org.aksw.palmetto.corpus.WindowSupportingAdapter;
+import org.aksw.palmetto.data.SegmentationDefinition;
+import org.aksw.palmetto.prob.window.BooleanSlidingWindowFrequencyDeterminer;
+import org.aksw.palmetto.prob.window.WindowBasedProbabilityEstimator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +34,7 @@ import com.carrotsearch.hppc.IntIntOpenHashMap;
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 @RunWith(Parameterized.class)
-public class BooleanSlidingWindowProbabilitySupplierTest implements SlidingWindowSupportingAdapter {
+public class BooleanSlidingWindowProbabilitySupplierTest implements WindowSupportingAdapter {
 
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
@@ -96,11 +98,11 @@ public class BooleanSlidingWindowProbabilitySupplierTest implements SlidingWindo
     public void test() {
         BooleanSlidingWindowFrequencyDeterminer determiner = new BooleanSlidingWindowFrequencyDeterminer(this,
                 windowSize);
-        SlidingWindowProbabilitySupplier supplier = new SlidingWindowProbabilitySupplier(determiner);
+        WindowBasedProbabilityEstimator supplier = new WindowBasedProbabilityEstimator(determiner);
         supplier.setMinFrequency(1);
 
         double probabilities[] = supplier.getProbabilities(new String[][] { { "A", "B", "C" } },
-                new SubsetDefinition[] { new SubsetDefinition(
+                new SegmentationDefinition[] { new SegmentationDefinition(
                         new int[0], new int[0][0], null) })[0].probabilities;
         Assert.assertArrayEquals(expectedProbabilities, probabilities, DOUBLE_PRECISION_DELTA);
     }

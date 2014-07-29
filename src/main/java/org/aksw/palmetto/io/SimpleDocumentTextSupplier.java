@@ -22,6 +22,7 @@ import java.util.Scanner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Deprecated
 public class SimpleDocumentTextSupplier implements DocumentTextSupplier {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SimpleDocumentTextSupplier.class);

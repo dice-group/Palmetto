@@ -19,7 +19,8 @@ package org.aksw.palmetto.prob;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.corpus.SlidingWindowSupportingAdapter;
+import org.aksw.palmetto.corpus.WindowSupportingAdapter;
+import org.aksw.palmetto.prob.window.BooleanSlidingWindowFrequencyDeterminer;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +32,7 @@ import com.carrotsearch.hppc.IntIntOpenHashMap;
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 @RunWith(Parameterized.class)
-public class BooleanSlidingWindowFrequencyDeterminerSumCreationTest implements SlidingWindowSupportingAdapter {
+public class BooleanSlidingWindowFrequencyDeterminerSumCreationTest implements WindowSupportingAdapter {
 
     @Parameters
     public static Collection<Object[]> data() {
