@@ -38,7 +38,12 @@ At the moment, there are 5 common coherence types that you can run directly with
 
 ### Topics file
 
-The file containing you topics should have one single topic per line. In every line the top words of your topic are listed separated by a single space.
+The file containing you topics should have one single topic per line. In every line the top words of your topic are listed separated by a single space. Your file should look like this:
+
+```
+company sell corporation own acquire purchase buy business sale owner
+age population household female family census live average median income
+```
 
 ## Use Palmetto as library
 
