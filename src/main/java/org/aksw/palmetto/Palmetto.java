@@ -100,11 +100,11 @@ public class Palmetto {
             LOGGER.error("Couldn't open lucene index. Aborting.", e);
             return null;
         }
-        if(corpusAdapter == null) {
+        if (corpusAdapter == null) {
             LOGGER.error("Couldn't open lucene index. Aborting.");
             return null;
         }
-        
+
         if ("uci".equals(calcType)) {
             return new DirectConfirmationBasedCoherence(
                     new OneOne(), getWindowBasedProbabilityEstimator(10, corpusAdapter),
@@ -135,6 +135,7 @@ public class Palmetto {
         msg.append("Unknown calculation type \"");
         msg.append(calcType);
         msg.append("\". Supported types are:\nUMass\nUCI\nNPMI\nC_P\nC_V\n\nAborting.");
+        LOGGER.error(msg.toString());
         return null;
     }
 
