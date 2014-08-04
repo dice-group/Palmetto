@@ -25,11 +25,11 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.aksw</groupId>
-    <artifactId>palmetto</artifactId>
-    <version>0.1.0</version>
-    <name>Palmetto</name>
+    <artifactId>palmetto-webapp</artifactId>
+    <version>0.0.1</version>
+    <name>Palmetto Web Application</name>
     <description>Palmetto is a quality measure tool for topics.</description>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <!-- PROPERTIES -->
     <properties>
@@ -53,38 +53,31 @@
     <!-- LICENSE -->
     <licenses>
         <license>
-            <name>Creative Commons Attribution-NonCommercial 4.0 International Public License</name>
-            <url>http://creativecommons.org/licenses/by-nc/4.0/legalcode</url>
+            <name>MIT</name>
+            <url>http://opensource.org/licenses/MIT</url>
         </license>
     </licenses>
 
     <!-- DEPENDENCIES -->
     <dependencies>
-        <!-- HPPC Maps -->
+        <!-- Palmetto -->
         <dependency>
-            <groupId>com.carrotsearch</groupId>
-            <artifactId>hppc</artifactId>
-            <version>0.5.3</version>
+            <groupId>org.aksw</groupId>
+            <artifactId>palmetto</artifactId>
+            <version>0.1.0</version>
         </dependency>
-        <!-- Lucene -->
+        <!-- Restlet -->
         <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-core</artifactId>
-            <version>${lucene-version}</version>
+            <groupId>org.restlet</groupId>
+            <artifactId>org.restlet</artifactId>
+            <version>2.2.1</version>
         </dependency>
-        <!-- Lucene analyzers -->
         <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-analyzers-common</artifactId>
-            <version>${lucene-version}</version>
+            <groupId>org.restlet</groupId>
+            <artifactId>org.restlet.ext.servlet</artifactId>
+            <version>2.2.1</version>
         </dependency>
-        <!-- Apache Commons IO -->
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-            <version>2.4</version>
-        </dependency>
-        
+
         <!-- ~~~~~~~~~~~~~~~~~~~ Logging ~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- slf4j: Logging API -->
         <dependency>
@@ -117,7 +110,17 @@
         <!-- ~~~~~~~~~~~~~~~~~~~ End Testing ~~~~~~~~~~~~~~~~~~~~~~ -->
     </dependencies>
 
+    <!-- REPOSITORIES -->
+    <repositories>
+        <!-- Let's use a local repository for the local libraries of this project -->
+        <repository>
+            <id>local Repo</id>
+            <url>file://${project.basedir}/lib</url>
+        </repository>
+    </repositories>
+
     <build>
+        <finalName>palmetto-webapp</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -170,7 +173,6 @@
                     <excludes>
                         <exclude>**/README</exclude>
                         <exclude>**/LICENSE</exclude>
-                        <exclude>diagrams/**</exclude>
                         <exclude>src/test/resources/**</exclude>
                         <exclude>src/main/resources/**</exclude>
                     </excludes>
