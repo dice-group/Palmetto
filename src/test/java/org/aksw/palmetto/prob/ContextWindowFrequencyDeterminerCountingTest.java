@@ -132,4 +132,8 @@ public class ContextWindowFrequencyDeterminerCountingTest implements WindowSuppo
         docLengths.put(0, docLength);
         return positionsInDocuments;
     }
+
+    @Override
+    public void close() {
+    }
 }

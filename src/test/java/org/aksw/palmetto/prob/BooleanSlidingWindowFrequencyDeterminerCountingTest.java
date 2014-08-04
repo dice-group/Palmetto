@@ -177,4 +177,8 @@ public class BooleanSlidingWindowFrequencyDeterminerCountingTest implements Wind
         docLengths.put(0, docLength);
         return positionsInDocuments;
     }
+    
+    @Override
+    public void close() {
+    }
 }

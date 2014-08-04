@@ -63,4 +63,8 @@ public abstract class AbstractBooleanDocumentSupportingAdapterBasedTest implemen
     public int getNumberOfDocuments() {
         return numberOfDocuments;
     }
+
+    @Override
+    public void close() {
+    }
 }

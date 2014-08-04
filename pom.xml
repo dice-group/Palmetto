@@ -53,8 +53,8 @@
     <!-- LICENSE -->
     <licenses>
         <license>
-            <name>Creative Commons Attribution-NonCommercial 4.0 International Public License</name>
-            <url>http://creativecommons.org/licenses/by-nc/4.0/legalcode</url>
+            <name>MIT</name>
+            <url>http://opensource.org/licenses/MIT</url>
         </license>
     </licenses>
 
@@ -84,7 +84,7 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
-        
+
         <!-- ~~~~~~~~~~~~~~~~~~~ Logging ~~~~~~~~~~~~~~~~~~~~~~ -->
         <!-- slf4j: Logging API -->
         <dependency>
@@ -118,6 +118,7 @@
     </dependencies>
 
     <build>
+        <finalName>Palmetto</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

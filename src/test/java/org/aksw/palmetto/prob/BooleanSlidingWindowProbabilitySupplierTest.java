@@ -132,4 +132,8 @@ public class BooleanSlidingWindowProbabilitySupplierTest implements WindowSuppor
         docLengths.put(0, docLength);
         return positionsInDocuments;
     }
+    
+    @Override
+    public void close() {
+    }
 }

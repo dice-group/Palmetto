@@ -63,7 +63,12 @@ public class Palmetto {
         String calcType = args[1].toLowerCase();
         String inputFile = args[2];
 
-        Coherence coherence = getCoherence(calcType, indexPath);
+        CorpusAdapter corpusAdapter = getCorpusAdapter(calcType, indexPath);
+        if (corpusAdapter == null) {
+            return;
+        }
+
+        Coherence coherence = getCoherence(calcType, corpusAdapter);
         if (coherence == null) {
             return;
         }
@@ -73,60 +78,55 @@ public class Palmetto {
         LOGGER.info("Read " + wordsets.length + " from file.");
 
         double coherences[] = coherence.calculateCoherences(wordsets);
+        corpusAdapter.close();
 
         printCoherences(coherences, wordsets, System.out);
     }
 
-    private static Coherence getCoherence(String calcType, String indexPath) {
-        if ("umass".equals(calcType)) {
-            CorpusAdapter corpusAdapter;
-            try {
-                corpusAdapter = LuceneCorpusAdapter.create(indexPath, DEFAULT_TEXT_INDEX_FIELD_NAME);
-            } catch (Exception e) {
-                LOGGER.error("Couldn't open lucene index. Aborting.", e);
-                return null;
+    private static CorpusAdapter getCorpusAdapter(String calcType, String indexPath) {
+        try {
+            if ("umass".equals(calcType)) {
+                return LuceneCorpusAdapter.create(indexPath, DEFAULT_TEXT_INDEX_FIELD_NAME);
+            } else {
+                return WindowSupportingLuceneCorpusAdapter.create(indexPath,
+                        DEFAULT_TEXT_INDEX_FIELD_NAME, DEFAULT_DOCUMENT_LENGTH_INDEX_FIELD_NAME);
             }
+        } catch (Exception e) {
+            LOGGER.error("Couldn't open lucene index. Aborting.", e);
+            return null;
+        }
+    }
+
+    private static Coherence getCoherence(String calcType, CorpusAdapter corpusAdapter) {
+        if ("umass".equals(calcType)) {
             return new DirectConfirmationBasedCoherence(new OnePreceding(),
                     BooleanDocumentProbabilitySupplier.create(corpusAdapter, "bd", true),
                     new LogCondProbConfirmationMeasure(), new ArithmeticMean());
         }
 
-        // All other calculations are using sliding window. Thus, we already can create the corpus adapter for them.
-        WindowSupportingAdapter corpusAdapter;
-        try {
-            corpusAdapter = WindowSupportingLuceneCorpusAdapter.create(indexPath,
-                    DEFAULT_TEXT_INDEX_FIELD_NAME, DEFAULT_DOCUMENT_LENGTH_INDEX_FIELD_NAME);
-        } catch (Exception e) {
-            LOGGER.error("Couldn't open lucene index. Aborting.", e);
-            return null;
-        }
-        if (corpusAdapter == null) {
-            LOGGER.error("Couldn't open lucene index. Aborting.");
-            return null;
-        }
-
         if ("uci".equals(calcType)) {
             return new DirectConfirmationBasedCoherence(
-                    new OneOne(), getWindowBasedProbabilityEstimator(10, corpusAdapter),
+                    new OneOne(), getWindowBasedProbabilityEstimator(10, (WindowSupportingAdapter) corpusAdapter),
                     new LogRatioConfirmationMeasure(), new ArithmeticMean());
         }
 
         if ("npmi".equals(calcType)) {
             return new DirectConfirmationBasedCoherence(
-                    new OneOne(), getWindowBasedProbabilityEstimator(10, corpusAdapter),
+                    new OneOne(), getWindowBasedProbabilityEstimator(10, (WindowSupportingAdapter) corpusAdapter),
                     new NormalizedLogRatioConfirmationMeasure(), new ArithmeticMean());
         }
 
         if ("c_p".equals(calcType)) {
             return new DirectConfirmationBasedCoherence(
-                    new OnePreceding(), getWindowBasedProbabilityEstimator(70, corpusAdapter),
+                    new OnePreceding(),
+                    getWindowBasedProbabilityEstimator(70, (WindowSupportingAdapter) corpusAdapter),
                     new FitelsonConfirmationMeasure(), new ArithmeticMean());
         }
 
         if ("c_v".equals(calcType)) {
             return new VectorBasedCoherence(new OneSet(),
                     new DirectConfirmationBasedVectorCreator(
-                            getWindowBasedProbabilityEstimator(110, corpusAdapter),
+                            getWindowBasedProbabilityEstimator(110, (WindowSupportingAdapter) corpusAdapter),
                             new NormalizedLogRatioConfirmationMeasure()),
                     new CosinusConfirmationMeasure(), new ArithmeticMean());
         }

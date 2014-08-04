@@ -80,4 +80,8 @@ public class BooleanSlidingWindowFrequencyDeterminerSumCreationTest implements W
             IntIntOpenHashMap docLengths) {
         return null;
     }
+    
+    @Override
+    public void close() {
+    }
 }
