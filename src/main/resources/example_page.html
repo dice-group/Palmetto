@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>Palmetto Online Demo</title>
+<script src="jquery-1.8.2.js" type="text/javascript"></script>
+<script type="text/javascript">
+	function submitTopics() {
+	    // summarize the data which has to be submitted
+	    var words = $('#words').attr("value");
+	    var coherence = $('input[name="coherence"]:checked').val();
+	    // submit the request
+	    $.ajax({
+	        url : ("../palmetto-webapp/" + coherence + "?words=" + words),
+	        type : "GET"
+	    }).done(function(data) {
+		    $('#result').text(data);
+	    }).fail(function(data) {
+		    $('#result').text(data);
+	    });
+    }
+</script>
+</head>
+<body>
+	<h1>Palmetto Online Demo</h1>
+	<p>This is the Palmetto Online Demo. Simply put the top words of
+		the topic you would like to test into the input field (space
+		separated), choose a coherence and check whether your topic is rated
+		good or not.</p>
+	<input id="words" type="text" name="words" value="">
+	<p>
+		<input type="radio" name="coherence" value="cv" checked> C_V<br>
+		<input type="radio" name="coherence" value="cp"> C_P<br>
+		<input type="radio" name="coherence" value="uci"> UCI<br>
+		<input type="radio" name="coherence" value="umass"> UMass<br>
+		<input type="radio" name="coherence" value="npmi"> NPMI<br>
+	</p>
+	<input type="button" name="submit" value="Submit" onclick="submitTopics();">
+	<p>
+		Result:<span id="result"></span>
+	</p>
+</body>
+</html>
