@@ -2,6 +2,7 @@
 <head>
 <title>Palmetto Online Demo</title>
   <link rel="stylesheet" href="jquery-ui.css">
+  <link rel="stylesheet" href="palmetto.css">
   <script src="jquery-1.10.2.js"></script>
   <script src="jquery-ui.js"></script>
 </head>
@@ -11,22 +12,29 @@
 		the topic you would like to test into the input field (space
 		separated), choose a coherence and check whether your topic is rated
 		good or not.</p>
+	<form>
 	<input id="words" type="text" name="words" value="">
-	<div id="radio">
-		<input type="radio" name="coherence" value="cv" checked> C_V<br>
-		<input type="radio" name="coherence" value="cp"> C_P<br>
-		<input type="radio" name="coherence" value="uci"> UCI<br>
-		<input type="radio" name="coherence" value="umass"> UMass<br>
-		<input type="radio" name="coherence" value="npmi"> NPMI<br>
+	<div id="coherence_radio">
+		<input type="radio" id="radio_cv" name="coherence" value="cv" checked><label for="radio_cv"><span class="math">C<span class="sub">V</span></span></label>
+		<input type="radio" id="radio_cp" name="coherence" value="cp"><label for="radio_cp"><span class="math">C<span class="sub">P</span></span></label>
+		<input type="radio" id="radio_uci" name="coherence" value="uci"><label for="radio_uci"><span class="math">C<span class="sub">UCI</span></span></label>
+		<input type="radio" id="radio_umass" name="coherence" value="umass"><label for="radio_umass"><span class="math">C<span class="sub">UMass</span></span></label>
+		<input type="radio" id="radio_npmi" name="coherence" value="npmi"><label for="radio_npmi"><span class="math">C<span class="sub">NPMI</span></span></label>
 	</div>
 	<input type="button" name="submit" value="Submit" onclick="submitTopics();">
+	</form>
 	<p>
 		Result:<span id="result"></span>
 	</p>
 	<script type="text/javascript">
 		// create UI objects
 		$(function() {
-			$( "#radio" ).buttonset();
+			// create radio buttons
+			$( "div#coherence_radio" ).buttonset();
+			// create submit button
+			$( "input[type=button]" ).button().click(function( event ) {
+				event.preventDefault();
+			});
 		});
 		
 		function submitTopics() {

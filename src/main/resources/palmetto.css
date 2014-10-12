@@ -1,0 +1,9 @@
+span.sub {
+	vertical-align:sub;
+	font-size:small;
+}
+
+span.math {
+	font-family:'Times New Roman',Times,serif;
+	font-style:italic;
+}
