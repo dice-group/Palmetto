@@ -1,23 +1,9 @@
 <html>
 <head>
 <title>Palmetto Online Demo</title>
-<script src="jquery-1.8.2.js" type="text/javascript"></script>
-<script type="text/javascript">
-	function submitTopics() {
-	    // summarize the data which has to be submitted
-	    var words = $('#words').attr("value");
-	    var coherence = $('input[name="coherence"]:checked').val();
-	    // submit the request
-	    $.ajax({
-	        url : ("../palmetto-webapp/" + coherence + "?words=" + words),
-	        type : "GET"
-	    }).done(function(data) {
-		    $('#result').text(data);
-	    }).fail(function(data) {
-		    $('#result').text(data);
-	    });
-    }
-</script>
+  <link rel="stylesheet" href="jquery-ui.css">
+  <script src="jquery-1.10.2.js"></script>
+  <script src="jquery-ui.js"></script>
 </head>
 <body>
 	<h1>Palmetto Online Demo</h1>
@@ -26,16 +12,37 @@
 		separated), choose a coherence and check whether your topic is rated
 		good or not.</p>
 	<input id="words" type="text" name="words" value="">
-	<p>
+	<div id="radio">
 		<input type="radio" name="coherence" value="cv" checked> C_V<br>
 		<input type="radio" name="coherence" value="cp"> C_P<br>
 		<input type="radio" name="coherence" value="uci"> UCI<br>
 		<input type="radio" name="coherence" value="umass"> UMass<br>
 		<input type="radio" name="coherence" value="npmi"> NPMI<br>
-	</p>
+	</div>
 	<input type="button" name="submit" value="Submit" onclick="submitTopics();">
 	<p>
 		Result:<span id="result"></span>
 	</p>
+	<script type="text/javascript">
+		// create UI objects
+		$(function() {
+			$( "#radio" ).buttonset();
+		});
+		
+		function submitTopics() {
+			// summarize the data which has to be submitted
+			var words = $('#words').attr("value");
+			var coherence = $('input[name="coherence"]:checked').val();
+			// submit the request
+			$.ajax({
+				url : ("../palmetto-webapp/" + coherence + "?words=" + words),
+				type : "GET"
+			}).done(function(data) {
+				$('#result').text(data);
+			}).fail(function(data) {
+				$('#result').text(data);
+			});
+		}
+	</script>
 </body>
 </html>

@@ -56,6 +56,9 @@ public class SimpleResourceRetriever extends Restlet {
         case "png": {
             return MediaType.IMAGE_PNG;
         }
+        case "css": {
+            return MediaType.TEXT_CSS;
+        }
         default: {
             return MediaType.TEXT_PLAIN;
         }
