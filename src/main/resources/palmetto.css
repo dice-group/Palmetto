@@ -1,3 +1,27 @@
+body {
+	float:none;
+}
+
+div#headline div {
+	float:left;
+}
+
+div#title {
+    margin-left:10px;
+}
+
+div#coherence_radio, div#descriptions {
+	float:left;
+}
+
+div#introduction, div#input_line {
+	clear:both;
+}
+
+div.description {
+	background-color:#ffe8cc;
+}
+
 span.sub {
 	vertical-align:sub;
 	font-size:small;
