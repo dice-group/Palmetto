@@ -2,9 +2,9 @@ body {
 	float:none;
 }
 
-div#headline div {
+/*div#headline div {
 	float:left;
-}
+}*/
 
 div#title {
     margin-left:10px;
@@ -18,13 +18,13 @@ div#introduction, div#input_line {
 	clear:both;
 }
 
-div.description {
+/*div.description {
 	background-color:#ffe8cc;
-}
+}*/
 
 span.sub {
 	vertical-align:sub;
-	font-size:small;
+	font-size:11px;
 }
 
 span.math {

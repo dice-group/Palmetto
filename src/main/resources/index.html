@@ -5,83 +5,101 @@
 <link rel="stylesheet" href="palmetto.css">
 <script src="jquery-1.10.2.js"></script>
 <script src="jquery-ui.js"></script>
+<link rel="stylesheet" href="bootstrap.min.css">
+<link rel="stylesheet" href="bootstrap-theme.min.css">
+<script src="bootstrap.min.js"></script>
 </head>
 <body>
-	<div id="headline">
-		<div>
-			<img src="palmetto_64px.png">
-		</div>
-		<div id="title">
-			<h1>Palmetto Online Demo</h1>
-		</div>
-	</div>
-	<div id="introduction">
-		<p>This is the Palmetto Online Demo. Simply put the top words of
-			the topic you would like to test into the input field (space
-			separated), choose a coherence and check whether your topic is rated
-			good or not.</p>
-	</div>
 	<form>
-		<div id="coherences_config">
-			<div id="coherence_radio">
-				<input type="radio" id="radio_cv" name="coherence" value="cv"
-					checked><label for="radio_cv"><span class="math">C<span
-						class="sub">V</span></span></label><input type="radio" id="radio_cp"
-					name="coherence" value="cp"><label for="radio_cp"><span
-					class="math">C<span class="sub">P</span></span></label><input type="radio"
-					id="radio_uci" name="coherence" value="uci"><label
-					for="radio_uci"><span class="math">C<span
-						class="sub">UCI</span></span></label><input type="radio" id="radio_umass"
-					name="coherence" value="umass"><label for="radio_umass"><span
-					class="math">C<span class="sub">UMass</span></span></label><input
-					type="radio" id="radio_npmi" name="coherence" value="npmi"><label
-					for="radio_npmi"><span class="math">C<span
-						class="sub">NPMI</span></span></label>
+		<div class="container">
+			<div class="page-header" id="headline">
+				<h1>
+					<img src="palmetto_64px.png"> Palmetto Online Demo
+				</h1>
 			</div>
-			<div id="descriptions">
-				<div class="description" id="cv_description">
+			<div>
+				<p>This is the Palmetto Online Demo. Simply put the top words of
+					the topic you would like to test into the input field (space
+					separated), choose a coherence and check whether your topic is
+					rated good or not.</p>
+			</div>
+			<div id="coherences_config" class="row">
+				<div class="col-md-4">
+					<div id="coherence_radio">
+						<input type="radio" id="radio_cv" name="coherence" value="cv"
+							checked><label for="radio_cv"><span class="math">C<span
+								class="sub">V</span></span></label><input type="radio" id="radio_cp"
+							name="coherence" value="cp"><label for="radio_cp"><span
+							class="math">C<span class="sub">P</span></span></label><input
+							type="radio" id="radio_uci" name="coherence" value="uci"><label
+							for="radio_uci"><span class="math">C<span
+								class="sub">UCI</span></span></label><input type="radio" id="radio_umass"
+							name="coherence" value="umass"><label for="radio_umass"><span
+							class="math">C<span class="sub">UMass</span></span></label><input
+							type="radio" id="radio_npmi" name="coherence" value="npmi"><label
+							for="radio_npmi"><span class="math">C<span
+								class="sub">NPMI</span></span></label>
+					</div>
+				</div>
+				<div id="descriptions" class="col-md-8">
+					<div class="panel panel-warning">
+						<div class="panel-heading">
+							<h3 class="panel-title">Coherence description</h3>
+						</div>
+						<div class="description panel-body" id="cv_description">
+							<p>
+								<span class="math">C<span class="sub">V</span></span> is a
+								vector based coherence.
+							</p>
+						</div>
+						<div class="description panel-body" id="cp_description">
+							<p>
+								<span class="math">C<span class="sub">P</span></span> is a
+								coherence based on the confirmation measure of Fitelson's
+								coherence.
+							</p>
+						</div>
+						<div class="description panel-body" id="uci_description">
+							<p>
+								<span class="math">C<span class="sub">UCI</span></span>
+							</p>
+						</div>
+						<div class="description panel-body" id="umass_description">
+							<p>
+								<span class="math">C<span class="sub">UMass</span></span>
+							</p>
+						</div>
+						<div class="description panel-body" id="npmi_description">
+							<p>
+								<span class="math">C<span class="sub">NPMI</span></span> is an
+								enhanced version of the <span class="math">C<span
+									class="sub">UCI</span></span> coherence using the normalized pointwise
+								mutual information (NPMI) instead of the pointwise mutual
+								information.
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="input_line">
+				<input id="words" type="text" name="words" value="">
+			</div>
+			<div id="coherences_config" class="row">
+				<div class="col-md-4">
+					<button type="button" class="btn btn-default"
+						onclick="submitTopics();">Send</button>
+				</div>
+				<div class="col-md-8">
 					<p>
-						<span class="math">C<span class="sub">V</span></span> is a vector
-						based coherence.
+						Result:<span id="result"></span>
 					</p>
 				</div>
-				<div class="description" id="cp_description">
-					<p>
-						<span class="math">C<span class="sub">P</span></span> is a
-						coherence based on the confirmation measure of Fitelson's
-						coherence.
-					</p>
-				</div>
-				<div class="description" id="uci_description">
-					<p>
-						<span class="math">C<span class="sub">UCI</span></span>
-					</p>
-				</div>
-				<div class="description" id="umass_description">
-					<p>
-						<span class="math">C<span class="sub">UMass</span></span>
-					</p>
-				</div>
-				<div class="description" id="npmi_description">
-					<p>
-						<span class="math">C<span class="sub">NPMI</span></span> is an
-						enhanced version of the <span class="math">C<span
-							class="sub">UCI</span></span> coherence using the normalized pointwise
-						mutual information (NPMI) instead of the pointwise mutual
-						information.
-					</p>
-				</div>
+			</div>
+			<div id="alert" class="alert alert-danger" role="alert">
+				<strong>Sorry.</strong> An error occurred.
 			</div>
 		</div>
-		<div id="input_line">
-			<input id="words" type="text" name="words" value="">
-		</div>
-		<input type="button" name="submit" value="Submit"
-			onclick="submitTopics();">
 	</form>
-	<p>
-		Result:<span id="result"></span>
-	</p>
 	<script type="text/javascript">
 		// JQuery plugin for creating vertical buttonset
 		(function($) {
@@ -117,7 +135,8 @@
 			$("input[type=button]").button().click(function(event) {
 				event.preventDefault();
 			});
-
+			$("#alert").hide();
+			
 			updateDescriptions();
 		});
 
@@ -138,9 +157,10 @@
 				url : ("../palmetto-webapp/" + coherence + "?words=" + words),
 				type : "GET"
 			}).done(function(data) {
+				$("#alert").hide();
 				$('#result').text(data);
 			}).fail(function(data) {
-				$('#result').text(data);
+				$("#alert").show();
 			});
 		}
 	</script>
