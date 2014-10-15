@@ -1,13 +1,15 @@
 <html>
 <head>
 <title>Palmetto Online Demo</title>
+<script src="jquery-1.10.2.js"></script>
 <script src="bootstrap.min.js"></script>
 <link rel="stylesheet" href="bootstrap.min.css">
 <link rel="stylesheet" href="bootstrap-theme.min.css">
-<link rel="stylesheet" href="jquery-ui.css">
+<link rel="stylesheet" href="jquery-ui.min.css">
+<link rel="stylesheet" href="jquery-ui.theme.min.css">
+<link rel="stylesheet" href="jquery-ui.structure.min.css">
 <link rel="stylesheet" href="palmetto.css">
-<script src="jquery-1.10.2.js"></script>
-<script src="jquery-ui.js"></script>
+<script src="jquery-ui.min.js"></script>
 </head>
 <body>
 	<form>
@@ -24,24 +26,24 @@
 					rated good or not.</p>
 			</div>
 			<div id="coherences_config" class="row">
-				<div class="col-md-4">
+				<div class="col-md-2">
 					<div id="coherence_radio">
 						<input type="radio" id="radio_cv" name="coherence" value="cv"
-							checked><label for="radio_cv"><span class="math">C<span
+							checked><label for="radio_cv" class="radio_label"><span class="math">C<span
 								class="sub">V</span></span></label><input type="radio" id="radio_cp"
-							name="coherence" value="cp"><label for="radio_cp"><span
+							name="coherence" value="cp"><label for="radio_cp" class="radio_label"><span
 							class="math">C<span class="sub">P</span></span></label><input
 							type="radio" id="radio_uci" name="coherence" value="uci"><label
-							for="radio_uci"><span class="math">C<span
+							for="radio_uci" class="radio_label"><span class="math">C<span
 								class="sub">UCI</span></span></label><input type="radio" id="radio_umass"
-							name="coherence" value="umass"><label for="radio_umass"><span
+							name="coherence" value="umass"><label for="radio_umass" class="radio_label"><span
 							class="math">C<span class="sub">UMass</span></span></label><input
 							type="radio" id="radio_npmi" name="coherence" value="npmi"><label
-							for="radio_npmi"><span class="math">C<span
+							for="radio_npmi" class="radio_label"><span class="math">C<span
 								class="sub">NPMI</span></span></label>
 					</div>
 				</div>
-				<div id="descriptions" class="col-md-8">
+				<div id="descriptions" class="col-md-10">
 					<div class="panel panel-warning">
 						<div class="panel-heading">
 							<h3 class="panel-title">Coherence description</h3>
@@ -81,18 +83,21 @@
 					</div>
 				</div>
 			</div>
-			<div id="input_line">
-				<input id="words" type="text" name="words" value="">
+			<div class="row">
+				<div class="col-md-2">Topic Top Words:</div>
+				<div id="input_line" class="col-md-10">
+					<input id="words" type="text" name="words" value="">
+				</div>
 			</div>
 			<div id="coherences_config" class="row">
-				<div class="col-md-4">
+				<div class="col-md-1">
 					<button type="button" class="btn btn-default"
 						onclick="submitTopics();">Send</button>
 				</div>
-				<div class="col-md-8">
-					<p>
-						Result:<span id="result"></span>
-					</p>
+				<div class="col-md-1">
+						Result:
+				</div>
+				<div class="col-md-10"><span id="result"></span>
 				</div>
 			</div>
 			<div id="alert" class="alert alert-danger" role="alert">
@@ -105,7 +110,7 @@
 		(function($) {
 			//plugin buttonset vertical
 			$.fn.buttonsetv = function() {
-				$(':radio, :checkbox', this).wrap('<div style="margin: 1px"/>');
+				$(':radio, :checkbox', this).wrap('<div/>');
 				$(this).buttonset();
 				$('label:first', this).removeClass('ui-corner-left').addClass(
 						'ui-corner-top');
