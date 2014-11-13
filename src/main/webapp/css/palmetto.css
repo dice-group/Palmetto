@@ -18,9 +18,17 @@ div#introduction, div#input_line {
 	clear:both;
 }
 
-/*div.description {
-	background-color:#ffe8cc;
-}*/
+div.description {
+	min-height:132px;
+}
+
+label.radio_label {
+	margin:0px;
+}
+
+input.words{
+	
+}
 
 span.sub {
 	vertical-align:sub;
