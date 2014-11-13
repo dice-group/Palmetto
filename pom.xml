@@ -36,7 +36,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <slf4j-version>1.7.5</slf4j-version>
         <lucene-version>4.4.0</lucene-version>
-        <restlet-version>2.2.2</restlet-version>
+        <restlet-version>2.2.1</restlet-version>
         <developer-name>Michael Röder</developer-name>
         <developer-mail>michael.roeder@unister.de</developer-mail>
         <project.inceptionYear>2014</project.inceptionYear>
@@ -77,6 +77,19 @@
             <groupId>org.restlet</groupId>
             <artifactId>org.restlet.ext.servlet</artifactId>
             <version>${restlet-version}</version>
+        </dependency>
+        <!-- Apache Configuration -->
+        <dependency>
+            <groupId>commons-configuration</groupId>
+            <artifactId>commons-configuration</artifactId>
+            <version>1.5</version>
+            <exclusions>
+                <!-- servlet related libs have to be excluded since they caused problems. -->
+                <exclusion>
+                    <artifactId>servlet-api</artifactId>
+                    <groupId>javax.servlet</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- ~~~~~~~~~~~~~~~~~~~ Logging ~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -174,6 +187,7 @@
                     <excludes>
                         <exclude>**/README</exclude>
                         <exclude>**/LICENSE</exclude>
+                        <exclude>**/web.xml</exclude>
                         <exclude>src/test/resources/**</exclude>
                         <exclude>src/main/resources/**</exclude>
                     </excludes>
