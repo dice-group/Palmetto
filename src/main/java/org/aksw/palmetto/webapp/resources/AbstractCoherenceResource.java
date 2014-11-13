@@ -26,16 +26,47 @@ import java.util.Arrays;
 import org.aksw.palmetto.corpus.WindowSupportingAdapter;
 import org.aksw.palmetto.prob.window.BooleanSlidingWindowFrequencyDeterminer;
 import org.aksw.palmetto.prob.window.WindowBasedProbabilityEstimator;
+import org.aksw.palmetto.webapp.config.PalmettoConfiguration;
+import org.restlet.Context;
+import org.restlet.Request;
+import org.restlet.Response;
 import org.restlet.data.Status;
 import org.restlet.resource.Get;
 import org.restlet.resource.ServerResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractCoherenceResource extends ServerResource {
 
-    public static final int MAX_NUMBER_OF_WORDS = 10;
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCoherenceResource.class);
+
+    private static final String INDEX_PATH_PROPERTY_KEY = "org.aksw.palmetto.webapp.resources.AbstractCoherenceResource.indexPath";
+    private static final String MAX_NUMBER_OF_WORDS_PROPERTY_KEY = "org.aksw.palmetto.webapp.resources.AbstractCoherenceResource.maxWords";
+
+    protected static final String WORD_SEPARATOR = " ";
+
     public static final String WORDS_ATTRIBUTE_NAME = "words";
-    public static final String WORD_SEPARATOR = " ";
-    public static final String INDEX_PATH = "/data/m.roeder/daten/Indexes/wikipedia_bd";
+
+    protected String indexPath;
+    protected int maxNumberOfWords;
+
+    @Override
+    public void init(Context arg0, Request arg1, Response arg2) {
+        super.init(arg0, arg1, arg2);
+        indexPath = PalmettoConfiguration.getInstance().getString(INDEX_PATH_PROPERTY_KEY);
+        if (indexPath == null) {
+            String errormsg = "Couldn't load \"" + INDEX_PATH_PROPERTY_KEY + "\" from properties. Aborting.";
+            LOGGER.error(errormsg);
+            throw new IllegalStateException(errormsg);
+        }
+        try {
+            maxNumberOfWords = PalmettoConfiguration.getInstance().getInt(MAX_NUMBER_OF_WORDS_PROPERTY_KEY);
+        } catch (Exception e) {
+            String errormsg = "Couldn't load \"" + MAX_NUMBER_OF_WORDS_PROPERTY_KEY + "\" from properties. Aborting.";
+            LOGGER.error(errormsg, e);
+            throw new IllegalStateException(errormsg, e);
+        }
+    }
 
     @Get
     public String represent() {
@@ -43,19 +74,18 @@ public abstract class AbstractCoherenceResource extends ServerResource {
         if (wordList == null) {
             String errMsg = "Couldn't find any words inside the request. You have to add at least 2 words.";
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST, errMsg);
-            return errMsg + " (wordList="
-                    + wordList + ")";
+            return errMsg + " (list of words is null)";
         }
         String words[] = wordList.split(WORD_SEPARATOR);
         if (words.length < 2) {
             String errMsg = "Couldn't find any words inside the request. You have to add at least 2 words.";
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST, errMsg);
-            return errMsg + " (words=" + Arrays.toString(words) + ")";
+            return errMsg + " (list of words is " + Arrays.toString(words) + ")";
         }
 
-        if (words.length > MAX_NUMBER_OF_WORDS) {
+        if (words.length > maxNumberOfWords) {
             String errMsg = "Too many words. This web application is restricted to word sets comprising a maximum of "
-                    + MAX_NUMBER_OF_WORDS + " words.";
+                    + maxNumberOfWords + " words.";
             setStatus(Status.CLIENT_ERROR_BAD_REQUEST, errMsg);
             return errMsg;
         } else {

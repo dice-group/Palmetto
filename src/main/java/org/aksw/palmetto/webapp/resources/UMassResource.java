@@ -38,7 +38,7 @@ public class UMassResource extends AbstractCoherenceResource {
     protected double getCoherence(String[] words) throws Exception {
         CorpusAdapter corpusAdapter;
         try {
-            corpusAdapter = LuceneCorpusAdapter.create(INDEX_PATH, Palmetto.DEFAULT_TEXT_INDEX_FIELD_NAME);
+            corpusAdapter = LuceneCorpusAdapter.create(this.indexPath, Palmetto.DEFAULT_TEXT_INDEX_FIELD_NAME);
         } catch (Exception e) {
             throw new IOException("Couldn't open lucene index. Aborting.", e);
         }

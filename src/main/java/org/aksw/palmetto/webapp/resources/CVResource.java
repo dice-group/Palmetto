@@ -32,14 +32,39 @@ import org.aksw.palmetto.corpus.WindowSupportingAdapter;
 import org.aksw.palmetto.corpus.lucene.WindowSupportingLuceneCorpusAdapter;
 import org.aksw.palmetto.subsets.OneSet;
 import org.aksw.palmetto.vector.DirectConfirmationBasedVectorCreator;
+import org.aksw.palmetto.webapp.config.PalmettoConfiguration;
+import org.restlet.Context;
+import org.restlet.Request;
+import org.restlet.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class CVResource extends AbstractCoherenceResource {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(CVResource.class);
+
+    private static final int DEFAULT_WINDOW_SIZE = 110;
+    private static final String WINDOW_SIZE_PROPERTY_KEY = "org.aksw.palmetto.webapp.resources.CVResource.windowSize";
+
+    private int windowSize;
+
+    @Override
+    public void init(Context arg0, Request arg1, Response arg2) {
+        super.init(arg0, arg1, arg2);
+        try {
+            windowSize = PalmettoConfiguration.getInstance().getInt(WINDOW_SIZE_PROPERTY_KEY);
+        } catch (Exception e) {
+            LOGGER.warn("Couldn't load \"{}\" from properties. Using default window size={}.",
+                    WINDOW_SIZE_PROPERTY_KEY, DEFAULT_WINDOW_SIZE);
+            windowSize = DEFAULT_WINDOW_SIZE;
+        }
+    }
 
     @Override
     protected double getCoherence(String[] words) throws Exception {
         WindowSupportingAdapter corpusAdapter;
         try {
-            corpusAdapter = WindowSupportingLuceneCorpusAdapter.create(INDEX_PATH,
+            corpusAdapter = WindowSupportingLuceneCorpusAdapter.create(this.indexPath,
                     Palmetto.DEFAULT_TEXT_INDEX_FIELD_NAME, Palmetto.DEFAULT_DOCUMENT_LENGTH_INDEX_FIELD_NAME);
         } catch (Exception e) {
             throw new IOException("Couldn't open lucene index. Aborting.", e);
@@ -50,7 +75,7 @@ public class CVResource extends AbstractCoherenceResource {
 
         VectorBasedCoherence coherence = new VectorBasedCoherence(new OneSet(),
                 new DirectConfirmationBasedVectorCreator(
-                        getWindowBasedProbabilityEstimator(110, corpusAdapter),
+                        getWindowBasedProbabilityEstimator(windowSize, corpusAdapter),
                         new NormalizedLogRatioConfirmationMeasure()),
                 new CosinusConfirmationMeasure(), new ArithmeticMean());
 

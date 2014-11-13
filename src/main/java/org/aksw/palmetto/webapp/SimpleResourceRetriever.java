@@ -9,6 +9,7 @@ import org.restlet.Restlet;
 import org.restlet.data.MediaType;
 import org.restlet.data.Status;
 
+@Deprecated
 public class SimpleResourceRetriever extends Restlet {
 
     @Override
