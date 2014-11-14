@@ -42,10 +42,11 @@ public class PalmettoRestletApplication extends Application {
     @Override
     public Restlet createInboundRoot() {
         Router router = new Router(getContext());
-        router.attach("/cv", CVResource.class);
+        router.attach("/ca", CVResource.class);
         router.attach("/cp", CPResource.class);
-        router.attach("/uci", UCIResource.class);
+        router.attach("/cv", CVResource.class);
         router.attach("/npmi", NPMIResource.class);
+        router.attach("/uci", UCIResource.class);
         router.attach("/umass", UMassResource.class);
 
         Extractor extractor = new Extractor(getContext(), router);
