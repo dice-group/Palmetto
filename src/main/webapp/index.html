@@ -30,7 +30,7 @@
 					your topic is rated good or not.</p>
 			</div>
 			<div id="coherences_config" class="row">
-				<div class="col-md-2">
+				<div class="col-md-1">
 					<div id="coherence_radio">
 						<input type="radio" id="radio_cv" name="coherence" value="cv"
 							checked><label for="radio_cv" class="radio_label"><span
@@ -46,31 +46,70 @@
 								class="sub">UMass</span></span></label><input type="radio" id="radio_npmi"
 							name="coherence" value="npmi"><label for="radio_npmi"
 							class="radio_label"><span class="math">C<span
-								class="sub">NPMI</span></span></label>
+								class="sub">NPMI</span></span></label><input type="radio" id="radio_ca"
+							name="coherence" value="ca"><label for="radio_ca"
+							class="radio_label"><span class="math">C<span
+								class="sub">A</span></span></label>
 					</div>
 				</div>
-				<div id="descriptions" class="col-md-10">
+				<div id="descriptions" class="col-md-11">
 					<div class="panel panel-warning">
 						<div class="panel-heading">
 							<h3 class="panel-title">Coherence description</h3>
 						</div>
 						<div class="description panel-body" id="cv_description">
 							<p>
-								<span class="math">C<span class="sub">V</span></span> is a
-								vector based coherence.
+								<span class="math">C<span class="sub">V</span></span> is based
+								on a sliding window, a one-set segmentation of the top words and
+								an indirect confirmation measure that uses normalized pointwise
+								mutual information (NPMI) and the cosinus similarity.
+							</p>
+							<p>This coherence measure retrieves cooccurrence counts for
+								the given words using a sliding window and the window size 110.
+								The counts are used to calculated the NPMI of every top word to
+								every other top word, thus, resulting in a set of
+								vectors&mdash;one for every top word. The one-set segmentation
+								of the top words leads to the calculation of the similarity
+								between every top word vector and the sum of all top word
+								vectors. As similarity measure the cosinus is used. The
+								coherence is the arithmetic mean of these similarities. (Note
+								that this was the best coherence measure in our evalution.)</p>
+							<p>
+								Proposed in<br> M. R&ouml;der, A. Hinneburg, and A. Both: <i>Exploring
+									the Space of Topic Coherence Measures.</i> In WSDM, 2015.
 							</p>
 						</div>
 						<div class="description panel-body" id="cp_description">
 							<p>
-								<span class="math">C<span class="sub">P</span></span> is a
-								coherence based on the confirmation measure of Fitelson's
-								coherence.
+								<span class="math">C<span class="sub">P</span></span> is a based
+								on a sliding window, a one-preceding segmentation of the top
+								words and the confirmation measure of Fitelson's coherence.
+							</p>
+							<p>Word cooccurrence counts for the given top words are
+								derived using a sliding window and the window size 70. For every
+								top word, the confirmation to its preceding top word is
+								calculated using the confirmation measure of Fitelson's
+								coherence. The coherence is the arithmetic mean of the
+								confirmation measure results.</p>
+							<p>
+							<p>
+								Proposed in<br> M. R&ouml;der, A. Hinneburg, and A. Both: <i>Exploring
+									the Space of Topic Coherence Measures.</i> In WSDM, 2015.
 							</p>
 						</div>
 						<div class="description panel-body" id="uci_description">
 							<p>
-								<span class="math">C<span class="sub">UCI</span></span>
+								<span class="math">C<span class="sub">UCI</span></span> is a
+								coherence that is based on a sliding window and the pointwise
+								mutual information (PMI) of all word pairs of the given top
+								words.
 							</p>
+							<p>The word cooccurrence counts are derived using a sliding
+								window with the size 10. For every word pair the PMI is
+								calculated. The arithmetic mean of the PMI values is the result
+								of this coherence. (Note that in the original publication only
+								the sum of these values is calculated)</p>
+							<p>
 							<p>
 								Proposed in<br> D. Newman, J. H. Lau, K. Grieser, and T.
 								Baldwin: <i>Automatic evaluation of topic coherence.</i> In
@@ -82,8 +121,23 @@
 						</div>
 						<div class="description panel-body" id="umass_description">
 							<p>
-								<span class="math">C<span class="sub">UMass</span></span>
+								<span class="math">C<span class="sub">UMass</span></span> is
+								based on document cooccurrence counts, a one-preceding
+								segmentation and a logarithmic conditional probability as
+								confirmation measure.
 							</p>
+							<p>The main idea of this coherence is that the occurrence of
+								every top word should be supported by every top preceding top
+								word. Thus, the probability of a top word to occur should be
+								higher if a document already contains a higher order top word of
+								the same topic. Therefore, for every word the logarithm of its
+								conditional probability is calculated using every other top word
+								that has a higher order in the ranking of top words as
+								condition. The probabilities are derived using document
+								cooccurrence counts. The single conditional probabilities are
+								summarized using the arithmetic mean. (Note that in the original
+								publication only the sum of these values is calculated)</p>
+							<p>
 							<p>
 								Proposed in<br> D. Mimno, H. M. Wallach, E. Talley, M.
 								Leenders, and A. McCallum: <i>Optimizing semantic coherence
@@ -100,6 +154,30 @@
 								mutual information (NPMI) instead of the pointwise mutual
 								information (PMI).
 							</p>
+							<p>
+								Proposed in<br> N. Aletras and M. Stevenson: <i>Evaluating
+									topic coherence using distributional semantics.</i> In Proceedings
+								of the 10th International Conference on Computational Semantics
+								(IWCS'13) Long Papers, pages 13-22, 2013.
+							</p>
+						</div>
+						<div class="description panel-body" id="ca_description">
+							<p>
+								<span class="math">C<span class="sub">A</span></span>is based on
+								a context window, a pairwise comparison of the top words and an
+								indirect confirmation measure that uses normalized pointwise
+								mutual information (NPMI) and the cosinus similarity.
+							</p>
+							<p>This coherence measure retrieves cooccurrence counts for
+								the given words using a context window with the window size 5.
+								The counts are used to calculated the NPMI of every top word to
+								every other top word, thus, resulting in a single vector for
+								every top word. After that the cosinus similarity between all
+								word pairs is calculated. The coherence is the arithmetic mean
+								of these similarities. (Note that in the original publication
+								several other coherence measures have been described. We have
+								chosen this one because it was the best of these measures in our
+								evaluation)</p>
 							<p>
 								Proposed in<br> N. Aletras and M. Stevenson: <i>Evaluating
 									topic coherence using distributional semantics.</i> In Proceedings

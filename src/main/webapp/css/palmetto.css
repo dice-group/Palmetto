@@ -14,6 +14,10 @@ div#coherence_radio, div#descriptions {
 	float:left;
 }
 
+div#coherences_config {
+	min-height:320px;
+}
+
 div#introduction, div#input_line {
 	clear:both;
 }
