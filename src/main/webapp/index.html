@@ -23,9 +23,9 @@
 					Palmetto Online Demo
 				</h1>
 			</div>
-			<div>
+			<div id="demo_description">
 				<p>This is the Palmetto Online Demo. Simply choose one of the
-					following coherences,put the top words of the topic you would like
+					following coherences, put the top words of the topic you would like
 					to test into the input field (space separated) and check whether
 					your topic is rated good or not.</p>
 			</div>
@@ -188,16 +188,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-2">Topic Top Words:</div>
-				<div id="input_line" class="col-md-10">
-					<input id="words" type="text" name="words" value="">
-				</div>
+			<div id="input_line">
+				<label for="words">Topic Top Words:</label> <input id="words"
+					type="text" size="100" name="words" value="">
 			</div>
-			<div id="coherences_config" class="row">
+			<div class="row">
 				<div class="col-md-1">
-					<button type="button" class="btn btn-default"
-						onclick="submitTopics();">Send</button>
+					<button type="button" onclick="submitTopics();">Send</button>
 				</div>
 				<div class="col-md-1">Result:</div>
 				<div class="col-md-10">
@@ -239,7 +236,7 @@
 	        // create radio buttons
 	        $("div#coherence_radio").buttonsetv();
 	        // create submit button
-	        $("input[type=button]").button().click(function(event) {
+	        $("button[type=button]").button().click(function(event) {
 		        event.preventDefault();
 	        });
 	        $("#alert").hide();
@@ -255,21 +252,22 @@
 
         function submitTopics() {
 	        // summarize the data which has to be submitted
-	        var words = $('#words').attr("value");
+	        var words = $('#words').val();
 	        var coherence = $('input[name="coherence"]:checked').val();
 	        // submit the request
-	        $
-	                .ajax(
-	                        {
-	                            url : ("http://" + window.location.host + "/palmetto-webapp/coherence/" + coherence
-	                                    + "?words=" + words),
-	                            type : "GET"
-	                        }).done(function(data) {
-		                $("#alert").hide();
-		                $('#result').text(data);
-	                }).fail(function(data) {
-		                $("#alert").show();
-	                });
+	        $.ajax({
+	            url : ("http://" + window.location.host + "/palmetto-webapp/service/" + coherence + "?words=" + words),
+	            type : "GET"
+	        }).done(function(data) {
+		        $("#alert").hide();
+		        $('#result').text(data);
+	        }).fail(function(data) {
+		        $("#alert").show();
+	        });
+        }
+
+        function insertExample() {
+	        // TODO insert "cake apple banana cherry chocolate"
         }
 	</script>
 </body>

@@ -10,6 +10,10 @@ div#title {
     margin-left:10px;
 }
 
+div#demo_description {
+	padding-bottom:20px;
+}
+
 div#coherence_radio, div#descriptions {
 	float:left;
 }
@@ -22,16 +26,16 @@ div#introduction, div#input_line {
 	clear:both;
 }
 
+div#input_line {
+	padding-bottom:20px;
+}
+
 div.description {
 	min-height:132px;
 }
 
 label.radio_label {
 	margin:0px;
-}
-
-input.words{
-	
 }
 
 span.sub {
