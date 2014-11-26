@@ -2,6 +2,7 @@
 html,body {
 	height: 100%;
 	width: 100%;
+	margin: 0px;
 }
 
 body {
@@ -54,6 +55,11 @@ span.math {
 	font-style:italic;
 }
 
+div#alert-row {
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
 /* Wrapper for page content to push down footer */
 #wrap {
 	min-height: 100%;
@@ -61,6 +67,8 @@ span.math {
 	height: 100%;
 	/* Negative indent footer by it's height */
 	margin: 0 auto -60px;
+	/* had to add a padding to the bottom since the position of the footer doesn't seem to work as it should */
+	padding-bottom: 40px;
 }
 
 /* Set the fixed height of the footer here */
