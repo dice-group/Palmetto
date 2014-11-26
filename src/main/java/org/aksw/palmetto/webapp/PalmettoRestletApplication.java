@@ -22,6 +22,7 @@
 package org.aksw.palmetto.webapp;
 
 import org.aksw.palmetto.webapp.resources.AbstractCoherenceResource;
+import org.aksw.palmetto.webapp.resources.CAResource;
 import org.aksw.palmetto.webapp.resources.CPResource;
 import org.aksw.palmetto.webapp.resources.CVResource;
 import org.aksw.palmetto.webapp.resources.NPMIResource;
@@ -42,7 +43,7 @@ public class PalmettoRestletApplication extends Application {
     @Override
     public Restlet createInboundRoot() {
         Router router = new Router(getContext());
-        router.attach("/ca", CVResource.class);
+        router.attach("/ca", CAResource.class);
         router.attach("/cp", CPResource.class);
         router.attach("/cv", CVResource.class);
         router.attach("/npmi", NPMIResource.class);
