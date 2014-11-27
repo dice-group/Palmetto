@@ -23,10 +23,32 @@
 					</h1>
 				</div>
 				<div id="demo_description">
-					<p>This is the Palmetto Online Demo. Simply choose one of the
+					<p>
+						Palmetto is a tool for measuring the quality of topics. This is
+						done by calculating the coherence of a topic's top words. Good
+						topics tend to have a high coherence. This demo is only for
+						exploring the different coherences. If you want to evaluate a
+						large number of topics, please take a look at <a
+							href="https://github.com/AKSW/Palmetto/wiki/How-Palmetto-can-be-used">this
+							wikipage</a>.
+					</p>
+
+					<p>The demo works as follows: simply choose one of the
 						following coherences, put the top words of the topic you would
-						like to test into the input field (space separated) and check
-						whether your topic is rated good or not.</p>
+						like to test into the input field (space separated, 10 words are
+						the maximum) and let the system calculate the coherence value of
+						the word set.</p>
+
+					<p>
+						If you want to know more about Palmetto you can take a look at the
+						<a href="http://palmetto.aksw.org">project page</a>. The source
+						code as well as a description how the web service can be used can
+						be found at <a href="https://github.com/AKSW/Palmetto">github</a>.
+						This demo is mainly based on M. R&ouml;der, A. Hinneburg, and A.
+						Both: <i>Exploring the Space of Topic Coherence Measures.</i> In
+						Proceedings of the eighth International Conference on Web Search
+						and Data Mining, 2015.
+					</p>
 				</div>
 				<div id="coherences_config" class="row">
 					<div class="col-md-1">
@@ -207,13 +229,14 @@
 					</div>
 				</div>
 				<div id="alert-row" class="row">
-					<div class="col-md-4">
-					</div>
+					<div class="col-md-4"></div>
 					<div id="alert" class="col-md-4 alert alert-danger" role="alert">
-						<strong>Sorry.</strong> An error occurred.
+						<p>
+							<strong>Sorry.</strong> An error occurred.
+						</p>
+						<p id="alertMsg"></p>
 					</div>
-					<div class="col-md-4">
-					</div>
+					<div class="col-md-4"></div>
 				</div>
 				<div class="row">
 					<div id="results" class="col-md-12">
@@ -318,18 +341,16 @@
 		        addToResultTable(data, words, coherenceElement);
 		        $("#submitButton").button("option", "disabled", false);
 	        }).fail(function(data) {
+		        $("#alertMsg").text(data.responseText);
 		        $("#alert").show();
 		        $("#submitButton").button("option", "disabled", false);
 	        });
         }
 
         function insertExample() {
-	        console.log("inserting...");
 	        var examples = new Array("cake apple banana cherry chocolate", "palm palmetto sabal cuba bahamas",
 	                "medieval knight castle armor sword");
-	        console.log(examples);
 	        var index = Math.round(Math.random() * (examples.length - 1));
-	        console.log(index);
 	        $("#words").attr('value', examples[index]);
         }
 	</script>
