@@ -23,6 +23,7 @@ package org.aksw.palmetto.webapp.resources;
 
 import java.io.IOException;
 
+import org.aksw.palmetto.Coherence;
 import org.aksw.palmetto.DirectConfirmationBasedCoherence;
 import org.aksw.palmetto.Palmetto;
 import org.aksw.palmetto.aggregation.ArithmeticMean;
@@ -30,6 +31,7 @@ import org.aksw.palmetto.calculations.direct.FitelsonConfirmationMeasure;
 import org.aksw.palmetto.corpus.WindowSupportingAdapter;
 import org.aksw.palmetto.corpus.lucene.WindowSupportingLuceneCorpusAdapter;
 import org.aksw.palmetto.subsets.OnePreceding;
+import org.aksw.palmetto.webapp.SingletonCorpusAdapter;
 import org.aksw.palmetto.webapp.config.PalmettoConfiguration;
 import org.restlet.Context;
 import org.restlet.Request;
@@ -56,28 +58,40 @@ public class CPResource extends AbstractCoherenceResource {
                     WINDOW_SIZE_PROPERTY_KEY, DEFAULT_WINDOW_SIZE);
             windowSize = DEFAULT_WINDOW_SIZE;
         }
+        register();
     }
 
     @Override
     protected double getCoherence(String[] words) throws Exception {
         WindowSupportingAdapter corpusAdapter;
-        try {
-            corpusAdapter = WindowSupportingLuceneCorpusAdapter.create(this.indexPath,
-                    Palmetto.DEFAULT_TEXT_INDEX_FIELD_NAME, Palmetto.DEFAULT_DOCUMENT_LENGTH_INDEX_FIELD_NAME);
-        } catch (Exception e) {
-            throw new IOException("Couldn't open lucene index. Aborting.", e);
+        if (USE_SINGLETON_CORPUS_ADAPTER) {
+            corpusAdapter = SingletonCorpusAdapter.getInstance();
+        } else {
+            try {
+                corpusAdapter = WindowSupportingLuceneCorpusAdapter.create(this.indexPath,
+                        Palmetto.DEFAULT_TEXT_INDEX_FIELD_NAME, Palmetto.DEFAULT_DOCUMENT_LENGTH_INDEX_FIELD_NAME);
+            } catch (Exception e) {
+                throw new IOException("Couldn't open lucene index. Aborting.", e);
+            }
         }
         if (corpusAdapter == null) {
             throw new IOException("Couldn't open lucene index. Aborting.");
         }
 
+        Coherence coherence = createCoherence(corpusAdapter);
+        double result = coherence.calculateCoherences(new String[][] { words })[0];
+        if (!USE_SINGLETON_CORPUS_ADAPTER) {
+            corpusAdapter.close();
+        }
+        return result;
+    }
+
+    @Override
+    public Coherence createCoherence(WindowSupportingAdapter corpusAdapter) {
         DirectConfirmationBasedCoherence coherence = new DirectConfirmationBasedCoherence(
                 new OnePreceding(), getWindowBasedProbabilityEstimator(windowSize, corpusAdapter),
                 new FitelsonConfirmationMeasure(), new ArithmeticMean());
-
-        double result = coherence.calculateCoherences(new String[][] { words })[0];
-        corpusAdapter.close();
-        return result;
+        return coherence;
     }
 
 }

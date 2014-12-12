@@ -23,9 +23,11 @@ package org.aksw.palmetto.webapp.resources;
 
 import java.util.Arrays;
 
+import org.aksw.palmetto.Coherence;
 import org.aksw.palmetto.corpus.WindowSupportingAdapter;
 import org.aksw.palmetto.prob.window.BooleanSlidingWindowFrequencyDeterminer;
 import org.aksw.palmetto.prob.window.WindowBasedProbabilityEstimator;
+import org.aksw.palmetto.webapp.coherences.CoherenceManager;
 import org.aksw.palmetto.webapp.config.PalmettoConfiguration;
 import org.restlet.Context;
 import org.restlet.Request;
@@ -43,6 +45,8 @@ public abstract class AbstractCoherenceResource extends ServerResource {
     private static final String INDEX_PATH_PROPERTY_KEY = "org.aksw.palmetto.webapp.resources.AbstractCoherenceResource.indexPath";
     private static final String MAX_NUMBER_OF_WORDS_PROPERTY_KEY = "org.aksw.palmetto.webapp.resources.AbstractCoherenceResource.maxWords";
 
+    protected static final boolean USE_SINGLETON_CORPUS_ADAPTER = true;
+    protected static final boolean USE_SINGLE_COHERENCE_INSTANCE = true;
     protected static final String WORD_SEPARATOR = " ";
 
     public static final String WORDS_ATTRIBUTE_NAME = "words";
@@ -68,6 +72,12 @@ public abstract class AbstractCoherenceResource extends ServerResource {
         }
     }
 
+    protected void register() {
+        if (USE_SINGLE_COHERENCE_INSTANCE && (CoherenceManager.getInstance().getCoherence(this.getClass()) == null)) {
+            CoherenceManager.getInstance().addCoherence(this);
+        }
+    }
+
     @Get
     public String represent() {
         String wordList = getAttribute(WORDS_ATTRIBUTE_NAME);
@@ -90,7 +100,12 @@ public abstract class AbstractCoherenceResource extends ServerResource {
             return errMsg;
         } else {
             try {
-                return Double.toString(getCoherence(words));
+                if (USE_SINGLE_COHERENCE_INSTANCE) {
+                    Coherence coherence = CoherenceManager.getInstance().getCoherence(this.getClass());
+                    return Double.toString(coherence.calculateCoherences(new String[][] { words })[0]);
+                } else {
+                    return Double.toString(getCoherence(words));
+                }
             } catch (Exception e) {
                 setStatus(Status.SERVER_ERROR_INTERNAL);
                 return "";
@@ -99,6 +114,8 @@ public abstract class AbstractCoherenceResource extends ServerResource {
     }
 
     protected abstract double getCoherence(String words[]) throws Exception;
+
+    public abstract Coherence createCoherence(WindowSupportingAdapter corpusAdapter);
 
     protected static WindowBasedProbabilityEstimator getWindowBasedProbabilityEstimator(int windowSize,
             WindowSupportingAdapter corpusAdapter) {
