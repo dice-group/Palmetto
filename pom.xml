@@ -26,7 +26,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.aksw</groupId>
     <artifactId>palmetto</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1-SNAPSHOT</version>
     <name>Palmetto</name>
     <description>Palmetto is a quality measure tool for topics.</description>
     <packaging>jar</packaging>
