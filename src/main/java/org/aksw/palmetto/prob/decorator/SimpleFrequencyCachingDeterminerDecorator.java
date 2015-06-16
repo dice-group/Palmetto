@@ -29,11 +29,20 @@ import org.aksw.palmetto.prob.FrequencyDeterminer;
 
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
-public class FreqeuencyCachingDeterminerDecorator extends AbstractSlidingWindowFrequencyDeterminerDecorator {
+/**
+ * This decorator implements a very simple cache. Note that it has
+ * disadvantages, e.g., it will never stop growing. Thus, the
+ * {@link org.aksw.palmetto.prob.decorator.FrequencyCachingDeterminerDecorator}
+ * should be used instead.
+ * 
+ * @author Michael R&ouml;der (roeder@informatik.uni-leipzig.de)
+ *
+ */
+public class SimpleFrequencyCachingDeterminerDecorator extends AbstractSlidingWindowFrequencyDeterminerDecorator {
 
     private IntObjectOpenHashMap<int[]> cache = new IntObjectOpenHashMap<int[]>();
 
-    public FreqeuencyCachingDeterminerDecorator(FrequencyDeterminer determiner) {
+    public SimpleFrequencyCachingDeterminerDecorator(FrequencyDeterminer determiner) {
         super(determiner);
     }
 
