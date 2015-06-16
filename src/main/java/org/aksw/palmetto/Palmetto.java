@@ -37,6 +37,7 @@ import org.aksw.palmetto.corpus.lucene.WindowSupportingLuceneCorpusAdapter;
 import org.aksw.palmetto.io.SimpleWordSetReader;
 import org.aksw.palmetto.prob.bd.BooleanDocumentProbabilitySupplier;
 import org.aksw.palmetto.prob.window.BooleanSlidingWindowFrequencyDeterminer;
+import org.aksw.palmetto.prob.window.ContextWindowFrequencyDeterminer;
 import org.aksw.palmetto.prob.window.WindowBasedProbabilityEstimator;
 import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.OnePreceding;
@@ -83,7 +84,7 @@ public class Palmetto {
         printCoherences(coherences, wordsets, System.out);
     }
 
-    private static CorpusAdapter getCorpusAdapter(String calcType, String indexPath) {
+    public static CorpusAdapter getCorpusAdapter(String calcType, String indexPath) {
         try {
             if ("umass".equals(calcType)) {
                 return LuceneCorpusAdapter.create(indexPath, DEFAULT_TEXT_INDEX_FIELD_NAME);
@@ -97,7 +98,7 @@ public class Palmetto {
         }
     }
 
-    private static Coherence getCoherence(String calcType, CorpusAdapter corpusAdapter) {
+    public static Coherence getCoherence(String calcType, CorpusAdapter corpusAdapter) {
         if ("umass".equals(calcType)) {
             return new DirectConfirmationBasedCoherence(new OnePreceding(),
                     BooleanDocumentProbabilitySupplier.create(corpusAdapter, "bd", true),
@@ -114,6 +115,17 @@ public class Palmetto {
             return new DirectConfirmationBasedCoherence(
                     new OneOne(), getWindowBasedProbabilityEstimator(10, (WindowSupportingAdapter) corpusAdapter),
                     new NormalizedLogRatioConfirmationMeasure(), new ArithmeticMean());
+        }
+
+        if ("c_a".equals(calcType)) {
+            int windowSize = 5;
+            WindowBasedProbabilityEstimator probEstimator = new WindowBasedProbabilityEstimator(
+                    new ContextWindowFrequencyDeterminer((WindowSupportingAdapter) corpusAdapter, windowSize));
+            probEstimator.setMinFrequency(WindowBasedProbabilityEstimator.DEFAULT_MIN_FREQUENCY * windowSize);
+            return new VectorBasedCoherence(
+                    new OneOne(), new DirectConfirmationBasedVectorCreator(probEstimator,
+                            new NormalizedLogRatioConfirmationMeasure()), new CosinusConfirmationMeasure(),
+                    new ArithmeticMean());
         }
 
         if ("c_p".equals(calcType)) {
@@ -134,12 +146,12 @@ public class Palmetto {
         StringBuilder msg = new StringBuilder();
         msg.append("Unknown calculation type \"");
         msg.append(calcType);
-        msg.append("\". Supported types are:\nUMass\nUCI\nNPMI\nC_P\nC_V\n\nAborting.");
+        msg.append("\". Supported types are:\nUMass\nUCI\nNPMI\nC_A\nC_P\nC_V\n\nAborting.");
         LOGGER.error(msg.toString());
         return null;
     }
 
-    private static WindowBasedProbabilityEstimator getWindowBasedProbabilityEstimator(int windowSize,
+    public static WindowBasedProbabilityEstimator getWindowBasedProbabilityEstimator(int windowSize,
             WindowSupportingAdapter corpusAdapter) {
         WindowBasedProbabilityEstimator probEstimator = new WindowBasedProbabilityEstimator(
                 new BooleanSlidingWindowFrequencyDeterminer(
@@ -148,7 +160,7 @@ public class Palmetto {
         return probEstimator;
     }
 
-    private static void printCoherences(double[] coherences, String[][] wordsets, PrintStream out) {
+    public static void printCoherences(double[] coherences, String[][] wordsets, PrintStream out) {
         for (int i = 0; i < wordsets.length; i++) {
             out.format("%5d\t%3.5f\t%s%n", new Object[] { i, coherences[i], Arrays.toString(wordsets[i]) });
         }
