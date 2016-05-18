@@ -25,18 +25,17 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.aksw</groupId>
-    <artifactId>palmetto-webapp</artifactId>
+    <artifactId>palmetto</artifactId>
     <version>0.1.0</version>
-    <name>Palmetto Web Application</name>
+    <name>Palmetto</name>
     <description>Palmetto is a quality measure tool for topics.</description>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <!-- PROPERTIES -->
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <slf4j-version>1.7.5</slf4j-version>
         <lucene-version>4.4.0</lucene-version>
-		<spring.version>3.2.17.RELEASE</spring.version>
         <developer-name>Michael Röder</developer-name>
         <developer-mail>michael.roeder@unister.de</developer-mail>
         <project.inceptionYear>2014</project.inceptionYear>
@@ -61,35 +60,29 @@
 
     <!-- DEPENDENCIES -->
     <dependencies>
-        <!-- Palmetto -->
+        <!-- HPPC Maps -->
         <dependency>
-            <groupId>org.aksw</groupId>
-            <artifactId>palmetto</artifactId>
-            <version>0.1.0</version>
+            <groupId>com.carrotsearch</groupId>
+            <artifactId>hppc</artifactId>
+            <version>0.5.3</version>
         </dependency>
-		<!-- SPRING -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-        <!-- Apache Configuration -->
+        <!-- Lucene -->
         <dependency>
-            <groupId>commons-configuration</groupId>
-            <artifactId>commons-configuration</artifactId>
-            <version>1.5</version>
-            <exclusions>
-                <!-- servlet related libs have to be excluded since they caused problems. -->
-                <exclusion>
-                    <artifactId>servlet-api</artifactId>
-                    <groupId>javax.servlet</groupId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>${lucene-version}</version>
+        </dependency>
+        <!-- Lucene analyzers -->
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers-common</artifactId>
+            <version>${lucene-version}</version>
+        </dependency>
+        <!-- Apache Commons IO -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.4</version>
         </dependency>
 
         <!-- ~~~~~~~~~~~~~~~~~~~ Logging ~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -125,7 +118,6 @@
     </dependencies>
 
     <build>
-        <finalName>palmetto-webapp</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -150,13 +142,32 @@
                     </archive>
                 </configuration>
             </plugin>
+            <!-- Javadoc plugin for generating documentation -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.1</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- Source plugin for creating source file jar -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>2.2.1</version>
                 <executions>
                     <execution>
-                        <id>attach-sources</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
@@ -178,7 +189,7 @@
                     <excludes>
                         <exclude>**/README</exclude>
                         <exclude>**/LICENSE</exclude>
-                        <exclude>**/web.xml</exclude>
+                        <exclude>diagrams/**</exclude>
                         <exclude>src/test/resources/**</exclude>
                         <exclude>src/main/resources/**</exclude>
                     </excludes>
