@@ -36,7 +36,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <slf4j-version>1.7.5</slf4j-version>
         <lucene-version>4.4.0</lucene-version>
-        <restlet-version>2.2.1</restlet-version>
+        <!-- <restlet-version>2.2.1</restlet-version> -->
+		<spring.version>3.2.17.RELEASE</spring.version>
         <developer-name>Michael Röder</developer-name>
         <developer-mail>michael.roeder@unister.de</developer-mail>
         <project.inceptionYear>2014</project.inceptionYear>
@@ -67,17 +68,17 @@
             <artifactId>palmetto</artifactId>
             <version>0.1.0</version>
         </dependency>
-        <!-- Restlet -->
-        <dependency>
-            <groupId>org.restlet</groupId>
-            <artifactId>org.restlet</artifactId>
-            <version>${restlet-version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.restlet</groupId>
-            <artifactId>org.restlet.ext.servlet</artifactId>
-            <version>${restlet-version}</version>
-        </dependency>
+		<!-- SPRING -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
         <!-- Apache Configuration -->
         <dependency>
             <groupId>commons-configuration</groupId>
@@ -123,15 +124,6 @@
         </dependency>
         <!-- ~~~~~~~~~~~~~~~~~~~ End Testing ~~~~~~~~~~~~~~~~~~~~~~ -->
     </dependencies>
-
-    <!-- REPOSITORIES -->
-    <repositories>
-        <!-- Let's use a local repository for the local libraries of this project -->
-        <repository>
-            <id>local Repo</id>
-            <url>file://${project.basedir}${file.separator}lib</url>
-        </repository>
-    </repositories>
 
     <build>
         <finalName>palmetto-webapp</finalName>
