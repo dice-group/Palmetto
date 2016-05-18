@@ -51,13 +51,14 @@
         </developer>
     </developers>
 
-    <!-- LICENSE -->
-    <licenses>
-        <license>
-            <name>MIT</name>
-            <url>http://opensource.org/licenses/MIT</url>
-        </license>
-    </licenses>
+    <!-- REPOSITORIES -->
+    <repositories>
+        <!-- Let's use a local repository for the local libraries of this project -->
+        <repository>
+            <id>local Repo</id>
+            <url>file://${project.basedir}${file.separator}lib</url>
+        </repository>
+    </repositories>
 
     <!-- DEPENDENCIES -->
     <dependencies>
