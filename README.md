@@ -9,3 +9,9 @@ This is the implementation of coherence calculations for evaluating the quality 
 Please take a look at the the wikipage to read <a href="https://github.com/AKSW/Palmetto/wiki/How-Palmetto-can-be-used">how Palmetto can be used</a>.
 
 If you are using Palmetto for an experiment or something similar that leads to a publication, please cite the paper "Exploring the Space of Topic Coherence Measures" that you can find on the project website. A link to the project website is welcome as well :)
+
+
+### Docker
+
+	docker build -t palmetto .
+	docker run -p 7777:7777 -d -m 4G -v /path/to/indexes/:/usr/src/indexes/:ro palmetto`
