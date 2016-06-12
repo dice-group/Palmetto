@@ -13,5 +13,9 @@ If you are using Palmetto for an experiment or something similar that leads to a
 
 ### Docker
 
+There is a web application in a separate branch (https://github.com/AKSW/Palmetto/tree/webApp) that can be executed using Docker. 
+
 	docker build -t palmetto .
 	docker run -p 7777:7777 -d -m 4G -v /path/to/indexes/:/usr/src/indexes/:ro palmetto`
+
+After that there is a Tomcat listening on port 7777. The application can be accessed using `http://localhost:7777/palmetto-webapp/index.html`.
