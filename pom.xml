@@ -1,24 +1,19 @@
 <!--
 
-    Copyright (C) 2014 Michael Röder (michael.roeder@unister.de)
+    This file is part of Palmetto Web Application.
 
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files (the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions:
+    Palmetto Web Application is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
 
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
+    Palmetto Web Application is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
+    You should have received a copy of the GNU Lesser General Public License
+    along with Palmetto Web Application.  If not, see <http://www.gnu.org/licenses/>.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -26,7 +21,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.aksw</groupId>
     <artifactId>palmetto-webapp</artifactId>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <name>Palmetto Web Application</name>
     <description>Palmetto is a quality measure tool for topics.</description>
     <packaging>war</packaging>
@@ -37,37 +32,45 @@
         <slf4j-version>1.7.5</slf4j-version>
         <lucene-version>4.4.0</lucene-version>
 		<spring.version>3.2.17.RELEASE</spring.version>
-        <developer-name>Michael Röder</developer-name>
-        <developer-mail>michael.roeder@unister.de</developer-mail>
         <project.inceptionYear>2014</project.inceptionYear>
     </properties>
 
-    <!-- DEVELOPERS -->
-    <developers>
-        <developer>
-            <id>m.roeder</id>
-            <name>${developer-name}</name>
-            <email>${developer-mail}</email>
-        </developer>
-    </developers>
+	<!-- DEVELOPERS -->
+	<developers>
+		<developer>
+			<id>m.roeder</id>
+			<name>Michael Röder</name>
+			<email>roeder@informatik.uni-leipzig.de</email>
+		</developer>
+	</developers>
 
     <!-- REPOSITORIES -->
     <repositories>
-        <!-- Let's use a local repository for the local libraries of this project -->
-        <repository>
-            <id>local Repo</id>
-            <url>file://${project.basedir}${file.separator}lib</url>
-        </repository>
+		<repository>
+			<id>maven.aksw.internal</id>
+			<name>University Leipzig, AKSW Maven2 Repository</name>
+			<url>http://maven.aksw.org/repository/internal</url>
+		</repository>
+		<repository>
+			<id>maven.aksw.snapshots</id>
+			<name>University Leipzig, AKSW Maven2 Repository</name>
+			<url>http://maven.aksw.org/repository/snapshots</url>
+		</repository>
+		<repository>
+			<id>Apache Repo</id>
+			<name>Apache Repository</name>
+			<url>https://repository.apache.org/content/repositories/releases/</url>
+		</repository>
     </repositories>
 
     <!-- DEPENDENCIES -->
     <dependencies>
-        <!-- Palmetto -->
-        <dependency>
-            <groupId>org.aksw</groupId>
-            <artifactId>palmetto</artifactId>
-            <version>0.1.0</version>
-        </dependency>
+		<!-- Palmetto -->
+		<dependency>
+			<groupId>org.aksw</groupId>
+			<artifactId>palmetto</artifactId>
+			<version>0.1.1</version>
+		</dependency>
 		<!-- SPRING -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -164,27 +167,28 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- License management plugin -->
-            <plugin>
-                <groupId>com.mycila</groupId>
-                <artifactId>license-maven-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <header>src/main/resources/license_template.txt</header>
-                    <properties>
-                        <owner>${developer-name}</owner>
-                        <year>${project.inceptionYear}</year>
-                        <email>${developer-mail}</email>
-                    </properties>
-                    <excludes>
-                        <exclude>**/README</exclude>
-                        <exclude>**/LICENSE</exclude>
-                        <exclude>**/web.xml</exclude>
-                        <exclude>src/test/resources/**</exclude>
-                        <exclude>src/main/resources/**</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
+			<!-- License management plugin -->
+			<plugin>
+				<groupId>com.mycila</groupId>
+				<artifactId>license-maven-plugin</artifactId>
+				<version>2.11</version>
+				<configuration>
+					<header>com/mycila/maven/plugin/license/templates/LGPL-3.txt</header>
+					<properties>
+						<owner>Agile Knowledge Engineering and Semantic Web (AKSW)
+							(roeder@informatik.uni-leipzig.de)</owner>
+					</properties>
+					<excludes>
+						<exclude>**/README</exclude>
+						<exclude>**/LICENSE</exclude>
+						<exclude>**/Dockerfile</exclude>
+						<exclude>diagrams/**</exclude>
+						<exclude>src/test/resources/**</exclude>
+						<exclude>src/main/resources/**</exclude>
+						<exclude>src/main/webapp/**</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
         </plugins>
     </build>
 </project>
