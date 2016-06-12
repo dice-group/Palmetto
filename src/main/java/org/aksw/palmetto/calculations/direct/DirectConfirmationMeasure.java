@@ -32,7 +32,8 @@ public interface DirectConfirmationMeasure extends ConfirmationMeasure {
      * Calculates the confirmation values for the given subset probabilities.
      * 
      * @param subsetProbabilities
-     * @return
+     *            subset probabilities used for the calculation
+     * @return confirmation values
      */
     public abstract double[] calculateConfirmationValues(SubsetProbabilities subsetProbabilities);
 }

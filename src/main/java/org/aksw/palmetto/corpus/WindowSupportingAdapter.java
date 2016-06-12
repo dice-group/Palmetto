@@ -31,7 +31,7 @@ public interface WindowSupportingAdapter extends CorpusAdapter {
     /**
      * Returns the histogram of the document sizes of the corpus.
      * 
-     * @return
+     * @return the histogram of the document sizes
      */
     public int[][] getDocumentSizeHistogram();
 
@@ -39,10 +39,12 @@ public interface WindowSupportingAdapter extends CorpusAdapter {
      * Returns the positions of the given words inside the corpus.
      * 
      * @param words
-     *            the words for which the positions inside the documents should be determined
+     *            the words for which the positions inside the documents should
+     *            be determined
      * @param docLengths
-     *            empty int int map in which the document lengths and counts are inserted
-     * @return
+     *            empty int int map in which the document lengths and counts are
+     *            inserted
+     * @return the positions of the given words inside the corpus
      */
     public IntObjectOpenHashMap<IntArrayList[]> requestWordPositionsInDocuments(String words[],
             IntIntOpenHashMap docLengths);

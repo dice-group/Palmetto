@@ -48,7 +48,7 @@ public class SimpleLuceneIndexCreator extends AbstractLuceneIndexCreator {
     /**
      * Constructor.
      * 
-     * @param textFieldName
+     * @param fieldName
      *            The name of the field in which the document texts are stored.
      */
     public SimpleLuceneIndexCreator(String fieldName) {

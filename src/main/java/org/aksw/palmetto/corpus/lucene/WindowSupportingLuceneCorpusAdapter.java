@@ -30,7 +30,7 @@ import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.DocsAndPositionsEnum;
 import org.apache.lucene.index.DocsEnum;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.store.SimpleFSDirectory;
+import org.apache.lucene.store.NIOFSDirectory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,10 +45,8 @@ public class WindowSupportingLuceneCorpusAdapter extends LuceneCorpusAdapter imp
     public static final String HISTOGRAM_FILE_SUFFIX = ".histogram";
 
     public static WindowSupportingLuceneCorpusAdapter create(String indexPath, String textFieldName,
-            String docLengthFieldName)
-            throws CorruptIndexException, IOException {
-        DirectoryReader dirReader = DirectoryReader.open(new SimpleFSDirectory(
-                new File(indexPath)));
+            String docLengthFieldName) throws CorruptIndexException, IOException {
+        DirectoryReader dirReader = DirectoryReader.open(new NIOFSDirectory(new File(indexPath)));
         List<AtomicReaderContext> leaves = dirReader.leaves();
         AtomicReader reader[] = new AtomicReader[leaves.size()];
         AtomicReaderContext contexts[] = new AtomicReaderContext[leaves.size()];
@@ -143,8 +141,7 @@ public class WindowSupportingLuceneCorpusAdapter extends LuceneCorpusAdapter imp
                 }
             }
         } catch (IOException e) {
-            LOGGER.error("Error while requesting documents for word \"" + word
-                    + "\".", e);
+            LOGGER.error("Error while requesting documents for word \"" + word + "\".", e);
         }
     }
 

@@ -27,7 +27,7 @@ import org.apache.lucene.index.CorruptIndexException;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.DocsEnum;
 import org.apache.lucene.index.Term;
-import org.apache.lucene.store.SimpleFSDirectory;
+import org.apache.lucene.store.NIOFSDirectory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,8 +43,7 @@ import com.carrotsearch.hppc.ObjectObjectOpenHashMap;
  */
 public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
 
-    private static final Logger LOGGER = LoggerFactory
-            .getLogger(LuceneCorpusAdapter.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LuceneCorpusAdapter.class);
 
     protected String fieldName;
     protected DirectoryReader dirReader;
@@ -52,8 +51,8 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
     protected AtomicReaderContext contexts[];
 
     /**
-     * Creates a corpus adapter which uses the Lucene index with the given path and searches on the field with the given
-     * field name.
+     * Creates a corpus adapter which uses the Lucene index with the given path
+     * and searches on the field with the given field name.
      * 
      * @param indexPath
      * @param fieldName
@@ -63,8 +62,7 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
      */
     public static LuceneCorpusAdapter create(String indexPath, String fieldName)
             throws CorruptIndexException, IOException {
-        DirectoryReader dirReader = DirectoryReader.open(new SimpleFSDirectory(
-                new File(indexPath)));
+        DirectoryReader dirReader = DirectoryReader.open(new NIOFSDirectory(new File(indexPath)));
         List<AtomicReaderContext> leaves = dirReader.leaves();
         AtomicReader reader[] = new AtomicReader[leaves.size()];
         AtomicReaderContext contexts[] = new AtomicReaderContext[leaves.size()];
@@ -98,8 +96,7 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
                 }
             }
         } catch (IOException e) {
-            LOGGER.error("Error while requesting documents for word \"" + word
-                    + "\".", e);
+            LOGGER.error("Error while requesting documents for word \"" + word + "\".", e);
         }
     }
 
@@ -130,14 +127,12 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
         return dirReader.numDocs();
     }
 
-    public void getDocumentsWithWordsAsSet(
-            ObjectObjectOpenHashMap<String, IntOpenHashSet> wordDocMapping) {
+    public void getDocumentsWithWordsAsSet(ObjectObjectOpenHashMap<String, IntOpenHashSet> wordDocMapping) {
         Object keys[] = (Object[]) wordDocMapping.keys;
         Object values[] = (Object[]) wordDocMapping.values;
         for (int i = 0; i < wordDocMapping.allocated.length; ++i) {
             if (wordDocMapping.allocated[i]) {
-                requestDocumentsWithWordAsSet((String) keys[i],
-                        (IntOpenHashSet) values[i]);
+                requestDocumentsWithWordAsSet((String) keys[i], (IntOpenHashSet) values[i]);
             }
         }
     }
@@ -148,8 +143,7 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
         Object values[] = (Object[]) wordDocMapping.values;
         for (int i = 0; i < wordDocMapping.allocated.length; ++i) {
             if (wordDocMapping.allocated[i]) {
-                requestDocumentsWithWord((String) keys[i],
-                        (IntArrayList) values[i]);
+                requestDocumentsWithWord((String) keys[i], (IntArrayList) values[i]);
             }
         }
     }
@@ -169,8 +163,7 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
                 }
             }
         } catch (IOException e) {
-            LOGGER.error("Error while requesting documents for word \"" + word
-                    + "\".", e);
+            LOGGER.error("Error while requesting documents for word \"" + word + "\".", e);
         }
     }
 }

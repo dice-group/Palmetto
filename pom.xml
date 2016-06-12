@@ -21,7 +21,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.aksw</groupId>
     <artifactId>palmetto</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.1.1</version>
     <name>Palmetto</name>
     <description>Palmetto is a quality measure tool for topics.</description>
     <packaging>jar</packaging>
@@ -41,7 +41,7 @@
 		<developer>
 			<id>m.roeder</id>
 			<name>Michael Röder</name>
-			<email>michael.roeder@unister.de</email>
+			<email>roeder@informatik.uni-leipzig.de</email>
 		</developer>
 	</developers>
 

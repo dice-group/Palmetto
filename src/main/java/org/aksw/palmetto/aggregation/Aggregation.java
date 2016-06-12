@@ -17,7 +17,8 @@
 package org.aksw.palmetto.aggregation;
 
 /**
- * Aggregates the given confirmation values and returns a single coherence value.
+ * Aggregates the given confirmation values and returns a single coherence
+ * value.
  * 
  * @author m.roeder
  * 
@@ -30,27 +31,31 @@ public interface Aggregation {
     public static final double RETURN_VALUE_FOR_UNDEFINED = 0;
 
     /**
-     * Aggregates the given confirmation values and returns a single coherence value.
+     * Aggregates the given confirmation values and returns a single coherence
+     * value.
      * 
      * @param values
-     * @return
+     *            values that should be aggregated
+     * @return aggregated value
      */
     public double summarize(double values[]);
 
     /**
-     * Aggregates the product of the given confirmation values and the given weights and returns a single coherence
-     * value.
+     * Aggregates the product of the given confirmation values and the given
+     * weights and returns a single coherence value.
      * 
      * @param values
+     *            values that should be aggregated
      * @param weights
-     * @return
+     *            weights of the single values
+     * @return aggregated value
      */
     public double summarize(double values[], double weights[]);
 
     /**
      * Returns the name of the aggregation.
      * 
-     * @return
+     * @return name of the aggregation
      */
     public String getName();
 }

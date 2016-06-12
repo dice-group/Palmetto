@@ -20,7 +20,8 @@ import org.aksw.palmetto.data.SegmentationDefinition;
 import org.aksw.palmetto.data.SubsetProbabilities;
 
 /**
- * This interface defines the methods of a class that estimates the probabilities of a given word set.
+ * This interface defines the methods of a class that estimates the
+ * probabilities of a given word set.
  * 
  * @author m.roeder
  * 
@@ -28,19 +29,21 @@ import org.aksw.palmetto.data.SubsetProbabilities;
 public interface ProbabilityEstimator {
 
     /**
-     * Estimates the probabilities for the given word sets and the given segmentations.
+     * Estimates the probabilities for the given word sets and the given
+     * segmentations.
      * 
      * @param wordsets
+     *            word sets for which the probabilities should be estimated
      * @param definitions
-     * @return
+     *            definitions how the word sets should be separated
+     * @return the subset probabilities for the single word sets
      */
-    public SubsetProbabilities[] getProbabilities(String wordsets[][],
-            SegmentationDefinition definitions[]);
+    public SubsetProbabilities[] getProbabilities(String wordsets[][], SegmentationDefinition definitions[]);
 
     /**
      * Returns the frequency determiner used by this estimator.
      * 
-     * @return
+     * @return the frequency determiner used by this estimator
      */
     public FrequencyDeterminer getFrequencyDeterminer();
 
@@ -48,20 +51,23 @@ public interface ProbabilityEstimator {
      * Sets the frequency determiner that should be used by this estimator.
      * 
      * @param determiner
+     *            the frequency determiner used by this estimator
      */
     public void setFrequencyDeterminer(FrequencyDeterminer determiner);
 
     /**
      * Returns the name of this probability estimator.
      * 
-     * @return
+     * @return the name of this probability estimator
      */
     public String getName();
 
     /**
-     * Sets the minimum frequency a word (or word set) must have to get a probability > 0.
+     * Sets the minimum frequency a word (or word set) must have to get a
+     * probability &gt; 0.
      * 
      * @param minFrequency
+     *            the minimum frequency of a word
      */
     public void setMinFrequency(int minFrequency);
 }

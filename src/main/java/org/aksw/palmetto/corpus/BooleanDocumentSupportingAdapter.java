@@ -34,7 +34,7 @@ public interface BooleanDocumentSupportingAdapter extends CorpusAdapter {
      * Determines the documents containing the words used as key in the given map. The resulting sets contain the ids of
      * the documents and are inserted into the map.
      * 
-     * @param wordDocMapping
+     * @param wordDocMapping a mapping of words to documents in which the results are stored
      */
     public void getDocumentsWithWordsAsSet(ObjectObjectOpenHashMap<String, IntOpenHashSet> wordDocMapping);
 
@@ -42,14 +42,14 @@ public interface BooleanDocumentSupportingAdapter extends CorpusAdapter {
      * Determines the documents containing the words used as key in the given map. The resulting int arrays contain the
      * ids of the documents and are inserted into the map.
      * 
-     * @param wordDocMapping
+     * @param wordDocMapping a mapping of words to documents in which the results are stored
      */
     public void getDocumentsWithWords(ObjectObjectOpenHashMap<String, IntArrayList> wordDocMapping);
 
     /**
      * Returns the number of documents the corpus contains.
      * 
-     * @return
+     * @return the number of documents
      */
     public int getNumberOfDocuments();
 }
