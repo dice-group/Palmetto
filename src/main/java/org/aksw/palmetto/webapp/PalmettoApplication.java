@@ -41,6 +41,8 @@ public class PalmettoApplication {
     // private static final String WORDS_REQUEST_PARAMETER_NAME = "words";
     private static final String WORD_SEPARATOR = " ";
 
+    private static final int GC_TRIGGER = 10;
+
     protected WindowSupportingAdapter luceneAdapter;
     protected Coherence caCoherence;
     protected Coherence cpCoherence;
@@ -49,6 +51,7 @@ public class PalmettoApplication {
     protected Coherence uciCoherence;
     protected Coherence umassCoherence;
     protected int maxNumberOfWords;
+    protected int calcCounts = 0;
 
     public PalmettoApplication() {
         LOGGER.error("started...");
@@ -113,34 +116,18 @@ public class PalmettoApplication {
         return calculate(words, umassCoherence);
     }
 
-    // @RequestMapping(value = "/{coherenceType}")
-    // public ResponseEntity<String> calculate(@PathVariable String
-    // coherenceType,
-    // @RequestParam(value = "words") String words) {
-    // System.out.println(coherenceType);
-    // coherenceType = coherenceType.toLowerCase();
-    // if (!coherences.containsKey(coherenceType)) {
-    // return new ResponseEntity<String>("Unknown coherence type \"" +
-    // coherenceType + "\".",
-    // HttpStatus.BAD_REQUEST);
-    // }
-    // String array[] = words.split(WORD_SEPARATOR);
-    // Coherence coherence = coherences.get(coherenceType);
-    // if (array.length > maxNumberOfWords) {
-    // return new ResponseEntity<String>(
-    // "The request contains too many words. This service supports a maximum of
-    // \"" + maxNumberOfWords
-    // + "\" words.",
-    // HttpStatus.BAD_REQUEST);
-    // }
-    //
-    // return new
-    // ResponseEntity<String>(Double.toString(coherence.calculateCoherences(new
-    // String[][] { array })[0]),
-    // HttpStatus.OK);
-    // }
+    protected synchronized void postRequestHandling() {
+        ++calcCounts;
+        if (calcCounts >= GC_TRIGGER) {
+            System.gc();
+            calcCounts = 0;
+        }
+    }
 
     protected ResponseEntity<String> calculate(String words, Coherence coherence) {
+        if (words.equals("")) {
+            return new ResponseEntity<String>("The request doesn't contain any words.", HttpStatus.BAD_REQUEST);
+        }
         String array[] = words.split(WORD_SEPARATOR);
         if (array.length > maxNumberOfWords) {
             return new ResponseEntity<String>("The request contains too many words. This service supports a maximum of "
