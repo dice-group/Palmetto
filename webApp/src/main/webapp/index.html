@@ -1,0 +1,370 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Palmetto Online Demo</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+<link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
+<link rel="schema.DCTERMS" href="http://purl.org/dc/terms/">
+<meta name="DC.title" content="Palmetto Online Demo">
+<meta name="DC.creator" content="Michael R&ouml;der">
+<meta name="DC.language" content="en">
+<meta name="DC.rights" content="http://opensource.org/licenses/MIT"
+	scheme="DCTERMS.URI">
+
+<link rel="stylesheet" href="/palmetto-webapp/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="/palmetto-webapp/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="/palmetto-webapp/css/jquery-ui.min.css">
+<link rel="stylesheet"
+	href="/palmetto-webapp/css/jquery-ui.structure.min.css">
+<link rel="stylesheet"
+	href="/palmetto-webapp/css/jquery-ui.theme.min.css">
+<link rel="stylesheet" href="/palmetto-webapp/css/palmetto.css">
+<link rel="icon" type="image/png"
+	href="/palmetto-webapp/images/palmetto_64px.png">
+<script>
+	(function(i, s, o, g, r, a, m) {
+	    i['GoogleAnalyticsObject'] = r;
+	    i[r] = i[r] || function() {
+		    (i[r].q = i[r].q || []).push(arguments)
+	    }, i[r].l = 1 * new Date();
+	    a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+	    a.async = 1;
+	    a.src = g;
+	    m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-57666565-1', 'auto');
+    ga('send', 'pageview');
+</script>
+</head>
+<body>
+	<!-- Part 1: Wrap all page content here -->
+	<div id="wrap">
+		<form>
+			<div class="container">
+				<div class="page-header" id="headline">
+					<h1>
+						<img src="/palmetto-webapp/images/palmetto_64px.png">
+						Palmetto Online Demo
+					</h1>
+				</div>
+				<div id="demo_description">
+					<p>Palmetto is a tool for measuring the quality of topics. The
+						demo works as follows: simply choose one of the following
+						coherences, put the top words of the topic you would like to test
+						into the input field (space separated, 10 words are the maximum)
+						and let the system calculate the coherence value of the word set.</p>
+
+					<p>
+						If you want to know more about Palmetto, please take a look at the
+						<a href="http://palmetto.aksw.org">project page</a>.
+					</p>
+				</div>
+				<div id="coherences_config" class="row">
+					<div class="col-md-1">
+						<div id="coherence_radio">
+							<input type="radio" id="radio_cv" name="coherence" value="cv"
+								checked><label for="radio_cv" class="radio_label"><span
+								class="math">C<span class="sub">V</span></span></label><input
+								type="radio" id="radio_cp" name="coherence" value="cp"><label
+								for="radio_cp" class="radio_label"><span class="math">C<span
+									class="sub">P</span></span></label><input type="radio" id="radio_uci"
+								name="coherence" value="uci"><label for="radio_uci"
+								class="radio_label"><span class="math">C<span
+									class="sub">UCI</span></span></label><input type="radio" id="radio_umass"
+								name="coherence" value="umass"><label for="radio_umass"
+								class="radio_label"><span class="math">C<span
+									class="sub">UMass</span></span></label><input type="radio" id="radio_npmi"
+								name="coherence" value="npmi"><label for="radio_npmi"
+								class="radio_label"><span class="math">C<span
+									class="sub">NPMI</span></span></label><input type="radio" id="radio_ca"
+								name="coherence" value="ca"><label for="radio_ca"
+								class="radio_label"><span class="math">C<span
+									class="sub">A</span></span></label>
+						</div>
+					</div>
+					<div id="descriptions" class="col-md-11">
+						<div class="panel panel-warning">
+							<div class="panel-heading">
+								<h3 class="panel-title">Coherence description</h3>
+							</div>
+							<div class="description panel-body" id="cv_description">
+								<p>
+									<span class="math">C<span class="sub">V</span></span> is based
+									on a sliding window, a one-set segmentation of the top words
+									and an indirect confirmation measure that uses normalized
+									pointwise mutual information (NPMI) and the cosinus similarity.
+								</p>
+								<p>This coherence measure retrieves cooccurrence counts for
+									the given words using a sliding window and the window size 110.
+									The counts are used to calculated the NPMI of every top word to
+									every other top word, thus, resulting in a set of
+									vectors&mdash;one for every top word. The one-set segmentation
+									of the top words leads to the calculation of the similarity
+									between every top word vector and the sum of all top word
+									vectors. As similarity measure the cosinus is used. The
+									coherence is the arithmetic mean of these similarities. (Note
+									that this was the best coherence measure in our evalution.)</p>
+								<p>
+									Proposed in<br> M. R&ouml;der, A. Both, and A. Hinneburg:
+									<i>Exploring the Space of Topic Coherence Measures.</i> In
+									Proceedings of the eighth International Conference on Web
+									Search and Data Mining, 2015.
+								</p>
+							</div>
+							<div class="description panel-body" id="cp_description">
+								<p>
+									<span class="math">C<span class="sub">P</span></span> is a
+									based on a sliding window, a one-preceding segmentation of the
+									top words and the confirmation measure of Fitelson's coherence.
+								</p>
+								<p>Word cooccurrence counts for the given top words are
+									derived using a sliding window and the window size 70. For
+									every top word, the confirmation to its preceding top word is
+									calculated using the confirmation measure of Fitelson's
+									coherence. The coherence is the arithmetic mean of the
+									confirmation measure results.</p>
+								<p>
+									Proposed in<br> M. R&ouml;der, A. Both, and A. Hinneburg:
+									<i>Exploring the Space of Topic Coherence Measures.</i> In
+									Proceedings of the eighth International Conference on Web
+									Search and Data Mining, 2015.
+								</p>
+							</div>
+							<div class="description panel-body" id="uci_description">
+								<p>
+									<span class="math">C<span class="sub">UCI</span></span> is a
+									coherence that is based on a sliding window and the pointwise
+									mutual information (PMI) of all word pairs of the given top
+									words.
+								</p>
+								<p>The word cooccurrence counts are derived using a sliding
+									window with the size 10. For every word pair the PMI is
+									calculated. The arithmetic mean of the PMI values is the result
+									of this coherence. (Note that in the original publication only
+									the sum of these values is calculated)</p>
+								<p>
+								<p>
+									Proposed in<br> D. Newman, J. H. Lau, K. Grieser, and T.
+									Baldwin: <i>Automatic evaluation of topic coherence.</i> In
+									Human Language Technologies: The 2010 Annual Conferenceof the
+									North American Chapter of the Association for Computational
+									Linguistics, pages 100-108. Association for Computational
+									Linguistics, 2010.
+								</p>
+							</div>
+							<div class="description panel-body" id="umass_description">
+								<p>
+									<span class="math">C<span class="sub">UMass</span></span> is
+									based on document cooccurrence counts, a one-preceding
+									segmentation and a logarithmic conditional probability as
+									confirmation measure.
+								</p>
+								<p>The main idea of this coherence is that the occurrence of
+									every top word should be supported by every top preceding top
+									word. Thus, the probability of a top word to occur should be
+									higher if a document already contains a higher order top word
+									of the same topic. Therefore, for every word the logarithm of
+									its conditional probability is calculated using every other top
+									word that has a higher order in the ranking of top words as
+									condition. The probabilities are derived using document
+									cooccurrence counts. The single conditional probabilities are
+									summarized using the arithmetic mean. (Note that in the
+									original publication only the sum of these values is
+									calculated)</p>
+								<p>
+									Proposed in<br> D. Mimno, H. M. Wallach, E. Talley, M.
+									Leenders, and A. McCallum: <i>Optimizing semantic coherence
+										in topic models.</i> In Proceedings of the Conference on Empirical
+									Methods in Natural Language Processing, pages 262-272.
+									Association for Computational Linguistics, 2011.
+								</p>
+							</div>
+							<div class="description panel-body" id="npmi_description">
+								<p>
+									<span class="math">C<span class="sub">NPMI</span></span> is an
+									enhanced version of the <span class="math">C<span
+										class="sub">UCI</span></span> coherence using the normalized
+									pointwise mutual information (NPMI) instead of the pointwise
+									mutual information (PMI).
+								</p>
+								<p>
+									Proposed in<br> N. Aletras and M. Stevenson: <i>Evaluating
+										topic coherence using distributional semantics.</i> In Proceedings
+									of the 10th International Conference on Computational Semantics
+									(IWCS'13) Long Papers, pages 13-22, 2013.
+								</p>
+							</div>
+							<div class="description panel-body" id="ca_description">
+								<p>
+									<span class="math">C<span class="sub">A</span></span> is based
+									on a context window, a pairwise comparison of the top words and
+									an indirect confirmation measure that uses normalized pointwise
+									mutual information (NPMI) and the cosinus similarity.
+								</p>
+								<p>This coherence measure retrieves cooccurrence counts for
+									the given words using a context window with the window size 5.
+									The counts are used to calculated the NPMI of every top word to
+									every other top word, thus, resulting in a single vector for
+									every top word. After that the cosinus similarity between all
+									word pairs is calculated. The coherence is the arithmetic mean
+									of these similarities. (Note that in the original publication
+									several other coherence measures have been described. We have
+									chosen this one because it was the best of these measures in
+									our evaluation)</p>
+								<p>
+									Proposed in<br> N. Aletras and M. Stevenson: <i>Evaluating
+										topic coherence using distributional semantics.</i> In Proceedings
+									of the 10th International Conference on Computational Semantics
+									(IWCS'13) Long Papers, pages 13-22, 2013.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" id="input_line">
+					<div class="col-md-10" id="input_line">
+						<label for="words">Topic Top Words:</label> <input id="words"
+							type="text" size="100" name="words" value="">
+					</div>
+					<div class="col-md-2">
+						<button id="exampleButton" type="button"
+							onclick="insertExample();">Example</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<button id="submitButton" type="button" onclick="submitTopics();">Send</button>
+					</div>
+				</div>
+				<div id="alert-row" class="row">
+					<div class="col-md-4"></div>
+					<div id="alert" class="col-md-4 alert alert-danger" role="alert">
+						<p>
+							<strong>Sorry.</strong> An error occurred.
+						</p>
+						<p id="alertMsg"></p>
+					</div>
+					<div class="col-md-4"></div>
+				</div>
+				<div class="row">
+					<div id="results" class="col-md-12">
+						<table id="resultsTable" class="table table-hover table-condensed">
+							<thead>
+								<tr>
+									<th>words</th>
+									<th>coherence type</th>
+									<th>result</th>
+								</tr>
+							</thead>
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- End wrap of page content -->
+	<div id="footer">
+		<div class="container">
+			<div id="logos">
+				<a href="http://aksw.org/About.html"><img alt="AKSW"
+					src="/palmetto-webapp/images/aksw_logo_klein_alpha2.png"></a> <a
+					href="http://www.unister.de/"><img alt="Unister"
+					src="/palmetto-webapp/images/unister_logo_klein_alpha.png"></a> <a
+					href="http://www.esf-in-sachsen.de"><img alt="ESF in Sachsen"
+					src="/palmetto-webapp/images/ESF_LOGO_klein_alpha.png"></a> <a
+					href="http://www.esf-in-sachsen.de"><img alt="ESF in Sachsen"
+					src="/palmetto-webapp/images/eu_logo_klein_alpha.png"></a>
+			</div>
+		</div>
+	</div>
+	<script src="/palmetto-webapp/js/jquery-1.10.2.js"></script>
+	<script src="/palmetto-webapp/js/bootstrap.min.js"></script>
+	<script src="/palmetto-webapp/js/jquery-ui.js"></script>
+	<script type="text/javascript">
+		// JQuery plugin for creating vertical buttonset
+        (function($) {
+	        //plugin buttonset vertical
+	        $.fn.buttonsetv = function() {
+		        $(':radio, :checkbox', this).wrap('<div/>');
+		        $(this).buttonset();
+		        $('label:first', this).removeClass('ui-corner-left').addClass('ui-corner-top');
+		        $('label:last', this).removeClass('ui-corner-right').addClass('ui-corner-bottom');
+		        mw = 0; // max witdh
+		        $('label', this).each(function(index) {
+			        w = $(this).width();
+			        if (w > mw)
+				        mw = w;
+		        })
+		        $('label', this).each(function(index) {
+			        $(this).width(mw);
+		        })
+	        };
+        })(jQuery);
+
+        // create UI objects
+        $(function() {
+	        // set listener for descripition updates
+	        $.each($("div#coherence_radio input"), function(index, value) {
+		        $(value).change(updateDescriptions);
+	        });
+	        // create radio buttons
+	        $("div#coherence_radio").buttonsetv();
+	        // create submit button
+	        $("button[type=button]").button().click(function(event) {
+		        event.preventDefault();
+	        });
+	        $("#alert").hide();
+	        $("#results").hide();
+
+	        updateDescriptions();
+        });
+
+        // hide all coherence descriptions and show only the one for the current chosen coherence
+        function updateDescriptions() {
+	        $("div.description").hide();
+	        $("#" + $('input[name="coherence"]:checked').val() + "_description").show();
+        }
+
+        function addToResultTable(data, words, coherenceElement) {
+	        var tbody = $("#results tbody").html();
+	        var newRow = "<tr><td>" + words + "</td><td>"
+	                + $("label[for='" + coherenceElement.attr('id') + "']").html() + "</td><td>" + data + "</td></tr>";
+	        $("#results tbody").html(tbody + newRow);
+	        $("#results").show();
+        }
+
+        function submitTopics() {
+	        $("#submitButton").button("option", "disabled", true);
+	        // summarize the data which has to be submitted
+	        var words = $('#words').val();
+	        var coherenceElement = $('input[name="coherence"]:checked');
+	        var coherence = coherenceElement.val();
+	        // submit the request
+	        $.ajax({
+	            url : ("http://" + window.location.host + "/palmetto-webapp/service/" + coherence + "?words=" + words),
+	            type : "GET"
+	        }).done(function(data) {
+		        $("#alert").hide();
+		        addToResultTable(data, words, coherenceElement);
+		        $("#submitButton").button("option", "disabled", false);
+	        }).fail(function(data) {
+		        $("#alertMsg").text(data.responseText);
+		        $("#alert").show();
+		        $("#submitButton").button("option", "disabled", false);
+	        });
+        }
+
+        function insertExample() {
+	        var examples = new Array("cake apple banana cherry chocolate", "palm palmetto sabal cuba bahamas",
+	                "medieval knight castle armor sword");
+	        var index = Math.round(Math.random() * (examples.length - 1));
+	        $("#words").attr('value', examples[index]);
+        }
+	</script>
+</body>
+</html>
