@@ -13,17 +13,17 @@
 <meta name="DC.rights" content="http://opensource.org/licenses/MIT"
 	scheme="DCTERMS.URI">
 
-<link rel="stylesheet" href="/palmetto-webapp/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="/palmetto-webapp/css/bootstrap-theme.min.css">
-<link rel="stylesheet" href="/palmetto-webapp/css/jquery-ui.min.css">
+	href="css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="css/jquery-ui.min.css">
 <link rel="stylesheet"
-	href="/palmetto-webapp/css/jquery-ui.structure.min.css">
+	href="css/jquery-ui.structure.min.css">
 <link rel="stylesheet"
-	href="/palmetto-webapp/css/jquery-ui.theme.min.css">
-<link rel="stylesheet" href="/palmetto-webapp/css/palmetto.css">
+	href="css/jquery-ui.theme.min.css">
+<link rel="stylesheet" href="css/palmetto.css">
 <link rel="icon" type="image/png"
-	href="/palmetto-webapp/images/palmetto_64px.png">
+	href="images/palmetto_64px.png">
 <script>
 	(function(i, s, o, g, r, a, m) {
 	    i['GoogleAnalyticsObject'] = r;
@@ -47,7 +47,7 @@
 			<div class="container">
 				<div class="page-header" id="headline">
 					<h1>
-						<img src="/palmetto-webapp/images/palmetto_64px.png">
+						<img src="images/palmetto_64px.png">
 						Palmetto Online Demo
 					</h1>
 				</div>
@@ -272,19 +272,19 @@
 		<div class="container">
 			<div id="logos">
 				<a href="http://aksw.org/About.html"><img alt="AKSW"
-					src="/palmetto-webapp/images/aksw_logo_klein_alpha2.png"></a> <a
+					src="images/aksw_logo_klein_alpha2.png"></a> <a
 					href="http://www.unister.de/"><img alt="Unister"
-					src="/palmetto-webapp/images/unister_logo_klein_alpha.png"></a> <a
+					src="images/unister_logo_klein_alpha.png"></a> <a
 					href="http://www.esf-in-sachsen.de"><img alt="ESF in Sachsen"
-					src="/palmetto-webapp/images/ESF_LOGO_klein_alpha.png"></a> <a
+					src="images/ESF_LOGO_klein_alpha.png"></a> <a
 					href="http://www.esf-in-sachsen.de"><img alt="ESF in Sachsen"
-					src="/palmetto-webapp/images/eu_logo_klein_alpha.png"></a>
+					src="images/eu_logo_klein_alpha.png"></a>
 			</div>
 		</div>
 	</div>
-	<script src="/palmetto-webapp/js/jquery-1.10.2.js"></script>
-	<script src="/palmetto-webapp/js/bootstrap.min.js"></script>
-	<script src="/palmetto-webapp/js/jquery-ui.js"></script>
+	<script src="js/jquery-1.10.2.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery-ui.js"></script>
 	<script type="text/javascript">
 		// JQuery plugin for creating vertical buttonset
         (function($) {
@@ -346,7 +346,7 @@
 	        var coherence = coherenceElement.val();
 	        // submit the request
 	        $.ajax({
-	            url : ("http://" + window.location.host + "/palmetto-webapp/service/" + coherence + "?words=" + words),
+	            url : ("service/" + coherence + "?words=" + words),
 	            type : "GET"
 	        }).done(function(data) {
 		        $("#alert").hide();
