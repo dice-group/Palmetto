@@ -12,7 +12,7 @@ Palmetto can be used as a docker container. The container can be build and run f
 
 ```
 docker build -t palmetto .
-docker run -p 7777:8080 -d -m 4G -v /path/to/indexes/:/usr/src/indexes/:ro palmetto`
+docker run -p 7777:8080 -d -m 4G palmetto`
 ```
 
-After that there is a Tomcat listening on port 7777. The demo application can be accessed using `http://localhost:7777/palmetto-webapp/index.html`.
+After that there is a Tomcat listening on port 7777. The demo application can be accessed using `http://localhost:7777`.
