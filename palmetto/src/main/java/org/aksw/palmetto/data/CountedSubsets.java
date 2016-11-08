@@ -17,15 +17,38 @@
 package org.aksw.palmetto.data;
 
 /**
- * This class contains the segmentations and word counts for a word set.
+ * This class contains the segmentations as defined in the
+ * {@link SegmentationDefinition} class and word counts for a word set.
  * 
  * @author m.roeder
  * 
  */
 public class CountedSubsets {
 
+    /**
+     * Defines the W' of the subset pairs
+     */
     public int segments[];
+    /**
+     * Defines for every W' in {@link #segments} an array of W* subsets.
+     */
     public int conditions[][];
+    /**
+     * The counts of the single subsets.
+     * 
+     * <p>
+     * The bits of their index are the IDs of the words that are part of the
+     * subset, e.g.,
+     * <ul>
+     * <li><code>counts[0]</code> is always 0</li>
+     * <li><code>counts[1]</code> contains the count for word #1</li>
+     * <li><code>counts[2]</code> contains the count for word #2</li>
+     * <li><code>counts[3]</code> contains the count for a subset comprising
+     * word #1 and word #2</li>
+     * <li>...</li>
+     * </ul>
+     * </p>
+     */
     public int counts[];
 
     public CountedSubsets(int[] segments, int[][] conditions, int counts[]) {

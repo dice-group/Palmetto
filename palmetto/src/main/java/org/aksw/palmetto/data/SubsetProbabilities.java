@@ -24,8 +24,32 @@ package org.aksw.palmetto.data;
  */
 public class SubsetProbabilities {
 
+    /**
+     * Defines the W' of the subset pairs
+     */
     public int segments[];
+    /**
+     * Defines for every W' in {@link #segments} an array of W* subsets.
+     */
     public int conditions[][];
+    /**
+     * The marginal probabilities of the single subsets.
+     * 
+     * <p>
+     * The bits of their index are the IDs of the words that are part of the
+     * subset, e.g.,
+     * <ul>
+     * <li><code>probabilities[0]</code> is always 0</li>
+     * <li><code>probabilities[1]</code> contains the probability for word
+     * #1</li>
+     * <li><code>probabilities[2]</code> contains the probability for word
+     * #2</li>
+     * <li><code>probabilities[3]</code> contains the probability for a subset
+     * comprising word #1 and word #2</li>
+     * <li>...</li>
+     * </ul>
+     * </p>
+     */
     public double probabilities[];
 
     public SubsetProbabilities(int[] segments, int[][] conditions, double[] segmentProbabilities) {
