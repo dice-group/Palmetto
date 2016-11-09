@@ -24,12 +24,14 @@ import org.aksw.palmetto.Palmetto;
 import org.aksw.palmetto.data.SegmentationDefinition;
 import org.aksw.palmetto.prob.window.BooleanSlidingWindowFrequencyDeterminer;
 import org.apache.lucene.index.CorruptIndexException;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class LuceneCorpusAdapterForSlidingWindowsTest {
 
     private static final String TEST_INDEX_PATH = "src/test/resources/test_bd";
 
+    @Ignore
     @Test
     public void test() throws CorruptIndexException, IOException {
         WindowSupportingLuceneCorpusAdapter corpusAdapter = WindowSupportingLuceneCorpusAdapter.create(
