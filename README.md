@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/AKSW/Palmetto.svg?branch=master)](https://travis-ci.org/AKSW/Palmetto)
+
 Palmetto
 ========
 <i><b>P</b>almetto is a qu<b>al</b>ity <b>me</b>asuring <b>t</b>ool for <b>to</b>pics</i>
