@@ -81,7 +81,8 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
         this.fieldName = fieldName;
     }
 
-    private void requestDocumentsWithWordAsSet(String word, IntOpenHashSet documents) {
+    @Override
+    public void getDocumentsWithWordAsSet(String word, IntOpenHashSet documents) {
         DocsEnum docs = null;
         Term term = new Term(fieldName, word);
         try {
@@ -132,7 +133,7 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
         Object values[] = (Object[]) wordDocMapping.values;
         for (int i = 0; i < wordDocMapping.allocated.length; ++i) {
             if (wordDocMapping.allocated[i]) {
-                requestDocumentsWithWordAsSet((String) keys[i], (IntOpenHashSet) values[i]);
+                getDocumentsWithWordAsSet((String) keys[i], (IntOpenHashSet) values[i]);
             }
         }
     }
@@ -143,12 +144,13 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
         Object values[] = (Object[]) wordDocMapping.values;
         for (int i = 0; i < wordDocMapping.allocated.length; ++i) {
             if (wordDocMapping.allocated[i]) {
-                requestDocumentsWithWord((String) keys[i], (IntArrayList) values[i]);
+                getDocumentsWithWord((String) keys[i], (IntArrayList) values[i]);
             }
         }
     }
 
-    private void requestDocumentsWithWord(String word, IntArrayList documents) {
+    @Override
+    public void getDocumentsWithWord(String word, IntArrayList documents) {
         DocsEnum docs = null;
         Term term = new Term(fieldName, word);
         try {

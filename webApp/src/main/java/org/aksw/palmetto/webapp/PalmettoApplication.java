@@ -16,10 +16,14 @@
  */
 package org.aksw.palmetto.webapp;
 
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import org.aksw.palmetto.Coherence;
+import org.aksw.palmetto.corpus.BooleanDocumentSupportingAdapter;
 import org.aksw.palmetto.corpus.WindowSupportingAdapter;
 import org.aksw.palmetto.webapp.config.PalmettoConfiguration;
 import org.aksw.palmetto.webapp.config.RootConfig;
@@ -30,6 +34,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.carrotsearch.hppc.IntOpenHashSet;
 
 @Controller
 public class PalmettoApplication {
@@ -114,6 +120,59 @@ public class PalmettoApplication {
     public ResponseEntity<String> umassService(@RequestParam(value = "words") String words) {
         LOGGER.info("UMass  words=\"" + words + "\".");
         return calculate(words, umassCoherence);
+    }
+
+    @RequestMapping(value = "calculate")
+    public ResponseEntity<String> calculate(@RequestParam(value = "coherence") String coherence,
+            @RequestParam(value = "words") String words) {
+        coherence = coherence.toLowerCase();
+        switch (coherence) {
+        case "ca":
+            return caService(words);
+        case "cp":
+            return cpService(words);
+        case "cv":
+            return cvService(words);
+        case "npmi":
+            return npmiService(words);
+        case "uci":
+            return uciService(words);
+        case "umass":
+            return umassService(words);
+        default:
+            return new ResponseEntity<String>("The given coherence value is not known.", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "df")
+    public ResponseEntity<byte[]> requestDocFreq(@RequestParam(value = "words") String words) {
+        if (luceneAdapter instanceof BooleanDocumentSupportingAdapter) {
+            String array[] = words.split(WORD_SEPARATOR);
+            IntOpenHashSet documentIds = new IntOpenHashSet();
+            IntBuffer buffers[] = new IntBuffer[array.length];
+            int completeLength = 0;
+            for (int j = 0; j < array.length; ++j) {
+                documentIds.clear();
+                ((BooleanDocumentSupportingAdapter) luceneAdapter).getDocumentsWithWordAsSet(array[j], documentIds);
+                completeLength += (4 * documentIds.size()) + 4;
+                buffers[j] = IntBuffer.allocate(documentIds.size());
+
+                for (int i = 0; i < documentIds.keys.length; ++i) {
+                    if (documentIds.allocated[i]) {
+                        buffers[j].put(documentIds.keys[i]);
+                    }
+                }
+            }
+            ByteBuffer response = ByteBuffer.allocate(completeLength);
+            IntBuffer intView = response.asIntBuffer();
+            for (int j = 0; j < buffers.length; ++j) {
+                intView.put(buffers[j].capacity());
+                intView.put(buffers[j].array());
+            }
+            return new ResponseEntity<byte[]>(response.array(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+        }
     }
 
     protected synchronized void postRequestHandling() {

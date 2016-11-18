@@ -44,6 +44,11 @@ public abstract class AbstractBooleanDocumentSupportingAdapterBasedTest implemen
     }
 
     @Override
+    public void getDocumentsWithWordAsSet(String word, IntOpenHashSet documents) {
+        documents.add(wordDocuments[Integer.parseInt(word)]);
+    }
+
+    @Override
     public void getDocumentsWithWords(ObjectObjectOpenHashMap<String, IntArrayList> wordDocMapping) {
         Object keys[] = (Object[]) wordDocMapping.keys;
         Object values[] = (Object[]) wordDocMapping.values;
@@ -52,6 +57,11 @@ public abstract class AbstractBooleanDocumentSupportingAdapterBasedTest implemen
                 ((IntArrayList) values[i]).add(wordDocuments[Integer.parseInt((String) keys[i])]);
             }
         }
+    }
+
+    @Override
+    public void getDocumentsWithWord(String word, IntArrayList documents) {
+        documents.add(wordDocuments[Integer.parseInt(word)]);
     }
 
     @Override

@@ -21,8 +21,9 @@ import com.carrotsearch.hppc.IntOpenHashSet;
 import com.carrotsearch.hppc.ObjectObjectOpenHashMap;
 
 /**
- * This is an interface for an adapter that makes boolean document word counts available. Note that this interface is
- * used for boolean paragraph and boolean sentence probability estimation methods, too, since the difference between
+ * This is an interface for an adapter that makes boolean document word counts
+ * available. Note that this interface is used for boolean paragraph and boolean
+ * sentence probability estimation methods, too, since the difference between
  * these methods relies in the preprocessing of the corpus.
  * 
  * @author m.roeder
@@ -31,20 +32,48 @@ import com.carrotsearch.hppc.ObjectObjectOpenHashMap;
 public interface BooleanDocumentSupportingAdapter extends CorpusAdapter {
 
     /**
-     * Determines the documents containing the words used as key in the given map. The resulting sets contain the ids of
-     * the documents and are inserted into the map.
+     * Determines the documents containing the words used as key in the given
+     * map. The resulting sets contain the ids of the documents and are inserted
+     * into the map.
      * 
-     * @param wordDocMapping a mapping of words to documents in which the results are stored
+     * @param wordDocMapping
+     *            a mapping of words to documents in which the results are
+     *            stored
      */
     public void getDocumentsWithWordsAsSet(ObjectObjectOpenHashMap<String, IntOpenHashSet> wordDocMapping);
 
     /**
-     * Determines the documents containing the words used as key in the given map. The resulting int arrays contain the
-     * ids of the documents and are inserted into the map.
+     * Determines the documents containing the given word. The ids of the found
+     * documents are inserted into the given set.
      * 
-     * @param wordDocMapping a mapping of words to documents in which the results are stored
+     * @param word
+     *            the word which should be searched
+     * @param documents
+     *            the set in which the document ids will be stored
+     */
+    public void getDocumentsWithWordAsSet(String word, IntOpenHashSet documents);
+
+    /**
+     * Determines the documents containing the words used as key in the given
+     * map. The resulting int arrays contain the ids of the documents and are
+     * inserted into the map.
+     * 
+     * @param wordDocMapping
+     *            a mapping of words to documents in which the results are
+     *            stored
      */
     public void getDocumentsWithWords(ObjectObjectOpenHashMap<String, IntArrayList> wordDocMapping);
+
+    /**
+     * Determines the documents containing the given word. The ids of the found
+     * documents are appended into the given list.
+     * 
+     * @param word
+     *            the word which should be searched
+     * @param documents
+     *            the list to the document ids will be added
+     */
+    public void getDocumentsWithWord(String word, IntArrayList documents);
 
     /**
      * Returns the number of documents the corpus contains.
