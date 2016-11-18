@@ -36,7 +36,6 @@ public class CountedSubsets {
     /**
      * The counts of the single subsets.
      * 
-     * <p>
      * The bits of their index are the IDs of the words that are part of the
      * subset, e.g.,
      * <ul>
@@ -47,7 +46,6 @@ public class CountedSubsets {
      * word #1 and word #2</li>
      * <li>...</li>
      * </ul>
-     * </p>
      */
     public int counts[];
 
