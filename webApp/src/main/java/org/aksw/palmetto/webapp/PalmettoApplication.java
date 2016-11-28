@@ -156,10 +156,11 @@ public class PalmettoApplication {
                 ((BooleanDocumentSupportingAdapter) luceneAdapter).getDocumentsWithWordAsSet(array[j], documentIds);
                 completeLength += (4 * documentIds.size()) + 4;
                 buffers[j] = IntBuffer.allocate(documentIds.size());
-
-                for (int i = 0; i < documentIds.keys.length; ++i) {
-                    if (documentIds.allocated[i]) {
-                        buffers[j].put(documentIds.keys[i]);
+                if (documentIds.size() > 0) {
+                    for (int i = 0; i < documentIds.keys.length; ++i) {
+                        if (documentIds.allocated[i]) {
+                            buffers[j].put(documentIds.keys[i]);
+                        }
                     }
                 }
             }

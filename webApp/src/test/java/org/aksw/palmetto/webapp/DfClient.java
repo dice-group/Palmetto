@@ -44,6 +44,16 @@ public class DfClient {
     }
 
     @Test
+    public void testUnderscore() throws Exception {
+        ResponseEntity<byte[]> response = controller.requestDocFreq("dog_");
+        ByteBuffer buffer = ByteBuffer.wrap(response.getBody());
+
+        int length = buffer.getInt();
+        Assert.assertEquals(0, length);
+        Assert.assertEquals(0, buffer.remaining());
+    }
+
+    @Test
     public void testFail() throws Exception {
         ResponseEntity<byte[]> response = controller.requestDocFreq("unknownword123");
         ByteBuffer buffer = ByteBuffer.wrap(response.getBody());
