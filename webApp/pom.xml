@@ -21,7 +21,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.aksw</groupId>
     <artifactId>palmetto-webapp</artifactId>
-    <version>0.1.1</version>
+    <version>0.1.2-SNAPSHOT</version>
     <name>Palmetto Web Application</name>
     <description>Palmetto is a quality measure tool for topics.</description>
     <packaging>war</packaging>
@@ -69,7 +69,7 @@
 		<dependency>
 			<groupId>org.aksw</groupId>
 			<artifactId>palmetto</artifactId>
-			<version>0.1.1</version>
+			<version>0.1.2-SNAPSHOT</version>
 		</dependency>
 		<!-- SPRING -->
 		<dependency>
@@ -80,6 +80,11 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
         <!-- Apache Configuration -->

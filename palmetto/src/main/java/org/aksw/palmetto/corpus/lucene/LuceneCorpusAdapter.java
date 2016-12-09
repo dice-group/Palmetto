@@ -83,26 +83,6 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
 		this.fieldName = fieldName;
 	}
 
-	private void requestDocumentsWithWordAsSet(String word, IntOpenHashSet documents) {
-		PostingsEnum docs = null;
-		Term term = new Term(fieldName, word);
-		try {
-			int baseDocId;
-			for (int i = 0; i < reader.length; i++) {
-				LeafReader theLeafReader = (LeafReader) reader[i];
-				docs = theLeafReader.postings(term);
-				baseDocId = ((LeafReaderContext) (contexts[i])).docBase;
-				if (docs != null) {
-					while (docs.nextDoc() != PostingsEnum.NO_MORE_DOCS) {
-						documents.add(baseDocId + docs.docID());
-					}
-				}
-			}
-		} catch (IOException e) {
-			LOGGER.error("Error while requesting documents for word \"" + word + "\".", e);
-		}
-	}
-
 	/**
 	 * Closes the Lucene index.
 	 */
@@ -130,15 +110,37 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
 		return dirReader.numDocs();
 	}
 
+    @Override
 	public void getDocumentsWithWordsAsSet(ObjectObjectOpenHashMap<String, IntOpenHashSet> wordDocMapping) {
 		Object keys[] = (Object[]) wordDocMapping.keys;
 		Object values[] = (Object[]) wordDocMapping.values;
 		for (int i = 0; i < wordDocMapping.allocated.length; ++i) {
 			if (wordDocMapping.allocated[i]) {
-				requestDocumentsWithWordAsSet((String) keys[i], (IntOpenHashSet) values[i]);
+			    getDocumentsWithWordAsSet((String) keys[i], (IntOpenHashSet) values[i]);
 			}
 		}
 	}
+
+    @Override
+    public void getDocumentsWithWordAsSet(String word, IntOpenHashSet documents) {
+        PostingsEnum docs = null;
+        Term term = new Term(fieldName, word);
+        try {
+            int baseDocId;
+            for (int i = 0; i < reader.length; i++) {
+                LeafReader theLeafReader = (LeafReader) reader[i];
+                docs = theLeafReader.postings(term);
+                baseDocId = ((LeafReaderContext) (contexts[i])).docBase;
+                if (docs != null) {
+                    while (docs.nextDoc() != PostingsEnum.NO_MORE_DOCS) {
+                        documents.add(baseDocId + docs.docID());
+                    }
+                }
+            }
+        } catch (IOException e) {
+            LOGGER.error("Error while requesting documents for word \"" + word + "\".", e);
+        }
+    }
 
 	@Override
 	public void getDocumentsWithWords(ObjectObjectOpenHashMap<String, IntArrayList> wordDocMapping) {
@@ -146,12 +148,13 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
 		Object values[] = (Object[]) wordDocMapping.values;
 		for (int i = 0; i < wordDocMapping.allocated.length; ++i) {
 			if (wordDocMapping.allocated[i]) {
-				requestDocumentsWithWord((String) keys[i], (IntArrayList) values[i]);
+			    getDocumentsWithWord((String) keys[i], (IntArrayList) values[i]);
 			}
 		}
 	}
 
-	private void requestDocumentsWithWord(String word, IntArrayList documents) {
+    @Override
+    public void getDocumentsWithWord(String word, IntArrayList documents) {
 		PostingsEnum docs = null;
 		Term term = new Term(fieldName, word);
 		try {
@@ -170,4 +173,5 @@ public class LuceneCorpusAdapter implements BooleanDocumentSupportingAdapter {
 			LOGGER.error("Error while requesting documents for word \"" + word + "\".", e);
 		}
 	}
+
 }

@@ -35,7 +35,6 @@ public class SubsetProbabilities {
     /**
      * The marginal probabilities of the single subsets.
      * 
-     * <p>
      * The bits of their index are the IDs of the words that are part of the
      * subset, e.g.,
      * <ul>
@@ -48,7 +47,6 @@ public class SubsetProbabilities {
      * comprising word #1 and word #2</li>
      * <li>...</li>
      * </ul>
-     * </p>
      */
     public double probabilities[];
 

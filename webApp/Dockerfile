@@ -3,7 +3,7 @@ FROM tomcat:8.0.36-jre8
 RUN apt-get update && \
         apt-get install -y maven openjdk-8-jdk
 
-RUN wget -O tmp.zip http://139.18.2.164/mroeder/palmetto/Wikipedia_bd.zip;  unzip tmp.zip -d /usr/src/indexes/; rm tmp.zip
+#RUN wget -O tmp.zip http://139.18.2.164/mroeder/palmetto/Wikipedia_bd.zip;  unzip tmp.zip -d /usr/src/indexes/; rm tmp.zip
 VOLUME /usr/src/indexes/
 
 ADD src /usr/src/palmetto/src
