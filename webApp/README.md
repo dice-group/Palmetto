@@ -4,7 +4,7 @@ Palmetto
 
 This is the implementation of a simple web service wrapping Palmetto.
 
-<span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Palmetto</span> from <a xmlns:cc="http://creativecommons.org/ns#" href="http://aksw.org" property="cc:attributionName" rel="cc:attributionURL">AKSW</a> is licensed under a <a rel="license" href="http://www.gnu.org/licenses/lgpl-3.0.txt">LGPL v3.0 License</a> for non-commercial software. For the commercial usage, take a look at the LICENSE file.
+<span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Palmetto</span> from <a xmlns:cc="http://creativecommons.org/ns#" href="http://cs.uni-paderborn.de/ds/" property="cc:attributionName" rel="cc:attributionURL">DICE</a> is licensed under a <a rel="license" href="https://www.gnu.org/licenses/agpl.txt">AGPL v3.0 License</a>.
 
 ### Docker
 

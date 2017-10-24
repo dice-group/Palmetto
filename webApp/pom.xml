@@ -1,19 +1,20 @@
 <!--
 
-    This file is part of Palmetto Web Application.
+    Palmetto Web Application - Palmetto is a quality measure tool for topics.
+    Copyright © 2014 Data Science Group (DICE) (michael.roeder@uni-paderborn.de)
 
-    Palmetto Web Application is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as published by
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Affero General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Palmetto Web Application is distributed in the hope that it will be useful,
+    This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
+    GNU Affero General Public License for more details.
 
-    You should have received a copy of the GNU Lesser General Public License
-    along with Palmetto Web Application.  If not, see <http://www.gnu.org/licenses/>.
+    You should have received a copy of the GNU Affero General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -25,6 +26,7 @@
     <name>Palmetto Web Application</name>
     <description>Palmetto is a quality measure tool for topics.</description>
     <packaging>war</packaging>
+    <inceptionYear>2014</inceptionYear>
 
     <!-- PROPERTIES -->
     <properties>
@@ -32,7 +34,6 @@
         <slf4j-version>1.7.5</slf4j-version>
         <lucene-version>4.4.0</lucene-version>
 		<spring.version>3.2.17.RELEASE</spring.version>
-        <project.inceptionYear>2014</project.inceptionYear>
     </properties>
 
 	<!-- DEVELOPERS -->
@@ -40,7 +41,7 @@
 		<developer>
 			<id>m.roeder</id>
 			<name>Michael Röder</name>
-			<email>roeder@informatik.uni-leipzig.de</email>
+			<email>michael.roeder@uni-paderborn.de</email>
 		</developer>
 	</developers>
 
@@ -176,12 +177,12 @@
 			<plugin>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>
-				<version>2.11</version>
+				<version>3.0</version>
 				<configuration>
-					<header>com/mycila/maven/plugin/license/templates/LGPL-3.txt</header>
+					<header>com/mycila/maven/plugin/license/templates/AGPL-3.txt</header>
 					<properties>
-						<owner>Agile Knowledge Engineering and Semantic Web (AKSW)
-							(roeder@informatik.uni-leipzig.de)</owner>
+						<owner>Data Science Group (DICE)</owner>
+						<email>michael.roeder@uni-paderborn.de</email>
 					</properties>
 					<excludes>
 						<exclude>**/README</exclude>
