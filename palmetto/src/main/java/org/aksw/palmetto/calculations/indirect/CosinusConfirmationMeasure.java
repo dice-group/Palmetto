@@ -35,11 +35,7 @@ public class CosinusConfirmationMeasure extends AbstractVectorBasedCalculation {
         if ((length1 > 0) && (length2 > 0)) {
             return sum / (Math.sqrt(length1) * Math.sqrt(length2));
         } else {
-            if ((length1 == 0) && (length2 == 0)) {
-                return 1;
-            } else {
-                return 0;
-            }
+            return 0;
         }
     }
 
