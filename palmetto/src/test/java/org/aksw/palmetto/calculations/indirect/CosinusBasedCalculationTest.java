@@ -66,10 +66,8 @@ public class CosinusBasedCalculationTest extends AbstractVectorBasedCalculationT
                  * vector2 0 0 0
                  * 
                  * cos=0/(sqrt(0)*sqrt(0))=0
-                 * 
-                 * but we define this as 1, because vector1 == vector2
                  */
-                { new double[] { 0, 0, 0 }, new double[] { 0, 0, 0 }, 1.0 },
+                { new double[] { 0, 0, 0 }, new double[] { 0, 0, 0 }, 0 },
                 /*
                  * vector1 2/3 1/3 1/3
                  * 
