@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dice-group/Palmetto.svg?branch=master)](https://travis-ci.org/dice-group/Palmetto)
+[![Build Status](https://travis-ci.org/dice-group/Palmetto.svg?branch=master)](https://travis-ci.org/dice-group/Palmetto) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e692cb15385f4529803d35d1267c63bc)](https://www.codacy.com/app/MichaelRoeder/Palmetto?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dice-group/Palmetto&amp;utm_campaign=Badge_Grade)
 
 Palmetto
 ========
