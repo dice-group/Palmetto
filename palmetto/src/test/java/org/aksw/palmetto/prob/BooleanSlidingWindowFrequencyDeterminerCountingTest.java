@@ -176,5 +176,6 @@ public class BooleanSlidingWindowFrequencyDeterminerCountingTest implements Wind
     
     @Override
     public void close() {
+        // nothing to do
     }
 }

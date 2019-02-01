@@ -131,5 +131,6 @@ public class BooleanSlidingWindowProbabilitySupplierTest implements WindowSuppor
     
     @Override
     public void close() {
+        // nothing to do
     }
 }

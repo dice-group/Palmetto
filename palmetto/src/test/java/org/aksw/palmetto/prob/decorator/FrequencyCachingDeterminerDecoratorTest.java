@@ -62,18 +62,20 @@ public class FrequencyCachingDeterminerDecoratorTest implements FrequencyDetermi
         String words[];
         int counts[];
         rand = new Random(System.currentTimeMillis());
+        WordSet ws;
         for (int i = 0; i < NUMBER_OF_TEST_INSTANCES; ++i) {
             words = new String[rand.nextInt(10) + 1];
             for (int j = 0; j < words.length; ++j) {
                 words[j] = Integer.toString(rand.nextInt());
             }
             Arrays.sort(words);
-            if (!values.containsKey(words)) {
+            ws = new WordSet(words);
+            if (!values.containsKey(ws)) {
                 counts = new int[words.length];
                 for (int j = 0; j < counts.length; ++j) {
                     counts[j] = rand.nextInt();
                 }
-                values.put(new WordSet(words), counts);
+                values.put(ws, counts);
                 notRequested.put(new WordSet(words.clone()), counts);
             }
         }

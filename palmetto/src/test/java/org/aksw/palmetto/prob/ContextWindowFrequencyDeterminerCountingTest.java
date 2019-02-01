@@ -131,5 +131,6 @@ public class ContextWindowFrequencyDeterminerCountingTest implements WindowSuppo
 
     @Override
     public void close() {
+        // nothing to do
     }
 }

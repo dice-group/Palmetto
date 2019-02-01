@@ -72,5 +72,6 @@ public abstract class AbstractBooleanDocumentSupportingAdapterBasedTest implemen
 
     @Override
     public void close() {
+        // nothing to do
     }
 }

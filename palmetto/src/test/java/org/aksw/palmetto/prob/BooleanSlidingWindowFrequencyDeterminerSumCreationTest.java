@@ -79,5 +79,6 @@ public class BooleanSlidingWindowFrequencyDeterminerSumCreationTest implements W
     
     @Override
     public void close() {
+        // nothing to do
     }
 }
