@@ -6,10 +6,10 @@ RUN apt-get update && \
 RUN wget -O tmp.zip http://139.18.2.164/mroeder/palmetto/Wikipedia_bd.zip;  unzip tmp.zip -d /usr/src/indexes/; rm tmp.zip
 VOLUME /usr/src/indexes/
 
-ADD src /usr/src/palmetto/src
-ADD LICENSE /usr/src/palmetto/LICENSE
-ADD pom.xml /usr/src/palmetto/pom.xml
-ADD README.md /usr/src/palmetto/README.md
+COPY src /usr/src/palmetto/src
+COPY LICENSE /usr/src/palmetto/LICENSE
+COPY pom.xml /usr/src/palmetto/pom.xml
+COPY README.md /usr/src/palmetto/README.md
 WORKDIR /usr/src/palmetto
 
 RUN mvn clean package
