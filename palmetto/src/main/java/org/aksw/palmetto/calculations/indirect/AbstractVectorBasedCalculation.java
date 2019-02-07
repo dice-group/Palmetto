@@ -35,7 +35,8 @@ public abstract class AbstractVectorBasedCalculation implements VectorBasedConfi
         for (int i = 0; i < subsetVectors.vectors.length; ++i) {
             vectorCache.put(1 << i, subsetVectors.vectors[i]);
         }
-        double segmentVector[], conditionVector[];
+        double segmentVector[],
+                conditionVector[];
         pos = 0;
         for (int i = 0; i < subsetVectors.segments.length; ++i) {
             if (vectorCache.containsKey(subsetVectors.segments[i])) {

@@ -34,6 +34,9 @@ import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 @RunWith(Parameterized.class)
 public class BooleanSlidingWindowFrequencyDeterminerSumCreationTest implements WindowSupportingAdapter {
+    private int[][] histogram;
+    private int windowSize;
+    private long expectedSums[];
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -48,10 +51,6 @@ public class BooleanSlidingWindowFrequencyDeterminerSumCreationTest implements W
                         // lets use higher counts
                         { new int[][] { { 2, 9 }, { 3, 1 }, { 7, 3 } }, 4, new long[] { 22, 22, 22, 22 } } });
     }
-
-    private int[][] histogram;
-    private int windowSize;
-    private long expectedSums[];
 
     public BooleanSlidingWindowFrequencyDeterminerSumCreationTest(int[][] histogram, int windowSize, long[] expectedSums) {
         this.histogram = histogram;

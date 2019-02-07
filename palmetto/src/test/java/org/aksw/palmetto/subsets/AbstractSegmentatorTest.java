@@ -37,7 +37,8 @@ public abstract class AbstractSegmentatorTest {
 
         SegmentationDefinition definition = subsetCreator.getSubsetDefinition(wordsetSize);
 
-        compare(definition, segmentToConditionMapping, neededCounts);
+//        compare(definition, segmentToConditionMapping, neededCounts);
+        compare(definition, segmentToConditionMapping);
     }
 
     private void createSets(int[] expectedSegments, int[][] expectedConditions,
@@ -57,9 +58,11 @@ public abstract class AbstractSegmentatorTest {
         }
     }
 
-    private void compare(SegmentationDefinition definition,
+    /*private void compare(SegmentationDefinition definition,
             IntObjectOpenHashMap<IntOpenHashSet> segmentToConditionMapping,
-            BitSet neededCounts) {
+            BitSet neededCounts) {*/
+    private void compare(SegmentationDefinition definition,
+                         IntObjectOpenHashMap<IntOpenHashSet> segmentToConditionMapping) {
         IntOpenHashSet conditionSet;
 
         Assert.assertEquals(segmentToConditionMapping.size(),

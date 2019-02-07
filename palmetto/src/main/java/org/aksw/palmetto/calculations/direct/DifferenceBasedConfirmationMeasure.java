@@ -37,7 +37,8 @@ public class DifferenceBasedConfirmationMeasure implements DirectConfirmationMea
         }
         double values[] = new double[pos];
 
-        double marginalProbability, conditionalProbability;
+        double marginalProbability,
+                conditionalProbability;
         pos = 0;
         for (int i = 0; i < subsetProbabilities.segments.length; ++i) {
             marginalProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]];

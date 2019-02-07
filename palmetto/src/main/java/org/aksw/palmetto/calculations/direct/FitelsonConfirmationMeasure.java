@@ -46,7 +46,11 @@ public class FitelsonConfirmationMeasure extends AbstractUndefinedResultHandling
         }
         double values[] = new double[pos];
 
-        double segmentProbability, intersectionProbability, conditionProbability, conditionalProbability, otherCondProb;
+        double segmentProbability,
+                intersectionProbability,
+                conditionProbability,
+                conditionalProbability,
+                otherCondProb;
         pos = 0;
         for (int i = 0; i < subsetProbabilities.segments.length; ++i) {
             segmentProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]];

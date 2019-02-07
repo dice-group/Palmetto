@@ -75,7 +75,11 @@ public abstract class AbstractAnyBasedSegmentator implements Segmentator {
         // create all combinations of condition including the one which contains
         // all
         int conditions[] = new int[(1 << card) - 1];
-        int bit = 1, count = 0, pos, pos2, j;
+        int bit = 1,
+            count = 0,
+            pos,
+            pos2,
+            j;
         while (count < card) {
             if ((bit & condition) > 0) {
                 pos = (1 << count) - 1;
@@ -100,7 +104,9 @@ public abstract class AbstractAnyBasedSegmentator implements Segmentator {
         int numberOfConditions = getNumberOfCombinations(wordsAvailable, maxConditionSize);
         // create all combinations of condition which have less or equal the number of maximum words
         int conditions[] = new int[numberOfConditions];
-        int bit = 1, pos = 0, pos2, j;
+        int bit = 1,
+            pos = 0,
+            pos2, j;
         while (bit <= condition) {
             if ((bit & condition) > 0) {
                 conditions[pos] = bit;

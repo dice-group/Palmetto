@@ -70,7 +70,8 @@ public class BooleanSlidingWindowFrequencyDeterminer implements WindowBasedFrequ
             return;
         }
         int posInList[] = new int[positions.length + 1];
-        int nextWordId = 0, nextWordPos = Integer.MAX_VALUE;
+        int nextWordId = 0,
+            nextWordPos = Integer.MAX_VALUE;
         int wordCount = 0;
         // determine the first token which we should look at
         for (int i = 0; i < positions.length; ++i) {
@@ -88,7 +89,8 @@ public class BooleanSlidingWindowFrequencyDeterminer implements WindowBasedFrequ
         IntArrayList wordPositionsInWindow = new IntArrayList(wordCount < windowSize ? wordCount : windowSize);
         int romaveableWordsPosId = posInList.length - 1;
         int windowWords = 0;
-        int lastWordPos, wordEndPos;
+        int lastWordPos,
+            wordEndPos;
         boolean countingEnabled = false;
         while (nextWordPos < docLength) {
             // create (or udpate) a signature containing a 1 for every word type inside this window

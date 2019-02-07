@@ -35,6 +35,11 @@ import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 @RunWith(Parameterized.class)
 public class BooleanSlidingWindowFrequencyDeterminerCountingTest implements WindowSupportingAdapter {
+    private int histogram[][];
+    private int docLength;
+    private int positions[][];
+    private int windowSize;
+    private int expectedCounts[];
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -119,12 +124,6 @@ public class BooleanSlidingWindowFrequencyDeterminerCountingTest implements Wind
 
                 });
     }
-
-    private int histogram[][];
-    private int docLength;
-    private int positions[][];
-    private int windowSize;
-    private int expectedCounts[];
 
     public BooleanSlidingWindowFrequencyDeterminerCountingTest(int docLength, int[][] positions, int windowSize,
             int expectedCounts[]) {

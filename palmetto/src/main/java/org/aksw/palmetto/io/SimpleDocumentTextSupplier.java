@@ -25,6 +25,7 @@ import org.slf4j.LoggerFactory;
 
 @Deprecated
 public class SimpleDocumentTextSupplier implements DocumentTextSupplier {
+    private Scanner scanner;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SimpleDocumentTextSupplier.class);
 
@@ -39,8 +40,6 @@ public class SimpleDocumentTextSupplier implements DocumentTextSupplier {
         }
         return supplier;
     }
-
-    private Scanner scanner;
 
     private SimpleDocumentTextSupplier(Scanner scanner) {
         this.scanner = scanner;

@@ -35,6 +35,11 @@ import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 @RunWith(Parameterized.class)
 public class ContextWindowFrequencyDeterminerCountingTest implements WindowSupportingAdapter {
+    private int histogram[][];
+    private int docLength;
+    private int positions[][];
+    private int windowSize;
+    private int expectedCounts[];
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -74,12 +79,6 @@ public class ContextWindowFrequencyDeterminerCountingTest implements WindowSuppo
 
                 });
     }
-
-    private int histogram[][];
-    private int docLength;
-    private int positions[][];
-    private int windowSize;
-    private int expectedCounts[];
 
     public ContextWindowFrequencyDeterminerCountingTest(int docLength, int[][] positions, int windowSize,
             int expectedCounts[]) {

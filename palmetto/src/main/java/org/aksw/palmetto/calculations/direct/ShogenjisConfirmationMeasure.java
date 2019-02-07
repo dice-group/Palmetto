@@ -43,7 +43,8 @@ public class ShogenjisConfirmationMeasure extends AbstractUndefinedResultHandlin
         }
         double values[] = new double[numberOfPairs];
 
-        double conditionProbability, intersectionProbability;
+        double conditionProbability,
+                intersectionProbability;
         int pos = 0;
         for (int i = 0; i < subsetProbabilities.segments.length; ++i) {
             // if (subsetProbabilities.probabilities[subsetProbabilities.segments[i]] > 0) {

@@ -30,6 +30,9 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class VectorCreationTest {
+    private double vectors[][];
+    private int vectorId;
+    private double expectedVector[];
 
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
@@ -44,10 +47,6 @@ public class VectorCreationTest {
                 { new double[][] { { 1, 0, -1 }, { 1, 2, 3 }, { 1, 1, 1 } }, 6, new double[] { 2, 3, 4 } },
                 { new double[][] { { 1, 0, -1 }, { 1, 2, 3 }, { 1, 1, 1 } }, 7, new double[] { 3, 3, 3 } } });
     }
-
-    private double vectors[][];
-    private int vectorId;
-    private double expectedVector[];
 
     public VectorCreationTest(double[][] vectors, int vectorId, double[] expectedVector) {
         this.vectors = vectors;

@@ -65,8 +65,10 @@ public class ContextWindowFrequencyDeterminer implements WindowBasedFrequencyDet
 
     private void addCountsFromDocument(IntArrayList[] positions, int[] counts, int docLength) {
         int posInList[] = new int[positions.length];
-        int nextWordId = 0, nextWordPos = Integer.MAX_VALUE;
+        int nextWordId = 0;
+        int nextWordPos = Integer.MAX_VALUE;
         int wordCount = 0;
+
         // determine the first token which we should look at
         for (int i = 0; i < positions.length; ++i) {
             if (positions[i] != null) {
@@ -97,7 +99,8 @@ public class ContextWindowFrequencyDeterminer implements WindowBasedFrequencyDet
             }
         }
 
-        int windowStartPos, windowEndPos/* , windowWordSet */; // start inclusive, end exclusive
+        int windowStartPos,
+            windowEndPos/* , windowWordSet */; // start inclusive, end exclusive
         int currentWordBit;
         for (int i = 0; i < wordIds.length; ++i) {
             windowStartPos = i;

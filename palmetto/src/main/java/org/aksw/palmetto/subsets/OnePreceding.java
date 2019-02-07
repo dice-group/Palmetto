@@ -31,7 +31,8 @@ public class OnePreceding implements Segmentator {
          */
         int conditions[][] = new int[wordsetSize][];
         int segments[] = new int[wordsetSize];
-        int bit = 1, pos = 0;
+        int bit = 1,
+            pos = 0;
         int mask = (1 << wordsetSize) - 1;
         BitSet neededCounts = new BitSet(1 << wordsetSize);
         while (bit < mask) {

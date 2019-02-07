@@ -71,7 +71,9 @@ public class DfClient {
         ResponseEntity<byte[]> response = controller.requestDocFreq("dog foundation_year cat");
         ByteBuffer buffer = ByteBuffer.wrap(response.getBody());
 
-        int length, docId;
+        int length,
+            docId;
+
         length = buffer.getInt();
         Assert.assertTrue(length > 0);
         Assert.assertTrue(length <= buffer.remaining());

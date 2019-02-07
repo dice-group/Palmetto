@@ -26,7 +26,9 @@ public class CosinusConfirmationMeasure extends AbstractVectorBasedCalculation {
 
     @Override
     protected double calculateSimilarity(double[] vector1, double[] vector2) {
-        double length1 = 0, length2 = 0, sum = 0;
+        double length1 = 0,
+                length2 = 0,
+                sum = 0;
         for (int i = 0; i < vector1.length; ++i) {
             sum += vector1[i] * vector2[i];
             length1 += Math.pow(vector1[i], 2);

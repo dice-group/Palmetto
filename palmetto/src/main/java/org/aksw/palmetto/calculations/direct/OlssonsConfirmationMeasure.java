@@ -43,7 +43,8 @@ public class OlssonsConfirmationMeasure extends AbstractUndefinedResultHandlingC
         }
         double values[] = new double[pos];
 
-        double intersectionProbability, jointProbability;
+        double intersectionProbability,
+                jointProbability;
         pos = 0;
         for (int i = 0; i < subsetProbabilities.segments.length; ++i) {
             for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {

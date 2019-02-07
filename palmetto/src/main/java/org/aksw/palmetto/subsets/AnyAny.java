@@ -59,7 +59,8 @@ public class AnyAny extends AbstractAnyBasedSegmentator {
         int maxSegmentSize = maxSubSetUnionSize > maxSingleSubSetSize ? maxSingleSubSetSize
                 : (maxSubSetUnionSize - 1);
         int mask = (1 << wordsetSize) - 1;
-        int posInResult = 0, segmentBitCount;
+        int posInResult = 0,
+            segmentBitCount;
         int segments[] = new int[getNumberOfCombinations(wordsetSize, maxSegmentSize)];
         int conditions[][] = new int[segments.length][];
         // Go through all possible probabilities

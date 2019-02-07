@@ -66,8 +66,7 @@ public class PearsonsSampleCorrelationCoefficient implements RankCorrelationCalc
             return 0;
         }
         // Covar. / (sqrt(varianceX) + sqrt(varianceY))
-        double corr = variances[2] / (Math.sqrt(variances[0]) * Math.sqrt(variances[1]));
-        return corr;
+        return variances[2] / (Math.sqrt(variances[0]) * Math.sqrt(variances[1]));
     }
 
     /**

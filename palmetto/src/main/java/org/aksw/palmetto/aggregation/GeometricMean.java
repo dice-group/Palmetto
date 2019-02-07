@@ -44,7 +44,8 @@ public class GeometricMean implements Aggregation {
 
     @Override
     public double summarize(double[] values, double[] weights) {
-        double weightSum = 0, prod = 0;
+        double weightSum = 0,
+                prod = 0;
         for (int i = 0; i < values.length; ++i) {
             if (!Double.isNaN(values[i])) {
                 if (values[i] <= 0) {

@@ -40,6 +40,8 @@ import com.carrotsearch.hppc.IntIntOpenHashMap;
 import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 public class WindowSupportingLuceneCorpusAdapter extends LuceneCorpusAdapter implements WindowSupportingAdapter {
+    protected int histogram[][];
+    protected String docLengthFieldName;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WindowSupportingLuceneCorpusAdapter.class);
 
@@ -80,9 +82,6 @@ public class WindowSupportingLuceneCorpusAdapter extends LuceneCorpusAdapter imp
                 histogram);
     }
 
-    protected int histogram[][];
-    protected String docLengthFieldName;
-
     protected WindowSupportingLuceneCorpusAdapter(DirectoryReader dirReader, AtomicReader[] reader,
             AtomicReaderContext contexts[], String textFieldName, String docLengthFieldName, int histogram[][]) {
         super(dirReader, reader, contexts, textFieldName);
@@ -109,7 +108,9 @@ public class WindowSupportingLuceneCorpusAdapter extends LuceneCorpusAdapter imp
             IntIntOpenHashMap docLengths, int wordId, int numberOfWords) {
         DocsAndPositionsEnum docPosEnum = null;
         Term term = new Term(fieldName, word);
-        int localDocId, globalDocId, baseDocId;
+        int localDocId,
+                globalDocId,
+                baseDocId;
         IntArrayList positions[];
         try {
             for (int i = 0; i < reader.length; i++) {

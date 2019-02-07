@@ -40,7 +40,8 @@ public class ArithmeticMean implements Aggregation {
 
     @Override
     public double summarize(double[] values, double[] weights) {
-        double weightSum = 0, sum = 0;
+        double weightSum = 0,
+            sum = 0;
         for (int i = 0; i < values.length; ++i) {
             if (!Double.isNaN(values[i])) {
                 sum += weights[i] * values[i];

@@ -39,6 +39,10 @@ import com.carrotsearch.hppc.BitSet;
 
 @RunWith(Parameterized.class)
 public class FrequencyCachingDeterminerDecoratorTest implements FrequencyDeterminer {
+    private Map<WordSet, int[]> values = new HashMap<WordSet, int[]>();
+    private Map<WordSet, int[]> notRequested = new HashMap<WordSet, int[]>();
+    private FrequencyDeterminerDecorator cache;
+    private Random rand;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FrequencyCachingDeterminerDecoratorTest.class);
 
@@ -50,11 +54,6 @@ public class FrequencyCachingDeterminerDecoratorTest implements FrequencyDetermi
         return Arrays.asList(new Object[][] { { new SimpleFrequencyCachingDeterminerDecorator(null) },
                 { new FrequencyCachingDeterminerDecorator(null) } });
     }
-
-    private Map<WordSet, int[]> values = new HashMap<WordSet, int[]>();
-    private Map<WordSet, int[]> notRequested = new HashMap<WordSet, int[]>();
-    private FrequencyDeterminerDecorator cache;
-    private Random rand;
 
     public FrequencyCachingDeterminerDecoratorTest(FrequencyDeterminerDecorator cache) {
         this.cache = cache;
@@ -154,9 +153,7 @@ public class FrequencyCachingDeterminerDecoratorTest implements FrequencyDetermi
             WordSet other = (WordSet) obj;
             if (!getOuterType().equals(other.getOuterType()))
                 return false;
-            if (!Arrays.equals(words, other.words))
-                return false;
-            return true;
+            return Arrays.equals(words, other.words);
         }
 
         private FrequencyCachingDeterminerDecoratorTest getOuterType() {

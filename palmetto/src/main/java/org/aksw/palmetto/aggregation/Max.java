@@ -37,7 +37,9 @@ public class Max implements Aggregation {
 
     @Override
     public double summarize(double[] values, double[] weights) {
-        double value, max = Double.NEGATIVE_INFINITY;
+        double value;
+        double max = Double.NEGATIVE_INFINITY;
+
         for (int i = 0; i < values.length; ++i) {
             if (!Double.isNaN(values[i])) {
                 value = values[i] * weights[i];

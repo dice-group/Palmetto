@@ -60,7 +60,8 @@ public class Spearman implements RankCorrelationCalculator/* , Comparator<ValueP
 
     private double[] createRanks(ValuePair[] sortedPairs) {
         double ranks[] = new double[sortedPairs.length];
-        int lowestRank, highestRank = 0;
+        int lowestRank,
+            highestRank = 0;
         double rank;
         while (highestRank < sortedPairs.length) {
             lowestRank = highestRank;
