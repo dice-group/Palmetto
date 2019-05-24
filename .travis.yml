@@ -8,4 +8,5 @@ before_install:
   - wget -O ~/codacy-coverage-reporter-assembly-latest.jar "https://github.com/codacy/codacy-coverage-reporter/releases/download/4.0.5/codacy-coverage-reporter-4.0.5-assembly.jar"
 
 after_success:
+  - mvn jacoco:report
   - java -jar ~/codacy-coverage-reporter-assembly-latest.jar report -l Java -r target/site/jacoco/jacoco.xml
