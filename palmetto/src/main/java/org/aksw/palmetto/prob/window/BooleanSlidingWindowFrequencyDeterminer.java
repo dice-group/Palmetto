@@ -20,48 +20,13 @@ package org.aksw.palmetto.prob.window;
 import java.util.Arrays;
 
 import org.aksw.palmetto.corpus.WindowSupportingAdapter;
-import org.aksw.palmetto.data.CountedSubsets;
-import org.aksw.palmetto.data.SegmentationDefinition;
 
 import com.carrotsearch.hppc.IntArrayList;
-import com.carrotsearch.hppc.IntIntOpenHashMap;
-import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
-public class BooleanSlidingWindowFrequencyDeterminer implements WindowBasedFrequencyDeterminer {
-
-    protected WindowSupportingAdapter corpusAdapter;
-    protected int windowSize;
-    protected long wordSetCountSums[];
+public class BooleanSlidingWindowFrequencyDeterminer extends AbstractWindowBasedFrequencyDeterminer {
 
     public BooleanSlidingWindowFrequencyDeterminer(WindowSupportingAdapter corpusAdapter, int windowSize) {
-        this.corpusAdapter = corpusAdapter;
-        setWindowSize(windowSize);
-    }
-
-    @Override
-    public CountedSubsets[] determineCounts(String[][] wordsets, SegmentationDefinition[] definitions) {
-        CountedSubsets countedSubsets[] = new CountedSubsets[definitions.length];
-        for (int i = 0; i < definitions.length; ++i) {
-            countedSubsets[i] = new CountedSubsets(definitions[i].segments,
-                    definitions[i].conditions, determineCounts(wordsets[i]));
-        }
-        return countedSubsets;
-    }
-
-    protected int[] determineCounts(String wordset[]) {
-        int counts[] = new int[(1 << wordset.length)];
-        IntArrayList positions[];
-        IntIntOpenHashMap docLengths = new IntIntOpenHashMap();
-        IntObjectOpenHashMap<IntArrayList[]> positionsInDocs = corpusAdapter.requestWordPositionsInDocuments(wordset,
-                docLengths);
-        for (int i = 0; i < positionsInDocs.keys.length; ++i) {
-            if (positionsInDocs.allocated[i]) {
-                positions = ((IntArrayList[]) ((Object[]) positionsInDocs.values)[i]);
-                addCountsFromDocument(positions, counts, docLengths.get(positionsInDocs.keys[i]));
-            }
-        }
-        addCountsOfSubsets(counts);
-        return counts;
+        super(corpusAdapter, windowSize);
     }
 
     protected void addCountsFromDocument(IntArrayList[] positions, int[] counts, int docLength) {
@@ -169,6 +134,13 @@ public class BooleanSlidingWindowFrequencyDeterminer implements WindowBasedFrequ
         }
         ++counts[signature];
     }
+    
+    @Override
+    protected int[] determineCounts(String wordset[]) {
+      int counts[] = super.determineCounts(wordset);
+      addCountsOfSubsets(counts);
+      return counts;
+    }
 
     protected void addCountsOfSubsets(int[] counts) {
         // until now the counts contain only the windows which have exactly the matching word combination
@@ -181,17 +153,6 @@ public class BooleanSlidingWindowFrequencyDeterminer implements WindowBasedFrequ
                 }
             }
         }
-    }
-
-    @Override
-    public void setWindowSize(int windowSize) {
-        this.windowSize = windowSize;
-        determineWordSetCountSum();
-    }
-
-    @Override
-    public long[] getCooccurrenceCounts() {
-        return wordSetCountSums;
     }
 
     @Override
