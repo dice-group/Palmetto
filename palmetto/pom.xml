@@ -14,7 +14,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.aksw</groupId>
 	<artifactId>palmetto</artifactId>
-	<version>0.1.2-SNAPSHOT</version>
+	<version>0.1.2</version>
 	<name>Palmetto</name>
 	<description>Palmetto is a quality measure tool for topics.</description>
 	<packaging>jar</packaging>
@@ -124,18 +124,45 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.4.3</version>
 				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<archive>
-						<manifest>
-							<mainClass>org.aksw.palmetto.Palmetto</mainClass>
-						</manifest>
-					</archive>
+					<finalName>palmetto-exec</finalName>
+					<shadedArtifactAttached>true</shadedArtifactAttached>
+					<!-- filter all the META-INF files of other artifacts -->
+					<filters>
+						<filter>
+							<artifact>*:*</artifact>
+							<excludes>
+								<exclude>META-INF/*.SF</exclude>
+								<exclude>META-INF/*.DSA</exclude>
+								<exclude>META-INF/*.RSA</exclude>
+							</excludes>
+						</filter>
+					</filters>
+					<transformers>
+						<transformer
+							implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+							<manifestEntries>
+								<X-Compile-Source-JDK>${maven.compile.source}</X-Compile-Source-JDK>
+								<X-Compile-Target-JDK>${maven.compile.target}</X-Compile-Target-JDK>
+								<!-- Define main class -->
+								<mainClass>org.aksw.palmetto.Palmetto</mainClass>
+							</manifestEntries>
+						</transformer>
+						<transformer
+							implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+					</transformers>
 				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<!-- Javadoc plugin for generating documentation -->
 			<plugin>
