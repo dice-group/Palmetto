@@ -44,14 +44,17 @@
         ga('create', 'UA-57666565-1', 'auto');
 
         var cookieString = "cookie_status";
-        var cookieValue = $.cookie(cookieString);
 
-        if (cookieValue === "allow") {
-            window['ga-disable-UA-57666565-1'] = false;
-            ga('send', 'pageview');
-        } else {
-            window['ga-disable-UA-57666565-1'] = true;
+        function pageview() {
+            cookieValue = $.cookie(cookieString);
+            if (cookieValue === "allow") {
+                window['ga-disable-UA-57666565-1'] = false;
+                ga('send', 'pageview');
+            } else {
+                window['ga-disable-UA-57666565-1'] = true;
+            }
         }
+        pageview();
 
     </script>
 </head>
@@ -344,6 +347,7 @@
     $("#btn-cookie-allow").on("click", function() {
         $.cookie(cookieString, "allow", { expires : 365 });
         $("#cookie-modal").modal("hide");
+        pageview();
     });
 
     // JQuery plugin for creating vertical buttonset
