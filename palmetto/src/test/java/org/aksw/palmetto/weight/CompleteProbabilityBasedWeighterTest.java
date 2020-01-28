@@ -33,6 +33,10 @@ import org.junit.runners.Parameterized.Parameters;
 @Deprecated
 @RunWith(Parameterized.class)
 public class CompleteProbabilityBasedWeighterTest {
+    private Segmentator subsetCreator;
+    private int wordsetSize;
+    private double probabilities[];
+    private double expectedWeightings[];
 
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
@@ -69,11 +73,6 @@ public class CompleteProbabilityBasedWeighterTest {
                 { new OneOne(), 3, new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 },
                         new double[] { 0.75, 0.75, 0.75, 1.0, 0.75, 1.0 } } });
     }
-
-    private Segmentator subsetCreator;
-    private int wordsetSize;
-    private double probabilities[];
-    private double expectedWeightings[];
     
     public CompleteProbabilityBasedWeighterTest(Segmentator subsetCreator, int wordsetSize, double[] probabilities,
             double[] expectedWeightings) {

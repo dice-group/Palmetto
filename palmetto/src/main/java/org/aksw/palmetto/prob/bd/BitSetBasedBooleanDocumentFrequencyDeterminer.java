@@ -52,10 +52,13 @@ public class BitSetBasedBooleanDocumentFrequencyDeterminer implements BooleanDoc
 
         CountedSubsets countedSubsets[] = new CountedSubsets[definitions.length];
         for (int i = 0; i < definitions.length; ++i) {
-            countedSubsets[i] = new CountedSubsets(definitions[i].segments,
+            /*countedSubsets[i] = new CountedSubsets(definitions[i].segments,
                     definitions[i].conditions, createCounts(
                             createBitSets(wordDocMapping, wordsets[i]),
-                            definitions[i].neededCounts));
+                            definitions[i].neededCounts));*/
+            countedSubsets[i] = new CountedSubsets(definitions[i].segments,
+                    definitions[i].conditions, createCounts(
+                    createBitSets(wordDocMapping, wordsets[i])));
         }
         return countedSubsets;
     }
@@ -94,12 +97,14 @@ public class BitSetBasedBooleanDocumentFrequencyDeterminer implements BooleanDoc
         return bitSets;
     }
 
-    private int[] createCounts(BitSet bitsets[], BitSet neededCounts) {
+//    private int[] createCounts(BitSet bitsets[], BitSet neededCounts) {
+    private int[] createCounts(BitSet bitsets[]) {
         // TODO use the neededCounts bit set to avoid the creation of bit sets which are not needed
         // TODO Check the minimum frequency at this stage --> all BitSets with a lower cardinality can be set to null
         // and all following don't have to be created.
         BitSet[] combinations = new BitSet[(1 << bitsets.length)];
-        int pos, pos2;
+        int pos,
+            pos2;
         for (int i = 0; i < bitsets.length; ++i) {
             pos = (1 << i);
             combinations[pos] = bitsets[i];

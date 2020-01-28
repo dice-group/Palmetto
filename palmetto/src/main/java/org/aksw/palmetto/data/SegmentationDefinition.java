@@ -120,8 +120,6 @@ public class SegmentationDefinition {
                 return false;
         } else if (!neededCounts.equals(other.neededCounts))
             return false;
-        if (!Arrays.equals(segments, other.segments))
-            return false;
-        return true;
+        return Arrays.equals(segments, other.segments);
     }
 }

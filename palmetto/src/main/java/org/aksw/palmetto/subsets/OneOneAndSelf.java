@@ -39,7 +39,10 @@ public class OneOneAndSelf implements Segmentator {
          */
         int conditions[][] = new int[wordsetSize][wordsetSize];
         int segments[] = new int[wordsetSize];
-        int condBit, condPos, bit = 1, pos = 0;
+        int condBit,
+            condPos,
+            bit = 1,
+            pos = 0;
         int mask = (1 << wordsetSize) - 1;
         BitSet neededCounts = new BitSet(1 << wordsetSize);
         while (bit < mask) {

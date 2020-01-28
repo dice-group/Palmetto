@@ -27,6 +27,10 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class AnyAnyTest extends AbstractSegmentatorTest {
+    private AnyAny subsetCreator;
+    private int wordSetSize;
+    private int expectedSegments[];
+    private int expectedConditions[][];
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -54,11 +58,6 @@ public class AnyAnyTest extends AbstractSegmentatorTest {
                 { new AnyAny(2, true), 4, new int[] { 1, 2, 4, 8 }, new int[][] { { 2, 4, 8 },
                 { 1, 4, 8 }, { 1, 2, 8 }, { 1, 2, 4 } } } });
     }
-
-    private AnyAny subsetCreator;
-    private int wordSetSize;
-    private int expectedSegments[];
-    private int expectedConditions[][];
 
     public AnyAnyTest(AnyAny subsetCreator, int wordSetSize, int[] expectedSegments, int[][] expectedConditions) {
         this.subsetCreator = subsetCreator;

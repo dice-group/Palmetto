@@ -36,6 +36,12 @@ import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
 @RunWith(Parameterized.class)
 public class BooleanSlidingWindowProbabilitySupplierTest implements WindowSupportingAdapter {
+    private int histogram[][];
+    private int docLength;
+    private int positions[][];
+    private int windowSize;
+
+    private double expectedProbabilities[];
 
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
@@ -79,12 +85,6 @@ public class BooleanSlidingWindowProbabilitySupplierTest implements WindowSuppor
                                 4,
                                 new double[] { 0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0 } } });
     }
-
-    private int histogram[][];
-    private int docLength;
-    private int positions[][];
-    private int windowSize;
-    private double expectedProbabilities[];
 
     public BooleanSlidingWindowProbabilitySupplierTest(int docLength, int[][] positions, int windowSize,
             double expectedProbabilities[]) {
@@ -131,5 +131,6 @@ public class BooleanSlidingWindowProbabilitySupplierTest implements WindowSuppor
     
     @Override
     public void close() {
+        // nothing to do
     }
 }

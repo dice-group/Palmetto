@@ -34,6 +34,8 @@ import com.carrotsearch.hppc.BitSet;
 
 @RunWith(Parameterized.class)
 public class BooleanDocumentProbabilitySupplierTest extends AbstractBooleanDocumentSupportingAdapterBasedTest {
+    private int minFrequency;
+    private double expectedProbabilities[];
 
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
@@ -83,9 +85,6 @@ public class BooleanDocumentProbabilitySupplierTest extends AbstractBooleanDocum
                 { new int[][] { { 3 }, { 1, 3 }, { 2, 3 } }, 4, 1,
                         new double[] { 0, 0.25, 0.5, 0.25, 0.5, 0.25, 0.25, 0.25 } } });
     }
-
-    private int minFrequency;
-    private double expectedProbabilities[];
 
     public BooleanDocumentProbabilitySupplierTest(int[][] wordDocuments, int numberOfDocuments, int minFrequency,
             double[] expectedProbabilities) {

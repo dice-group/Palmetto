@@ -37,7 +37,8 @@ public class Min implements Aggregation {
 
     @Override
     public double summarize(double[] values, double[] weights) {
-        double value, min = Double.POSITIVE_INFINITY;
+        double value,
+                min = Double.POSITIVE_INFINITY;
         for (int i = 0; i < values.length; ++i) {
             if (!Double.isNaN(values[i])) {
                 value = values[i] * weights[i];

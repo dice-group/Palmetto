@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dice-group/Palmetto.svg?branch=master)](https://travis-ci.org/dice-group/Palmetto)
+[![Build Status](https://travis-ci.org/dice-group/Palmetto.svg?branch=master)](https://travis-ci.org/dice-group/Palmetto) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e692cb15385f4529803d35d1267c63bc)](https://www.codacy.com/app/MichaelRoeder/Palmetto?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dice-group/Palmetto&amp;utm_campaign=Badge_Grade)
 
 Palmetto
 ========
@@ -20,11 +20,13 @@ The `webApp` directory contains a web application offering a small demo as well 
 
 ### Docker
 
-Palmetto can be used as a docker container. The container can be build and run from the `webApp` directory.
+Palmetto can be used as a docker container.
 
+[The index](https://hobbitdata.informatik.uni-leipzig.de/homes/mroeder/palmetto/Wikipedia_bd.zip) should be downloaded and extracted to some path (for example, `/path/to/indexes`).
+The container can be built and run the following way:
 ```
-docker build -t palmetto .
-docker run -p 7777:8080 -d -m 4G -v /path/to/indexes/:/usr/src/indexes/:ro palmetto`
+make build dockerize
+docker run -p 7777:8080 -d -v /path/to/indexes/:/usr/src/indexes/:ro dicegroup/palmetto-service`
 ```
 
-After that there is a Tomcat listening on port 7777. The demo application can be accessed using `http://localhost:7777/palmetto-webapp/index.html`.
+After that the demo application can be accessed using `http://localhost:7777/`.

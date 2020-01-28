@@ -24,7 +24,8 @@ import org.aksw.palmetto.data.SubsetProbabilities;
 import org.aksw.palmetto.prob.AbstractProbabilitySupplier;
 
 public class BooleanDocumentProbabilitySupplier extends AbstractProbabilitySupplier {
-
+    private int numberOfDocuments;
+    private String probModelName;
     private static final String DEFAULT_PROB_MODEL_NAME = "bd";
 
     public static BooleanDocumentProbabilitySupplier create(CorpusAdapter adapter) {
@@ -53,9 +54,6 @@ public class BooleanDocumentProbabilitySupplier extends AbstractProbabilitySuppl
         }
         return null;
     }
-
-    private int numberOfDocuments;
-    private String probModelName;
 
     protected BooleanDocumentProbabilitySupplier(BooleanDocumentFrequencyDeterminer freqDeterminer,
             String probModelName) {

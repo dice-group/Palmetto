@@ -51,7 +51,9 @@ public class LogRatioConfirmationMeasure extends AbstractUndefinedResultHandling
         }
         double values[] = new double[pos];
 
-        double segmentProbability, conditionProbability, intersectionProbability;
+        double segmentProbability,
+                conditionProbability,
+                intersectionProbability;
         pos = 0;
         for (int i = 0; i < subsetProbabilities.segments.length; ++i) {
             segmentProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]];

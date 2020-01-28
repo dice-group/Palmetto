@@ -20,53 +20,22 @@ package org.aksw.palmetto.prob.window;
 import java.util.Arrays;
 
 import org.aksw.palmetto.corpus.WindowSupportingAdapter;
-import org.aksw.palmetto.data.CountedSubsets;
-import org.aksw.palmetto.data.SegmentationDefinition;
 
 import com.carrotsearch.hppc.IntArrayList;
-import com.carrotsearch.hppc.IntIntOpenHashMap;
-import com.carrotsearch.hppc.IntObjectOpenHashMap;
 
-public class ContextWindowFrequencyDeterminer implements WindowBasedFrequencyDeterminer {
+public class ContextWindowFrequencyDeterminer extends AbstractWindowBasedFrequencyDeterminer {
 
-    private WindowSupportingAdapter corpusAdapter;
-    private int windowSize;
-    private long wordSetCountSums[];
 
     public ContextWindowFrequencyDeterminer(WindowSupportingAdapter corpusAdapter, int windowSize) {
-        this.corpusAdapter = corpusAdapter;
-        setWindowSize(windowSize);
+        super(corpusAdapter, windowSize);
     }
 
-    @Override
-    public CountedSubsets[] determineCounts(String[][] wordsets, SegmentationDefinition[] definitions) {
-        CountedSubsets countedSubsets[] = new CountedSubsets[definitions.length];
-        for (int i = 0; i < definitions.length; ++i) {
-            countedSubsets[i] = new CountedSubsets(definitions[i].segments,
-                    definitions[i].conditions, determineCounts(wordsets[i]));
-        }
-        return countedSubsets;
-    }
-
-    private int[] determineCounts(String wordset[]) {
-        int counts[] = new int[(1 << wordset.length)];
-        IntArrayList positions[];
-        IntIntOpenHashMap docLengths = new IntIntOpenHashMap();
-        IntObjectOpenHashMap<IntArrayList[]> positionsInDocs = corpusAdapter.requestWordPositionsInDocuments(wordset,
-                docLengths);
-        for (int i = 0; i < positionsInDocs.keys.length; ++i) {
-            if (positionsInDocs.allocated[i]) {
-                positions = ((IntArrayList[]) ((Object[]) positionsInDocs.values)[i]);
-                addCountsFromDocument(positions, counts, docLengths.get(positionsInDocs.keys[i]));
-            }
-        }
-        return counts;
-    }
-
-    private void addCountsFromDocument(IntArrayList[] positions, int[] counts, int docLength) {
+    protected void addCountsFromDocument(IntArrayList[] positions, int[] counts, int docLength) {
         int posInList[] = new int[positions.length];
-        int nextWordId = 0, nextWordPos = Integer.MAX_VALUE;
+        int nextWordId = 0;
+        int nextWordPos = Integer.MAX_VALUE;
         int wordCount = 0;
+
         // determine the first token which we should look at
         for (int i = 0; i < positions.length; ++i) {
             if (positions[i] != null) {
@@ -97,7 +66,8 @@ public class ContextWindowFrequencyDeterminer implements WindowBasedFrequencyDet
             }
         }
 
-        int windowStartPos, windowEndPos/* , windowWordSet */; // start inclusive, end exclusive
+        int windowStartPos,
+            windowEndPos/* , windowWordSet */; // start inclusive, end exclusive
         int currentWordBit;
         for (int i = 0; i < wordIds.length; ++i) {
             windowStartPos = i;

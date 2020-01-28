@@ -35,6 +35,10 @@ import org.junit.runners.Parameterized.Parameters;
 @Deprecated
 @RunWith(Parameterized.class)
 public class WordSetSizeBasedWeighterTest {
+    private Segmentator subsetCreator;
+    private int wordsetSize;
+    private double probabilities[];
+    private double expectedWeightings[];
 
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
@@ -103,11 +107,6 @@ public class WordSetSizeBasedWeighterTest {
                         new double[] { 1.0, 1.0, 2.0 / 3.0, 1.0, 1.0, 2.0 / 3.0, 2.0 / 3.0, 1.0, 1.0, 2.0 / 3.0,
                                 2.0 / 3.0, 2.0 / 3.0 } } });
     }
-
-    private Segmentator subsetCreator;
-    private int wordsetSize;
-    private double probabilities[];
-    private double expectedWeightings[];
 
     public WordSetSizeBasedWeighterTest(Segmentator subsetCreator, int wordsetSize, double[] probabilities,
             double[] expectedWeightings) {

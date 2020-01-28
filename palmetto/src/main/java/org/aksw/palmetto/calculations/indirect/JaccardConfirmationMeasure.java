@@ -26,7 +26,8 @@ public class JaccardConfirmationMeasure extends AbstractVectorBasedCalculation {
 
     @Override
     protected double calculateSimilarity(double[] vector1, double[] vector2) {
-        double minSum = 0, maxSum = 0;
+        double minSum = 0,
+                maxSum = 0;
         for (int i = 0; i < vector1.length; ++i) {
             if (vector1[i] < vector2[i]) {
                 minSum += vector1[i];

@@ -30,6 +30,8 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class SimpleAnalyzerTest {
+	private String text;
+	private String expectedTokens[];
 
     @Parameters
     public static Collection<Object[]> data() {
@@ -56,9 +58,6 @@ public class SimpleAnalyzerTest {
 				new String[] { "This", "text", "ends",
 					"unexpec" } } });
     }
-
-    private String text;
-    private String expectedTokens[];
 
     public SimpleAnalyzerTest(String text, String expectedTokens[]) {
 	this.text = text;

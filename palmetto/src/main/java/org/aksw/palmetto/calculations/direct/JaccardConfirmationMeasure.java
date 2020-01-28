@@ -44,7 +44,9 @@ public class JaccardConfirmationMeasure extends AbstractUndefinedResultHandlingC
         }
         double values[] = new double[pos];
 
-        double segmentProbability, intersectionProbability, joinProbability;
+        double segmentProbability,
+                intersectionProbability,
+                joinProbability;
         pos = 0;
         for (int i = 0; i < subsetProbabilities.segments.length; ++i) {
             segmentProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]];

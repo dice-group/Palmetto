@@ -39,6 +39,10 @@ import com.carrotsearch.hppc.BitSet;
 
 @RunWith(Parameterized.class)
 public class FrequencyCachingDeterminerDecoratorTest implements FrequencyDeterminer {
+    private Map<WordSet, int[]> values = new HashMap<WordSet, int[]>();
+    private Map<WordSet, int[]> notRequested = new HashMap<WordSet, int[]>();
+    private FrequencyDeterminerDecorator cache;
+    private Random rand;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FrequencyCachingDeterminerDecoratorTest.class);
 
@@ -51,29 +55,26 @@ public class FrequencyCachingDeterminerDecoratorTest implements FrequencyDetermi
                 { new FrequencyCachingDeterminerDecorator(null) } });
     }
 
-    private Map<WordSet, int[]> values = new HashMap<WordSet, int[]>();
-    private Map<WordSet, int[]> notRequested = new HashMap<WordSet, int[]>();
-    private FrequencyDeterminerDecorator cache;
-    private Random rand;
-
     public FrequencyCachingDeterminerDecoratorTest(FrequencyDeterminerDecorator cache) {
         this.cache = cache;
         cache.setDeterminer(this);
         String words[];
         int counts[];
         rand = new Random(System.currentTimeMillis());
+        WordSet ws;
         for (int i = 0; i < NUMBER_OF_TEST_INSTANCES; ++i) {
             words = new String[rand.nextInt(10) + 1];
             for (int j = 0; j < words.length; ++j) {
                 words[j] = Integer.toString(rand.nextInt());
             }
             Arrays.sort(words);
-            if (!values.containsKey(words)) {
+            ws = new WordSet(words);
+            if (!values.containsKey(ws)) {
                 counts = new int[words.length];
                 for (int j = 0; j < counts.length; ++j) {
                     counts[j] = rand.nextInt();
                 }
-                values.put(new WordSet(words), counts);
+                values.put(ws, counts);
                 notRequested.put(new WordSet(words.clone()), counts);
             }
         }
@@ -152,9 +153,7 @@ public class FrequencyCachingDeterminerDecoratorTest implements FrequencyDetermi
             WordSet other = (WordSet) obj;
             if (!getOuterType().equals(other.getOuterType()))
                 return false;
-            if (!Arrays.equals(words, other.words))
-                return false;
-            return true;
+            return Arrays.equals(words, other.words);
         }
 
         private FrequencyCachingDeterminerDecoratorTest getOuterType() {

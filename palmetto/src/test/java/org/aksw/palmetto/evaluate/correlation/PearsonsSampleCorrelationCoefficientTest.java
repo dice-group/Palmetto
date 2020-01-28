@@ -28,7 +28,9 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class PearsonsSampleCorrelationCoefficientTest {
-
+    private double x[];
+    private double y[];
+    private double expectedCorrelation;
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
     @Parameters
@@ -68,10 +70,6 @@ public class PearsonsSampleCorrelationCoefficientTest {
                                 2.5, 1.6, 1.9, 1.90909090909, 1.72727272727, 1.1, 2.5, 1.6, 2.2 }, 0.5294885471 }
         });
     }
-
-    private double x[];
-    private double y[];
-    private double expectedCorrelation;
 
     public PearsonsSampleCorrelationCoefficientTest(double[] x, double[] y, double expectedCorrelation) {
         this.x = x;

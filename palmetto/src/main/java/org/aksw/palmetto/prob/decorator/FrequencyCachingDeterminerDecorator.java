@@ -87,9 +87,8 @@ public class FrequencyCachingDeterminerDecorator extends AbstractSlidingWindowFr
             if (getClass() != obj.getClass())
                 return false;
             CachedWordSet other = (CachedWordSet) obj;
-            if (!Arrays.equals(words, other.words))
-                return false;
-            return true;
+
+            return Arrays.equals(words, other.words);
         }
     }
 }

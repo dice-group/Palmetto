@@ -28,7 +28,9 @@ import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
 public class SpearmanTest {
-
+    private double x[];
+    private double y[];
+    private double expectedCorrelation;
     private static final double DOUBLE_PRECISION_DELTA = 0.00000001;
 
     @Parameters
@@ -51,10 +53,6 @@ public class SpearmanTest {
                         new double[] { 7.0, 0.0, 27.0, 50.0, 28.0, 29.0, 20.0, 12.0, 6.0, 17.0 },
                         1.0 - (1164.0 / 990.0) } });
     }
-
-    private double x[];
-    private double y[];
-    private double expectedCorrelation;
 
     public SpearmanTest(double[] x, double[] y, double expectedCorrelation) {
         this.x = x;
