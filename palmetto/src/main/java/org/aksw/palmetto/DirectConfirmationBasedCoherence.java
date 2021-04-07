@@ -21,6 +21,7 @@ import org.aksw.palmetto.aggregation.Aggregation;
 import org.aksw.palmetto.calculations.direct.DirectConfirmationMeasure;
 import org.aksw.palmetto.data.SegmentationDefinition;
 import org.aksw.palmetto.data.SubsetProbabilities;
+import org.aksw.palmetto.io.debug.DebugPrinter;
 import org.aksw.palmetto.prob.ProbabilityEstimator;
 import org.aksw.palmetto.subsets.Segmentator;
 import org.aksw.palmetto.weight.Weighter;
@@ -58,6 +59,11 @@ public class DirectConfirmationBasedCoherence implements Coherence {
     @Deprecated
     protected Weighter weighter;
 
+    /**
+     * Printer used for printing additional debugging information.
+     */
+    protected DebugPrinter debugPrinter = null;
+
     @Deprecated
     public DirectConfirmationBasedCoherence(Segmentator segmentation, ProbabilityEstimator probEstimator,
             DirectConfirmationMeasure confirmation, Aggregation aggregation, Weighter weighter) {
@@ -76,6 +82,15 @@ public class DirectConfirmationBasedCoherence implements Coherence {
         this.aggregation = aggregation;
     }
 
+    public DirectConfirmationBasedCoherence(Segmentator segmentation, ProbabilityEstimator probEstimator,
+            DirectConfirmationMeasure confirmation, Aggregation aggregation, DebugPrinter debugPrinter) {
+        this.segmentation = segmentation;
+        this.probEstimator = probEstimator;
+        this.confirmation = confirmation;
+        this.aggregation = aggregation;
+        this.debugPrinter = debugPrinter;
+    }
+
     @Override
     public double[] calculateCoherences(String[][] wordsets) {
         // create subset definitions
@@ -86,6 +101,11 @@ public class DirectConfirmationBasedCoherence implements Coherence {
 
         // get the probabilities
         SubsetProbabilities probabilities[] = probEstimator.getProbabilities(wordsets, definitions);
+        if (debugPrinter != null) {
+            for (int i = 0; i < definitions.length; i++) {
+                debugPrinter.print(definitions[i],probabilities[i]);
+            }
+        }
         definitions = null;
 
         double coherences[] = new double[probabilities.length];

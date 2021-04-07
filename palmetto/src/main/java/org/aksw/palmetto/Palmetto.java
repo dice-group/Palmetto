@@ -17,6 +17,7 @@
  */
 package org.aksw.palmetto;
 
+import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.util.Arrays;
 
@@ -31,6 +32,8 @@ import org.aksw.palmetto.corpus.WindowSupportingAdapter;
 import org.aksw.palmetto.corpus.lucene.LuceneCorpusAdapter;
 import org.aksw.palmetto.corpus.lucene.WindowSupportingLuceneCorpusAdapter;
 import org.aksw.palmetto.io.SimpleWordSetReader;
+import org.aksw.palmetto.io.debug.CSVDebugPrinter;
+import org.aksw.palmetto.io.debug.DebugPrinter;
 import org.aksw.palmetto.prob.bd.BooleanDocumentProbabilitySupplier;
 import org.aksw.palmetto.prob.window.BooleanSlidingWindowFrequencyDeterminer;
 import org.aksw.palmetto.prob.window.ContextWindowFrequencyDeterminer;
@@ -46,7 +49,7 @@ public class Palmetto {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Palmetto.class);
 
-    private static final String USAGE = "palmetto.jar <index-directory> <coherence-name> <input-file>";
+    private static final String USAGE = "palmetto.jar <index-directory> <coherence-name> <input-file> [d]";
 
     public static final String DEFAULT_TEXT_INDEX_FIELD_NAME = "text";
     public static final String DEFAULT_DOCUMENT_LENGTH_INDEX_FIELD_NAME = "length";
@@ -59,13 +62,23 @@ public class Palmetto {
         String indexPath = args[0];
         String calcType = args[1].toLowerCase();
         String inputFile = args[2];
+        
+        DebugPrinter debugPrinter = null;
+        if((args.length > 3) && ("d".equals(args[3]))) {
+            try {
+                debugPrinter = CSVDebugPrinter.create();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return;
+            }
+        }
 
         CorpusAdapter corpusAdapter = getCorpusAdapter(calcType, indexPath);
         if (corpusAdapter == null) {
             return;
         }
 
-        Coherence coherence = getCoherence(calcType, corpusAdapter);
+        Coherence coherence = getCoherence(calcType, corpusAdapter, debugPrinter);
         if (coherence == null) {
             return;
         }
@@ -94,23 +107,23 @@ public class Palmetto {
         }
     }
 
-    public static Coherence getCoherence(String calcType, CorpusAdapter corpusAdapter) {
+    public static Coherence getCoherence(String calcType, CorpusAdapter corpusAdapter, DebugPrinter debugPrinter) {
         if ("umass".equals(calcType)) {
             return new DirectConfirmationBasedCoherence(new OnePreceding(),
                     BooleanDocumentProbabilitySupplier.create(corpusAdapter, "bd", true),
-                    new LogCondProbConfirmationMeasure(), new ArithmeticMean());
+                    new LogCondProbConfirmationMeasure(), new ArithmeticMean(), debugPrinter);
         }
 
         if ("uci".equals(calcType)) {
             return new DirectConfirmationBasedCoherence(
                     new OneOne(), getWindowBasedProbabilityEstimator(10, (WindowSupportingAdapter) corpusAdapter),
-                    new LogRatioConfirmationMeasure(), new ArithmeticMean());
+                    new LogRatioConfirmationMeasure(), new ArithmeticMean(), debugPrinter);
         }
 
         if ("npmi".equals(calcType)) {
             return new DirectConfirmationBasedCoherence(
                     new OneOne(), getWindowBasedProbabilityEstimator(10, (WindowSupportingAdapter) corpusAdapter),
-                    new NormalizedLogRatioConfirmationMeasure(), new ArithmeticMean());
+                    new NormalizedLogRatioConfirmationMeasure(), new ArithmeticMean(), debugPrinter);
         }
 
         if ("c_a".equals(calcType)) {
@@ -128,7 +141,7 @@ public class Palmetto {
             return new DirectConfirmationBasedCoherence(
                     new OnePreceding(),
                     getWindowBasedProbabilityEstimator(70, (WindowSupportingAdapter) corpusAdapter),
-                    new FitelsonConfirmationMeasure(), new ArithmeticMean());
+                    new FitelsonConfirmationMeasure(), new ArithmeticMean(), debugPrinter);
         }
 
         if ("c_v".equals(calcType)) {
