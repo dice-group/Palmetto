@@ -11,6 +11,6 @@ import org.aksw.palmetto.data.SubsetProbabilities;
  */
 public interface DebugPrinter {
 
-    void print(SegmentationDefinition segmentationDefinition, SubsetProbabilities subsetProbabilities);
+    void print(String[] wordset, SegmentationDefinition segmentationDefinition, SubsetProbabilities subsetProbabilities);
 
 }

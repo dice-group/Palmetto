@@ -103,7 +103,7 @@ public class DirectConfirmationBasedCoherence implements Coherence {
         SubsetProbabilities probabilities[] = probEstimator.getProbabilities(wordsets, definitions);
         if (debugPrinter != null) {
             for (int i = 0; i < definitions.length; i++) {
-                debugPrinter.print(definitions[i],probabilities[i]);
+                debugPrinter.print(wordsets[i],definitions[i],probabilities[i]);
             }
         }
         definitions = null;
