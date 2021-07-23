@@ -22,14 +22,17 @@ The `webApp` directory contains a web application offering a small demo as well 
 
 Palmetto can be used as a docker container.
 
-[The index](https://hobbitdata.informatik.uni-leipzig.de/homes/mroeder/palmetto/Wikipedia_bd.zip) should be downloaded and extracted to some path (for example, `/path/to/indexes`). First, the project has to be compiled. Enter the `webApp` directory and run:
+[The index](https://hobbitdata.informatik.uni-leipzig.de/homes/mroeder/palmetto/Wikipedia_bd.zip) should be downloaded and extracted to some path (for example, `/path/to/indexes`). 
+After that, the container can be run the following way:
 ```
-mvn clean package
+docker run -p 7777:8080 -d -v /path/to/indexes/:/usr/src/indexes/:ro dicegroup/palmetto-service
 ```
-After that, the container can be built and run the following way:
+After that the demo application can be accessed using `http://localhost:7777/`.
+
+#### Adapted Docker image
+
+In case the Palmetto code has been adapted locally, the Docker image can be build with the following command:
 ```
 make build dockerize
-docker run -p 7777:8080 -d -v /path/to/indexes/:/usr/src/indexes/:ro dicegroup/palmetto-service`
 ```
 
-After that the demo application can be accessed using `http://localhost:7777/`.
