@@ -1,4 +1,4 @@
-[![Maven Build](https://github.com/dice-group/Palmetto/actions/workflows/maven.yml/badge.svg)](https://github.com/dice-group/Palmetto/actions/workflows/maven.yml) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0b0a42e905454c7cacb61243c76316a0)](https://www.codacy.com/gh/dice-group/Palmetto/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dice-group/Palmetto&amp;utm_campaign=Badge_Grade)
+[![Maven Build](https://github.com/dice-group/Palmetto/actions/workflows/maven.yml/badge.svg)](https://github.com/dice-group/Palmetto/actions/workflows/maven.yml) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0b0a42e905454c7cacb61243c76316a0)](https://www.codacy.com/gh/dice-group/Palmetto/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dice-group/Palmetto&amp;utm_campaign=Badge_Grade) [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/0b0a42e905454c7cacb61243c76316a0)](https://www.codacy.com/gh/dice-group/Palmetto/dashboard?utm_source=github.com&utm_medium=referral&utm_content=dice-group/Palmetto&utm_campaign=Badge_Coverage)
 
 Palmetto
 ========
