@@ -33,7 +33,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <slf4j-version>1.7.5</slf4j-version>
         <lucene-version>4.4.0</lucene-version>
-		<spring.version>3.2.17.RELEASE</spring.version>
+	<spring.version>3.2.17.RELEASE</spring.version>
     </properties>
 
 	<!-- DEVELOPERS -->
@@ -50,12 +50,12 @@
 		<repository>
 			<id>maven.aksw.internal</id>
 			<name>University Leipzig, AKSW Maven2 Repository</name>
-			<url>http://maven.aksw.org/repository/internal</url>
+			<url>https://maven.aksw.org/repository/internal</url>
 		</repository>
 		<repository>
 			<id>maven.aksw.snapshots</id>
 			<name>University Leipzig, AKSW Maven2 Repository</name>
-			<url>http://maven.aksw.org/repository/snapshots</url>
+			<url>https://maven.aksw.org/repository/snapshots</url>
 		</repository>
 		<repository>
 			<id>Apache Repo</id>
@@ -71,6 +71,12 @@
 			<groupId>org.aksw</groupId>
 			<artifactId>palmetto</artifactId>
 			<version>0.1.2-SNAPSHOT</version>
+		</dependency>
+		<!-- javax annotations -->
+		<dependency>
+			<groupId>javax.annotation</groupId>
+			<artifactId>javax.annotation-api</artifactId>
+			<version>1.3.2</version>
 		</dependency>
 		<!-- SPRING -->
 		<dependency>
@@ -159,7 +165,12 @@
                     </execution>
                 </executions>
             </plugin>
-			<!-- License management plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+		<!-- License management plugin -->
 			<plugin>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>

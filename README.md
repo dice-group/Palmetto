@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dice-group/Palmetto.svg?branch=master)](https://travis-ci.org/dice-group/Palmetto) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e692cb15385f4529803d35d1267c63bc)](https://www.codacy.com/app/MichaelRoeder/Palmetto?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dice-group/Palmetto&amp;utm_campaign=Badge_Grade)
+[![Maven Build](https://github.com/dice-group/Palmetto/actions/workflows/maven.yml/badge.svg)](https://github.com/dice-group/Palmetto/actions/workflows/maven.yml) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0b0a42e905454c7cacb61243c76316a0)](https://www.codacy.com/gh/dice-group/Palmetto/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dice-group/Palmetto&amp;utm_campaign=Badge_Grade)
 
 Palmetto
 ========
@@ -22,11 +22,17 @@ The `webApp` directory contains a web application offering a small demo as well 
 
 Palmetto can be used as a docker container.
 
-[The index](https://hobbitdata.informatik.uni-leipzig.de/homes/mroeder/palmetto/Wikipedia_bd.zip) should be downloaded and extracted to some path (for example, `/path/to/indexes`).
-The container can be built and run the following way:
+[The index](https://hobbitdata.informatik.uni-leipzig.de/homes/mroeder/palmetto/Wikipedia_bd.zip) should be downloaded and extracted to some path (for example, `/path/to/indexes`). 
+After that, the container can be run the following way:
+```
+docker run -p 7777:8080 -d -v /path/to/indexes/:/usr/src/indexes/:ro dicegroup/palmetto-service
+```
+After that the demo application can be accessed using `http://localhost:7777/`.
+
+#### Adapted Docker image
+
+In case the Palmetto code has been adapted locally, the Docker image can be build with the following command:
 ```
 make build dockerize
-docker run -p 7777:8080 -d -v /path/to/indexes/:/usr/src/indexes/:ro dicegroup/palmetto-service`
 ```
 
-After that the demo application can be accessed using `http://localhost:7777/`.
