@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dice-group/Palmetto.svg?branch=master)](https://travis-ci.org/dice-group/Palmetto) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e692cb15385f4529803d35d1267c63bc)](https://www.codacy.com/app/MichaelRoeder/Palmetto?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dice-group/Palmetto&amp;utm_campaign=Badge_Grade)
+[![Maven Build](https://github.com/dice-group/Palmetto/actions/workflows/maven.yml/badge.svg)](https://github.com/dice-group/Palmetto/actions/workflows/maven.yml) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0b0a42e905454c7cacb61243c76316a0)](https://www.codacy.com/gh/dice-group/Palmetto/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dice-group/Palmetto&amp;utm_campaign=Badge_Grade)
 
 Palmetto
 ========
