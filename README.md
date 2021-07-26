@@ -1,4 +1,4 @@
-[![Maven Build](https://github.com/dice-group/Palmetto/actions/workflows/maven.yml/badge.svg)](https://github.com/dice-group/Palmetto/actions/workflows/maven.yml) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0b0a42e905454c7cacb61243c76316a0)](https://www.codacy.com/gh/dice-group/Palmetto/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dice-group/Palmetto&amp;utm_campaign=Badge_Grade)
+[![Maven Build](https://github.com/dice-group/Palmetto/actions/workflows/maven.yml/badge.svg)](https://github.com/dice-group/Palmetto/actions/workflows/maven.yml) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0b0a42e905454c7cacb61243c76316a0)](https://www.codacy.com/gh/dice-group/Palmetto/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dice-group/Palmetto&amp;utm_campaign=Badge_Grade) [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/0b0a42e905454c7cacb61243c76316a0)](https://www.codacy.com/gh/dice-group/Palmetto/dashboard?utm_source=github.com&utm_medium=referral&utm_content=dice-group/Palmetto&utm_campaign=Badge_Coverage)
 
 Palmetto
 ========
@@ -22,10 +22,17 @@ The `webApp` directory contains a web application offering a small demo as well 
 
 Palmetto can be used as a docker container.
 
-[The index](https://hobbitdata.informatik.uni-leipzig.de/homes/mroeder/palmetto/Wikipedia_bd.zip) should be downloaded and extracted to some path (for example, `/path/to/indexes`). 
+[The index](https://hobbitdata.informatik.uni-leipzig.de/homes/mroeder/palmetto/Wikipedia_bd.zip) should be downloaded and extracted to some path (for example, `/path/to/indexes`). After extraction, the directory should contain the `wikipedia_bd` directory and the `wikipedia_bd.histogram` file.
+```
+path
++- to
+  +- indexes
+    +- wikipedia_bd
+    +- wikipedia_bd.histogram
+```
 After that, the container can be run the following way:
 ```
-docker run -p 7777:8080 -d -v /path/to/indexes/:/usr/src/indexes/:ro dicegroup/palmetto-service
+docker run -p 7777:8080 -d -v /path/to/indexes/:/usr/local/indexes/:ro dicegroup/palmetto-service
 ```
 After that the demo application can be accessed using `http://localhost:7777/`.
 
