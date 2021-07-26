@@ -26,13 +26,13 @@ Palmetto can be used as a docker container.
 ```
 path
 +- to
-  +- index
+  +- indexes
     +- wikipedia_bd
     +- wikipedia_bd.histogram
 ```
 After that, the container can be run the following way:
 ```
-docker run -p 7777:8080 -d -v /path/to/index/:/usr/local/indexes/:ro dicegroup/palmetto-service
+docker run -p 7777:8080 -d -v /path/to/indexes/:/usr/local/indexes/:ro dicegroup/palmetto-service
 ```
 After that the demo application can be accessed using `http://localhost:7777/`.
 
