@@ -22,10 +22,17 @@ The `webApp` directory contains a web application offering a small demo as well 
 
 Palmetto can be used as a docker container.
 
-[The index](https://hobbitdata.informatik.uni-leipzig.de/homes/mroeder/palmetto/Wikipedia_bd.zip) should be downloaded and extracted to some path (for example, `/path/to/indexes`). 
+[The index](https://hobbitdata.informatik.uni-leipzig.de/homes/mroeder/palmetto/Wikipedia_bd.zip) should be downloaded and extracted to some path (for example, `/path/to/indexes`). After extraction, the directory should contain the `wikipedia_bd` directory and the `wikipedia_bd.histogram` file.
+```
+path
++- to
+  +- index
+    +- wikipedia_bd
+    +- wikipedia_bd.histogram
+```
 After that, the container can be run the following way:
 ```
-docker run -p 7777:8080 -d -v /path/to/indexes/:/usr/src/indexes/:ro dicegroup/palmetto-service
+docker run -p 7777:8080 -d -v /path/to/index/:/usr/local/indexes/:ro dicegroup/palmetto-service
 ```
 After that the demo application can be accessed using `http://localhost:7777/`.
 
