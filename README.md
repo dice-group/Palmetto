@@ -1,5 +1,7 @@
 [![Maven Build](https://github.com/dice-group/Palmetto/actions/workflows/maven.yml/badge.svg)](https://github.com/dice-group/Palmetto/actions/workflows/maven.yml) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/0b0a42e905454c7cacb61243c76316a0)](https://www.codacy.com/gh/dice-group/Palmetto/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=dice-group/Palmetto&amp;utm_campaign=Badge_Grade) [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/0b0a42e905454c7cacb61243c76316a0)](https://www.codacy.com/gh/dice-group/Palmetto/dashboard?utm_source=github.com&utm_medium=referral&utm_content=dice-group/Palmetto&utm_campaign=Badge_Coverage)
 
+<img src="https://hobbitdata.informatik.uni-leipzig.de/homes/mroeder/palmetto/palmetto_64px.png" align="left" />
+
 Palmetto
 ========
 <i><b>P</b>almetto is a qu<b>al</b>ity <b>me</b>asuring <b>t</b>ool for <b>to</b>pics</i>
