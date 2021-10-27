@@ -22,7 +22,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.aksw</groupId>
     <artifactId>palmetto-webapp</artifactId>
-    <version>0.1.2</version>
+    <version>0.1.3-SNAPSHOT</version>
     <name>Palmetto Web Application</name>
     <description>Palmetto is a quality measure tool for topics.</description>
     <packaging>war</packaging>
