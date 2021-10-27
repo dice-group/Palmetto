@@ -74,8 +74,11 @@ public class Palmetto {
         String wordsets[][] = reader.readWordSets(inputFile);
         LOGGER.info("Read " + wordsets.length + " from file.");
 
+        long time = System.currentTimeMillis();
         double coherences[] = coherence.calculateCoherences(wordsets);
         corpusAdapter.close();
+        time = System.currentTimeMillis() - time;
+        System.out.println(time);
 
         printCoherences(coherences, wordsets, System.out);
     }
