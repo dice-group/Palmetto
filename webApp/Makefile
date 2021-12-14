@@ -3,9 +3,9 @@ default: build
 build:
 	mvn clean package
 
-Major=1
-Minor=2
-Patch=0
+Major=0
+Minor=1
+Patch=3
 
 dockerize:
 	docker build -t dicegroup/palmetto-service:latest .
