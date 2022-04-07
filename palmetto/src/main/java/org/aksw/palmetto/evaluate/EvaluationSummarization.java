@@ -58,7 +58,7 @@ public class EvaluationSummarization {
                 }
                 if (containsNaN(data.coherenceValues)) {
                     pout.println(",NaN,NaN,NaN");
-                }else {
+                } else {
                     pout.print(',');
                     pout.print(pCorrelation.correlation(goldStd, data.coherenceValues));
                     pout.print(',');
@@ -164,7 +164,10 @@ public class EvaluationSummarization {
         @Override
         public void close() {
             if (lineIterator != null) {
-                lineIterator.close();
+                try {
+                    lineIterator.close();
+                } catch (Exception e) {
+                }
             }
         }
 
