@@ -22,7 +22,7 @@
 
 	<!-- PROPERTIES -->
 	<properties>
-		<java.version>1.7</java.version>
+		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<slf4j-version>1.7.32</slf4j-version>
 		<lucene-version>4.4.0</lucene-version>
@@ -77,6 +77,11 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
             <version>31.0.1-jre</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>3.6.1</version>
 		</dependency>
 
 		<!-- ~~~~~~~~~~~~~~~~~~~ Logging ~~~~~~~~~~~~~~~~~~~~~~ -->
