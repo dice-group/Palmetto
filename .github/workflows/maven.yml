@@ -26,7 +26,7 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
     - name: Compile project
-      run: mvn clean compile -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+      run: mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
       working-directory: palmetto
   test-lib:
     needs: install-lib
