@@ -17,12 +17,11 @@
  */
 package org.aksw.palmetto.calculations.direct;
 
-import org.aksw.palmetto.calculations.direct.LogBasedCalculation;
 import org.aksw.palmetto.data.SubsetProbabilities;
 
 /**
  * This confirmation measure calculates the Likelihood similarity between W' and
- * W*. result = (P(W'|W*) + e)/(P(W'|¬W*) + e)
+ * W*. result = log((P(W'|W*) + e)/(P(W'|¬W*) + e))
  * 
  * The e is defined by {@link LogBasedCalculation#EPSILON}.
  * 

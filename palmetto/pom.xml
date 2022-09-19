@@ -45,6 +45,21 @@
 			<url>http://www.gnu.org/licenses/agpl.txt</url>
 		</license>
 	</licenses>
+    
+    
+    <!-- REPOSITORIES -->
+    <repositories>
+        <repository>
+            <id>maven.aksw.internal</id>
+            <name>University Leipzig, AKSW Maven2 Repository</name>
+            <url>https://maven.aksw.org/archiva/repository/internal</url>
+        </repository>
+        <repository>
+            <id>maven.aksw.snapshots</id>
+            <name>University Leipzig, AKSW Maven2 Repository</name>
+            <url>https://maven.aksw.org/archiva/repository/snapshots</url>
+        </repository>
+    </repositories>
 
 	<!-- DEPENDENCIES -->
 	<dependencies>
@@ -83,6 +98,12 @@
 			<artifactId>commons-math3</artifactId>
 			<version>3.6.1</version>
 		</dependency>
+
+        <dependency>
+            <groupId>org.dice-research</groupId>
+            <artifactId>topicmodeling.commons</artifactId>
+            <version>0.0.3-SNAPSHOT</version>
+        </dependency>
 
 		<!-- ~~~~~~~~~~~~~~~~~~~ Logging ~~~~~~~~~~~~~~~~~~~~~~ -->
 		<!-- slf4j: Logging API -->

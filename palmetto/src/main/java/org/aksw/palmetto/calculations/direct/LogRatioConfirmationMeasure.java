@@ -17,7 +17,6 @@
  */
 package org.aksw.palmetto.calculations.direct;
 
-import org.aksw.palmetto.calculations.direct.LogBasedCalculation;
 import org.aksw.palmetto.data.SubsetProbabilities;
 
 /**

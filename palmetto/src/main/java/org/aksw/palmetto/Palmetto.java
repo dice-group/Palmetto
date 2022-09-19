@@ -36,7 +36,6 @@ import org.aksw.palmetto.prob.window.BooleanSlidingWindowFrequencyDeterminer;
 import org.aksw.palmetto.prob.window.ContextWindowFrequencyDeterminer;
 import org.aksw.palmetto.prob.window.WindowBasedProbabilityEstimator;
 import org.aksw.palmetto.subsets.OneAll;
-import org.aksw.palmetto.subsets.OneAny;
 import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.OnePreceding;
 import org.aksw.palmetto.subsets.OneSet;

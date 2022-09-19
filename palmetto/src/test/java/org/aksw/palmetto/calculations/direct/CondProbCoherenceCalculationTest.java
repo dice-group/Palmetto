@@ -20,7 +20,6 @@ package org.aksw.palmetto.calculations.direct;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.calculations.direct.CondProbConfirmationMeasure;
 import org.aksw.palmetto.subsets.OnePreceding;
 import org.aksw.palmetto.subsets.Segmentator;
 import org.junit.runner.RunWith;
