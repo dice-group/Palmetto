@@ -17,8 +17,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.aksw</groupId>
     <artifactId>palmetto-webapp</artifactId>
@@ -36,64 +35,64 @@
         <spring.version>5.3.23</spring.version>
     </properties>
 
-	<!-- DEVELOPERS -->
-	<developers>
-		<developer>
-			<id>m.roeder</id>
-			<name>Michael Röder</name>
-			<email>michael.roeder@uni-paderborn.de</email>
-		</developer>
-	</developers>
+    <!-- DEVELOPERS -->
+    <developers>
+        <developer>
+            <id>m.roeder</id>
+            <name>Michael Röder</name>
+            <email>michael.roeder@uni-paderborn.de</email>
+        </developer>
+    </developers>
 
     <!-- REPOSITORIES -->
     <repositories>
-		<repository>
-			<id>maven.aksw.internal</id>
-			<name>University Leipzig, AKSW Maven2 Repository</name>
-			<url>https://maven.aksw.org/repository/internal</url>
-		</repository>
-		<repository>
-			<id>maven.aksw.snapshots</id>
-			<name>University Leipzig, AKSW Maven2 Repository</name>
-			<url>https://maven.aksw.org/repository/snapshots</url>
-		</repository>
-		<repository>
-			<id>Apache Repo</id>
-			<name>Apache Repository</name>
-			<url>https://repository.apache.org/content/repositories/releases/</url>
-		</repository>
+        <repository>
+            <id>maven.aksw.internal</id>
+            <name>University Leipzig, AKSW Maven2 Repository</name>
+            <url>https://maven.aksw.org/repository/internal</url>
+        </repository>
+        <repository>
+            <id>maven.aksw.snapshots</id>
+            <name>University Leipzig, AKSW Maven2 Repository</name>
+            <url>https://maven.aksw.org/repository/snapshots</url>
+        </repository>
+        <repository>
+            <id>Apache Repo</id>
+            <name>Apache Repository</name>
+            <url>https://repository.apache.org/content/repositories/releases/</url>
+        </repository>
     </repositories>
 
     <!-- DEPENDENCIES -->
     <dependencies>
-		<!-- Palmetto -->
-		<dependency>
-			<groupId>org.aksw</groupId>
-			<artifactId>palmetto</artifactId>
-			<version>0.1.4-SNAPSHOT</version>
-		</dependency>
-		<!-- javax annotations -->
-		<dependency>
-			<groupId>javax.annotation</groupId>
-			<artifactId>javax.annotation-api</artifactId>
-			<version>1.3.2</version>
-		</dependency>
-		<!-- SPRING -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
+        <!-- Palmetto -->
+        <dependency>
+            <groupId>org.aksw</groupId>
+            <artifactId>palmetto</artifactId>
+            <version>0.1.4-SNAPSHOT</version>
+        </dependency>
+        <!-- javax annotations -->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+        <!-- SPRING -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
         <!-- Apache Configuration -->
         <dependency>
             <groupId>commons-configuration</groupId>
@@ -170,28 +169,28 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.1</version>
             </plugin>
-		<!-- License management plugin -->
-			<plugin>
-				<groupId>com.mycila</groupId>
-				<artifactId>license-maven-plugin</artifactId>
-				<version>3.0</version>
-				<configuration>
-					<header>com/mycila/maven/plugin/license/templates/AGPL-3.txt</header>
-					<properties>
-						<owner>Data Science Group (DICE)</owner>
-						<email>michael.roeder@uni-paderborn.de</email>
-					</properties>
-					<excludes>
-						<exclude>**/README</exclude>
-						<exclude>**/LICENSE</exclude>
-						<exclude>**/Dockerfile</exclude>
-						<exclude>diagrams/**</exclude>
-						<exclude>src/test/resources/**</exclude>
-						<exclude>src/main/resources/**</exclude>
-						<exclude>src/main/webapp/**</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
+            <!-- License management plugin -->
+            <plugin>
+                <groupId>com.mycila</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>3.0</version>
+                <configuration>
+                    <header>com/mycila/maven/plugin/license/templates/AGPL-3.txt</header>
+                    <properties>
+                        <owner>Data Science Group (DICE)</owner>
+                        <email>michael.roeder@uni-paderborn.de</email>
+                    </properties>
+                    <excludes>
+                        <exclude>**/README</exclude>
+                        <exclude>**/LICENSE</exclude>
+                        <exclude>**/Dockerfile</exclude>
+                        <exclude>diagrams/**</exclude>
+                        <exclude>src/test/resources/**</exclude>
+                        <exclude>src/main/resources/**</exclude>
+                        <exclude>src/main/webapp/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
