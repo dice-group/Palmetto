@@ -124,7 +124,7 @@ public class Palmetto {
             probEstimator.setMinFrequency(WindowBasedProbabilityEstimator.DEFAULT_MIN_FREQUENCY * windowSize);
             return new VectorBasedCoherence(
                     new OneOne(), new DirectConfirmationBasedVectorCreator(probEstimator,
-                            new NormalizedLogRatioConfirmationMeasure()), new CosinusConfirmationMeasure(),
+                            new NormalizedLogRatioConfirmationMeasure(), 1), new CosinusConfirmationMeasure(),
                     new ArithmeticMean());
         }
 
@@ -139,7 +139,7 @@ public class Palmetto {
             return new VectorBasedCoherence(new OneSet(),
                     new DirectConfirmationBasedVectorCreator(
                             getSWProbabilityEstimator(110, (WindowSupportingAdapter) corpusAdapter),
-                            new NormalizedLogRatioConfirmationMeasure()),
+                            new NormalizedLogRatioConfirmationMeasure(), 1),
                     new CosinusConfirmationMeasure(), new ArithmeticMean());
         }
 
@@ -147,7 +147,7 @@ public class Palmetto {
             return new VectorBasedCoherence(new OneAll(),
                     new DirectConfirmationBasedVectorCreator(
                             getSWProbabilityEstimator(110, (WindowSupportingAdapter) corpusAdapter),
-                            new NormalizedLogRatioConfirmationMeasure()),
+                            new NormalizedLogRatioConfirmationMeasure(), 1),
                     new CosinusConfirmationMeasure(), new ArithmeticMean());
         }
 

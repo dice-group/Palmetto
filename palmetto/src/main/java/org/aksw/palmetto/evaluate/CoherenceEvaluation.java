@@ -322,7 +322,7 @@ public class CoherenceEvaluation {
         for (DirectConfirmationMeasure confMeasure : CALCULATIONS_4_VECTOR_CREATION) {
             baseCSVLine[CSV_LINE_DIR_MEASURE_ID] = confMeasure.getName();
             DirectConfirmationBasedVectorCreator vectorCreator = new DirectConfirmationBasedVectorCreator(null,
-                    confMeasure);
+                    confMeasure, 1);
             // Gamma
             for (int g = MIN_GAMMA; g <= MAX_GAMMA; ++g) {
                 vectorCreator.setGamma(g);

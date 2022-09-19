@@ -191,11 +191,9 @@ public class SpeedComparison {
         probEstimatorCA.setMinFrequency(WindowBasedProbabilityEstimator.DEFAULT_MIN_FREQUENCY * 5);
 
         DirectConfirmationBasedVectorCreator caCreator = new DirectConfirmationBasedVectorCreator(probEstimatorCA,
-                new NormalizedLogRatioConfirmationMeasure());
-        caCreator.setGamma(1.0);
+                new NormalizedLogRatioConfirmationMeasure(), 1);
         DirectConfirmationBasedVectorCreator cv2Creator = new DirectConfirmationBasedVectorCreator(
-                Palmetto.getSWProbabilityEstimator(110, adapter), new NormalizedLogRatioConfirmationMeasure());
-        cv2Creator.setGamma(1.0);
+                Palmetto.getSWProbabilityEstimator(110, adapter), new NormalizedLogRatioConfirmationMeasure(), 1);
 
         List<AbstractTimeMeasuringModule> modules = new ArrayList<>();
 
@@ -302,7 +300,7 @@ public class SpeedComparison {
                     numberOfRuns);
             modules.add(measuringModul);
             creator = new DirectConfirmationBasedVectorCreator(measuringModul,
-                    new NormalizedLogRatioConfirmationMeasure());
+                    new NormalizedLogRatioConfirmationMeasure(), 1);
             comparison.run(new Coherence[] { new VectorBasedCoherence(new OneAll(), creator,
                     new CosinusConfirmationMeasure(), new ArithmeticMean()) }, modules, wordsets);
             measuringModul.printStatistics();
@@ -316,7 +314,7 @@ public class SpeedComparison {
                     numberOfRuns);
             modules.add(measuringModul);
             creator = new DirectConfirmationBasedVectorCreator(measuringModul,
-                    new NormalizedLogRatioConfirmationMeasure());
+                    new NormalizedLogRatioConfirmationMeasure(), 1);
             comparison.run(new Coherence[] { new VectorBasedCoherence(new OneAll(), creator,
                     new CosinusConfirmationMeasure(), new ArithmeticMean()) }, modules, wordsets);
             measuringModul.printStatistics();
@@ -330,7 +328,7 @@ public class SpeedComparison {
                     numberOfRuns);
             modules.add(measuringModul);
             creator = new DirectConfirmationBasedVectorCreator(measuringModul,
-                    new NormalizedLogRatioConfirmationMeasure());
+                    new NormalizedLogRatioConfirmationMeasure(), 1);
             comparison.run(new Coherence[] { new VectorBasedCoherence(new OneAll(), creator,
                     new CosinusConfirmationMeasure(), new ArithmeticMean()) }, modules, wordsets);
             measuringModul.printStatistics();

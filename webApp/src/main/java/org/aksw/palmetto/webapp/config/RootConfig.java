@@ -122,7 +122,7 @@ public class RootConfig {
                 new ContextWindowFrequencyDeterminer(corpusAdapter, windowSize));
         probEstimator.setMinFrequency(WindowBasedProbabilityEstimator.DEFAULT_MIN_FREQUENCY * windowSize);
         return new VectorBasedCoherence(new OneOne(),
-                new DirectConfirmationBasedVectorCreator(probEstimator, new NormalizedLogRatioConfirmationMeasure()),
+                new DirectConfirmationBasedVectorCreator(probEstimator, new NormalizedLogRatioConfirmationMeasure(), 1),
                 new CosinusConfirmationMeasure(), new ArithmeticMean());
     }
 
@@ -153,7 +153,7 @@ public class RootConfig {
                 new BooleanSlidingWindowFrequencyDeterminer(corpusAdapter, windowSize));
         probEstimator.setMinFrequency(WindowBasedProbabilityEstimator.DEFAULT_MIN_FREQUENCY * windowSize);
         return new VectorBasedCoherence(new OneSet(),
-                new DirectConfirmationBasedVectorCreator(probEstimator, new NormalizedLogRatioConfirmationMeasure()),
+                new DirectConfirmationBasedVectorCreator(probEstimator, new NormalizedLogRatioConfirmationMeasure(), 1),
                 new CosinusConfirmationMeasure(), new ArithmeticMean());
     }
 

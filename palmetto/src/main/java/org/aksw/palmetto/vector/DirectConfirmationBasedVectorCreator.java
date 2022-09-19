@@ -34,17 +34,9 @@ import org.aksw.palmetto.subsets.OneOneAndSelf;
  */
 public class DirectConfirmationBasedVectorCreator extends AbstractVectorCreator {
 
-    private static final int DEFAULT_GAMMA = 2;
-
     private DirectConfirmationMeasure calculation;
     private OneOneAndSelf oneOneAndSelfCreator = new OneOneAndSelf();
     private double gamma;
-
-    public DirectConfirmationBasedVectorCreator(ProbabilityEstimator supplier, DirectConfirmationMeasure calculation) {
-        super(supplier);
-        this.calculation = calculation;
-        this.gamma = DEFAULT_GAMMA;
-    }
 
     public DirectConfirmationBasedVectorCreator(ProbabilityEstimator supplier, DirectConfirmationMeasure calculation,
             double gamma) {
