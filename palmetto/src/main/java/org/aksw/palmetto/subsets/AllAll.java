@@ -21,6 +21,13 @@ import org.aksw.palmetto.data.SegmentationDefinition;
 
 import com.carrotsearch.hppc.BitSet;
 
+/**
+ * 
+ * @author Michael R&ouml;der (michael.roeder@uni-paderborn.de)
+ *
+ * @deprecated since it does not follow the naming convention. Use SetSet instead.
+ */
+@Deprecated
 public class AllAll implements Segmentator {
 
     public SegmentationDefinition getSubsetDefinition(int wordsetSize) {
