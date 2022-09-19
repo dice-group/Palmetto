@@ -140,7 +140,8 @@ public class SpeedComparison {
          * https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle#
          * The_modern_algorithm
          */
-        int id, temp;
+        int id;
+        int temp;
         for (int j = ids.length - 1; j > 0; --j) {
             // choose id that should be swapped with j
             id = random.nextInt(j);

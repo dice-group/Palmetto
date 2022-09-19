@@ -1,5 +1,5 @@
 /* The html and body elements cannot have any padding or margin. */
-html, 
+html,
 body {
   height: 100%;
   width: 100%;
@@ -90,12 +90,12 @@ div#logos {
 }
 
 /* Same height for footer logos */
-div#logos>a>img {
+div#logos > a > img {
   height: 60px;
   width: auto;
 }
 
-div#logos>a {
+div#logos > a {
   display: table-cell;
   vertical-align: middle;
   float: none;

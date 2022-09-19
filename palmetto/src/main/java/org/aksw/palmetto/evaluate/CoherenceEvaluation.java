@@ -405,6 +405,7 @@ public class CoherenceEvaluation {
 
         @Override
         public void close() {
+            // nothing to do
         }
 
         @Override

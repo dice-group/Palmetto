@@ -83,7 +83,9 @@ public class CachingWindowSupportingLuceneCorpusAdapter extends WindowSupporting
         System.out.println(word);
         DocsAndPositionsEnum docPosEnum = null;
         Term term = new Term(fieldName, word);
-        int localDocId, globalDocId, baseDocId;
+        int localDocId;
+        int globalDocId;
+        int baseDocId;
         IntIntOpenHashMap docLengths = new IntIntOpenHashMap();
         IntObjectOpenHashMap<IntArrayList> wordPositions = new IntObjectOpenHashMap<IntArrayList>();
         IntArrayList positions;

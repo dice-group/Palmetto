@@ -108,7 +108,9 @@ public class WindowSupportingLuceneCorpusAdapter extends LuceneCorpusAdapter imp
             IntIntOpenHashMap docLengths, int wordId, int numberOfWords) {
         DocsAndPositionsEnum docPosEnum = null;
         Term term = new Term(fieldName, word);
-        int localDocId, globalDocId, baseDocId;
+        int localDocId;
+        int globalDocId;
+        int baseDocId;
         IntArrayList positions[];
         try {
             for (int i = 0; i < reader.length; i++) {
