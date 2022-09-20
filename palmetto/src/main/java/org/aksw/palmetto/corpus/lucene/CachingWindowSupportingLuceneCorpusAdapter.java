@@ -80,7 +80,6 @@ public class CachingWindowSupportingLuceneCorpusAdapter extends WindowSupporting
     }
 
     protected CachedWordData requestDocumentsWithWord(String word) {
-        System.out.println(word);
         DocsAndPositionsEnum docPosEnum = null;
         Term term = new Term(fieldName, word);
         int localDocId;
