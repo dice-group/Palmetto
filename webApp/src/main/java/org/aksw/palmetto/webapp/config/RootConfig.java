@@ -38,6 +38,7 @@ import org.aksw.palmetto.prob.bd.BooleanDocumentProbabilitySupplier;
 import org.aksw.palmetto.prob.window.BooleanSlidingWindowFrequencyDeterminer;
 import org.aksw.palmetto.prob.window.ContextWindowFrequencyDeterminer;
 import org.aksw.palmetto.prob.window.WindowBasedProbabilityEstimator;
+import org.aksw.palmetto.subsets.OneAll;
 import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.OnePreceding;
 import org.aksw.palmetto.subsets.OneSet;
@@ -153,6 +154,22 @@ public class RootConfig {
                 new BooleanSlidingWindowFrequencyDeterminer(corpusAdapter, windowSize));
         probEstimator.setMinFrequency(WindowBasedProbabilityEstimator.DEFAULT_MIN_FREQUENCY * windowSize);
         return new VectorBasedCoherence(new OneSet(),
+                new DirectConfirmationBasedVectorCreator(probEstimator, new NormalizedLogRatioConfirmationMeasure(), 1),
+                new CosinusConfirmationMeasure(), new ArithmeticMean());
+    }
+
+    public static Coherence createCV2Coherence(WindowSupportingAdapter corpusAdapter) {
+        int windowSize = CV_DEFAULT_WINDOW_SIZE;
+        try {
+            windowSize = PalmettoConfiguration.getInstance().getInt(CV_WINDOW_SIZE_PROPERTY_KEY);
+        } catch (Exception e) {
+            LOGGER.warn("Couldn't load \"{}\" from properties. Using default window size={}.",
+                    CV_WINDOW_SIZE_PROPERTY_KEY, CV_DEFAULT_WINDOW_SIZE);
+        }
+        WindowBasedProbabilityEstimator probEstimator = new WindowBasedProbabilityEstimator(
+                new BooleanSlidingWindowFrequencyDeterminer(corpusAdapter, windowSize));
+        probEstimator.setMinFrequency(WindowBasedProbabilityEstimator.DEFAULT_MIN_FREQUENCY * windowSize);
+        return new VectorBasedCoherence(new OneAll(),
                 new DirectConfirmationBasedVectorCreator(probEstimator, new NormalizedLogRatioConfirmationMeasure(), 1),
                 new CosinusConfirmationMeasure(), new ArithmeticMean());
     }
