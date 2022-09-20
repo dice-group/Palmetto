@@ -29,13 +29,13 @@ import org.dice_research.topicmodeling.commons.sort.AssociativeSort;
  *
  */
 public class Ranker {
-    
+
     protected SharedRankDeterminer determiner;
-    
+
     public Ranker() {
         this.determiner = new AverageRankDeterminer();
     }
-    
+
     public Ranker(SharedRankDeterminer determiner) {
         this.determiner = determiner;
     }
@@ -55,21 +55,22 @@ public class Ranker {
         // Search for NaN values
         BitSet isNaNValue = new BitSet(values.length);
         for (int i = 0; i < values.length; ++i) {
-            if(Double.isNaN(values[i])) {
-            isNaNValue.set(i);}
+            if (Double.isNaN(values[i])) {
+                isNaNValue.set(i);
+            }
         }
         int[] localNaNs = new int[(int) isNaNValue.cardinality()];
         int[] ids = new int[values.length - localNaNs.length];
         double localValues[] = new double[ids.length];
-        int idPos=0;
-        int nanPos=0;
+        int idPos = 0;
+        int nanPos = 0;
         for (int i = 0; i < values.length; ++i) {
-            if(isNaNValue.get(i)) {
+            if (isNaNValue.get(i)) {
                 localNaNs[nanPos] = i;
                 ++nanPos;
             } else {
                 ids[idPos] = i;
-                localValues[idPos]=values[i];
+                localValues[idPos] = values[i];
                 ++idPos;
             }
         }
@@ -78,18 +79,18 @@ public class Ranker {
         // create ranks
         if (sortAscending) {
             // create ranks starting with the element at position 0 and increasing the id
-            localValues = createRanks(localValues, ids, 0, localValues.length, (i) -> i + 1);
+            localValues = createRanks(localValues, 0, localValues.length, (i) -> i + 1);
         } else {
             // create ranks starting with the element at the last position 0 and decreasing
             // the id
-            localValues = createRanks(localValues, ids, localValues.length - 1, -1, (i) -> i - 1);
+            localValues = createRanks(localValues, localValues.length - 1, -1, (i) -> i - 1);
         }
         // Copy ranks
         for (int i = 0; i < ids.length; ++i) {
             values[ids[i]] = localValues[i];
         }
         // Handle NaN value ranks
-        if(localNaNs.length > 0) {
+        if (localNaNs.length > 0) {
             double sharedNaNRank = determiner.determineSharedRank(localValues.length + 1, localNaNs.length);
             for (int i = 0; i < localNaNs.length; ++i) {
                 values[localNaNs[i]] = sharedNaNRank;
@@ -98,8 +99,7 @@ public class Ranker {
         return values;
     }
 
-    private double[] createRanks(double[] sortedValues, int[] sortedIds, int startPos, int endPos,
-            IntUnaryOperator stepFunction) {
+    private double[] createRanks(double[] sortedValues, int startPos, int endPos, IntUnaryOperator stepFunction) {
         int pos = startPos;
         int rank = 1;
         int firstDiffPos;
@@ -107,7 +107,8 @@ public class Ranker {
         while (pos != endPos) {
             // Find first position that has a different value
             firstDiffPos = stepFunction.applyAsInt(pos);
-            // While, we haven't reached the end AND the two values are the same; we do not have to check for NaN
+            // While, we haven't reached the end AND the two values are the same; we do not
+            // have to check for NaN
             while ((firstDiffPos != endPos) && (sortedValues[pos] == sortedValues[firstDiffPos])) {
                 firstDiffPos = stepFunction.applyAsInt(firstDiffPos);
             }
@@ -125,17 +126,17 @@ public class Ranker {
         }
         return sortedValues;
     }
-    
+
     public static interface SharedRankDeterminer {
         public double determineSharedRank(int minRank, int numberOfSharedRanks);
     }
-    
+
     public static class AverageRankDeterminer implements SharedRankDeterminer {
         public double determineSharedRank(int minRank, int numberOfSharedRanks) {
             return minRank + ((numberOfSharedRanks - 1) / 2.0);
         }
     }
-    
+
     public static class MinRankDeterminer implements SharedRankDeterminer {
         public double determineSharedRank(int minRank, int numberOfSharedRanks) {
             return minRank;

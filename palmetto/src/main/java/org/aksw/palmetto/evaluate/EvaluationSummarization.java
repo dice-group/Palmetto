@@ -131,13 +131,11 @@ public class EvaluationSummarization {
                 return true;
             }
             String line;
-            if (lastLine == null) {
-                // check whether we can read something
-                if (lineIterator.hasNext()) {
-                    // read the line and put it into lastLine
-                    line = lineIterator.next();
-                    lastLine = line.split(",");
-                }
+            // check whether we can read something
+            if ((lastLine == null) && (lineIterator.hasNext())) {
+                // read the line and put it into lastLine
+                line = lineIterator.next();
+                lastLine = line.split(",");
             }
             if (lastLine != null) {
                 // Create the new CoherenceData object by copying the first part of the line

@@ -246,6 +246,9 @@ public class CoherenceEvaluation {
                 calculateSlidingWindowCoherences(wordSet, wordSetId, c.windowSize, localAdapter, pout);
                 return;
             }
+            default: {
+                throw new IllegalStateException("Unknown coherence type " + c.type);
+            }
             }
         });
     }
