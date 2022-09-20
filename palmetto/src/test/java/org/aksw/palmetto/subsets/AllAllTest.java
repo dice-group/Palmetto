@@ -19,6 +19,7 @@ package org.aksw.palmetto.subsets;
 
 import org.junit.Test;
 
+@Deprecated
 public class AllAllTest extends AbstractSegmentatorTest {
 
     @Test

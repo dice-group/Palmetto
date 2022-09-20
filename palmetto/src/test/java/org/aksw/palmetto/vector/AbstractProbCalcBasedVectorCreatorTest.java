@@ -17,10 +17,9 @@
  */
 package org.aksw.palmetto.vector;
 
-import junit.framework.Assert;
-
 import org.aksw.palmetto.calculations.direct.DirectConfirmationMeasure;
 import org.aksw.palmetto.subsets.OneOne;
+import org.junit.Assert;
 import org.junit.Test;
 
 public abstract class AbstractProbCalcBasedVectorCreatorTest extends AbstractVectorCreatorTest {

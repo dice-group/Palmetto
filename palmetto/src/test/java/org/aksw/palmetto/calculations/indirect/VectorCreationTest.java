@@ -20,8 +20,6 @@ package org.aksw.palmetto.calculations.indirect;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.calculations.indirect.AbstractVectorBasedCalculation;
-import org.aksw.palmetto.calculations.indirect.CosinusConfirmationMeasure;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

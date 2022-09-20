@@ -20,7 +20,6 @@ package org.aksw.palmetto.calculations.indirect;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.calculations.indirect.JaccardConfirmationMeasure;
 import org.aksw.palmetto.subsets.OneAny;
 import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.Segmentator;

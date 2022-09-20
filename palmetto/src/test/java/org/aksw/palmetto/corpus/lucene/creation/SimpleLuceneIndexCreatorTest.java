@@ -22,11 +22,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import junit.framework.Assert;
-
 import org.aksw.palmetto.Palmetto;
 import org.aksw.palmetto.corpus.lucene.LuceneCorpusAdapter;
 import org.apache.lucene.index.CorruptIndexException;
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.carrotsearch.hppc.IntArrayList;
