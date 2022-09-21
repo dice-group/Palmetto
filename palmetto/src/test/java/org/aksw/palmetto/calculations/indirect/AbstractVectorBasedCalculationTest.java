@@ -17,7 +17,6 @@
  */
 package org.aksw.palmetto.calculations.indirect;
 
-import org.aksw.palmetto.calculations.indirect.AbstractVectorBasedCalculation;
 import org.junit.Assert;
 import org.junit.Test;
 

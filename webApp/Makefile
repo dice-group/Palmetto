@@ -5,7 +5,7 @@ build:
 
 Major=0
 Minor=1
-Patch=3
+Patch=4
 
 dockerize:
 	docker build -t dicegroup/palmetto-service:latest .

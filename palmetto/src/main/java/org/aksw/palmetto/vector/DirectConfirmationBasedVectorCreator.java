@@ -34,17 +34,9 @@ import org.aksw.palmetto.subsets.OneOneAndSelf;
  */
 public class DirectConfirmationBasedVectorCreator extends AbstractVectorCreator {
 
-    private static final int DEFAULT_GAMMA = 2;
-
     private DirectConfirmationMeasure calculation;
     private OneOneAndSelf oneOneAndSelfCreator = new OneOneAndSelf();
     private double gamma;
-
-    public DirectConfirmationBasedVectorCreator(ProbabilityEstimator supplier, DirectConfirmationMeasure calculation) {
-        super(supplier);
-        this.calculation = calculation;
-        this.gamma = DEFAULT_GAMMA;
-    }
 
     public DirectConfirmationBasedVectorCreator(ProbabilityEstimator supplier, DirectConfirmationMeasure calculation,
             double gamma) {
@@ -59,41 +51,70 @@ public class DirectConfirmationBasedVectorCreator extends AbstractVectorCreator 
     }
 
     @Override
-    protected SubsetVectors[] createVectors(String[][] wordsets, SegmentationDefinition[] definitions,
+    public SubsetVectors[] createVectors(String[][] wordsets, SegmentationDefinition[] definitions,
             SubsetProbabilities[] probabilities) {
         SubsetVectors vectors[] = new SubsetVectors[wordsets.length];
-        double currentVectors[][];
         SegmentationDefinition oneOneAndSelfDef = oneOneAndSelfCreator.getSubsetDefinition(wordsets[0].length);
         SubsetProbabilities oneOneAndSelfProbabilities = new SubsetProbabilities(oneOneAndSelfDef.segments,
                 oneOneAndSelfDef.conditions, null);
-        double calcResult[];
-        int startId;
         for (int w = 0; w < wordsets.length; ++w) {
-            oneOneAndSelfProbabilities.probabilities = probabilities[w].probabilities;
-            calcResult = calculation.calculateConfirmationValues(oneOneAndSelfProbabilities);
-            currentVectors = new double[wordsets[w].length][wordsets[w].length];
-            startId = 0;
             try {
-                for (int i = 0; i < wordsets[w].length; ++i) {
-                    System.arraycopy(calcResult, startId, currentVectors[i], 0, wordsets[w].length);
-                    startId += wordsets[w].length;
-                }
+                vectors[w] = createVectors(wordsets[w].length, definitions[w], oneOneAndSelfProbabilities,
+                        probabilities[w]);
             } catch (Exception e) {
-                System.err.println("ERROR w=" + w + " wordsets[w]=" + Arrays.toString(wordsets[w]) + " calcResult="
-                        + Arrays.toString(calcResult));
+                System.err.println("ERROR w=" + w + " wordsets[w]=" + Arrays.toString(wordsets[w]));
             }
-
-            if (gamma != 1) {
-                for (int i = 0; i < wordsets[w].length; ++i) {
-                    for (int j = 0; j < currentVectors[i].length; ++j) {
-                        currentVectors[i][j] = Math.pow(currentVectors[i][j], gamma);
-                    }
-                }
-            }
-            vectors[w] = new SubsetVectors(definitions[w].segments, definitions[w].conditions, currentVectors,
-                    probabilities[w].probabilities);
         }
         return vectors;
+    }
+
+    /**
+     * Creates the vectors for a single wordset.
+     * 
+     * @param wordsetLength              the length of the wordset
+     * @param definition                 the definition of the segmentations that
+     *                                   will be copied into the created subset
+     *                                   vector definition
+     * @param oneOneAndSelfProbabilities this probabilities instance should contain
+     *                                   the segmentation of the
+     *                                   {@link OneOneAndSelf} class for the given
+     *                                   word set. Note that although it is a
+     *                                   probabilities instance probabilities
+     *                                   instance, its probabilities will be
+     *                                   internally overridden with the next
+     *                                   probabilities parameter. Note this
+     *                                   parameter is mainly used to reuse the
+     *                                   generated OneOneAndSelf segmentation for a
+     *                                   given set of wordsets.
+     * @param probabilities              the probabilities for the given word set.
+     * @return subset vectors that comprise the vectors for the given wordset length
+     *         based on the given probabilities and the direct confirmation measure
+     *         of this class ({@link #calculation}). The subset vector instance will
+     *         also contain the given segmentation information as well as the given
+     *         probabilities.
+     */
+    public SubsetVectors createVectors(int wordsetLength, SegmentationDefinition definition,
+            SubsetProbabilities oneOneAndSelfProbabilities, SubsetProbabilities probabilities) {
+        double currentVectors[][];
+        double calcResult[];
+        int startId;
+        oneOneAndSelfProbabilities.probabilities = probabilities.probabilities;
+        calcResult = calculation.calculateConfirmationValues(oneOneAndSelfProbabilities);
+        currentVectors = new double[wordsetLength][wordsetLength];
+        startId = 0;
+        for (int i = 0; i < wordsetLength; ++i) {
+            System.arraycopy(calcResult, startId, currentVectors[i], 0, wordsetLength);
+            startId += wordsetLength;
+        }
+        if (gamma != 1) {
+            for (int i = 0; i < wordsetLength; ++i) {
+                for (int j = 0; j < wordsetLength; ++j) {
+                    currentVectors[i][j] = Math.pow(currentVectors[i][j], gamma);
+                }
+            }
+        }
+        return new SubsetVectors(definition.segments, definition.conditions, currentVectors,
+                probabilities.probabilities);
     }
 
     public void setGamma(double gamma) {

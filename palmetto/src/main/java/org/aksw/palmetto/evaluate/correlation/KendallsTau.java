@@ -39,12 +39,12 @@ public class KendallsTau implements RankCorrelationCalculator, Comparator<ValueP
     }
 
     protected double calculateRankCorrelation(ValuePair[] pairs) {
-        double concordance = 0,
-                disconcordance = 0,
-                boundInX = 0,
-                boundInY = 0;
-        double currentX,
-                currentY;
+        double concordance = 0;
+        double disconcordance = 0;
+        double boundInX = 0;
+        double boundInY = 0;
+        double currentX;
+        double currentY;
         // Go through all pairs
         for (int i = 0; i < pairs.length; i++) {
             currentX = pairs[i].first;

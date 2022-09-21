@@ -54,6 +54,7 @@ public class PalmettoApplication {
     protected Coherence caCoherence;
     protected Coherence cpCoherence;
     protected Coherence cvCoherence;
+    protected Coherence cv2Coherence;
     protected Coherence npmiCoherence;
     protected Coherence uciCoherence;
     protected Coherence umassCoherence;
@@ -77,6 +78,7 @@ public class PalmettoApplication {
         caCoherence = RootConfig.createCACoherence(luceneAdapter);
         cpCoherence = RootConfig.createCPCoherence(luceneAdapter);
         cvCoherence = RootConfig.createCVCoherence(luceneAdapter);
+        cv2Coherence = RootConfig.createCV2Coherence(luceneAdapter);
         npmiCoherence = RootConfig.createNPMICoherence(luceneAdapter);
         uciCoherence = RootConfig.createUCICoherence(luceneAdapter);
         umassCoherence = RootConfig.createUMassCoherence(luceneAdapter);
@@ -103,6 +105,12 @@ public class PalmettoApplication {
     public ResponseEntity<String> cvService(@RequestParam(value = "words") String words) {
         LOGGER.info("CV     words=\"" + words + "\".");
         return calculate(words, cvCoherence);
+    }
+
+    @RequestMapping(value = "cv2")
+    public ResponseEntity<String> cv2Service(@RequestParam(value = "words") String words) {
+        LOGGER.info("CV2    words=\"" + words + "\".");
+        return calculate(words, cv2Coherence);
     }
 
     @RequestMapping(value = "npmi")

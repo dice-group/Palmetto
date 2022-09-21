@@ -23,7 +23,6 @@ import java.util.Collection;
 import org.aksw.palmetto.data.SegmentationDefinition;
 import org.aksw.palmetto.data.SubsetProbabilities;
 import org.aksw.palmetto.prob.AbstractBooleanDocumentSupportingAdapterBasedTest;
-import org.aksw.palmetto.prob.bd.BooleanDocumentProbabilitySupplier;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

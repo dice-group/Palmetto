@@ -19,7 +19,12 @@ package org.aksw.palmetto.evaluate.correlation;
 
 import java.util.Arrays;
 
-public class Spearman implements RankCorrelationCalculator/* , Comparator<ValuePair> */{
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class Spearman implements RankCorrelationCalculator/* , Comparator<ValuePair> */ {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Spearman.class);
 
     public double calculateRankCorrelation(final double x[], final double y[]) {
         if (x.length != y.length) {
@@ -32,7 +37,7 @@ public class Spearman implements RankCorrelationCalculator/* , Comparator<ValueP
             sortedX[i] = new ValuePair(x[i], i);
             sortedY[i] = new ValuePair(y[i], i);
             if (Double.isNaN(x[i]) || Double.isNaN(y[i])) {
-                System.out.println("STOP!");
+                LOGGER.error("Got an NaN value.");
             }
         }
         try {
@@ -40,7 +45,7 @@ public class Spearman implements RankCorrelationCalculator/* , Comparator<ValueP
             Arrays.sort(sortedX);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println(Arrays.toString(sortedX));
+            LOGGER.error("Couldn't sort array " + Arrays.toString(sortedX));
             return -1;
         }
         try {
@@ -48,7 +53,7 @@ public class Spearman implements RankCorrelationCalculator/* , Comparator<ValueP
             Arrays.sort(sortedY);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println(Arrays.toString(sortedY));
+            LOGGER.error("Couldn't sort array " + Arrays.toString(sortedY));
             return -1;
         }
 
@@ -60,8 +65,8 @@ public class Spearman implements RankCorrelationCalculator/* , Comparator<ValueP
 
     private double[] createRanks(ValuePair[] sortedPairs) {
         double ranks[] = new double[sortedPairs.length];
-        int lowestRank,
-            highestRank = 0;
+        int lowestRank;
+        int highestRank = 0;
         double rank;
         while (highestRank < sortedPairs.length) {
             lowestRank = highestRank;

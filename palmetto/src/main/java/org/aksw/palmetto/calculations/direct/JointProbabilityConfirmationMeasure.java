@@ -20,23 +20,16 @@ package org.aksw.palmetto.calculations.direct;
 import org.aksw.palmetto.data.SubsetProbabilities;
 
 /**
- * This confirmation measure calculates the logarithm of the Jaccard similarity
- * between W' and W*. result = log((P(W',W*) + e)/P(W' v W*))
- * 
- * The e is defined by {@link LogBasedCalculation#EPSILON}.
+ * This confirmation measure simply returns the joint probability of W' and W*
+ * as value. result = P(W',W*)
  * 
  * @author Michael Röder
  * 
  */
-public class LogJaccardConfirmationMeasure extends AbstractUndefinedResultHandlingConfirmationMeasure implements
-        LogBasedCalculation {
+public class JointProbabilityConfirmationMeasure implements DirectConfirmationMeasure {
 
-    public LogJaccardConfirmationMeasure() {
+    public JointProbabilityConfirmationMeasure() {
         super();
-    }
-
-    public LogJaccardConfirmationMeasure(double resultIfCalcUndefined) {
-        super(resultIfCalcUndefined);
     }
 
     @Override
@@ -46,24 +39,11 @@ public class LogJaccardConfirmationMeasure extends AbstractUndefinedResultHandli
             pos += subsetProbabilities.conditions[i].length;
         }
         double values[] = new double[pos];
-
-        double segmentProbability,
-                intersectionProbability,
-                joinProbability;
         pos = 0;
         for (int i = 0; i < subsetProbabilities.segments.length; ++i) {
-            segmentProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]];
             for (int j = 0; j < subsetProbabilities.conditions[i].length; ++j) {
-                joinProbability = segmentProbability
-                        + subsetProbabilities.probabilities[subsetProbabilities.conditions[i][j]];
-                intersectionProbability = subsetProbabilities.probabilities[subsetProbabilities.segments[i]
+                values[pos] = subsetProbabilities.probabilities[subsetProbabilities.segments[i]
                         | subsetProbabilities.conditions[i][j]];
-                joinProbability -= intersectionProbability;
-                if (joinProbability > 0) {
-                    values[pos] = Math.log((intersectionProbability + LogBasedCalculation.EPSILON) / joinProbability);
-                } else {
-                    values[pos] = resultIfCalcUndefined;
-                }
                 ++pos;
             }
         }
@@ -72,6 +52,6 @@ public class LogJaccardConfirmationMeasure extends AbstractUndefinedResultHandli
 
     @Override
     public String getName() {
-        return "m_lj";
+        return "m_P";
     }
 }

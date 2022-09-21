@@ -20,8 +20,6 @@ package org.aksw.palmetto.calculations.direct;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.calculations.direct.LikelihoodConfirmationMeasure;
-import org.aksw.palmetto.calculations.direct.LogBasedCalculation;
 import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.Segmentator;
 import org.junit.runner.RunWith;

@@ -19,6 +19,7 @@ package org.aksw.palmetto.io;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -32,7 +33,7 @@ public class GoldStandardReader {
     private static final Logger LOGGER = LoggerFactory.getLogger(GoldStandardReader.class);
 
     public static double[] readGoldStandard(String file) throws IOException {
-        List<String> lines = FileUtils.readLines(new File(file));
+        List<String> lines = FileUtils.readLines(new File(file), StandardCharsets.UTF_8);
 
         DoubleArrayList ratings = new DoubleArrayList();
         for (String line : lines) {

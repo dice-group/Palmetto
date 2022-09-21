@@ -20,7 +20,6 @@ package org.aksw.palmetto.calculations.indirect;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.aksw.palmetto.calculations.indirect.CosinusConfirmationMeasure;
 import org.aksw.palmetto.subsets.AnyAny;
 import org.aksw.palmetto.subsets.OneAll;
 import org.aksw.palmetto.subsets.OneAny;

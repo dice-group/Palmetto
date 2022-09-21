@@ -35,6 +35,7 @@ import org.aksw.palmetto.prob.bd.BooleanDocumentProbabilitySupplier;
 import org.aksw.palmetto.prob.window.BooleanSlidingWindowFrequencyDeterminer;
 import org.aksw.palmetto.prob.window.ContextWindowFrequencyDeterminer;
 import org.aksw.palmetto.prob.window.WindowBasedProbabilityEstimator;
+import org.aksw.palmetto.subsets.OneAll;
 import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.OnePreceding;
 import org.aksw.palmetto.subsets.OneSet;
@@ -74,8 +75,11 @@ public class Palmetto {
         String wordsets[][] = reader.readWordSets(inputFile);
         LOGGER.info("Read " + wordsets.length + " from file.");
 
+        long time = System.currentTimeMillis();
         double coherences[] = coherence.calculateCoherences(wordsets);
         corpusAdapter.close();
+        time = System.currentTimeMillis() - time;
+        System.out.println(time);
 
         printCoherences(coherences, wordsets, System.out);
     }
@@ -103,13 +107,13 @@ public class Palmetto {
 
         if ("uci".equals(calcType)) {
             return new DirectConfirmationBasedCoherence(
-                    new OneOne(), getWindowBasedProbabilityEstimator(10, (WindowSupportingAdapter) corpusAdapter),
+                    new OneOne(), getSWProbabilityEstimator(10, (WindowSupportingAdapter) corpusAdapter),
                     new LogRatioConfirmationMeasure(), new ArithmeticMean());
         }
 
         if ("npmi".equals(calcType)) {
             return new DirectConfirmationBasedCoherence(
-                    new OneOne(), getWindowBasedProbabilityEstimator(10, (WindowSupportingAdapter) corpusAdapter),
+                    new OneOne(), getSWProbabilityEstimator(10, (WindowSupportingAdapter) corpusAdapter),
                     new NormalizedLogRatioConfirmationMeasure(), new ArithmeticMean());
         }
 
@@ -120,22 +124,30 @@ public class Palmetto {
             probEstimator.setMinFrequency(WindowBasedProbabilityEstimator.DEFAULT_MIN_FREQUENCY * windowSize);
             return new VectorBasedCoherence(
                     new OneOne(), new DirectConfirmationBasedVectorCreator(probEstimator,
-                            new NormalizedLogRatioConfirmationMeasure()), new CosinusConfirmationMeasure(),
+                            new NormalizedLogRatioConfirmationMeasure(), 1), new CosinusConfirmationMeasure(),
                     new ArithmeticMean());
         }
 
         if ("c_p".equals(calcType)) {
             return new DirectConfirmationBasedCoherence(
                     new OnePreceding(),
-                    getWindowBasedProbabilityEstimator(70, (WindowSupportingAdapter) corpusAdapter),
+                    getSWProbabilityEstimator(70, (WindowSupportingAdapter) corpusAdapter),
                     new FitelsonConfirmationMeasure(), new ArithmeticMean());
         }
 
         if ("c_v".equals(calcType)) {
             return new VectorBasedCoherence(new OneSet(),
                     new DirectConfirmationBasedVectorCreator(
-                            getWindowBasedProbabilityEstimator(110, (WindowSupportingAdapter) corpusAdapter),
-                            new NormalizedLogRatioConfirmationMeasure()),
+                            getSWProbabilityEstimator(110, (WindowSupportingAdapter) corpusAdapter),
+                            new NormalizedLogRatioConfirmationMeasure(), 1),
+                    new CosinusConfirmationMeasure(), new ArithmeticMean());
+        }
+
+        if ("c_v2".equals(calcType)) {
+            return new VectorBasedCoherence(new OneAll(),
+                    new DirectConfirmationBasedVectorCreator(
+                            getSWProbabilityEstimator(110, (WindowSupportingAdapter) corpusAdapter),
+                            new NormalizedLogRatioConfirmationMeasure(), 1),
                     new CosinusConfirmationMeasure(), new ArithmeticMean());
         }
 
@@ -147,7 +159,7 @@ public class Palmetto {
         return null;
     }
 
-    public static WindowBasedProbabilityEstimator getWindowBasedProbabilityEstimator(int windowSize,
+    public static WindowBasedProbabilityEstimator getSWProbabilityEstimator(int windowSize,
             WindowSupportingAdapter corpusAdapter) {
         WindowBasedProbabilityEstimator probEstimator = new WindowBasedProbabilityEstimator(
                 new BooleanSlidingWindowFrequencyDeterminer(

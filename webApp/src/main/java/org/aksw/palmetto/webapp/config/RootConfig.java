@@ -32,15 +32,18 @@ import org.aksw.palmetto.calculations.direct.NormalizedLogRatioConfirmationMeasu
 import org.aksw.palmetto.calculations.indirect.CosinusConfirmationMeasure;
 import org.aksw.palmetto.corpus.CorpusAdapter;
 import org.aksw.palmetto.corpus.WindowSupportingAdapter;
+import org.aksw.palmetto.corpus.lucene.CachingWindowSupportingLuceneCorpusAdapter;
 import org.aksw.palmetto.corpus.lucene.WindowSupportingLuceneCorpusAdapter;
 import org.aksw.palmetto.prob.bd.BooleanDocumentProbabilitySupplier;
 import org.aksw.palmetto.prob.window.BooleanSlidingWindowFrequencyDeterminer;
 import org.aksw.palmetto.prob.window.ContextWindowFrequencyDeterminer;
 import org.aksw.palmetto.prob.window.WindowBasedProbabilityEstimator;
+import org.aksw.palmetto.subsets.OneAll;
 import org.aksw.palmetto.subsets.OneOne;
 import org.aksw.palmetto.subsets.OnePreceding;
 import org.aksw.palmetto.subsets.OneSet;
 import org.aksw.palmetto.vector.DirectConfirmationBasedVectorCreator;
+import org.apache.commons.configuration.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
@@ -76,18 +79,27 @@ public class RootConfig {
 
     private static final String INDEX_PATH_PROPERTY_KEY = "org.aksw.palmetto.webapp.resources.AbstractCoherenceResource.indexPath";
 
+    private static final String MAX_CACHE_SIZE_PROPERTY_KEY = "org.aksw.palmetto.corpus.lucene.CachingWindowSupportingLuceneCorpusAdapter.maxCacheSize";
+
     static @Bean public WindowSupportingAdapter createLuceneAdapter() throws Exception {
+        Configuration config = PalmettoConfiguration.getInstance();
         String indexPath = PalmettoConfiguration.getInstance().getString(INDEX_PATH_PROPERTY_KEY);
         if (indexPath == null) {
             String errormsg = "Couldn't load \"" + INDEX_PATH_PROPERTY_KEY + "\" from properties. Aborting.";
             LOGGER.error(errormsg);
             throw new IllegalStateException(errormsg);
         }
-        return WindowSupportingLuceneCorpusAdapter.create(indexPath, Palmetto.DEFAULT_TEXT_INDEX_FIELD_NAME,
-                Palmetto.DEFAULT_DOCUMENT_LENGTH_INDEX_FIELD_NAME);
+        int maxSizeCache = config.getInt(MAX_CACHE_SIZE_PROPERTY_KEY, 0);
+        if (maxSizeCache > 0) {
+            return CachingWindowSupportingLuceneCorpusAdapter.create(indexPath, Palmetto.DEFAULT_TEXT_INDEX_FIELD_NAME,
+                    Palmetto.DEFAULT_DOCUMENT_LENGTH_INDEX_FIELD_NAME, maxSizeCache);
+        } else {
+            return WindowSupportingLuceneCorpusAdapter.create(indexPath, Palmetto.DEFAULT_TEXT_INDEX_FIELD_NAME,
+                    Palmetto.DEFAULT_DOCUMENT_LENGTH_INDEX_FIELD_NAME);
+        }
     }
 
-    @Bean(name="coherences")
+    @Bean(name = "coherences")
     static public Map<String, Coherence> createCoherences(WindowSupportingAdapter corpusAdapter) {
         Map<String, Coherence> coherences = new HashMap<String, Coherence>();
         coherences.put(CA_REQUEST_PATH, createCACoherence(corpusAdapter));
@@ -111,7 +123,7 @@ public class RootConfig {
                 new ContextWindowFrequencyDeterminer(corpusAdapter, windowSize));
         probEstimator.setMinFrequency(WindowBasedProbabilityEstimator.DEFAULT_MIN_FREQUENCY * windowSize);
         return new VectorBasedCoherence(new OneOne(),
-                new DirectConfirmationBasedVectorCreator(probEstimator, new NormalizedLogRatioConfirmationMeasure()),
+                new DirectConfirmationBasedVectorCreator(probEstimator, new NormalizedLogRatioConfirmationMeasure(), 1),
                 new CosinusConfirmationMeasure(), new ArithmeticMean());
     }
 
@@ -142,7 +154,23 @@ public class RootConfig {
                 new BooleanSlidingWindowFrequencyDeterminer(corpusAdapter, windowSize));
         probEstimator.setMinFrequency(WindowBasedProbabilityEstimator.DEFAULT_MIN_FREQUENCY * windowSize);
         return new VectorBasedCoherence(new OneSet(),
-                new DirectConfirmationBasedVectorCreator(probEstimator, new NormalizedLogRatioConfirmationMeasure()),
+                new DirectConfirmationBasedVectorCreator(probEstimator, new NormalizedLogRatioConfirmationMeasure(), 1),
+                new CosinusConfirmationMeasure(), new ArithmeticMean());
+    }
+
+    public static Coherence createCV2Coherence(WindowSupportingAdapter corpusAdapter) {
+        int windowSize = CV_DEFAULT_WINDOW_SIZE;
+        try {
+            windowSize = PalmettoConfiguration.getInstance().getInt(CV_WINDOW_SIZE_PROPERTY_KEY);
+        } catch (Exception e) {
+            LOGGER.warn("Couldn't load \"{}\" from properties. Using default window size={}.",
+                    CV_WINDOW_SIZE_PROPERTY_KEY, CV_DEFAULT_WINDOW_SIZE);
+        }
+        WindowBasedProbabilityEstimator probEstimator = new WindowBasedProbabilityEstimator(
+                new BooleanSlidingWindowFrequencyDeterminer(corpusAdapter, windowSize));
+        probEstimator.setMinFrequency(WindowBasedProbabilityEstimator.DEFAULT_MIN_FREQUENCY * windowSize);
+        return new VectorBasedCoherence(new OneAll(),
+                new DirectConfirmationBasedVectorCreator(probEstimator, new NormalizedLogRatioConfirmationMeasure(), 1),
                 new CosinusConfirmationMeasure(), new ArithmeticMean());
     }
 

@@ -108,9 +108,9 @@ public class WindowSupportingLuceneCorpusAdapter extends LuceneCorpusAdapter imp
             IntIntOpenHashMap docLengths, int wordId, int numberOfWords) {
         DocsAndPositionsEnum docPosEnum = null;
         Term term = new Term(fieldName, word);
-        int localDocId,
-                globalDocId,
-                baseDocId;
+        int localDocId;
+        int globalDocId;
+        int baseDocId;
         IntArrayList positions[];
         try {
             for (int i = 0; i < reader.length; i++) {
@@ -130,20 +130,29 @@ public class WindowSupportingLuceneCorpusAdapter extends LuceneCorpusAdapter imp
                         if (positions[wordId] == null) {
                             positions[wordId] = new IntArrayList();
                         }
-                        // Go through the positions inside this document
-                        for (int p = 0; p < docPosEnum.freq(); ++p) {
-                            positions[wordId].add(docPosEnum.nextPosition());
-                        }
-                        if (!docLengths.containsKey(globalDocId)) {
-                            // Get the length of the document
-                            docLengths.put(globalDocId, reader[i].document(localDocId).getField(docLengthFieldName)
-                                    .numericValue().intValue());
-                        }
+                        gatherWordPositions(docPosEnum, positions[wordId]);
+                        addDocLength(docLengths, globalDocId, localDocId, reader[i]);
                     }
                 }
             }
         } catch (IOException e) {
             LOGGER.error("Error while requesting documents for word \"" + word + "\".", e);
+        }
+    }
+
+    protected void gatherWordPositions(DocsAndPositionsEnum docPosEnum, IntArrayList positions) throws IOException {
+        // Go through the positions inside this document
+        for (int p = 0; p < docPosEnum.freq(); ++p) {
+            positions.add(docPosEnum.nextPosition());
+        }
+    }
+
+    protected void addDocLength(IntIntOpenHashMap docLengths, int globalDocId, int localDocId,
+            AtomicReader reader) throws IOException {
+        if (!docLengths.containsKey(globalDocId)) {
+            // Get the length of the document
+            docLengths.put(globalDocId,
+                    reader.document(localDocId).getField(docLengthFieldName).numericValue().intValue());
         }
     }
 

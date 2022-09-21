@@ -22,13 +22,12 @@ import org.aksw.palmetto.data.SegmentationDefinition;
 import com.carrotsearch.hppc.BitSet;
 
 /**
+ * Special {@link Segmentator} used to create Olson's coherence measure.
  * 
  * @author Michael R&ouml;der (michael.roeder@uni-paderborn.de)
  *
- * @deprecated since it does not follow the naming convention. Use SetSet instead.
  */
-@Deprecated
-public class AllAll implements Segmentator {
+public class SetSet implements Segmentator {
 
     public SegmentationDefinition getSubsetDefinition(int wordsetSize) {
         /*
@@ -37,15 +36,13 @@ public class AllAll implements Segmentator {
          * both.
          */
         int mask = (1 << wordsetSize) - 1;
-        int conditions[][] = new int[][] { { mask } };
-        int segments[] = new int[] { mask };
         BitSet neededCounts = new BitSet(1 << wordsetSize);
         neededCounts.set(mask);
-        return new SegmentationDefinition(segments, conditions, neededCounts);
+        return new SegmentationDefinition(new int[] { mask }, new int[][] {{ mask }}, neededCounts);
     }
 
     @Override
     public String getName() {
-        return "S^{all}_{all}";
+        return "S^{set}_{set}";
     }
 }
