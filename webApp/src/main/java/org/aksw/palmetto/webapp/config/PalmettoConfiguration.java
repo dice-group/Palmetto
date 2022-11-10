@@ -20,6 +20,7 @@ package org.aksw.palmetto.webapp.config;
 import org.apache.commons.configuration.CompositeConfiguration;
 import org.apache.commons.configuration.Configuration;
 import org.apache.commons.configuration.ConfigurationException;
+import org.apache.commons.configuration.EnvironmentConfiguration;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,18 +41,18 @@ public class PalmettoConfiguration {
 
     public static synchronized Configuration getInstance() {
         if (instance == null) {
-            instance = new CompositeConfiguration();
-            loadAdditionalProperties(DEFAULT_PALMETTO_PROPERTIES_FILE_NAME);
+            CompositeConfiguration tempConfig = new CompositeConfiguration();
+            // Add environmental variables first
+            tempConfig.addConfiguration(new EnvironmentConfiguration());
+            // Add default values for parameters to ensure that all parameters are set
+            try {
+                tempConfig.addConfiguration(new PropertiesConfiguration(DEFAULT_PALMETTO_PROPERTIES_FILE_NAME));
+            } catch (ConfigurationException e) {
+                LOGGER.error("Couldnt load Properties from the properties file (\"" + DEFAULT_PALMETTO_PROPERTIES_FILE_NAME
+                        + "\"). This GERBIL instance won't work as expected.", e);
+            }
+            instance = tempConfig;
         }
         return instance;
-    }
-
-    public static synchronized void loadAdditionalProperties(String fileName) {
-        try {
-            ((CompositeConfiguration) getInstance()).addConfiguration(new PropertiesConfiguration(fileName));
-        } catch (ConfigurationException e) {
-            LOGGER.error("Couldnt load Properties from the properties file (\"" + fileName
-                    + "\"). This GERBIL instance won't work as expected.", e);
-        }
     }
 }

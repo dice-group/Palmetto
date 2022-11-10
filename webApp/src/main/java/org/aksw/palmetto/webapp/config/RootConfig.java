@@ -83,7 +83,7 @@ public class RootConfig {
 
     static @Bean public WindowSupportingAdapter createLuceneAdapter() throws Exception {
         Configuration config = PalmettoConfiguration.getInstance();
-        String indexPath = PalmettoConfiguration.getInstance().getString(INDEX_PATH_PROPERTY_KEY);
+        String indexPath = config.getString(INDEX_PATH_PROPERTY_KEY);
         if (indexPath == null) {
             String errormsg = "Couldn't load \"" + INDEX_PATH_PROPERTY_KEY + "\" from properties. Aborting.";
             LOGGER.error(errormsg);
